@@ -6,7 +6,6 @@
 #include "wowfiles/alpha/WdtAlpha.h"
 #include "wowfiles/lichking/AdtLk.h"
 #include "wowfiles/cataclysm/AdtCata.h"
-#include "utilities/FileHandling.h"
 
 int main(int argc, char **argv)
 {

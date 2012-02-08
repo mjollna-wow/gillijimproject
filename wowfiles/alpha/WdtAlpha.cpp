@@ -9,38 +9,29 @@
 #include "Monm.h"
 #include "../Chunk.h"
 #include "MainAlpha.h"
-#include "../../utilities/FileHandling.h"
 #include "../../utilities/Utilities.h"
 
-WdtAlpha::WdtAlpha(const std::string & wdtAlphaFile)
+WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
 {
-  std::ifstream file;
-  file.open(wdtAlphaFile, std::ios::binary);
+  std::ifstream wdtAlphaFile;
+  wdtAlphaFile.open(wdtAlphaName, std::ios::binary);
 
-  file.seekg(0, std::ios::end);
-
-  mver = Chunk(file, 0);
-
-	//FileHandling file(wdtAlphaFile);
-	//std::vector<char> fullData = file.getFullFile();
-
-	/*const int chunkLettersAndSize = 8;
+	const int chunkLettersAndSize = 8;
 	const int mdnmOffset = 4;
 	const int monmOffset = 12;
 	//const int modfHintOffset = 8; // TODO : remove if ok
 
-	int fullDataOffset = 0;
-	int sizeAdjustments = 0;
+  int offsetInFile = 0;
 
-	mver = Chunk(fullData, fullDataOffset, sizeAdjustments);
-	fullDataOffset = chunkLettersAndSize + fullDataOffset + mver.getGivenSize();
+  mver = Chunk(wdtAlphaFile, offsetInFile);
+  offsetInFile = chunkLettersAndSize + offsetInFile + mver.getGivenSize();
 
-	const int MphdStartOffset = fullDataOffset + chunkLettersAndSize; 
+  const int MphdStartOffset = offsetInFile + chunkLettersAndSize;
 
-	mphd = MphdAlpha(fullData, fullDataOffset, sizeAdjustments);
-	fullDataOffset = chunkLettersAndSize + fullDataOffset + mphd.getGivenSize();
+	mphd = MphdAlpha(wdtAlphaFile, offsetInFile);
+  offsetInFile = chunkLettersAndSize + offsetInFile + mphd.getGivenSize();
 
-	main = MainAlpha(fullData, fullDataOffset, sizeAdjustments);
+	/*main = MainAlpha(fullData, fullDataOffset, sizeAdjustments);
 	fullDataOffset = chunkLettersAndSize + fullDataOffset + main.getGivenSize(); 
 
 	fullDataOffset = Utilities::getIntFromCharVector(fullData, MphdStartOffset + mdnmOffset);
@@ -96,8 +87,8 @@ std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)
 	os << wdtAlpha.wdtName << std::endl;
 	os << "------------------------------" << std::endl;
 	os << wdtAlpha.mver;
-	/*os << wdtAlpha.mphd;
-	os << wdtAlpha.main;
+	os << wdtAlpha.mphd;
+	/*os << wdtAlpha.main;
 	os << wdtAlpha.mdnm;
 	os << wdtAlpha.monm;
 	os << wdtAlpha.modf;

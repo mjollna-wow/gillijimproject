@@ -1,10 +1,16 @@
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "../Chunk.h"
 #include "MphdAlpha.h"
 #include "../../utilities/Utilities.h"
 
 MphdAlpha::MphdAlpha() : Chunk()
+{
+}
+
+MphdAlpha::MphdAlpha(std::ifstream & fullAdtData, int position) : Chunk(fullAdtData, position)
 {
 }
 

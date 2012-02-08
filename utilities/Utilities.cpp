@@ -1,5 +1,7 @@
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "Utilities.h"
 
 namespace Utilities
@@ -62,4 +64,52 @@ namespace Utilities
 		return subVector;
 	}
 
+  std::string getLettersFromFile(std::ifstream & adtFile, int position)
+  {
+    std::string letters = "";
+
+    adtFile.seekg(position, std::ios::beg);
+    char lettersBuffer[4];
+    adtFile.read(lettersBuffer, 4);
+
+    int i;
+    for (i = 0 ; i < sizeof(lettersBuffer) ; i++)
+    {
+      letters = letters + lettersBuffer[i];
+    }
+    return letters;
+  }
+
+  int getIntFromFile(std::ifstream & adtFile, int position)
+  {
+    int givenSize = 0;
+
+    adtFile.seekg(position, std::ios::beg);
+    char sizeBuffer[4];
+    adtFile.read(sizeBuffer, 4);
+
+    memcpy(&givenSize, sizeBuffer, sizeof(givenSize));
+
+    return givenSize;
+  }
+
+  std::vector<char> getCharVectorFromFile(std::ifstream & adtFile, int position, int length)
+  {
+    std::vector<char> data(0);
+
+    adtFile.seekg(position, std::ios::beg);
+    char * dataBuffer;
+    dataBuffer = new char[length];
+    adtFile.read(dataBuffer, length);
+
+    int i;
+    for (i = 0 ; i < sizeof(dataBuffer) ; i++)
+    {
+      data.push_back(dataBuffer[i]);
+    } 
+
+    delete[] dataBuffer;
+
+    return data;
+  }
 }

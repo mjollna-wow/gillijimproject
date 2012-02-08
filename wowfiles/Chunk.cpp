@@ -13,37 +13,13 @@ Chunk::Chunk() : letters("NONE"), givenSize(0)
 
 Chunk::Chunk(std::ifstream & adtFile, int position) : letters("")
 {
-  // letters
-  adtFile.seekg(position, std::ios::beg);
-  char lettersBuffer[4];
-  adtFile.read(lettersBuffer, 4);
+  letters = Utilities::getLettersFromFile(adtFile, position);
+  position += 4;
 
-  int i;
-  for (i = 0 ; i < sizeof(lettersBuffer) ; i++)
-  {
-    letters = letters + lettersBuffer[i];
-  }
+  givenSize = Utilities::getIntFromFile(adtFile, position);
+  position += 4;
 
-  // size
-  adtFile.seekg(position + 4, std::ios::beg);
-  char sizeBuffer[4];
-  adtFile.read(sizeBuffer, 4);
-
-  memcpy(&givenSize, sizeBuffer, sizeof(givenSize));
-
-  // data
-  adtFile.seekg(position + 8, std::ios::beg);
-  char * dataBuffer;
-  dataBuffer = new char[givenSize];
-  adtFile.read(dataBuffer, givenSize);
-
-  int j;
-  for (i = 0 ; i < sizeof(dataBuffer) ; i++)
-  {
-    data.push_back(dataBuffer[i]);
-  } 
-
-  delete[] dataBuffer;
+  data = Utilities::getCharVectorFromFile(adtFile, position, givenSize);
 }
 
 Chunk::Chunk(const std::vector<char> & fullAdtData, int fullDataOffset, int sizeAdjustments)
