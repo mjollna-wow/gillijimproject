@@ -8,10 +8,10 @@
 
 namespace Utilities
 {
-	int getIntFromCharVector(const std::vector<char> & someData, int offset);
-	float getFloatFromCharVector(const std::vector<char> & someData, int offset);
-	std::string getStringFromCharVector(const std::vector<char> & someData, int start, int stringLength);
-	std::vector<char> getCharSubVector(const std::vector<char> & someData, int start, int length);
+  int getIntFromCharVector(const std::vector<char> & someData, int offset);
+  float getFloatFromCharVector(const std::vector<char> & someData, int offset);
+  std::string getStringFromCharVector(const std::vector<char> & someData, int start, int stringLength);
+  std::vector<char> getCharSubVector(const std::vector<char> & someData, int start, int length);
 
   std::string getLettersFromFile(std::ifstream & adtFile, int position);
   int getIntFromFile(std::ifstream & adtFile, int position);

@@ -16,10 +16,9 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
   std::ifstream wdtAlphaFile;
   wdtAlphaFile.open(wdtAlphaName, std::ios::binary);
 
-	const int chunkLettersAndSize = 8;
-	const int mdnmOffset = 4;
-	const int monmOffset = 12;
-	//const int modfHintOffset = 8; // TODO : remove if ok
+  const int chunkLettersAndSize = 8;
+  const int mdnmOffset = 4;
+  const int monmOffset = 12;
 
   int offsetInFile = 0;
 
@@ -28,79 +27,79 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
 
   const int MphdStartOffset = offsetInFile + chunkLettersAndSize;
 
-	mphd = MphdAlpha(wdtAlphaFile, offsetInFile);
+  mphd = MphdAlpha(wdtAlphaFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mphd.getGivenSize();
 
-	/*main = MainAlpha(fullData, fullDataOffset, sizeAdjustments);
-	fullDataOffset = chunkLettersAndSize + fullDataOffset + main.getGivenSize(); 
+  main = MainAlpha(wdtAlphaFile, offsetInFile);
+  offsetInFile = chunkLettersAndSize + offsetInFile + main.getGivenSize(); 
 
-	fullDataOffset = Utilities::getIntFromCharVector(fullData, MphdStartOffset + mdnmOffset);
-	mdnm = Chunk(fullData, fullDataOffset, sizeAdjustments);
+  offsetInFile = Utilities::getIntFromFile(wdtAlphaFile, MphdStartOffset + mdnmOffset);
+  mdnm = Chunk(wdtAlphaFile, offsetInFile);
 
-	fullDataOffset = Utilities::getIntFromCharVector(fullData, MphdStartOffset + monmOffset); 
-	monm = Monm(fullData, fullDataOffset, sizeAdjustments);
+  offsetInFile = Utilities::getIntFromFile(wdtAlphaFile, MphdStartOffset + monmOffset);
+  monm = Monm(wdtAlphaFile, offsetInFile);	
 
-	fullDataOffset = chunkLettersAndSize + fullDataOffset + monm.getGivenSize();
+  offsetInFile = chunkLettersAndSize + offsetInFile + monm.getGivenSize();
 
-	if (mphd.isWmoBased()) //if (Utilities::getIntFromCharVector(fullData, MphdStartOffset + modfHintOffset) == 2) // TODO : remove if ok
-	{
-		modf = Chunk(fullData, fullDataOffset, sizeAdjustments);
-		fullDataOffset = chunkLettersAndSize + fullDataOffset + modf.getGivenSize();
-	}
+  if (mphd.isWmoBased())
+  {
+    modf = Chunk(wdtAlphaFile, offsetInFile);
+    offsetInFile = chunkLettersAndSize + offsetInFile + modf.getGivenSize(); 
+  }
 
-	std::vector<int> adtsOffsets = main.getMhdrOffsets();
-	int currentAdt;
+  /*std::vector<int> adtsOffsets = main.getMhdrOffsets();
+  int currentAdt;
 
-	/*for (currentAdt = 0 ; currentAdt < 4096 ; currentAdt++)
-	{	
-		if (adtsOffsets[currentAdt] != 0)
-		{
-			fullDataOffset = adtsOffsets[currentAdt];
-			adts.push_back(AdtAlpha(fullData, fullDataOffset, currentAdt));
-		}
-	}*/
+  for (currentAdt = 0 ; currentAdt < 4096 ; currentAdt++)
+  {	
+    if (adtsOffsets[currentAdt] != 0)
+    {
+      offsetInFile = adtsOffsets[currentAdt];
+      adts.push_back(AdtAlpha(wdtAlphaFile, offsetInFile, currentAdt));
+    }
+  }*/
 }
 
-/*Wdt WdtAlpha::toWdt()
+Wdt WdtAlpha::toWdt()
 {
-	std::string name = "__testWdtLk.wdt";
+  std::string name = "__testWdtLk.wdt";
 
-	Mphd cMphd = mphd.toMphd();
-	Main cMain = main.toMain();
+  Mphd cMphd = mphd.toMphd();
+  Main cMain = main.toMain();
 
-	std::vector<char> emptyData(0);
-	Chunk cMwmo = Chunk("OMWM", 0, emptyData);
-	Chunk cModf = Chunk();
+  std::vector<char> emptyData(0);
+  Chunk cMwmo = Chunk("OMWM", 0, emptyData);
+  Chunk cModf = Chunk();
 
-	if (mphd.isWmoBased())
-	{
-		cMwmo = monm.toMwmo();
-		cModf = modf;
-	}
+  if (mphd.isWmoBased())
+  {
+    cMwmo = monm.toMwmo();
+    cModf = modf;
+  }
 
-	Wdt wdtLk = Wdt(name, mver, cMphd, cMain, cMwmo, cModf);
-	return wdtLk;
-}*/
+  Wdt wdtLk = Wdt(name, mver, cMphd, cMain, cMwmo, cModf);
+  return wdtLk;
+}
 
 std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)
 {
-	os << wdtAlpha.wdtName << std::endl;
-	os << "------------------------------" << std::endl;
-	os << wdtAlpha.mver;
-	os << wdtAlpha.mphd;
-	/*os << wdtAlpha.main;
-	os << wdtAlpha.mdnm;
-	os << wdtAlpha.monm;
-	os << wdtAlpha.modf;
+  os << wdtAlpha.wdtName << std::endl;
+  os << "------------------------------" << std::endl;
+  os << wdtAlpha.mver;
+  os << wdtAlpha.mphd;
+  os << wdtAlpha.main;
+  os << wdtAlpha.mdnm;
+  os << wdtAlpha.monm;
+  os << wdtAlpha.modf;
 
-	std::vector<AdtAlpha>::const_iterator adtsIter;
-	int i = 0;
+  /*std::vector<AdtAlpha>::const_iterator adtsIter;
+  int i = 0;
 
-	for (adtsIter = wdtAlpha.adts.begin() ; adtsIter != wdtAlpha.adts.end() ; ++adtsIter)
-	{
-		os << *adtsIter;
-		i++;
-	}*/
+  for (adtsIter = wdtAlpha.adts.begin() ; adtsIter != wdtAlpha.adts.end() ; ++adtsIter)
+  {
+    os << *adtsIter;
+    i++;
+  }*/
 
-	return os;
+  return os;
 }

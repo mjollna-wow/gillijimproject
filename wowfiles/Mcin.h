@@ -3,17 +3,20 @@
 
 #include <vector>
 #include <iostream>
+#include <string>
+#include <fstream>
 #include "Chunk.h"
 
 class Mcin : public Chunk
 {
-    public:
+  public:
 
-	Mcin();
-	Mcin(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
-	Mcin(std::string letters, int givenSize, const std::vector<char> & chunkData);
-	std::vector<int> getMcnkOffsets() const;
-	friend std::ostream & operator<<(std::ostream & os, const Mcin & mcin);
+    Mcin();
+    Mcin(std::ifstream & adtFile, int offsetInFile);
+    Mcin(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
+    Mcin(std::string letters, int givenSize, const std::vector<char> & chunkData);
+    std::vector<int> getMcnkOffsets() const;
+    friend std::ostream & operator<<(std::ostream & os, const Mcin & mcin);
 };
 
 #endif

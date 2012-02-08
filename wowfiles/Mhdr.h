@@ -3,15 +3,18 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "Chunk.h"
 
 class Mhdr : public Chunk
 {
-    public:
+  public:
 	
-		Mhdr();
-		Mhdr(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
-		Mhdr(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
+  Mhdr();
+  Mhdr(std::ifstream & adtFile, int offsetInFile);
+  Mhdr(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
+  Mhdr(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
 };
 
 #endif

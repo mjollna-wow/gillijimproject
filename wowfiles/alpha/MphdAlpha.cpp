@@ -10,7 +10,7 @@ MphdAlpha::MphdAlpha() : Chunk()
 {
 }
 
-MphdAlpha::MphdAlpha(std::ifstream & fullAdtData, int position) : Chunk(fullAdtData, position)
+MphdAlpha::MphdAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdtAlphaFile, offsetInFile)
 {
 }
 
@@ -24,18 +24,18 @@ MphdAlpha::MphdAlpha(std::string letters, int givenSize, const std::vector<char>
 
 bool MphdAlpha::isWmoBased() const
 {
-	const int isWmoBasedOffset = 8;
-	return Utilities::getIntFromCharVector(data, isWmoBasedOffset) == 2;
+  const int isWmoBasedOffset = 8;
+  return Utilities::getIntFromCharVector(data, isWmoBasedOffset) == 2;
 }
 
 Mphd MphdAlpha::toMphd()
 {
-	std::vector<char> mphdLkData(32);
+  std::vector<char> mphdLkData(32);
 
-	// I don't think other flags are necessary for alpha to lk... ?
-	if (isWmoBased())
-		mphdLkData[0] = 1;
+  // I don't think other flags are necessary for alpha to lk... ?
+  if (isWmoBased())
+    mphdLkData[0] = 1;
 
-	Mphd mphdLk = Mphd("DHPM", 32, mphdLkData);
-	return mphdLk;
+  Mphd mphdLk = Mphd("DHPM", 32, mphdLkData);
+  return mphdLk;
 }

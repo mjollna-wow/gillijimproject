@@ -4,31 +4,32 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <string>
 
-// TODO : get rid of sizeAdjustments (?), and make specific chunk constructors for chunks that really need it (MCNR for LK and... ?)
+// TODO : Make specific chunk constructor for LK MCNR.
 
 class Chunk
 {
-	public:
+  public:
 
-		Chunk();
-    Chunk(std::ifstream & fullAdtData, int position);
-		Chunk(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
-		Chunk(std::string letters, int givenSize, const std::vector<char> & chunkData);
-		int getGivenSize();
-		int getRealSize();
-		bool isEmpty();
-		std::vector<char> getWholeChunk() const;
-		int getOffset(const int offsetInData);
-		friend std::ostream & operator<<(std::ostream & os, const Chunk & chunk);
+    Chunk();
+    Chunk(std::ifstream & file, int offsetInFile);
+    Chunk(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
+    Chunk(std::string letters, int givenSize, const std::vector<char> & chunkData);
+    int getGivenSize() const;
+    int getRealSize() const;
+    bool isEmpty() const;
+    std::vector<char> getWholeChunk() const;
+    int getOffset(const int offsetInData) const;
+    friend std::ostream & operator<<(std::ostream & os, const Chunk & chunk);
 
-	protected:
+  protected:
 
-		int getChunkSizeFromFullData(const std::vector<char> & fullData, int position);
+    int getChunkSizeFromFullData(const std::vector<char> & fullData, int position) const;
 
-		std::string letters;
-		int givenSize;
-		std::vector<char> data;
+    std::string letters;
+    int givenSize;
+    std::vector<char> data;
 };
 
 #endif

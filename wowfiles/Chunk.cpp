@@ -7,30 +7,30 @@
 
 Chunk::Chunk() : letters("NONE"), givenSize(0)
 {
-	std::vector<char> emptyData(0);
-	data = emptyData;
+  std::vector<char> emptyData(0);
+  data = emptyData;
 }
 
-Chunk::Chunk(std::ifstream & adtFile, int position) : letters("")
+Chunk::Chunk(std::ifstream & file, int offsetInFile) : letters("")
 {
-  letters = Utilities::getLettersFromFile(adtFile, position);
-  position += 4;
+  letters = Utilities::getLettersFromFile(file, offsetInFile);
+  offsetInFile += 4;
 
-  givenSize = Utilities::getIntFromFile(adtFile, position);
-  position += 4;
+  givenSize = Utilities::getIntFromFile(file, offsetInFile);
+  offsetInFile += 4;
 
-  data = Utilities::getCharVectorFromFile(adtFile, position, givenSize);
+  data = Utilities::getCharVectorFromFile(file, offsetInFile, givenSize);
 }
 
 Chunk::Chunk(const std::vector<char> & fullAdtData, int fullDataOffset, int sizeAdjustments)
 {
-	letters = Utilities::getStringFromCharVector(fullAdtData, fullDataOffset, 4);
-	fullDataOffset = fullDataOffset + 4;
+  letters = Utilities::getStringFromCharVector(fullAdtData, fullDataOffset, 4);
+  fullDataOffset = fullDataOffset + 4;
 
-	givenSize = Utilities::getIntFromCharVector(fullAdtData, fullDataOffset);
-	fullDataOffset = fullDataOffset + 4;
+  givenSize = Utilities::getIntFromCharVector(fullAdtData, fullDataOffset);
+  fullDataOffset = fullDataOffset + 4;
 
-	data = Utilities::getCharSubVector(fullAdtData, fullDataOffset, givenSize + sizeAdjustments);
+  data = Utilities::getCharSubVector(fullAdtData, fullDataOffset, givenSize + sizeAdjustments);
 }
 
 Chunk::Chunk(std::string let, int givSize, const std::vector<char> & da) : letters(let), givenSize(givSize), data(da)
@@ -39,50 +39,50 @@ Chunk::Chunk(std::string let, int givSize, const std::vector<char> & da) : lette
 
 std::vector<char> Chunk::getWholeChunk() const
 {
-	std::vector<char> wholeChunk(0);
+  std::vector<char> wholeChunk(0);
 
-	std::vector<char> let(letters.begin(), letters.end());
-	wholeChunk.insert(wholeChunk.end(), let.begin(), let.end());
+  std::vector<char> let(letters.begin(), letters.end());
+  wholeChunk.insert(wholeChunk.end(), let.begin(), let.end());
 
-	char size[4];
-	size[0] = givenSize & 0xff;
-	wholeChunk.push_back(size[0]);
-	size[1] = (givenSize >> 8)  & 0xff;
-	wholeChunk.push_back(size[1]);
-	size[2] = (givenSize >> 16) & 0xff;
-	wholeChunk.push_back(size[2]);
-	size[3] = (givenSize >> 24) & 0xff;
-	wholeChunk.push_back(size[3]);
+  char size[4];
+  size[0] = givenSize & 0xff;
+  wholeChunk.push_back(size[0]);
+  size[1] = (givenSize >> 8)  & 0xff;
+  wholeChunk.push_back(size[1]);
+  size[2] = (givenSize >> 16) & 0xff;
+  wholeChunk.push_back(size[2]);
+  size[3] = (givenSize >> 24) & 0xff;
+  wholeChunk.push_back(size[3]);
 
-	wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
+  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
 
-	return wholeChunk;
+  return wholeChunk;
 }
 
-bool Chunk::isEmpty()
+bool Chunk::isEmpty()  const
 {
-	return (letters == "NONE") && (givenSize == 0) && data.size() == 0;
+  return (letters == "NONE") && (givenSize == 0) && data.size() == 0;
 }
 
 std::ostream & operator<<(std::ostream & os, const Chunk & chunk)
 {
-	os << "Chunk letters : " << chunk.letters << std::endl;
-	os << "Chunk givenSize : " << chunk.givenSize << std::endl;
-	os << "------------------------------" << std::endl;
-	return os;
+  os << "Chunk letters : " << chunk.letters << std::endl;
+  os << "Chunk givenSize : " << chunk.givenSize << std::endl;
+  os << "------------------------------" << std::endl;
+  return os;
 }
 
-int Chunk::getOffset(const int offsetInData)
+int Chunk::getOffset(const int offsetInData)  const
 {
-	return Utilities::getIntFromCharVector(data, offsetInData);
+  return Utilities::getIntFromCharVector(data, offsetInData);
 }
 
-int Chunk::getRealSize()
+int Chunk::getRealSize()  const
 {
-	return data.size();
+  return data.size();
 }
 
-int Chunk::getGivenSize()
+int Chunk::getGivenSize()  const
 {
-	return givenSize;
+  return givenSize;
 }

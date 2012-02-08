@@ -1,10 +1,16 @@
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "Chunk.h"
 #include "Mcin.h"
 #include "../utilities/Utilities.h"
 
 Mcin::Mcin() : Chunk()
+{
+}
+
+Mcin::Mcin(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {
 }
 
@@ -18,18 +24,18 @@ Mcin::Mcin(std::string letters, int givenSize, const std::vector<char> & data) :
 
 std::vector<int> Mcin::getMcnkOffsets() const
 {
-	std::vector<int> mcnkOffsets(256);
-	int otherMcinDataSize = 16;
-	int currentMcinOffset = 0;
-	int mcnkNumber;
+  std::vector<int> mcnkOffsets(256);
+  int otherMcinDataSize = 16;
+  int currentMcinOffset = 0;
+  int mcnkNumber;
 	
-	for (mcnkNumber = 0 ; mcnkNumber < 256 ; mcnkNumber++)
-	{
-		mcnkOffsets[mcnkNumber] = Utilities::getIntFromCharVector(data, currentMcinOffset);
-		currentMcinOffset = currentMcinOffset + otherMcinDataSize;
-	}
+  for (mcnkNumber = 0 ; mcnkNumber < 256 ; mcnkNumber++)
+  {
+    mcnkOffsets[mcnkNumber] = Utilities::getIntFromCharVector(data, currentMcinOffset);
+    currentMcinOffset = currentMcinOffset + otherMcinDataSize;
+  }
 
-	return mcnkOffsets;
+  return mcnkOffsets;
 }
 
 std::ostream & operator<<(std::ostream & os, const Mcin & mcin)

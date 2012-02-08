@@ -12,22 +12,22 @@
 
 class WdtAlpha
 {
-	public:
+  public:
 
-		WdtAlpha(const std::string & wdtAlphaName);
-		//Wdt toWdt();
-		friend std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha);
+    WdtAlpha(const std::string & wdtAlphaName);
+    Wdt toWdt();
+    friend std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha);
 
-	private:
+  private:
 
-		std::string wdtName;
-		Chunk mver;
-		MphdAlpha mphd;
-		/*MainAlpha main;
-		Chunk mdnm;
-		Monm monm;
-		Chunk modf;
-		std::vector<AdtAlpha> adts;*/
+    std::string wdtName;
+    Chunk mver;
+    MphdAlpha mphd;
+    MainAlpha main;
+    Chunk mdnm;
+    Monm monm;
+    Chunk modf;
+    //std::vector<AdtAlpha> adts;
 };
 
 #endif

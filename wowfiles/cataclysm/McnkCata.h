@@ -4,25 +4,28 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <iostream>
 #include "../Chunk.h"
 
 class McnkCata : public Chunk
 {
-	public:
+  public:
 
-		McnkCata(const std::vector<char> & fullAdtData, int fullDataOffset, int sizeAdjustments);
-		McnkCata(std::string letters, int givenSize, const std::vector<char> &data);
-		friend std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata);
+    McnkCata(std::ifstream & file, int offsetInFile);
+    McnkCata(const std::vector<char> & fullAdtData, int fullDataOffset, int sizeAdjustments);
+    McnkCata(std::string letters, int givenSize, const std::vector<char> &data);
+    friend std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata);
 
-	private:
+  private:
 
-		std::vector<char> mcnkHeader;
-		Chunk mcvt;
-		Chunk mccv;
-		Chunk mclv;
-		Chunk mcnr;
-		Chunk mclq;
-		Chunk mcse;
+    std::vector<char> mcnkHeader;
+    Chunk mcvt;
+    Chunk mccv;
+    Chunk mclv;
+    Chunk mcnr;
+    Chunk mclq;
+    Chunk mcse;
 };
 
 #endif

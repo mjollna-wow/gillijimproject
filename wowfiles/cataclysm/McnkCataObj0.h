@@ -3,21 +3,23 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "../Chunk.h"
 
 class McnkCataObj0 : public Chunk
 {
-	public:
+  public:
 
-		McnkCataObj0(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
-		McnkCataObj0(std::string letters, int givenSize, const std::vector<char> &data);
+    McnkCataObj0(std::ifstream & file, int offsetInFile);
+    McnkCataObj0(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
+    McnkCataObj0(std::string letters, int givenSize, const std::vector<char> &data);
 
-	private:
+  private:
 
-		std::vector<char> mcnkHeader;
-		Chunk mcrd;
-		Chunk mcrw;
-
+    std::vector<char> mcnkHeader;
+    Chunk mcrd;
+    Chunk mcrw;
 };
 
 #endif

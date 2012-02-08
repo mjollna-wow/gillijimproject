@@ -8,26 +8,26 @@
 
 class Adt
 {
-	public:
+  public:
 
-	// TODO : See if need some virtual functions or not. If not, delete.
+  // TODO : See if need some virtual functions or not. If not, delete.
 
-	Adt(const std::string & adtFile);
+    Adt(const std::string & adtFile);
 
-	protected:
+  protected:
 
-	Chunk mver;
-	Mhdr mhdr;
-	Chunk mh2o;
-	Chunk mtex;
-	Chunk mmdx;
-	Chunk mmid;
-	Chunk mwmo;
-	Chunk mwid;
-	Chunk mmdf;
-	Chunk modf;
-	Chunk mtxf;
-	Chunk mfbo;
+  Chunk mver;
+  Mhdr mhdr;
+  Chunk mh2o;
+  Chunk mtex;
+  Chunk mmdx;
+  Chunk mmid;
+  Chunk mwmo;
+  Chunk mwid;
+  Chunk mmdf;
+  Chunk modf;
+  Chunk mtxf;
+  Chunk mfbo;
 };
 
 #endif

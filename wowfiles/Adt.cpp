@@ -12,5 +12,5 @@
 
 Adt::Adt(const std::string & adtFile)
 {
-	// TODO : how to... ?
+  // TODO : how to... ?
 }

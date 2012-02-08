@@ -3,15 +3,18 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "Chunk.h"
 
 class Mphd : public Chunk
 {
-    public:
+  public:
 	
-		Mphd();
-		Mphd(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
-		Mphd(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
+    Mphd();
+    Mphd(std::ifstream & adtFile, int offsetInFile);
+    Mphd(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
+    Mphd(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
 };
 
 #endif

@@ -1,9 +1,15 @@
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "Chunk.h"
 #include "Mphd.h"
 
 Mphd::Mphd() : Chunk()
+{
+}
+
+Mphd::Mphd(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {
 }
 
