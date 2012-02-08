@@ -15,19 +15,19 @@ class WdtAlpha
 	public:
 
 		WdtAlpha(const std::string & wdtFile);
-		Wdt toWdt();
+		//Wdt toWdt();
 		friend std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha);
 
 	private:
 
 		std::string wdtName;
 		Chunk mver;
-		MphdAlpha mphd;
+		/*MphdAlpha mphd;
 		MainAlpha main;
 		Chunk mdnm;
 		Monm monm;
 		Chunk modf;
-		std::vector<AdtAlpha> adts;
+		std::vector<AdtAlpha> adts;*/
 };
 
 #endif

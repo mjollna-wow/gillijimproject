@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "Chunk.h"
 #include "../utilities/Utilities.h"
 
@@ -8,6 +9,41 @@ Chunk::Chunk() : letters("NONE"), givenSize(0)
 {
 	std::vector<char> emptyData(0);
 	data = emptyData;
+}
+
+Chunk::Chunk(std::ifstream & adtFile, int position) : letters("")
+{
+  // letters
+  adtFile.seekg(position, std::ios::beg);
+  char lettersBuffer[4];
+  adtFile.read(lettersBuffer, 4);
+
+  int i;
+  for (i = 0 ; i < sizeof(lettersBuffer) ; i++)
+  {
+    letters = letters + lettersBuffer[i];
+  }
+
+  // size
+  adtFile.seekg(position + 4, std::ios::beg);
+  char sizeBuffer[4];
+  adtFile.read(sizeBuffer, 4);
+
+  memcpy(&givenSize, sizeBuffer, sizeof(givenSize));
+
+  // data
+  adtFile.seekg(position + 8, std::ios::beg);
+  char * dataBuffer;
+  dataBuffer = new char[givenSize];
+  adtFile.read(dataBuffer, givenSize);
+
+  int j;
+  for (i = 0 ; i < sizeof(dataBuffer) ; i++)
+  {
+    data.push_back(dataBuffer[i]);
+  } 
+
+  delete[] dataBuffer;
 }
 
 Chunk::Chunk(const std::vector<char> & fullAdtData, int fullDataOffset, int sizeAdjustments)

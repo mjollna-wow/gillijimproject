@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 // TODO : get rid of sizeAdjustments (?), and make specific chunk constructors for chunks that really need it (MCNR for LK and... ?)
 
@@ -11,6 +12,7 @@ class Chunk
 	public:
 
 		Chunk();
+    Chunk(std::ifstream & fullAdtData, int position);
 		Chunk(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
 		Chunk(std::string letters, int givenSize, const std::vector<char> & chunkData);
 		int getGivenSize();

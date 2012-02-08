@@ -31,16 +31,3 @@ std::vector<char> FileHandling::getFullFile()
 	file.close();
 	return fullFile;
 }
-
-void FileHandling::toBinFile(const std::vector<char> & binData)
-{	
-	std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::app|std::ios::binary);
-	if (!outputFile)
-	{
-		throw std::runtime_error("Unable to create file");
-	}
-
-	outputFile.is_open();
-	// TODO
-	outputFile.close();
-}

@@ -11,7 +11,6 @@ class FileHandling
 		FileHandling(const std::string & fileName);
 		std::string getFileName();
 		std::vector<char> getFullFile();
-		void toBinFile(const std::vector<char> & binData);
 
 	private:
 

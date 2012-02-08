@@ -1,5 +1,7 @@
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "WdtAlpha.h"
 #include "MphdAlpha.h"
 #include "../Wdt.h"
@@ -12,10 +14,17 @@
 
 WdtAlpha::WdtAlpha(const std::string & wdtAlphaFile)
 {
-	FileHandling file(wdtAlphaFile);
-	std::vector<char> fullData = file.getFullFile();
+  std::ifstream file;
+  file.open(wdtAlphaFile, std::ios::binary);
 
-	const int chunkLettersAndSize = 8;
+  file.seekg(0, std::ios::end);
+
+  mver = Chunk(file, 0);
+
+	//FileHandling file(wdtAlphaFile);
+	//std::vector<char> fullData = file.getFullFile();
+
+	/*const int chunkLettersAndSize = 8;
 	const int mdnmOffset = 4;
 	const int monmOffset = 12;
 	//const int modfHintOffset = 8; // TODO : remove if ok
@@ -51,17 +60,17 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaFile)
 	std::vector<int> adtsOffsets = main.getMhdrOffsets();
 	int currentAdt;
 
-	for (currentAdt = 0 ; currentAdt < 4096 ; currentAdt++)
+	/*for (currentAdt = 0 ; currentAdt < 4096 ; currentAdt++)
 	{	
 		if (adtsOffsets[currentAdt] != 0)
 		{
 			fullDataOffset = adtsOffsets[currentAdt];
 			adts.push_back(AdtAlpha(fullData, fullDataOffset, currentAdt));
 		}
-	}
+	}*/
 }
 
-Wdt WdtAlpha::toWdt()
+/*Wdt WdtAlpha::toWdt()
 {
 	std::string name = "__testWdtLk.wdt";
 
@@ -80,14 +89,14 @@ Wdt WdtAlpha::toWdt()
 
 	Wdt wdtLk = Wdt(name, mver, cMphd, cMain, cMwmo, cModf);
 	return wdtLk;
-}
+}*/
 
 std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)
 {
 	os << wdtAlpha.wdtName << std::endl;
 	os << "------------------------------" << std::endl;
 	os << wdtAlpha.mver;
-	os << wdtAlpha.mphd;
+	/*os << wdtAlpha.mphd;
 	os << wdtAlpha.main;
 	os << wdtAlpha.mdnm;
 	os << wdtAlpha.monm;
@@ -100,7 +109,7 @@ std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)
 	{
 		os << *adtsIter;
 		i++;
-	}
+	}*/
 
 	return os;
 }

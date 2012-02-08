@@ -33,8 +33,8 @@ set ( wowfiles
 	
 	wowfiles/lichking/AdtLk.h
 	wowfiles/lichking/AdtLk.cpp
-	wowfiles/lichking/McnkLK.h
-	wowfiles/lichking/McnkLK.cpp
+	wowfiles/lichking/McnkLk.h
+	wowfiles/lichking/McnkLk.cpp
 	
 	wowfiles/Chunk.h
 	wowfiles/Chunk.cpp
