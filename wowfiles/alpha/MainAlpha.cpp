@@ -41,7 +41,8 @@ std::vector<int> MainAlpha::getMhdrOffsets() const
 
 Main MainAlpha::toMain()
 {
-  std::vector<char> mainLkData(32768);
+  const int mainLkDataSize = 32768;
+  std::vector<char> mainLkData(mainLkDataSize);
 
   int i;
   int j = 0;
@@ -56,7 +57,7 @@ Main MainAlpha::toMain()
     j = j+8;
   }
 
-  Main mainLk = Main("NIAM", 32768, mainLkData);
+  Main mainLk = Main("NIAM", mainLkDataSize, mainLkData);
   return mainLk;
 }
 

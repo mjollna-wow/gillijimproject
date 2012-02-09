@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "WdtAlpha.h"
 #include "MphdAlpha.h"
 #include "../Wdt.h"
@@ -46,18 +47,6 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
     modf = Chunk(wdtAlphaFile, offsetInFile);
     offsetInFile = chunkLettersAndSize + offsetInFile + modf.getGivenSize(); 
   }
-
-  /*std::vector<int> adtsOffsets = main.getMhdrOffsets();
-  int currentAdt;
-
-  for (currentAdt = 0 ; currentAdt < 4096 ; currentAdt++)
-  {	
-    if (adtsOffsets[currentAdt] != 0)
-    {
-      offsetInFile = adtsOffsets[currentAdt];
-      adts.push_back(AdtAlpha(wdtAlphaFile, offsetInFile, currentAdt));
-    }
-  }*/
 }
 
 Wdt WdtAlpha::toWdt()
@@ -79,6 +68,50 @@ Wdt WdtAlpha::toWdt()
 
   Wdt wdtLk = Wdt(name, mver, cMphd, cMain, cMwmo, cModf);
   return wdtLk;
+}
+
+std::vector<int> WdtAlpha::getExistingAdts() const
+{
+  std::vector<int> adtsOffsets = main.getMhdrOffsets();
+
+  std::vector<int> existingAdts(0);
+
+  int currentAdt;
+
+  for (currentAdt = 0 ; currentAdt < 4096 ; currentAdt++)
+  {	
+    if (adtsOffsets[currentAdt] != 0)
+    {
+      existingAdts.push_back(currentAdt);
+    }
+  }
+
+  return existingAdts;
+}
+
+std::string WdtAlpha::getAdtFileName(const int & adtNumberInWdtAlpha) const
+{
+  std::string adtFileName = wdtName;
+  adtFileName = adtFileName.substr(0, adtFileName.size() - 4);
+  adtFileName.append("_");
+
+  int xCoord = adtNumberInWdtAlpha / 64;
+  int yCoord = adtNumberInWdtAlpha % 64;
+
+  std::stringstream tempStream;
+  
+  tempStream << xCoord;
+  adtFileName.append(tempStream.str());
+
+  adtFileName.append("_");
+  tempStream.str("");
+
+  tempStream << yCoord;
+  adtFileName.append(tempStream.str());
+  
+  adtFileName.append(".adt");
+
+  return adtFileName;
 }
 
 std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)

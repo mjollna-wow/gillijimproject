@@ -20,9 +20,9 @@ int main(int argc, char **argv)
   //std::string adtName = "Deephome_29_29.adt"; // --> Cata files don't work.
   //AdtCata testAdt = AdtCata(adtName);
 
-  //std::string wdtName = "alpha_dm.wdt";
+  std::string wdtName = "alpha_dm.wdt";
   //std::string wdtName = "alpha_azsharacrater.wdt";
-  std::string wdtName = "alpha_kalimdor.wdt";
+  //std::string wdtName = "alpha_kalimdor.wdt";
   //std::string wdtName = "alpha_kraull.wdt";
   //std::string wdtName = "alpha_uldaman.wdt";
   //std::string wdtName = "azerothwdtFile00000000.xxx";
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
   WdtAlpha testWdtAlpha = WdtAlpha(wdtName);
 
   //std::string wdtName = "EmeraldDream422.wdt";
-  Wdt testWdt = testWdtAlpha.toWdt();
+  //Wdt testWdt = testWdtAlpha.toWdt();
 
   std::ofstream fileOut;
   fileOut.open("debugfile.txt");
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
   //fileOut << testWdt;
   fileOut << testWdtAlpha;
 
-  testWdt.toFile();
+  //testWdt.toFile();
   //testAdt.toFile();
 	
   return 0;

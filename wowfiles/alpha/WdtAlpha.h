@@ -16,9 +16,13 @@ class WdtAlpha
 
     WdtAlpha(const std::string & wdtAlphaName);
     Wdt toWdt();
+
     friend std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha);
 
   private:
+
+    std::vector<int> getExistingAdts() const;
+    std::string getAdtFileName(const int & adtNumberInWdtAlpha) const;
 
     std::string wdtName;
     Chunk mver;
