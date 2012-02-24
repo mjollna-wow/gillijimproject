@@ -28,7 +28,7 @@ bool MphdAlpha::isWmoBased() const
   return Utilities::getIntFromCharVector(data, isWmoBasedOffset) == 2;
 }
 
-Mphd MphdAlpha::toMphd()
+Mphd MphdAlpha::toMphd() const
 {
   std::vector<char> mphdLkData(32);
 

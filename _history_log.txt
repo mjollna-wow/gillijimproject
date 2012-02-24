@@ -1,7 +1,0 @@
-Mjollnà 2012-01-02
-
-2012-02-03 : Code added to Bitbucket repository.
-
-2012-01-02 : AdtLk parser ok :)
-
-2011-12-31 : Fork from the heightmap project to take the adt/chunk related code to the alpha project.

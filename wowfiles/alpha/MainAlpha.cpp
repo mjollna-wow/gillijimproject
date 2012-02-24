@@ -39,7 +39,7 @@ std::vector<int> MainAlpha::getMhdrOffsets() const
   return mhdrOffsets;
 }
 
-Main MainAlpha::toMain()
+Main MainAlpha::toMain() const
 {
   const int mainLkDataSize = 32768;
   std::vector<char> mainLkData(mainLkDataSize);

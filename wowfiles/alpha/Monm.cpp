@@ -22,7 +22,7 @@ Monm::Monm(std::string letters, int givenSize, const std::vector<char> & data) :
 {
 }
 
-Chunk Monm::toMwmo()
+Chunk Monm::toMwmo() const
 {
   Chunk mwmoLk = Chunk("OMWM", givenSize, data);
   return mwmoLk;

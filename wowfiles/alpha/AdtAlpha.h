@@ -7,19 +7,24 @@
 #include <fstream>
 #include "../Chunk.h"
 #include "McnkAlpha.h"
+#include "../lichking/AdtLk.h"
 #include "../Mcin.h"
 
 class AdtAlpha
 {
   public:
 
-    AdtAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum);
+    AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum);
+    AdtLk toAdtLk() const;
+
     friend std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha);
-    // TODO : Have something for ADT coords.
 
   private:
 
+    std::string getAdtFileName(const std::string & wdtName) const;
+
     int adtNumber;
+    std::string adtFileName;
     Chunk mhdr;
     Mcin mcin;
     Chunk mtex;

@@ -49,7 +49,7 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
   }
 }
 
-Wdt WdtAlpha::toWdt()
+Wdt WdtAlpha::toWdt() const
 {
   std::string name = "__testWdtLk.wdt";
 
@@ -70,7 +70,7 @@ Wdt WdtAlpha::toWdt()
   return wdtLk;
 }
 
-std::vector<int> WdtAlpha::getExistingAdts() const
+std::vector<int> WdtAlpha::getExistingAdtsNumbers() const
 {
   std::vector<int> adtsOffsets = main.getMhdrOffsets();
 
@@ -89,29 +89,9 @@ std::vector<int> WdtAlpha::getExistingAdts() const
   return existingAdts;
 }
 
-std::string WdtAlpha::getAdtFileName(const int & adtNumberInWdtAlpha) const
+std::vector<int> WdtAlpha::getAdtOffsetsInMain() const // TODO change this
 {
-  std::string adtFileName = wdtName;
-  adtFileName = adtFileName.substr(0, adtFileName.size() - 4);
-  adtFileName.append("_");
-
-  int xCoord = adtNumberInWdtAlpha / 64;
-  int yCoord = adtNumberInWdtAlpha % 64;
-
-  std::stringstream tempStream;
-  
-  tempStream << xCoord;
-  adtFileName.append(tempStream.str());
-
-  adtFileName.append("_");
-  tempStream.str("");
-
-  tempStream << yCoord;
-  adtFileName.append(tempStream.str());
-  
-  adtFileName.append(".adt");
-
-  return adtFileName;
+  return main.getMhdrOffsets();
 }
 
 std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)

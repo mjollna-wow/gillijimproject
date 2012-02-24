@@ -29,17 +29,25 @@ int main(int argc, char **argv)
   //std::string wdtName = "kalidarFile00000000.xxx";
   WdtAlpha testWdtAlpha = WdtAlpha(wdtName);
 
+  std::vector<int> adtsNums = testWdtAlpha.getExistingAdtsNumbers();
+  std::vector<int> adtsOffsets = testWdtAlpha.getAdtOffsetsInMain();
+
+  AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]);
+
   //std::string wdtName = "EmeraldDream422.wdt";
   //Wdt testWdt = testWdtAlpha.toWdt();
+  AdtLk testAdtLk = testAdt.toAdtLk();
 
   std::ofstream fileOut;
   fileOut.open("debugfile.txt");
   //fileOut << testAdt;
   //fileOut << testWdt;
-  fileOut << testWdtAlpha;
+  //fileOut << testWdtAlpha;
+  fileOut << testAdtLk;
 
   //testWdt.toFile();
   //testAdt.toFile();
+  testAdtLk.toFile();
 	
   return 0;
 }
