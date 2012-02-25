@@ -45,7 +45,7 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
   for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
   {
     offsetInFile = mcnkOffsets[currentMcnk];
-    mcnks.push_back(McnkAlpha(wdtAlphaFile, offsetInFile));
+    mcnksAlpha.push_back(McnkAlpha(wdtAlphaFile, offsetInFile));
   }
 }
 
@@ -76,7 +76,7 @@ std::string AdtAlpha::getAdtFileName(const std::string & wdtName) const
 
 AdtLk AdtAlpha::toAdtLk() const
 {  
-  std::vector<char> emptyData(0);
+  std::vector<char> emptyData(0); // TODO : fill emptiness
 
   std::string cName = adtFileName;
   Chunk cMver = Chunk("REVM", 0, emptyData);
@@ -90,7 +90,15 @@ AdtLk AdtAlpha::toAdtLk() const
   Chunk cMwid = Chunk("DIWM", 0, emptyData);
   Chunk cMddf = Chunk("FDDM", 0, emptyData);
   Chunk cModf = Chunk("FDOM", 0, emptyData);
-  std::vector<McnkLk> cMcnks; // not good :)
+  
+  std::vector<McnkLk> cMcnks;
+  int currentMcnk;
+
+  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  {
+    cMcnks.push_back(mcnksAlpha[currentMcnk].toMcnkLk());
+  }
+
   Chunk cMfbo = Chunk("OBFM", 0, emptyData);
   Chunk cMtxf = Chunk("FXTM", 0, emptyData);
 
@@ -111,7 +119,7 @@ std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha)
   std::vector<McnkAlpha>::const_iterator mcnksIter;
   int i = 0;
 
-  for (mcnksIter = adtAlpha.mcnks.begin() ; mcnksIter != adtAlpha.mcnks.end() ; ++mcnksIter)
+  for (mcnksIter = adtAlpha.mcnksAlpha.begin() ; mcnksIter != adtAlpha.mcnksAlpha.end() ; ++mcnksIter)
   {
     os << "MCNK #" << i << " : " << std::endl;
     os << *mcnksIter;

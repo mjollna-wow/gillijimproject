@@ -127,7 +127,7 @@ AdtLk::AdtLk(const std::string & name
 
 void AdtLk::toFile()
 {
-  std::string fileName = adtName.append("test"); // TODO : remove this line :)
+  std::string fileName = adtName.append("test"); // TODO : remove this line
   std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::app|std::ios::binary);
   outputFile.is_open();
 	

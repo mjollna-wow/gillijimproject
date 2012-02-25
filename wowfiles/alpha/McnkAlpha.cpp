@@ -5,6 +5,7 @@
 #include <fstream>
 #include "../Chunk.h"
 #include "McnkAlpha.h"
+#include "../lichking/McnrLk.h"
 #include "../../utilities/Utilities.h"
 
 McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdtAlphaFile, offsetInFile)
@@ -58,6 +59,25 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdt
   int mclqSize = Utilities::getIntFromCharVector(mcnkHeader, mcnkSizeOffset) - Utilities::getIntFromCharVector(mcnkHeader, mclqOffset);
   std::vector<char> mclqData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mclqSize);
   mclq = Chunk("QLCM", mclqSize, mclqData);
+}
+
+McnkLk McnkAlpha::toMcnkLk() const
+{
+	std::vector<char> emptyData(0); // TODO : fill emptiness
+
+	std::vector<char> cMcnkHeader = emptyData;
+    Chunk cMcvt = Chunk("TVCM", 0, emptyData);
+	Chunk cMccv = Chunk("VCCM", 0, emptyData);
+    McnrLk cMcnr = McnrLk("RNCM", 0, emptyData);
+    Chunk cMcly = Chunk("YLCM", 0, emptyData);
+    Chunk cMcrf = Chunk("FRCM", 0, emptyData);
+    Chunk cMcsh = Chunk("HSCM", 0, emptyData);
+    Chunk cMcal = Chunk("LACM", 0, emptyData);
+    Chunk cMclq = Chunk("QLCM", 0, emptyData);
+	Chunk cMcse = Chunk("ESCM", 0, emptyData);
+
+	McnkLk mcnkLk = McnkLk(cMcnkHeader, cMcvt, cMccv, cMcnr, cMcly, cMcrf, cMcsh, cMcal, cMclq, cMcse);
+	return mcnkLk;
 }
 
 std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)

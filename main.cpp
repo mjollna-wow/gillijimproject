@@ -36,18 +36,18 @@ int main(int argc, char **argv)
 
   //std::string wdtName = "EmeraldDream422.wdt";
   //Wdt testWdt = testWdtAlpha.toWdt();
-  AdtLk testAdtLk = testAdt.toAdtLk();
+  //AdtLk testAdtLk = testAdt.toAdtLk();
 
   std::ofstream fileOut;
   fileOut.open("debugfile.txt");
   //fileOut << testAdt;
   //fileOut << testWdt;
   //fileOut << testWdtAlpha;
-  fileOut << testAdtLk;
+  //fileOut << testAdtLk;
 
   //testWdt.toFile();
   //testAdt.toFile();
-  testAdtLk.toFile();
+  //testAdtLk.toFile();
 	
   return 0;
 }

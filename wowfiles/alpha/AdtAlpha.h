@@ -30,7 +30,7 @@ class AdtAlpha
     Chunk mtex;
     Chunk mddf;
     Chunk modf;
-    std::vector<McnkAlpha> mcnks;
+    std::vector<McnkAlpha> mcnksAlpha;
 };
 
 #endif

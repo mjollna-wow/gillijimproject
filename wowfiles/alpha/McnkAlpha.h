@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include "../Chunk.h"
+#include "../lichking/McnkLk.h"
 
 class McnkAlpha : public Chunk
 {
@@ -14,6 +15,8 @@ class McnkAlpha : public Chunk
 
     McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile);
     McnkAlpha(std::string letters, int givenSize, const std::vector<char> &data);
+    McnkLk toMcnkLk() const;
+
     friend std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha);
 
   private:
