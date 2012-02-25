@@ -66,14 +66,14 @@ McnkLk McnkAlpha::toMcnkLk() const
 	std::vector<char> emptyData(0); // TODO : fill emptiness
 
 	std::vector<char> cMcnkHeader = emptyData;
-    Chunk cMcvt = Chunk("TVCM", 0, emptyData);
+  Chunk cMcvt = Chunk("TVCM", 0, emptyData);
 	Chunk cMccv = Chunk("VCCM", 0, emptyData);
-    McnrLk cMcnr = McnrLk("RNCM", 0, emptyData);
-    Chunk cMcly = Chunk("YLCM", 0, emptyData);
-    Chunk cMcrf = Chunk("FRCM", 0, emptyData);
-    Chunk cMcsh = Chunk("HSCM", 0, emptyData);
-    Chunk cMcal = Chunk("LACM", 0, emptyData);
-    Chunk cMclq = Chunk("QLCM", 0, emptyData);
+  McnrLk cMcnr = McnrLk("RNCM", 0, emptyData);
+  Chunk cMcly = Chunk("YLCM", 0, emptyData);
+  Chunk cMcrf = Chunk("FRCM", 0, emptyData);
+  Chunk cMcsh = Chunk("HSCM", 0, emptyData);
+  Chunk cMcal = Chunk("LACM", 0, emptyData);
+  Chunk cMclq = Chunk("QLCM", 0, emptyData);
 	Chunk cMcse = Chunk("ESCM", 0, emptyData);
 
 	McnkLk mcnkLk = McnkLk(cMcnkHeader, cMcvt, cMccv, cMcnr, cMcly, cMcrf, cMcsh, cMcal, cMclq, cMcse);

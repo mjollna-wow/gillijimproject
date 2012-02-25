@@ -163,7 +163,7 @@ std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)
   os << "------------------------------" << std::endl;
   os << adtLk.mver;
   os << adtLk.mhdr;
-  os << adtLk.mcin;
+  //os << adtLk.mcin; // TODO : causes problem with adtAlpha2Lk parsing, until alpha2Lk MCIN conversion is ok.
   os << adtLk.mh2o;
   os << adtLk.mtex;
   os << adtLk.mmdx;

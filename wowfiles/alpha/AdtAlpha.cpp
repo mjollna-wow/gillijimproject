@@ -80,9 +80,9 @@ AdtLk AdtAlpha::toAdtLk() const
 
   std::string cName = adtFileName;
   Chunk cMver = Chunk("REVM", 0, emptyData);
-  Mhdr cMhdr = Mhdr("RDHM", 0, emptyData);
-  Mcin cMcin = Mcin("NICM", 0, emptyData);
-  Mh2o cMh2o = Mh2o("2OHM", 0, emptyData);
+  Mhdr cMhdr = Mhdr("RDHM", 0, emptyData);  
+  Mcin cMcin = Mcin("NICM", 0, emptyData);  
+  Mh2o cMh2o = Mh2o("2OHM", 0, emptyData);  
   Chunk cMtex = Chunk("XETM", 0, emptyData);
   Chunk cMmdx = Chunk("XDMM", 0, emptyData);
   Chunk cMmid = Chunk("DIMM", 0, emptyData);
