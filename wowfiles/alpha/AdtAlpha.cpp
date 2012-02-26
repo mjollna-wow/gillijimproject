@@ -79,10 +79,19 @@ AdtLk AdtAlpha::toAdtLk() const
   std::vector<char> emptyData(0); // TODO : fill emptiness
 
   std::string cName = adtFileName;
-  Chunk cMver = Chunk("REVM", 0, emptyData);
+
+  std::vector<char> mverData;
+  mverData.push_back(0x12);
+  mverData.push_back(0x0);
+  mverData.push_back(0x0);
+  mverData.push_back(0x0);
+  Chunk cMver = Chunk("REVM", 4, mverData);
+  
   Mhdr cMhdr = Mhdr("RDHM", 0, emptyData);  
   Mcin cMcin = Mcin("NICM", 0, emptyData);  
-  Mh2o cMh2o = Mh2o("2OHM", 0, emptyData);  
+  
+  Mh2o cMh2o = Mh2o();
+  
   Chunk cMtex = Chunk("XETM", 0, emptyData);
   Chunk cMmdx = Chunk("XDMM", 0, emptyData);
   Chunk cMmid = Chunk("DIMM", 0, emptyData);
@@ -99,8 +108,8 @@ AdtLk AdtAlpha::toAdtLk() const
     cMcnks.push_back(mcnksAlpha[currentMcnk].toMcnkLk());
   }
 
-  Chunk cMfbo = Chunk("OBFM", 0, emptyData);
-  Chunk cMtxf = Chunk("FXTM", 0, emptyData);
+  Chunk cMfbo = Chunk();
+  Chunk cMtxf = Chunk();
 
   AdtLk adtLk(cName, cMver, cMhdr, cMcin, cMh2o, cMtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
   return adtLk;

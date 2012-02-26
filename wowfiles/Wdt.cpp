@@ -52,7 +52,7 @@ Wdt::Wdt(const std::string & name
 void Wdt::toFile()
 {
   std::string fileName = wdtName.append("test"); // TODO : remove this line and find another way to rename the file
-  std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::app|std::ios::binary);
+  std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
   outputFile.is_open();
 	
   outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());

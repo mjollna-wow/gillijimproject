@@ -131,7 +131,7 @@ McnkLk::McnkLk(const std::vector<char> & fullAdtData, int fullDataOffset, int si
   }
 }
 
-McnkLk::McnkLk(const std::vector<char> & cMcnkHeader // TODO : test !
+McnkLk::McnkLk(const std::vector<char> & cMcnkHeader 
     , const Chunk & cMcvt
     , const Chunk & cMccv
     , const McnrLk & cMcnr
@@ -152,6 +152,47 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader // TODO : test !
   , mclq(cMclq)
   , mcse(cMcse)
 {
+  const int mcnkHeaderSize = 128;
+
+  letters = "KNCM";
+  givenSize = mcnkHeaderSize 
+    + mcvt.getRealSize() 
+    + mccv.getRealSize() 
+    + mcnr.getGivenSize() 
+    + mcly.getRealSize() 
+    + mcrf.getRealSize() 
+    + mcsh.getRealSize() 
+    + mcal.getRealSize() 
+    + mclq.getRealSize() 
+    + mcse.getRealSize();
+
+  data = mcvt.getWholeChunk();
+
+  std::vector<char> tempData;
+
+  tempData = mccv.getWholeChunk();
+  data.insert(data.end(), tempData.begin(), tempData.end());
+
+  tempData = mcnr.getWholeChunk();
+  data.insert(data.end(), tempData.begin(), tempData.end());
+
+  tempData = mcly.getWholeChunk();
+  data.insert(data.end(), tempData.begin(), tempData.end());
+
+  tempData = mcrf.getWholeChunk();
+  data.insert(data.end(), tempData.begin(), tempData.end());
+
+  tempData = mcsh.getWholeChunk();
+  data.insert(data.end(), tempData.begin(), tempData.end());
+
+  tempData = mcal.getWholeChunk();
+  data.insert(data.end(), tempData.begin(), tempData.end());
+
+  tempData = mclq.getWholeChunk();
+  data.insert(data.end(), tempData.begin(), tempData.end());
+
+  tempData = mcse.getWholeChunk();
+  data.insert(data.end(), tempData.begin(), tempData.end());
 }
 
 std::ostream & operator<<(std::ostream & os, const McnkLk & mcnkLk)

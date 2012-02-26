@@ -6,8 +6,6 @@
 #include <fstream>
 #include <string>
 
-// TODO : Make specific chunk constructor for LK MCNR.
-
 class Chunk
 {
   public:

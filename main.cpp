@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 
   //testWdt.toFile();
   //testAdt.toFile();
-  //testAdtLk.toFile();
+  testAdtLk.toFile();
 	
   return 0;
 }
