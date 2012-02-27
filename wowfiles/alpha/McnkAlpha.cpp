@@ -5,6 +5,7 @@
 #include <fstream>
 #include "../Chunk.h"
 #include "McnkAlpha.h"
+#include "McnrAlpha.h"
 #include "../lichking/McnrLk.h"
 #include "../../utilities/Utilities.h"
 
@@ -37,7 +38,7 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdt
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mcnrOffset);
   std::vector<char> mcnrData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnrSize);
-  mcnr = Chunk("RNCM", mcnrSize, mcnrData);
+  mcnrAlpha = McnrAlpha("RNCM", mcnrSize, mcnrData);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mclyOffset);
   mcly = Chunk(wdtAlphaFile, offsetInFile);
@@ -66,9 +67,9 @@ McnkLk McnkAlpha::toMcnkLk() const
 	std::vector<char> emptyData(0); // TODO : fill emptiness
   Chunk emptyChunk = Chunk("NONE", 0, emptyData); 
 
-  McnrLk cMcnr = McnrLk("RNCM", 0, emptyData);
+  McnrLk cMcnr = mcnrAlpha.toMcnrLk();
+
   Chunk cMcrf = Chunk("FRCM", 0, emptyData);
-  Chunk cMcsh = Chunk("HSCM", 0, emptyData);
 
   std::vector<char> cMcnkHeader = emptyData;
   int i;
@@ -77,7 +78,7 @@ McnkLk McnkAlpha::toMcnkLk() const
     cMcnkHeader.push_back(0x0); // TODO : get rid of the filler and put real data !
   }
 
-	McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, emptyChunk, cMcnr, mcly, cMcrf, cMcsh, mcal, mclq, emptyChunk);
+	McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, emptyChunk, cMcnr, mcly, cMcrf, mcsh, mcal, mclq, emptyChunk);
 	return mcnkLk;
 }
 
@@ -89,7 +90,7 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   os << "------------------------------" << std::endl;
 
   os << mcnkAlpha.mcvt;
-  os << mcnkAlpha.mcnr;
+  os << mcnkAlpha.mcnrAlpha;
   os << mcnkAlpha.mcly;
   os << mcnkAlpha.mcrf;
   os << mcnkAlpha.mcsh;

@@ -13,6 +13,8 @@ set ( wowfiles
   wowfiles/alpha/WdtAlpha.cpp	
   wowfiles/alpha/McnkAlpha.h
   wowfiles/alpha/McnkAlpha.cpp
+  wowfiles/alpha/McnrAlpha.h
+  wowfiles/alpha/McnrAlpha.cpp
   wowfiles/alpha/Monm.h
   wowfiles/alpha/Monm.cpp
   wowfiles/alpha/MphdAlpha.h

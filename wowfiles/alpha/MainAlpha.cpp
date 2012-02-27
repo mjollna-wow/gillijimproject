@@ -43,7 +43,7 @@ Main MainAlpha::toMain() const
   int i;
   int j = 0;
 
-  // if there's a value on alpha every 16 bytes, every 8 bytes on lk = 1
+  // If there's a value on alpha every 16 bytes, every 8 bytes on lk = 1
   for (i = 0 ; i < 65536 ; i = i+16)
   {
     if (Utilities::getIntFromCharVector(data, i) != 0)

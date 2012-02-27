@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include "../Chunk.h"
+#include "McnrAlpha.h"
 #include "../lichking/McnkLk.h"
 
 class McnkAlpha : public Chunk
@@ -23,7 +24,7 @@ class McnkAlpha : public Chunk
 
     std::vector<char> mcnkHeader;
     Chunk mcvt;
-    Chunk mcnr;
+    McnrAlpha mcnrAlpha;
     Chunk mcly;
     Chunk mcrf;
     Chunk mcsh;

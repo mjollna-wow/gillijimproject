@@ -17,10 +17,10 @@ McnrLk::McnrLk(std::ifstream & adtFile, int offsetInFile)
 
   const int unknownBytes = 13;
 
-  givenSize = Utilities::getIntFromFile(adtFile, offsetInFile) + unknownBytes;
+  givenSize = Utilities::getIntFromFile(adtFile, offsetInFile);
   offsetInFile += 4;
 
-  data = Utilities::getCharVectorFromFile(adtFile, offsetInFile, givenSize);
+  data = Utilities::getCharVectorFromFile(adtFile, offsetInFile, givenSize + unknownBytes);
 }
 
 McnrLk::McnrLk(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("RNCM", givenSize, data) 
