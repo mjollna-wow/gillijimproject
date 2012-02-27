@@ -64,20 +64,20 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdt
 McnkLk McnkAlpha::toMcnkLk() const
 {
 	std::vector<char> emptyData(0); // TODO : fill emptiness
+  Chunk emptyChunk = Chunk("NONE", 0, emptyData); 
 
-	std::vector<char> cMcnkHeader = emptyData;
-
-  //Chunk cMcvt = Chunk("TVCM", 0, emptyData);
-	Chunk cMccv = Chunk("NONE", 0, emptyData); // doesn't exist
   McnrLk cMcnr = McnrLk("RNCM", 0, emptyData);
-  //Chunk cMcly = Chunk("YLCM", 0, emptyData);
   Chunk cMcrf = Chunk("FRCM", 0, emptyData);
   Chunk cMcsh = Chunk("HSCM", 0, emptyData);
-  //Chunk cMcal = Chunk("LACM", 0, emptyData);
-  //Chunk cMclq = Chunk("QLCM", 0, emptyData);
-	Chunk cMcse = Chunk("NONE", 0, emptyData); // doesn't exist
 
-	McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, cMccv, cMcnr, mcly, cMcrf, cMcsh, mcal, mclq, cMcse);
+  std::vector<char> cMcnkHeader = emptyData;
+  int i;
+  for (i = 0 ; i < 128 ; i++)
+  {
+    cMcnkHeader.push_back(0x0); // TODO : get rid of the filler and put real data !
+  }
+
+	McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, emptyChunk, cMcnr, mcly, cMcrf, cMcsh, mcal, mclq, emptyChunk);
 	return mcnkLk;
 }
 

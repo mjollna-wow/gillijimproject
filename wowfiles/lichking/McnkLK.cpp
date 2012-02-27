@@ -152,19 +152,35 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
   , mclq(cMclq)
   , mcse(cMcse)
 {
+  letters = "KNCM";
+
+  const int chunkLettersAndSize = 8;
   const int mcnkHeaderSize = 128;
 
-  letters = "KNCM";
-  givenSize = mcnkHeaderSize 
-    + mcvt.getRealSize() // TODO : wrong here. Add letters and size (only for non-empty chunks)
-    + mccv.getRealSize() 
+  givenSize = mcnkHeaderSize
+    + mcvt.getRealSize()
+    + chunkLettersAndSize
     + mcnr.getGivenSize() 
-    + mcly.getRealSize() 
+    + chunkLettersAndSize
     + mcrf.getRealSize() 
+    + chunkLettersAndSize
     + mcsh.getRealSize() 
-    + mcal.getRealSize() 
-    + mclq.getRealSize() 
-    + mcse.getRealSize();
+    + chunkLettersAndSize;
+
+  if (!mccv.isEmpty())
+    givenSize = givenSize + chunkLettersAndSize + mccv.getRealSize();
+
+  if (!mcly.isEmpty())
+    givenSize = givenSize + chunkLettersAndSize + mcly.getRealSize();
+  
+  if (!mcal.isEmpty())
+    givenSize = givenSize + chunkLettersAndSize + mcal.getRealSize();
+  
+  if (!mclq.isEmpty())
+    givenSize = givenSize + chunkLettersAndSize + mclq.getRealSize();
+  
+  if (!mcse.isEmpty())
+    givenSize = givenSize + chunkLettersAndSize + mcse.getRealSize();
 
   data = mcvt.getWholeChunk();
 
@@ -199,6 +215,11 @@ void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
 {
   adtFile.open(adtFileName.c_str(), std::ios::out|std::ios::binary|std::ios::app);
   adtFile.is_open();
+
+  adtFile.write((char *)&letters[0], sizeof(char) * letters.size());
+  adtFile.write((char *)&givenSize, sizeof(char) * sizeof(givenSize));
+
+  adtFile.write((char *)&mcnkHeader[0], sizeof(char) * mcnkHeader.size());
 
   adtFile.write((char *)&mcvt.getWholeChunk()[0], sizeof(char) * mcvt.getWholeChunk().size());
 
