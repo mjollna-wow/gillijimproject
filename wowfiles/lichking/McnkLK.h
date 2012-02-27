@@ -26,6 +26,8 @@ class McnkLk : public Chunk
       , const Chunk & cMclq
       , const Chunk & cMcse
       );
+
+    void toFile(std::ofstream & adtFile, std::string & adtFileName);
     friend std::ostream & operator<<(std::ostream & os, const McnkLk & mcnkLk);
 
   private:

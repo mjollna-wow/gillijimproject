@@ -123,7 +123,6 @@ AdtLk::AdtLk(const std::string & name
   , mfbo(cMfbo)
   , mtxf(cMtxf)
 {
-  // TODO : add data content (all chunks together).
 }
 
 void AdtLk::toFile()
@@ -145,10 +144,16 @@ void AdtLk::toFile()
   if (!mh2o.isEmpty())
     outputFile.write((char *)&mh2o.getWholeChunk()[0], sizeof(char) * mh2o.getWholeChunk().size());
 
+  outputFile.close();
+
   int currentMcnk;
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++) // TODO : get each chunk separately to have control on optional chunks.
-    outputFile.write((char *)&mcnks[currentMcnk].getWholeChunk()[0], sizeof(char) * mcnks[currentMcnk].getWholeChunk().size());
+  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  {
+    mcnks[currentMcnk].toFile(outputFile, fileName);
+  }
+
+  outputFile.is_open();
 
   if (!mfbo.isEmpty())
     outputFile.write((char *)&mfbo.getWholeChunk()[0], sizeof(char) * mfbo.getWholeChunk().size());
