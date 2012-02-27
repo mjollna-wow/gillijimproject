@@ -92,7 +92,6 @@ AdtLk AdtAlpha::toAdtLk() const
   
   Mh2o cMh2o = Mh2o();
   
-  Chunk cMtex = Chunk("XETM", 0, emptyData);
   Chunk cMmdx = Chunk("XDMM", 0, emptyData);
   Chunk cMmid = Chunk("DIMM", 0, emptyData);
   Chunk cMwmo = Chunk("OMWM", 0, emptyData);
@@ -111,7 +110,7 @@ AdtLk AdtAlpha::toAdtLk() const
   Chunk cMfbo = Chunk();
   Chunk cMtxf = Chunk();
 
-  AdtLk adtLk(cName, cMver, cMhdr, cMcin, cMh2o, cMtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
+  AdtLk adtLk(cName, cMver, cMhdr, cMcin, cMh2o, mtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
   return adtLk;
 }
 

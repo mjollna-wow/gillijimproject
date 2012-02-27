@@ -64,12 +64,12 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdt
 
 McnkLk McnkAlpha::toMcnkLk() const
 {
-	std::vector<char> emptyData(0); // TODO : fill emptiness
-  Chunk emptyChunk = Chunk("NONE", 0, emptyData); 
+	std::vector<char> emptyData(0); 
+  Chunk emptyChunk = Chunk(); 
 
   McnrLk cMcnr = mcnrAlpha.toMcnrLk();
 
-  Chunk cMcrf = Chunk("FRCM", 0, emptyData);
+  Chunk cMcrf = Chunk("FRCM", 0, emptyData); // TODO : MCRF
 
   std::vector<char> cMcnkHeader = emptyData;
   int i;
