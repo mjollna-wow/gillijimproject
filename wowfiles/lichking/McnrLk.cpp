@@ -23,10 +23,6 @@ McnrLk::McnrLk(std::ifstream & adtFile, int offsetInFile)
   data = Utilities::getCharVectorFromFile(adtFile, offsetInFile, givenSize);
 }
 
-McnrLk::McnrLk(const std::vector<char> & fullAdtData, int position, int sizeAdjustments) : Chunk(fullAdtData, position, sizeAdjustments)
-{
-}
-
 McnrLk::McnrLk(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("RNCM", givenSize, data) 
 {
 }

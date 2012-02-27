@@ -14,10 +14,6 @@ MphdAlpha::MphdAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdt
 {
 }
 
-MphdAlpha::MphdAlpha(const std::vector<char> & fullAdtData, int position, int sizeAdjustments) : Chunk(fullAdtData, position, sizeAdjustments)
-{
-}
-
 MphdAlpha::MphdAlpha(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("DHPM", givenSize, data) 
 {
 }

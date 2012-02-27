@@ -22,17 +22,6 @@ Chunk::Chunk(std::ifstream & file, int offsetInFile) : letters("")
   data = Utilities::getCharVectorFromFile(file, offsetInFile, givenSize);
 }
 
-Chunk::Chunk(const std::vector<char> & fullAdtData, int fullDataOffset, int sizeAdjustments)
-{
-  letters = Utilities::getStringFromCharVector(fullAdtData, fullDataOffset, 4);
-  fullDataOffset = fullDataOffset + 4;
-
-  givenSize = Utilities::getIntFromCharVector(fullAdtData, fullDataOffset);
-  fullDataOffset = fullDataOffset + 4;
-
-  data = Utilities::getCharSubVector(fullAdtData, fullDataOffset, givenSize + sizeAdjustments);
-}
-
 Chunk::Chunk(std::string let, int givSize, const std::vector<char> & da) : letters(let), givenSize(givSize), data(da)
 {
 }

@@ -68,69 +68,6 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
   }
 }
 
-McnkLk::McnkLk(const std::vector<char> & fullAdtData, int fullDataOffset, int sizeAdjustments) : Chunk(fullAdtData, fullDataOffset, sizeAdjustments)
-{
-  const int mcnkHeaderSize = 128;
-  const int chunkLettersAndSize = 8;
-  const int headerStartOffset = fullDataOffset;
-
-  fullDataOffset = chunkLettersAndSize + fullDataOffset;
-
-  mcnkHeader = Utilities::getCharSubVector(fullAdtData, fullDataOffset, mcnkHeaderSize);
-
-  const int mcvtOffset = 0x014;
-  const int mccvOffset = 0x074;
-  const int mcnrOffset = 0x018;
-  const int mclyOffset = 0x01C;
-  const int mcrfOffset = 0x020;
-  const int mcshOffset = 0x02C;
-  const int mcalOffset = 0x024;
-  const int mclqOffset = 0x060;
-  const int mcseOffset = 0x058;
-
-  fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcvtOffset);
-
-  mcvt = Chunk(fullAdtData, fullDataOffset, sizeAdjustments);
-
-  if (Utilities::getIntFromCharVector(mcnkHeader, mccvOffset) != 0)
-  {
-    fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mccvOffset);
-    mccv = Chunk(fullAdtData, fullDataOffset, sizeAdjustments);
-  }
-
-  sizeAdjustments = sizeAdjustments + 13;
-  fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcnrOffset);
-  mcnr = McnrLk(fullAdtData, fullDataOffset, sizeAdjustments);
-
-  sizeAdjustments = 0;
-  fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mclyOffset);
-  mcly = Chunk(fullAdtData, fullDataOffset, sizeAdjustments);
-
-  fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcrfOffset);
-  mcrf = Chunk(fullAdtData, fullDataOffset, sizeAdjustments);
-
-  if (Utilities::getIntFromCharVector(mcnkHeader, mcshOffset) != 0)
-  {
-    fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcshOffset);
-    mcsh = Chunk(fullAdtData, fullDataOffset, sizeAdjustments);
-  }
-
-  fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcalOffset);
-  mcal = Chunk(fullAdtData, fullDataOffset, sizeAdjustments);
-
-  if (Utilities::getIntFromCharVector(mcnkHeader, mclqOffset) != 0)
-  {
-    fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mclqOffset);
-    mclq = Chunk(fullAdtData, fullDataOffset, sizeAdjustments);
-  }
-
-  if (Utilities::getIntFromCharVector(mcnkHeader, mcseOffset) != 0)
-  {
-    fullDataOffset = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcseOffset);
-    mcse = Chunk(fullAdtData, fullDataOffset, sizeAdjustments);
-  }
-}
-
 McnkLk::McnkLk(const std::vector<char> & cMcnkHeader 
     , const Chunk & cMcvt
     , const Chunk & cMccv

@@ -13,8 +13,8 @@ class Monm : public Chunk
 	
     Monm();
     Monm(std::ifstream & wdtAlphaFile, int offsetInFile);
-    Monm(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
     Monm(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
+    
     Chunk toMwmo() const;
 };
 

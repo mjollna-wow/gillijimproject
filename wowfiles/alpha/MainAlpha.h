@@ -14,8 +14,8 @@ class MainAlpha : public Chunk
 	
   MainAlpha();
   MainAlpha(std::ifstream & wdtAlphaFile, int offsetInFile);
-  MainAlpha(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
   MainAlpha(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
+  
   std::vector<int> getMhdrOffsets() const;
   Main toMain() const;
   friend std::ostream & operator<<(std::ostream & os, const MainAlpha & main);

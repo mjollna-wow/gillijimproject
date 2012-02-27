@@ -13,7 +13,6 @@ class Mphd : public Chunk
 	
     Mphd();
     Mphd(std::ifstream & adtFile, int offsetInFile);
-    Mphd(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
     Mphd(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
 };
 

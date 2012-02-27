@@ -12,8 +12,8 @@ class Chunk
 
     Chunk();
     Chunk(std::ifstream & file, int offsetInFile);
-    Chunk(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
     Chunk(std::string letters, int givenSize, const std::vector<char> & chunkData);
+
     int getGivenSize() const;
     int getRealSize() const;
     bool isEmpty() const;

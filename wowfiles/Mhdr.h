@@ -13,7 +13,6 @@ class Mhdr : public Chunk
 	
   Mhdr();
   Mhdr(std::ifstream & adtFile, int offsetInFile);
-  Mhdr(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
   Mhdr(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
 };
 

@@ -14,10 +14,6 @@ Mcin::Mcin(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInF
 {
 }
 
-Mcin::Mcin(const std::vector<char> & fullAdtData, int position, int sizeAdjustments) : Chunk(fullAdtData, position, sizeAdjustments)
-{
-}
-
 Mcin::Mcin(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("NICM", givenSize, data)
 {
 }

@@ -13,7 +13,6 @@ class McnkLk : public Chunk
   public:
 
     McnkLk(std::ifstream & file, int offsetInFile);
-    McnkLk(const std::vector<char> & fullAdtData, int position, int sizeAdjustments);
     McnkLk(std::string letters, int givenSize, const std::vector<char> &data);
     McnkLk(const std::vector<char> & cMcnkHeader
       , const Chunk & cMcvt

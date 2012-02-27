@@ -13,10 +13,6 @@ Mphd::Mphd(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInF
 {
 }
 
-Mphd::Mphd(const std::vector<char> & fullAdtData, int position, int sizeAdjustments) : Chunk(fullAdtData, position, sizeAdjustments)
-{
-}
-
 Mphd::Mphd(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("DHPM", givenSize, data) 
 {
 }
