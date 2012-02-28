@@ -120,18 +120,94 @@ AdtLk::AdtLk(const std::string & name
   , mfbo(cMfbo)
   , mtxf(cMtxf)
 {
-  // TODO : build mcin (fixed size : 4096)
-  std::vector<char> mcinData(0);
+  const int mhdrFixedSize = 64;
+  const int chunkLettersAndSize = 8;
+  const int relativeMhdrStart = 0x14;
 
-  
-
-  mcin = Mcin("NICM", 4096, mcinData);
-
-  // TODO : build mhdr (thx to flags)
   std::vector<char> mhdrData(0);
 
-  mhdr = Mhdr("RDHM", 4096, mhdrData);
+  std::vector<char> flags = Utilities::getCharVectorFromInt(mhdrFlags);
+  mhdrData.insert(mhdrData.end(), flags.begin(), flags.end());
 
+  int offsetInFile = chunkLettersAndSize + mver.getRealSize() + chunkLettersAndSize + mhdrFixedSize;
+  std::vector<char> mcinOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mcinOffset.begin(), mcinOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mcin.getRealSize();
+  std::vector<char> mtexOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mtexOffset.begin(), mtexOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mtex.getRealSize();
+  std::vector<char> mmdxOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mmdxOffset.begin(), mmdxOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mmdx.getRealSize();
+  std::vector<char> mmidOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mmidOffset.begin(), mmidOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mmid.getRealSize();
+  std::vector<char> mwmoOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mwmoOffset.begin(), mwmoOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mwmo.getRealSize();
+  std::vector<char> mwidOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mwidOffset.begin(), mwidOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mwid.getRealSize();
+  std::vector<char> mddfOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mddfOffset.begin(), mddfOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mddf.getRealSize();
+  std::vector<char> modfOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), modfOffset.begin(), modfOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + modf.getRealSize();
+
+  std::vector<McnkLk>::const_iterator mcnksIter;
+  int currentMcnk;
+
+  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++) // TODO : check later when MCNK size fixed.
+  {
+    offsetInFile = offsetInFile + mcnks[currentMcnk].getWholeChunk().size();
+    //std::cout << mcnks[currentMcnk].getWholeChunk().size() << std::endl;
+  }
+
+  std::vector<char> mfboOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mfboOffset.begin(), mfboOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize();
+  std::vector<char> mh2oOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mh2oOffset.begin(), mh2oOffset.end());
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mtxf.getRealSize();
+  std::vector<char> mtxfOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  mhdrData.insert(mhdrData.end(), mtxfOffset.begin(), mtxfOffset.end());
+
+  const int unused = 16;
+  int fillUnused;
+
+  for(fillUnused = 0 ; fillUnused < unused ; fillUnused++)
+  {
+    mhdrData.push_back(0);
+  }
+
+  mhdr = Mhdr("RDHM", mhdrFixedSize, mhdrData);
+
+  // TODO : build mcin
+  std::vector<char> mcinData(0);
+
+  int nextMcnkOffset = mver.getRealSize() 
+    + mhdr.getRealSize()
+    + mh2o.getRealSize()
+    + mtex.getRealSize()
+    + mmdx.getRealSize()
+    + mmid.getRealSize()
+    + mwmo.getRealSize()
+    + mwid.getRealSize()
+    + mddf.getRealSize()
+    + modf.getRealSize();
+
+  mcin = Mcin("NICM", 4096, mcinData);
 }
 
 void AdtLk::toFile()

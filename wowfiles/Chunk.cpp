@@ -33,15 +33,8 @@ std::vector<char> Chunk::getWholeChunk() const
   std::vector<char> let(letters.begin(), letters.end());
   wholeChunk.insert(wholeChunk.end(), let.begin(), let.end());
 
-  char size[4];
-  size[0] = givenSize & 0xff;
-  wholeChunk.push_back(size[0]);
-  size[1] = (givenSize >> 8)  & 0xff;
-  wholeChunk.push_back(size[1]);
-  size[2] = (givenSize >> 16) & 0xff;
-  wholeChunk.push_back(size[2]);
-  size[3] = (givenSize >> 24) & 0xff;
-  wholeChunk.push_back(size[3]);
+  std::vector<char> siz = Utilities::getCharVectorFromInt(givenSize);
+  wholeChunk.insert(wholeChunk.end(), siz.begin(), siz.end());
 
   wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
 

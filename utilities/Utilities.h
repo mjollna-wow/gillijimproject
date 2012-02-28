@@ -16,6 +16,8 @@ namespace Utilities
   std::string getLettersFromFile(std::ifstream & adtFile, int position);
   int getIntFromFile(std::ifstream & adtFile, int position);
   std::vector<char> getCharVectorFromFile(std::ifstream & adtFile, int position, int length);
+
+  std::vector<char> getCharVectorFromInt(const int someValue);
 };
 
 #endif

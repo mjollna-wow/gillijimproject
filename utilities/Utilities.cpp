@@ -113,4 +113,21 @@ namespace Utilities
 
     return data;
   }
+
+  std::vector<char> getCharVectorFromInt(const int someValue)
+  {
+    std::vector<char> charVector(0);
+
+    char size[4];
+    size[0] = someValue & 0xff;
+    charVector.push_back(size[0]);
+    size[1] = (someValue >> 8)  & 0xff;
+    charVector.push_back(size[1]);
+    size[2] = (someValue >> 16) & 0xff;
+    charVector.push_back(size[2]);
+    size[3] = (someValue >> 24) & 0xff;
+    charVector.push_back(size[3]);
+
+    return charVector;
+  }
 }
