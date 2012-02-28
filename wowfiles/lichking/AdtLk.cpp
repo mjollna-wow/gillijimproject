@@ -166,10 +166,10 @@ AdtLk::AdtLk(const std::string & name
   std::vector<McnkLk>::const_iterator mcnksIter;
   int currentMcnk;
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++) // TODO : check later when MCNK size fixed.
+  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++) // TODO : check the additional 8 bytes problem
   {
     offsetInFile = offsetInFile + mcnks[currentMcnk].getWholeChunk().size();
-    //std::cout << mcnks[currentMcnk].getWholeChunk().size() << std::endl;
+    std::cout << mcnks[currentMcnk].getWholeChunk().size() << std::endl;
   }
 
   std::vector<char> mfboOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);

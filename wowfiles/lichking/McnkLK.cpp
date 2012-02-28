@@ -66,6 +66,8 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
     offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcseOffset);
     mcse = Chunk(adtFile, offsetInFile);
   }
+
+  // TODO (later) : constructor doesn't fill McnkLk.data
 }
 
 McnkLk::McnkLk(const std::vector<char> & cMcnkHeader 
@@ -97,11 +99,9 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
   givenSize = mcnkHeaderSize
     + mcvt.getRealSize()
     + chunkLettersAndSize
-    + mcnr.getGivenSize() 
+    + mcnr.getRealSize() 
     + chunkLettersAndSize
     + mcrf.getRealSize() 
-    + chunkLettersAndSize
-    + mcsh.getRealSize() 
     + chunkLettersAndSize;
 
   if (!mccv.isEmpty())
@@ -110,6 +110,9 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
   if (!mcly.isEmpty())
     givenSize = givenSize + chunkLettersAndSize + mcly.getRealSize();
   
+  if (!mcsh.isEmpty())
+    givenSize = givenSize + chunkLettersAndSize + mcsh.getRealSize();
+
   if (!mcal.isEmpty())
     givenSize = givenSize + chunkLettersAndSize + mcal.getRealSize();
   
@@ -119,33 +122,54 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
   if (!mcse.isEmpty())
     givenSize = givenSize + chunkLettersAndSize + mcse.getRealSize();
 
-  data = mcvt.getWholeChunk();
+  data = mcnkHeader;
 
   std::vector<char> tempData;
 
-  tempData = mccv.getWholeChunk();
+  tempData = mcvt.getWholeChunk();
   data.insert(data.end(), tempData.begin(), tempData.end());
+
+  if (!mccv.isEmpty())
+  {
+    tempData = mccv.getWholeChunk();
+    data.insert(data.end(), tempData.begin(), tempData.end());
+  }
 
   tempData = mcnr.getWholeChunk();
   data.insert(data.end(), tempData.begin(), tempData.end());
 
-  tempData = mcly.getWholeChunk();
-  data.insert(data.end(), tempData.begin(), tempData.end());
+  if (!mcly.isEmpty())
+  {
+    tempData = mcly.getWholeChunk();
+    data.insert(data.end(), tempData.begin(), tempData.end());
+  }
 
   tempData = mcrf.getWholeChunk();
   data.insert(data.end(), tempData.begin(), tempData.end());
 
-  tempData = mcsh.getWholeChunk();
-  data.insert(data.end(), tempData.begin(), tempData.end());
+  if (!mcsh.isEmpty())
+  {
+    tempData = mcsh.getWholeChunk();
+    data.insert(data.end(), tempData.begin(), tempData.end());
+  }
 
-  tempData = mcal.getWholeChunk();
-  data.insert(data.end(), tempData.begin(), tempData.end());
+  if (!mcal.isEmpty())
+  {
+    tempData = mcal.getWholeChunk();
+    data.insert(data.end(), tempData.begin(), tempData.end());
+  }
 
-  tempData = mclq.getWholeChunk();
-  data.insert(data.end(), tempData.begin(), tempData.end());
+  if (!mclq.isEmpty())
+  {
+    tempData = mclq.getWholeChunk();
+    data.insert(data.end(), tempData.begin(), tempData.end());
+  }
 
-  tempData = mcse.getWholeChunk();
-  data.insert(data.end(), tempData.begin(), tempData.end());
+  if (!mcse.isEmpty())
+  {
+    tempData = mcse.getWholeChunk();
+    data.insert(data.end(), tempData.begin(), tempData.end());
+  }
 }
 
 void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
