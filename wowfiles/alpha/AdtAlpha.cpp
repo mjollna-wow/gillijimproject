@@ -76,8 +76,6 @@ std::string AdtAlpha::getAdtFileName(const std::string & wdtName) const
 
 AdtLk AdtAlpha::toAdtLk() const
 {  
-  std::vector<char> emptyData(0); // TODO : fill emptiness
-
   std::string cName = adtFileName;
 
   std::vector<char> mverData;
@@ -87,12 +85,11 @@ AdtLk AdtAlpha::toAdtLk() const
   mverData.push_back(0x0);
   Chunk cMver = Chunk("REVM", 4, mverData);
   
-  Mhdr cMhdr = Mhdr("RDHM", 0, emptyData);  
-  Mcin cMcin = Mcin("NICM", 0, emptyData);  
-  
   Mh2o cMh2o = Mh2o();
   
-  Chunk cMmdx = Chunk("XDMM", 0, emptyData);
+  std::vector<char> emptyData(0);
+
+  Chunk cMmdx = Chunk("XDMM", 0, emptyData); // TODO : fill emptiness for objects
   Chunk cMmid = Chunk("DIMM", 0, emptyData);
   Chunk cMwmo = Chunk("OMWM", 0, emptyData);
   Chunk cMwid = Chunk("DIWM", 0, emptyData);
@@ -110,7 +107,9 @@ AdtLk AdtAlpha::toAdtLk() const
   Chunk cMfbo = Chunk();
   Chunk cMtxf = Chunk();
 
-  AdtLk adtLk(cName, cMver, cMhdr, cMcin, cMh2o, mtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
+  const int mhdrFlags = 0;
+
+  AdtLk adtLk(cName, cMver, mhdrFlags, cMh2o, mtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
   return adtLk;
 }
 

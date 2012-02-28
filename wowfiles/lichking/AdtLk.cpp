@@ -94,8 +94,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 
 AdtLk::AdtLk(const std::string & name
   , const Chunk & cMver
-  , const Mhdr & cMhdr
-  , const Mcin & cMcin
+  , const int & mhdrFlags
   , const Mh2o & cMh2o
   , const Chunk & cMtex
   , const Chunk & cMmdx
@@ -109,8 +108,6 @@ AdtLk::AdtLk(const std::string & name
   , const Chunk & cMtxf
   ) : adtName(name)
   , mver(cMver)
-  , mhdr(cMhdr)
-  , mcin(cMcin)
   , mh2o(cMh2o)
   , mtex(cMtex)
   , mmdx(cMmdx)
@@ -123,6 +120,18 @@ AdtLk::AdtLk(const std::string & name
   , mfbo(cMfbo)
   , mtxf(cMtxf)
 {
+  // TODO : build mcin (fixed size : 4096)
+  std::vector<char> mcinData(0);
+
+  
+
+  mcin = Mcin("NICM", 4096, mcinData);
+
+  // TODO : build mhdr (thx to flags)
+  std::vector<char> mhdrData(0);
+
+  mhdr = Mhdr("RDHM", 4096, mhdrData);
+
 }
 
 void AdtLk::toFile()

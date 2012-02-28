@@ -18,8 +18,7 @@ class AdtLk
     AdtLk(const std::string & adtFile);
     AdtLk(const std::string & name
       , const Chunk & cMver
-      , const Mhdr & cMhdr
-      , const Mcin & cMcin
+      , const int & mhdrFlags
       , const Mh2o & cMh2o
       , const Chunk & cMtex
       , const Chunk & cMmdx

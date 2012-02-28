@@ -10,15 +10,11 @@ set ( wowfiles
   wowfiles/alpha/AdtAlpha.h
   wowfiles/alpha/AdtAlpha.cpp
   wowfiles/alpha/WdtAlpha.h
-  wowfiles/alpha/WdtAlpha.cpp	
-  wowfiles/alpha/McinAlpha.h
-  wowfiles/alpha/McinAlpha.cpp  
+  wowfiles/alpha/WdtAlpha.cpp	 
   wowfiles/alpha/McnkAlpha.h
   wowfiles/alpha/McnkAlpha.cpp
   wowfiles/alpha/McnrAlpha.h
   wowfiles/alpha/McnrAlpha.cpp
-  wowfiles/alpha/MhdrAlpha.h
-  wowfiles/alpha/MhdrAlpha.cpp  
   wowfiles/alpha/Monm.h
   wowfiles/alpha/Monm.cpp
   wowfiles/alpha/MphdAlpha.h
