@@ -119,7 +119,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcal.getRealSize();
   const int mclqOffset = offsetInHeader;
   
-  tempData = Utilities::getCharVectorFromInt(mcal.getRealSize());
+  tempData = Utilities::getCharVectorFromInt(mcal.getRealSize() + 8);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // sizeAlpha
   offsetInHeader = mcshOffset;
 
@@ -145,7 +145,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCLQ
   
-  tempData = Utilities::getCharVectorFromInt(mclq.getRealSize());  
+  tempData = Utilities::getCharVectorFromInt(mclq.getRealSize() + 8);  
   if (mclq.getRealSize() != 0)
   {
     cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // sizeLiquid (== mclq.getRealSize())
@@ -155,14 +155,29 @@ McnkLk McnkAlpha::toMcnkLk() const
     cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end());
   }
 
-  tempData = Utilities::getCharSubVector(mcnkHeader, 0x4C, 4);
+  // junk
+
+  float mcnkWidth = 33.33333333333;
+  int adtX = 34;
+  int adtY = 32;
+
+  int mcnkX = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x04, 4), 0);
+  int mcnkY = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x08, 4), 0);
+
+  float temp = (((adtX - 32) * 533.333333));// + 266.666666)) + (mcnkWidth * mcnkX);//-(((adtX - 33) * 533.33333)) + (mcnkWidth * mcnkX);
+
+  tempData = Utilities::getCharVectorFromFloat(temp);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // PosX
 
-  tempData = Utilities::getCharSubVector(mcnkHeader, 0x50, 4);
+  temp = (((adtY - 32) * 533.333333));//(((adtY - 32) * 533.333333 + 266.666666)) + (mcnkWidth * mcnkY);//-(((adtY - 31) * 533.33333)) + (mcnkWidth * mcnkY);
+
+  tempData = Utilities::getCharVectorFromFloat(temp);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // PosY
 
+  // end junk
+
   tempData = Utilities::getCharSubVector(mcnkHeader, 0x0C, 4);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // PosZ
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // PosZ
   
   cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // MCCV
   cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // MCLV

@@ -21,8 +21,8 @@ int main(int argc, char **argv)
   //AdtCata testAdt = AdtCata(adtName);
 
   //std::string wdtName = "alpha_dm.wdt";
-  //std::string wdtName = "alpha_azsharacrater.wdt";
-  std::string wdtName = "alpha_kalimdor.wdt";
+  std::string wdtName = "alpha_azsharacrater.wdt";
+  //std::string wdtName = "alpha_kalimdor.wdt";
   //std::string wdtName = "alpha_kraull.wdt";
   //std::string wdtName = "alpha_uldaman.wdt";
   //std::string wdtName = "azerothwdtFile00000000.xxx";
@@ -38,18 +38,18 @@ int main(int argc, char **argv)
   std::ofstream fileOut;
   fileOut.open("debugfile.txt");
 
-  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; currentAdt++)
+  for (currentAdt = 0 ; currentAdt < adtTotalNum ; currentAdt++)
   {
     AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]);
     AdtLk testAdtLk = testAdt.toAdtLk();
     fileOut << testAdtLk;
     testAdtLk.toFile();
-  }*/
+  }
 
-  AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[550]], adtsNums[550]); // 15
+  /*AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[550]], adtsNums[550]); // 15
   fileOut << testAdt;
   AdtLk testAdtLk = testAdt.toAdtLk();
-  testAdtLk.toFile();
+  testAdtLk.toFile();*/
   
   //std::string wdtName = "EmeraldDream422.wdt";
   //Wdt testWdt = testWdtAlpha.toWdt();

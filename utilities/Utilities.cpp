@@ -130,4 +130,18 @@ namespace Utilities
 
     return charVector;
   }
+
+  std::vector<char> getCharVectorFromFloat(const float someValue)
+  {
+    std::vector<char> charVector(0);
+    unsigned char * tempStorage = (unsigned char *)&someValue;
+
+    int i;
+    for (i = 0 ; i < sizeof(someValue) ; i++)
+    {
+      charVector.push_back(tempStorage[i]);
+    }
+
+    return charVector;
+  }
 }

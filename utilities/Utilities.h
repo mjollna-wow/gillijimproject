@@ -18,6 +18,7 @@ namespace Utilities
   std::vector<char> getCharVectorFromFile(std::ifstream & adtFile, int position, int length);
 
   std::vector<char> getCharVectorFromInt(const int someValue);
+  std::vector<char> getCharVectorFromFloat(const float someValue);
 };
 
 #endif
