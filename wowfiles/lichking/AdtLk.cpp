@@ -136,7 +136,7 @@ AdtLk::AdtLk(const std::string & name
   std::vector<char> mcinOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
   mhdrData.insert(mhdrData.end(), mcinOffset.begin(), mcinOffset.end());
 
-  offsetInFile = offsetInFile + chunkLettersAndSize + mcinFixedSize; // ...
+  offsetInFile = offsetInFile + chunkLettersAndSize + mcinFixedSize;
   std::vector<char> mtexOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
   mhdrData.insert(mhdrData.end(), mtexOffset.begin(), mtexOffset.end());
 
@@ -173,7 +173,7 @@ AdtLk::AdtLk(const std::string & name
   const int unusedMcinBytes = 8;
   int throughMcinUnusedBytes;
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++) // TODO : get rid of unnecessary offsets (mh2o & mfbo) when size pb corrected
+  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
   {
     std::vector<char> mcnkOffset = Utilities::getCharVectorFromInt(offsetInFile);
     mcinData.insert(mcinData.end(), mcnkOffset.begin(), mcnkOffset.end());
@@ -280,7 +280,7 @@ std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)
   os << "------------------------------" << std::endl;
   os << adtLk.mver;
   os << adtLk.mhdr;
-  //os << adtLk.mcin; // TODO : causes problem with adtAlpha2Lk parsing, until alpha2Lk MCIN conversion is ok (MCIN being empty).
+  os << adtLk.mcin;
   os << adtLk.mh2o;
   os << adtLk.mtex;
   os << adtLk.mmdx;

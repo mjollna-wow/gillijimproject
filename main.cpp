@@ -20,9 +20,9 @@ int main(int argc, char **argv)
   //std::string adtName = "Deephome_29_29.adt"; // --> Cata files don't work.
   //AdtCata testAdt = AdtCata(adtName);
 
-  std::string wdtName = "alpha_dm.wdt";
+  //std::string wdtName = "alpha_dm.wdt";
   //std::string wdtName = "alpha_azsharacrater.wdt";
-  //std::string wdtName = "alpha_kalimdor.wdt";
+  std::string wdtName = "alpha_kalimdor.wdt";
   //std::string wdtName = "alpha_kraull.wdt";
   //std::string wdtName = "alpha_uldaman.wdt";
   //std::string wdtName = "azerothwdtFile00000000.xxx";
@@ -32,22 +32,37 @@ int main(int argc, char **argv)
   std::vector<int> adtsNums = testWdtAlpha.getExistingAdtsNumbers();
   std::vector<int> adtsOffsets = testWdtAlpha.getAdtOffsetsInMain();
 
-  AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]);
-
-  //std::string wdtName = "EmeraldDream422.wdt";
-  //Wdt testWdt = testWdtAlpha.toWdt();
-  AdtLk testAdtLk = testAdt.toAdtLk();
+  const int adtTotalNum = adtsNums.size();
+  int currentAdt;
 
   std::ofstream fileOut;
   fileOut.open("debugfile.txt");
+
+  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; currentAdt++)
+  {
+    AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]);
+    AdtLk testAdtLk = testAdt.toAdtLk();
+    fileOut << testAdtLk;
+    testAdtLk.toFile();
+  }*/
+
+  AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[550]], adtsNums[550]); // 15
+  fileOut << testAdt;
+  AdtLk testAdtLk = testAdt.toAdtLk();
+  testAdtLk.toFile();
+  
+  //std::string wdtName = "EmeraldDream422.wdt";
+  //Wdt testWdt = testWdtAlpha.toWdt();
+  //AdtLk testAdtLk = testAdt.toAdtLk();
+
   //fileOut << testAdt;
   //fileOut << testWdt;
   //fileOut << testWdtAlpha;
-  fileOut << testAdtLk;
+  //fileOut << testAdtLk;
 
   //testWdt.toFile();
   //testAdt.toFile();
-  testAdtLk.toFile();
+  //testAdtLk.toFile();
 	
   return 0;
 }
