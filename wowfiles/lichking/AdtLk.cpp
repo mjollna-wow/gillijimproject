@@ -8,7 +8,6 @@
 #include "../Mhdr.h"
 #include "../Mh2o.h"
 #include "../Mcin.h"
-#include "../Mcnk.h"
 #include "McnkLk.h"
 #include "../../utilities/Utilities.h"
 

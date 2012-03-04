@@ -70,6 +70,10 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
   // TODO (later) : constructor doesn't fill McnkLk.data
 }
 
+McnkLk::McnkLk(std::string letters, int givenSize, const std::vector<char> &data) : Chunk(letters, givenSize, data)
+{
+}
+
 McnkLk::McnkLk(const std::vector<char> & cMcnkHeader 
     , const Chunk & cMcvt
     , const Chunk & cMccv

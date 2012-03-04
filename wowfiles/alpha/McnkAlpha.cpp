@@ -119,7 +119,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcal.getRealSize();
   const int mclqOffset = offsetInHeader;
   
-  tempData = Utilities::getCharVectorFromInt(mcal.getRealSize() + 8);
+  tempData = Utilities::getCharVectorFromInt(mcal.getRealSize() + chunkLettersAndSize);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // sizeAlpha
   offsetInHeader = mcshOffset;
 
@@ -145,10 +145,10 @@ McnkLk McnkAlpha::toMcnkLk() const
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCLQ
   
-  tempData = Utilities::getCharVectorFromInt(mclq.getRealSize() + 8);  
+  tempData = Utilities::getCharVectorFromInt(mclq.getRealSize() + chunkLettersAndSize);  
   if (mclq.getRealSize() != 0)
   {
-    cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // sizeLiquid (== mclq.getRealSize())
+    cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // sizeLiquid
   }
   else 
   {
@@ -158,8 +158,8 @@ McnkLk McnkAlpha::toMcnkLk() const
   // junk
 
   float mcnkWidth = 33.33333333333;
-  int adtX = 34;
-  int adtY = 32;
+  int adtX = 34; // TODO : remove this.
+  int adtY = 32; // TODO : remove this.
 
   int mcnkX = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x04, 4), 0);
   int mcnkY = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x08, 4), 0);
@@ -176,12 +176,24 @@ McnkLk McnkAlpha::toMcnkLk() const
 
   // end junk
 
-  tempData = Utilities::getCharSubVector(mcnkHeader, 0x0C, 4);
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // PosZ
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // PosZ (better results with 0 here)
   
   cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // MCCV
   cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // MCLV
   cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // Unused
+
+  // more junk
+
+  std::vector<char> cMcvtData(0);
+  int i;
+
+  for (i = mcvt.getRealSize() ; i < 0 ; i++)
+  {
+    //cMcvtData.push_back();
+  }
+  Chunk cMcvt = Chunk();
+
+  // end more junk
 
 	McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, emptyChunk, cMcnr, mcly, mcrf, mcsh, mcal, mclq, emptyChunk);
 	return mcnkLk;

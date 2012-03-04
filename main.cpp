@@ -21,11 +21,11 @@ int main(int argc, char **argv)
   //AdtCata testAdt = AdtCata(adtName);
 
   //std::string wdtName = "alpha_dm.wdt";
-  std::string wdtName = "alpha_azsharacrater.wdt";
+  //std::string wdtName = "alpha_azsharacrater.wdt";
   //std::string wdtName = "alpha_kalimdor.wdt";
   //std::string wdtName = "alpha_kraull.wdt";
   //std::string wdtName = "alpha_uldaman.wdt";
-  //std::string wdtName = "azerothwdtFile00000000.xxx";
+  std::string wdtName = "azerothwdtFile00000000.xxx";
   //std::string wdtName = "kalidarFile00000000.xxx";
   WdtAlpha testWdtAlpha = WdtAlpha(wdtName);
 
