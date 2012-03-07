@@ -44,8 +44,6 @@ set ( wowfiles
   wowfiles/Main.cpp
   wowfiles/Mcin.h
   wowfiles/Mcin.cpp
-  wowfiles/Mhdr.h
-  wowfiles/Mhdr.cpp
   wowfiles/Mh2o.h
   wowfiles/Mh2o.cpp
   wowfiles/Mphd.h

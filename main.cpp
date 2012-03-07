@@ -32,11 +32,11 @@ int main(int argc, char **argv)
   std::vector<int> adtsNums = testWdtAlpha.getExistingAdtsNumbers();
   std::vector<int> adtsOffsets = testWdtAlpha.getAdtOffsetsInMain();
 
-  const int adtTotalNum = adtsNums.size();
-  int currentAdt;
-
   std::ofstream fileOut;
   fileOut.open("debugfile.txt");
+
+  /*const int adtTotalNum = adtsNums.size();
+  int currentAdt;
 
   for (currentAdt = 0 ; currentAdt < adtTotalNum ; currentAdt++)
   {
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     AdtLk testAdtLk = testAdt.toAdtLk();
     fileOut << testAdtLk;
     testAdtLk.toFile();
-  }
+  }*/
 
   /*AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[550]], adtsNums[550]); // 15
   fileOut << testAdt;
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
   testAdtLk.toFile();*/
   
   //std::string wdtName = "EmeraldDream422.wdt";
-  //Wdt testWdt = testWdtAlpha.toWdt();
+  Wdt testWdt = testWdtAlpha.toWdt();
   //AdtLk testAdtLk = testAdt.toAdtLk();
 
   //fileOut << testAdt;
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
   //fileOut << testWdtAlpha;
   //fileOut << testAdtLk;
 
-  //testWdt.toFile();
+  testWdt.toFile();
   //testAdt.toFile();
   //testAdtLk.toFile();
 	

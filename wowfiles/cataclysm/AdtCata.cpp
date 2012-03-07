@@ -5,7 +5,6 @@
 #include <string>
 #include "AdtCata.h"
 #include "../Chunk.h"
-#include "../Mhdr.h"
 #include "../Mh2o.h"
 #include "McnkCata.h"
 #include "McnkCataTex0.h"
@@ -26,7 +25,7 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
   terrainMver = Chunk(adtTerrainFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + terrainMver.getGivenSize();
 
-  mhdr = Mhdr(adtTerrainFile, offsetInFile);
+  mhdr = Chunk(adtTerrainFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mhdr.getGivenSize();
 
   if (mhdr.getOffset(mh2oOffset) != 0)

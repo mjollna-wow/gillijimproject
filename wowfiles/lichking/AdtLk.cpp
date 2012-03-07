@@ -5,7 +5,6 @@
 #include <fstream>
 #include "AdtLk.h"
 #include "../Chunk.h"
-#include "../Mhdr.h"
 #include "../Mh2o.h"
 #include "../Mcin.h"
 #include "McnkLk.h"
@@ -36,7 +35,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 
   const int MhdrStartOffset = offsetInFile + chunkLettersAndSize;
 
-  mhdr = Mhdr(adtFile, offsetInFile);
+  mhdr = Chunk(adtFile, offsetInFile);
 
   offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mcinOffset);
 
@@ -232,7 +231,7 @@ AdtLk::AdtLk(const std::string & name
     mhdrData.push_back(0);
   }
 
-  mhdr = Mhdr("RDHM", mhdrFixedSize, mhdrData);
+  mhdr = Chunk("RDHM", mhdrFixedSize, mhdrData);
 }
 
 void AdtLk::toFile()

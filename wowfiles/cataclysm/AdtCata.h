@@ -6,7 +6,6 @@
 #include <iostream>
 #include <fstream>
 #include "../Chunk.h"
-#include "../Mhdr.h"
 #include "McnkCata.h"
 #include "McnkCataTex0.h"
 #include "McnkCataObj0.h"
@@ -25,7 +24,7 @@ class AdtCata
     std::string adtName;
 
     Chunk terrainMver;
-    Mhdr mhdr;
+    Chunk mhdr;
     Chunk mh2o;
     std::vector<McnkCata> terrainMcnks;
     Chunk mfbo;

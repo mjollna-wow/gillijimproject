@@ -6,7 +6,6 @@
 #include <iostream>
 #include <fstream>
 #include "../Chunk.h"
-#include "../Mhdr.h"
 #include "../Mh2o.h"
 #include "../Mcin.h"
 #include "McnkLk.h"
@@ -39,7 +38,7 @@ class AdtLk
 
     std::string adtName;
     Chunk mver;
-    Mhdr mhdr;
+    Chunk mhdr;
     Mcin mcin;
     Mh2o mh2o;
     Chunk mtex;

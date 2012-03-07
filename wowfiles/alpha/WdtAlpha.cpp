@@ -105,14 +105,5 @@ std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)
   os << wdtAlpha.monm;
   os << wdtAlpha.modf;
 
-  /*std::vector<AdtAlpha>::const_iterator adtsIter;
-  int i = 0;
-
-  for (adtsIter = wdtAlpha.adts.begin() ; adtsIter != wdtAlpha.adts.end() ; ++adtsIter)
-  {
-    os << *adtsIter;
-    i++;
-  }*/
-
   return os;
 }
