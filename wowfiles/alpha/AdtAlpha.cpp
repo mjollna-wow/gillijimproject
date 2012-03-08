@@ -55,23 +55,30 @@ std::string AdtAlpha::getAdtFileName(const std::string & wdtName) const
   adtFileName = adtFileName.substr(0, adtFileName.size() - 4);
   adtFileName.append("_");
 
-  int xCoord = adtNumber / 64;
-  int yCoord = adtNumber % 64;
-
   std::stringstream tempStream;
   
-  tempStream << xCoord;
+  tempStream << getXCoord();
   adtFileName.append(tempStream.str());
 
   adtFileName.append("_");
   tempStream.str("");
 
-  tempStream << yCoord;
+  tempStream << getYCoord();
   adtFileName.append(tempStream.str());
   
   adtFileName.append(".adt");
 
   return adtFileName;
+}
+
+int AdtAlpha::getXCoord() const
+{
+  return adtNumber % 64;
+}
+
+int AdtAlpha::getYCoord() const
+{
+  return adtNumber / 64;
 }
 
 AdtLk AdtAlpha::toAdtLk() const

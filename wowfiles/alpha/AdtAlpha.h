@@ -15,6 +15,8 @@ class AdtAlpha
   public:
 
     AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum);
+    int getXCoord() const;
+    int getYCoord() const;
     AdtLk toAdtLk() const;
 
     friend std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha);

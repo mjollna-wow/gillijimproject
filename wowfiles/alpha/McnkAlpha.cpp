@@ -161,8 +161,8 @@ McnkLk McnkAlpha::toMcnkLk() const
   int adtX = 34; // TODO : remove this.
   int adtY = 32; // TODO : remove this.
 
-  int mcnkX = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x04, 4), 0);
-  int mcnkY = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x08, 4), 0);
+  const int mcnkX = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x04, 4), 0);
+  const int mcnkY = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x08, 4), 0);
 
   float temp = (((adtX - 32) * 533.333333));// + 266.666666)) + (mcnkWidth * mcnkX);//-(((adtX - 33) * 533.33333)) + (mcnkWidth * mcnkX);
 
