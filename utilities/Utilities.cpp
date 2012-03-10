@@ -146,4 +146,42 @@ namespace Utilities
 
     return charVector;
   }
+
+  int getAdtVersion(std::string & adtName)
+  {
+    std::ifstream adtFile;
+    adtFile.open(adtName, std::ios::binary);
+
+    const int mcinOffset = 0x18;
+    adtFile.seekg(mcinOffset, std::ios::beg);
+
+    int value;
+    adtFile.read((char*)&value, sizeof(int)); 
+
+    adtFile.close();
+
+    if (value == 0)
+      return 4;
+    else 
+      return 3;
+  }
+  
+  int getWdtVersion(std::string & wdtName)
+  {
+    std::ifstream wdtFile;
+    wdtFile.open(wdtName, std::ios::binary);
+
+    const int mainOffset = 0x98;
+    wdtFile.seekg(mainOffset, std::ios::beg);
+
+    int value;
+    wdtFile.read((char*)&value, sizeof(int)); 
+
+    wdtFile.close();
+
+    if (value == 65536)
+      return 0;
+    else
+      return 1;
+  }
 }
