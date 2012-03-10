@@ -13,7 +13,7 @@
 AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 {
   std::ifstream adtFile;
-  adtFile.open(adtFileName, std::ios::binary);
+  adtFile.open(adtFileName.c_str(), std::ios::binary);
 
   const int chunkLettersAndSize = 8;
   int offsetInFile = 0;
@@ -291,7 +291,7 @@ void AdtLk::mh2oToFile()
 AdtLk AdtLk::importMh2o(std::string mh2oName) // TODO : check
 {
   std::ifstream mh2oFile;
-  mh2oFile.open(mh2oName, std::ios::binary);
+  mh2oFile.open(mh2oName.c_str(), std::ios::binary);
   
   Mh2o mh2oFromFile = Mh2o(mh2oFile, 0);
   

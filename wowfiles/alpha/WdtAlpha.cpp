@@ -15,7 +15,7 @@
 WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
 {
   std::ifstream wdtAlphaFile;
-  wdtAlphaFile.open(wdtAlphaName, std::ios::binary);
+  wdtAlphaFile.open(wdtAlphaName.c_str(), std::ios::binary);
 
   const int chunkLettersAndSize = 8;
   const int mdnmOffset = 4;

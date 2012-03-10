@@ -9,7 +9,7 @@
 Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
 {
   std::ifstream wdtFile;
-  wdtFile.open(wdtName, std::ios::binary);
+  wdtFile.open(wdtName.c_str(), std::ios::binary);
 
   const int chunkLettersAndSize = 8;
 

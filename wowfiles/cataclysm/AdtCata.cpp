@@ -13,7 +13,7 @@
 AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
 {
   std::ifstream adtTerrainFile;
-  adtTerrainFile.open(adtFileName, std::ios::binary);
+  adtTerrainFile.open(adtFileName.c_str(), std::ios::binary);
 
   const int chunkLettersAndSize = 8;
   int offsetInFile = 0;
@@ -52,7 +52,7 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
   std::string tex0FileName = getTex0FileName();
 
   std::ifstream adtTex0File;
-  adtTex0File.open(tex0FileName, std::ios::binary);
+  adtTex0File.open(tex0FileName.c_str(), std::ios::binary);
 
   tex0Mver = Chunk(adtTex0File, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + tex0Mver.getGivenSize();

@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+#include <string.h>
 #include "Utilities.h"
 
 namespace Utilities

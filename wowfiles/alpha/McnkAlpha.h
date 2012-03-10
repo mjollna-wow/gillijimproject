@@ -9,6 +9,7 @@
 #include "../Chunk.h"
 #include "McnrAlpha.h"
 #include "../lichking/McnkLk.h"
+#include "../Mcal.h"
 
 class McnkAlpha : public Chunk
 {

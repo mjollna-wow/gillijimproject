@@ -12,7 +12,7 @@
 AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : adtNumber(adtNum)
 {
   std::ifstream wdtAlphaFile;
-  wdtAlphaFile.open(wdtAlphaName, std::ios::binary);
+  wdtAlphaFile.open(wdtAlphaName.c_str(), std::ios::binary);
 
   adtFileName = getAdtFileName(wdtAlphaName);
 
