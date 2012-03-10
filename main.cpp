@@ -14,23 +14,23 @@ int main(int argc, char **argv)
   //std::string adtName = "Northrend_32_21.adt";
   //std::string adtName = "EdEdited_26_29.adt";
   //std::string adtName = "EdEdited_27_29.adt";
-  //std::string adtName = "EdEdited_27_29_water.adt";
-  //AdtLk testAdt = AdtLk(adtName);
+  std::string adtName = "EdEdited_27_29_water.adt";
+  AdtLk testAdt = AdtLk(adtName);
 
   //std::string adtName = "Deephome_29_29.adt"; // --> Cata files don't work.
   //AdtCata testAdt = AdtCata(adtName);
 
   //std::string wdtName = "alpha_dm.wdt";
-  std::string wdtName = "alpha_azsharacrater.wdt";
+  //--> std::string wdtName = "alpha_azsharacrater.wdt";
   //std::string wdtName = "alpha_kalimdor.wdt";
   //std::string wdtName = "alpha_kraull.wdt";
   //std::string wdtName = "alpha_uldaman.wdt";
   //std::string wdtName = "azerothwdtFile00000000.xxx";
   //std::string wdtName = "kalidarFile00000000.xxx";
-  WdtAlpha testWdtAlpha = WdtAlpha(wdtName);
+  //--> WdtAlpha testWdtAlpha = WdtAlpha(wdtName);
 
-  std::vector<int> adtsNums = testWdtAlpha.getExistingAdtsNumbers();
-  std::vector<int> adtsOffsets = testWdtAlpha.getAdtOffsetsInMain();
+  //--> std::vector<int> adtsNums = testWdtAlpha.getExistingAdtsNumbers();
+  //--> std::vector<int> adtsOffsets = testWdtAlpha.getAdtOffsetsInMain();
 
   std::ofstream fileOut;
   fileOut.open("debugfile.txt");
@@ -52,17 +52,25 @@ int main(int argc, char **argv)
   testAdtLk.toFile();*/
   
   //std::string wdtName = "EmeraldDream422.wdt";
-  Wdt testWdt = testWdtAlpha.toWdt();
+  //--> Wdt testWdt = testWdtAlpha.toWdt();
   //AdtLk testAdtLk = testAdt.toAdtLk();
 
-  //fileOut << testAdt;
+  fileOut << testAdt;
   //fileOut << testWdt;
   //fileOut << testWdtAlpha;
   //fileOut << testAdtLk;
 
-  testWdt.toFile();
-  //testAdt.toFile();
-  //testAdtLk.toFile();
+  //--> testWdt.toFile();
+  testAdt.toFile();
+  //testAdtLk.toFile();*/
+
+  /*std::string adtName = argv[1];
+  std::string mh2oName = argv[2];
+  
+  AdtLk inputAdt = AdtLk(adtName);
+  AdtLk outputAdt = inputAdt.importMh2o(mh2oName);
+  
+  outputAdt.toFile();*/
 	
   return 0;
 }

@@ -45,7 +45,7 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
   for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
   {
     offsetInFile = mcnkOffsets[currentMcnk];
-    mcnksAlpha.push_back(McnkAlpha(wdtAlphaFile, offsetInFile));
+    mcnksAlpha.push_back(McnkAlpha(wdtAlphaFile, offsetInFile, adtNumber));
   }
 }
 

@@ -164,6 +164,10 @@ AdtLk::AdtLk(const std::string & name
 
   offsetInFile = offsetInFile + chunkLettersAndSize + modf.getRealSize();
 
+  std::vector<char> mh2oOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+
+  offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize();
+
   std::vector<McnkLk>::const_iterator mcnksIter;
   int currentMcnk;
 
@@ -201,8 +205,6 @@ AdtLk::AdtLk(const std::string & name
     mhdrData.insert(mhdrData.end(), emptyOffset.begin(), emptyOffset.end());
   }
 
-  offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize();
-  std::vector<char> mh2oOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
   if (mh2o.getGivenSize() != 0)
   {
     mhdrData.insert(mhdrData.end(), mh2oOffset.begin(), mh2oOffset.end());
@@ -236,7 +238,7 @@ AdtLk::AdtLk(const std::string & name
 
 void AdtLk::toFile()
 {
-  std::string fileName = adtName.append("test");
+  std::string fileName = adtName.append("_new");
   std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
   outputFile.is_open();
 	
@@ -270,6 +272,53 @@ void AdtLk::toFile()
     outputFile.write((char *)&mtxf.getWholeChunk()[0], sizeof(char) * mtxf.getWholeChunk().size());
 
   outputFile.close();
+}
+
+void AdtLk::mh2oToFile()
+{
+  std::string fileName = adtName; 
+  fileName = fileName.substr(0, fileName.size() - 3);
+  fileName = fileName.append("mh2o");
+  std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
+  outputFile.is_open();
+  
+  if (!mh2o.isEmpty())
+  outputFile.write((char *)&mh2o.getWholeChunk()[0], sizeof(char) * mh2o.getWholeChunk().size());
+  
+  outputFile.close();
+}
+
+AdtLk AdtLk::importMh2o(std::string mh2oName) // TODO : check
+{
+  std::ifstream mh2oFile;
+  mh2oFile.open(mh2oName, std::ios::binary);
+  
+  Mh2o mh2oFromFile = Mh2o(mh2oFile, 0);
+  
+  mh2oFile.close();
+  
+  AdtLk newAdt = AdtLk( adtName
+  , mver
+  , getMhdrFlags()
+  , mh2oFromFile
+  , mtex
+  , mmdx
+  , mmid
+  , mwmo
+  , mwid
+  , mddf
+  , modf
+  , mcnks
+  , mfbo
+  , mtxf
+  );
+  
+  return newAdt;
+}
+
+int AdtLk::getMhdrFlags()
+{
+  return mhdr.getOffset(0);
 }
 
 std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)

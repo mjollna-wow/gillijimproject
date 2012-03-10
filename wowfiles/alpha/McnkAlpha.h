@@ -14,21 +14,22 @@ class McnkAlpha : public Chunk
 {
   public:
 
-    McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile);
-    McnkAlpha(std::string letters, int givenSize, const std::vector<char> &data);
+    McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum);
+    //McnkAlpha(std::string letters, int givenSize, const std::vector<char> &data);
     McnkLk toMcnkLk() const;
 
     friend std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha);
 
   private:
 
+    int adtNumber;
     std::vector<char> mcnkHeader;
     Chunk mcvt;
     McnrAlpha mcnrAlpha;
     Chunk mcly;
     Chunk mcrf;
     Chunk mcsh;
-    Chunk mcal;
+    Mcal mcal;
     Chunk mclq;
 };
 

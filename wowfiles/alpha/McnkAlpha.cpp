@@ -9,8 +9,8 @@
 #include "../lichking/McnrLk.h"
 #include "../../utilities/Utilities.h"
 
-McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdtAlphaFile, offsetInFile)
-{
+McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum) : Chunk(wdtAlphaFile, offsetInFile), adtNumber(adtNum)
+{  
   const int mcnkHeaderSize = 128;
   const int chunkLettersAndSize = 8;
   const int headerStartOffset = offsetInFile;
@@ -54,7 +54,7 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdt
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mcalOffset);
   int mcalSize = Utilities::getIntFromCharVector(mcnkHeader, mcalSizeOffset);
   std::vector<char> mcalData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcalSize);
-  mcal = Chunk("LACM", mcalSize, mcalData);
+  mcal = Mcal("LACM", mcalSize, mcalData);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mclqOffset);
   int mclqSize = Utilities::getIntFromCharVector(mcnkHeader, mcnkSizeOffset) - Utilities::getIntFromCharVector(mcnkHeader, mclqOffset);
@@ -82,107 +82,141 @@ McnkLk McnkAlpha::toMcnkLk() const
   std::vector<char> emptyInt(4);
   std::vector<char> tempData(0);
 
+  // flags
   tempData = Utilities::getCharSubVector(mcnkHeader, 0x00, 4); 
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // flags
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
 
+  // indexX
   tempData = Utilities::getCharSubVector(mcnkHeader, 0x04, 4); 
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // indexX
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   
+  // indexY
   tempData = Utilities::getCharSubVector(mcnkHeader, 0x08, 4); 
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // indexY
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   
+  // nLayers
   tempData = Utilities::getCharSubVector(mcnkHeader, 0x10, 4); 
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // nLayers
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // nDoodadsRefs
+  // nDoodadsRefs
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
 
+  // MCVT
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCVT
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcvt.getRealSize();
 
+  // MCNR
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCNR
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcnrAlpha.getRealSize();
 
+  // MCLY
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCLY
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcly.getRealSize();
 
+  // MCRF
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCRF
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   const int mcshOffset = offsetInHeader + chunkLettersAndSize + mcrf.getRealSize();
   
   offsetInHeader = mcshOffset + chunkLettersAndSize + mcsh.getRealSize();
 
+  // MCAL
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCAL
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcal.getRealSize();
   const int mclqOffset = offsetInHeader;
   
+  // sizeAlpha
   tempData = Utilities::getCharVectorFromInt(mcal.getRealSize() + chunkLettersAndSize);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // sizeAlpha
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   offsetInHeader = mcshOffset;
 
+  // MCSH
   tempData = Utilities::getCharVectorFromInt(mcshOffset);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCSH
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   
+  // sizeShadow
   tempData = Utilities::getCharVectorFromInt(mcsh.getRealSize());
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // sizeShadow
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
 
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // areaID
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // nMapObjRefs
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // holes
+  // areaID
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
+  
+  // nMapObjRefs
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
+  
+  // holes
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
 
+  // ReallyLowQualityTexturingMap ???
   tempData = Utilities::getCharSubVector(mcnkHeader, 0x44, 16); 
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // ReallyLowQualityTexturingMap ???
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
 
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // predTex
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // noEffectDoodad
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // MCSE
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // nSoundEmitters
+  // predTex
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
+  
+  // noEffectDoodad
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
+  
+  // MCSE
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
+  
+  // nSoundEmitters
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
   offsetInHeader = mclqOffset;
 
+  // MCLQ
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // MCLQ
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   
-  tempData = Utilities::getCharVectorFromInt(mclq.getRealSize() + chunkLettersAndSize);  
-  if (mclq.getRealSize() != 0)
+  // sizeLiquid 
+  tempData = Utilities::getCharVectorFromInt(mclq.getRealSize() + chunkLettersAndSize); 
+  if (mclq.getRealSize() != 0) 
   {
-    cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // sizeLiquid
+    cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   }
   else 
   {
     cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end());
   }
 
-  // junk
+  // ------------- junk
 
-  float mcnkWidth = 33.33333333333;
-  int adtX = 34; // TODO : remove this.
-  int adtY = 32; // TODO : remove this.
+  float mcnkWidth = 33.33333;
+  int adtX = adtNumber % 64;
+  int adtY = adtNumber / 64;
 
   const int mcnkX = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x04, 4), 0);
   const int mcnkY = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x08, 4), 0);
 
-  float temp = (((adtX - 32) * 533.333333));// + 266.666666)) + (mcnkWidth * mcnkX);//-(((adtX - 33) * 533.33333)) + (mcnkWidth * mcnkX);
-
+  // PosX
+  float temp = (((adtX - 32) * 533.33333));// + 266.666666)) + (mcnkWidth * mcnkX);//-(((adtX - 33) * 533.33333)) + (mcnkWidth * mcnkX);
   tempData = Utilities::getCharVectorFromFloat(temp);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // PosX
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
 
-  temp = (((adtY - 32) * 533.333333));//(((adtY - 32) * 533.333333 + 266.666666)) + (mcnkWidth * mcnkY);//-(((adtY - 31) * 533.33333)) + (mcnkWidth * mcnkY);
-
+  // PosY
+  temp = (((adtY - 32) * 533.33333));//(((adtY - 32) * 533.333333 + 266.666666)) + (mcnkWidth * mcnkY);//-(((adtY - 31) * 533.33333)) + (mcnkWidth * mcnkY);
   tempData = Utilities::getCharVectorFromFloat(temp);
-  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); // PosY
+  cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
 
-  // end junk
+  // ------------- end junk
 
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // PosZ (better results with 0 here)
+  // PosZ (better results with 0 here)
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
   
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // MCCV
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // MCLV
-  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); // Unused
+  // MCCV
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
+  
+  // MCLV
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
+  
+  // Unused
+  cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
 
-  // more junk
+  // ------------- more junk (tests for mcvt vertices order)
 
   std::vector<char> cMcvtData(0);
   int i;
@@ -193,7 +227,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   }
   Chunk cMcvt = Chunk();
 
-  // end more junk
+  // ------------- end more junk
 
 	McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, emptyChunk, cMcnr, mcly, mcrf, mcsh, mcal, mclq, emptyChunk);
 	return mcnkLk;
@@ -207,12 +241,6 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   os << "------------------------------" << std::endl;
 
   os << "Header : " << std::endl;
-
-  /*int currentHeaderByte;
-  for (currentHeaderByte = 0 ; currentHeaderByte < mcnkAlpha.mcnkHeader.size() ; currentHeaderByte++)
-  {
-    os << "#0x" << std::hex << currentHeaderByte << " : 0x" << int(mcnkAlpha.mcnkHeader[currentHeaderByte]) << std::dec << std::endl;
-  }*/
   
   // TODO : make this look nicer. Somehow.
  

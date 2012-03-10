@@ -32,9 +32,14 @@ class AdtLk
       );
 
     void toFile();
+    void mh2oToFile();
+    AdtLk importMh2o(std::string mh2oName);
+
     friend std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk);
 
   private:
+
+    int getMhdrFlags();
 
     std::string adtName;
     Chunk mver;

@@ -50,6 +50,7 @@ std::ostream & operator<<(std::ostream & os, const Chunk & chunk)
 {
   os << "Chunk letters : " << chunk.letters << std::endl;
   os << "Chunk givenSize : " << chunk.givenSize << std::endl;
+  os << "Real chunk Size : " << chunk.getRealSize() << std::endl;
   os << "------------------------------" << std::endl;
   return os;
 }

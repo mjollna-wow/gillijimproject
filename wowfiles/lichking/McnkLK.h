@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include "../Chunk.h"
+#include "../Mcal.h"
 #include "McnrLk.h"
 
 class McnkLk : public Chunk
@@ -21,7 +22,7 @@ class McnkLk : public Chunk
       , const Chunk & cMcly
       , const Chunk & cMcrf
       , const Chunk & cMcsh
-      , const Chunk & cMcal
+      , const Mcal & cMcal
       , const Chunk & cMclq
       , const Chunk & cMcse
       );
@@ -38,7 +39,7 @@ class McnkLk : public Chunk
     Chunk mcly;
     Chunk mcrf;
     Chunk mcsh;
-    Chunk mcal;
+    Mcal mcal;
     Chunk mclq;
     Chunk mcse;
 };

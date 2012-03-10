@@ -42,6 +42,8 @@ set ( wowfiles
   wowfiles/Chunk.cpp
   wowfiles/Main.h
   wowfiles/Main.cpp
+  wowfiles/Mcal.h
+  wowfiles/Mcal.cpp  
   wowfiles/Mcin.h
   wowfiles/Mcin.cpp
   wowfiles/Mh2o.h

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include "../Chunk.h"
+#include "../Mcal.h"
 #include "McnkLk.h"
 #include "McnrLk.h"
 #include "../../utilities/Utilities.h"
@@ -24,6 +25,7 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
   const int mcrfOffset = 0x020;
   const int mcshOffset = 0x02C;
   const int mcalOffset = 0x024;
+  const int mcalSizeOffset = 0x028;
   const int mclqOffset = 0x060;
   const int mcseOffset = 0x058;
 
@@ -53,7 +55,8 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
   }
 
   offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcalOffset);
-  mcal = Chunk(adtFile, offsetInFile);
+  const int alphaSize = Utilities::getIntFromCharVector(mcnkHeader, mcalSizeOffset) - chunkLettersAndSize; // TODO : something definitiely wrong for Northrend adts.
+  mcal = Mcal(adtFile, offsetInFile, alphaSize);
 
   if (Utilities::getIntFromCharVector(mcnkHeader, mclqOffset) != 0)
   {
@@ -81,7 +84,7 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
     , const Chunk & cMcly
     , const Chunk & cMcrf
     , const Chunk & cMcsh
-    , const Chunk & cMcal
+    , const Mcal & cMcal
     , const Chunk & cMclq
     , const Chunk & cMcse
     ) : mcnkHeader(cMcnkHeader)

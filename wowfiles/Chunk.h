@@ -19,6 +19,7 @@ class Chunk
     bool isEmpty() const;
     std::vector<char> getWholeChunk() const;
     int getOffset(const int offsetInData) const;
+
     friend std::ostream & operator<<(std::ostream & os, const Chunk & chunk);
 
   protected:
