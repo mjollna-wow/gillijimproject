@@ -18,6 +18,9 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
 
   mcnkHeader = Utilities::getCharVectorFromFile(adtFile, offsetInFile, mcnkHeaderSize);
 
+  const int headerFlags = Utilities::getIntFromCharVector(mcnkHeader, 0);
+  const int mcshFlag = 0x1;
+
   const int mcvtOffset = 0x014;
   const int mccvOffset = 0x074;
   const int mcnrOffset = 0x018;
@@ -48,14 +51,14 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
   offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcrfOffset);
   mcrf = Chunk(adtFile, offsetInFile);
 
-  if (Utilities::getIntFromCharVector(mcnkHeader, mcshOffset) != 0)
+  if ((Utilities::getIntFromCharVector(mcnkHeader, mcshOffset) != 0) && Utilities::flagsExist(headerFlags, mcshFlag))
   {
     offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcshOffset);
     mcsh = Chunk(adtFile, offsetInFile);
   }
 
   offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcalOffset);
-  const int alphaSize = Utilities::getIntFromCharVector(mcnkHeader, mcalSizeOffset) - chunkLettersAndSize; // TODO : something definitiely wrong for Northrend adts.
+  const int alphaSize = Utilities::getIntFromCharVector(mcnkHeader, mcalSizeOffset) - chunkLettersAndSize;
   mcal = Mcal(adtFile, offsetInFile, alphaSize);
 
   if (Utilities::getIntFromCharVector(mcnkHeader, mclqOffset) != 0)

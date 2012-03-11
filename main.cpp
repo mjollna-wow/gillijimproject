@@ -15,8 +15,8 @@ int main(int argc, char **argv)
   //std::string adtName = "Northrend_32_21.adt";
   //std::string adtName = "EdEdited_26_29.adt";
   //std::string adtName = "EdEdited_27_29.adt";
-  //std::string adtName = "EdEdited_27_29_water.adt";
-  //AdtLk testAdt = AdtLk(adtName);
+  std::string adtName = "EdEdited_27_29_water.adt";
+  AdtLk testAdt = AdtLk(adtName);
 
   //std::string adtName = "Deephome_29_29.adt"; // --> Cata files don't work.
   //AdtCata testAdt = AdtCata(adtName);
@@ -28,18 +28,15 @@ int main(int argc, char **argv)
   //std::string wdtName = "alpha_uldaman.wdt";
   //std::string wdtName = "azerothwdtFile00000000.xxx";
   //std::string wdtName = "kalidarFile00000000.xxx";
+  //std::string wdtName = "__testWdtLk.wdttest";
   //--> WdtAlpha testWdtAlpha = WdtAlpha(wdtName);
 
-  std::string wdtName = "__testWdtLk.wdttest";
 
   //--> std::vector<int> adtsNums = testWdtAlpha.getExistingAdtsNumbers();
   //--> std::vector<int> adtsOffsets = testWdtAlpha.getAdtOffsetsInMain();
 
-  int version = Utilities::getWdtVersion(wdtName);
-  std::cout << version;
-
-  //std::ofstream fileOut;
-  //fileOut.open("debugfile.txt");
+  std::ofstream fileOut;
+  fileOut.open("debugfile.txt");
 
   /*const int adtTotalNum = adtsNums.size();
   int currentAdt;
@@ -61,14 +58,20 @@ int main(int argc, char **argv)
   //--> Wdt testWdt = testWdtAlpha.toWdt();
   //AdtLk testAdtLk = testAdt.toAdtLk();
 
-  //fileOut << testAdt;
+  fileOut << testAdt;
   //fileOut << testWdt;
   //fileOut << testWdtAlpha;
   //fileOut << testAdtLk;
 
   //--> testWdt.toFile();
-  //testAdt.toFile();
+  testAdt.toFile();
   //testAdtLk.toFile();*/
+
+  int bitmask = 95; // 01011111
+  int flag = 0x40;  // 01000000
+  int flag2 = 0x01; // 00000001
+
+  std::cout << Utilities::flagsExist(bitmask, flag + flag2);
 
   /*std::string adtName = argv[1];
   std::string mh2oName = argv[2];
@@ -77,6 +80,6 @@ int main(int argc, char **argv)
   AdtLk outputAdt = inputAdt.importMh2o(mh2oName);
   
   outputAdt.toFile();*/
-	
+
   return 0;
 }

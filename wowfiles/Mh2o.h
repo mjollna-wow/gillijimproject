@@ -13,7 +13,6 @@ class Mh2o : public Chunk
 	
     Mh2o();
     Mh2o(std::ifstream & adtFile, int offsetInFile);
-    Mh2o(const std::vector<char> & fullAdtData, int fullDataOffset, int sizeAdjustments);
     Mh2o(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
 };
 

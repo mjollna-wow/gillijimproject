@@ -20,6 +20,8 @@ namespace Utilities
   std::vector<char> getCharVectorFromInt(const int someValue);
   std::vector<char> getCharVectorFromFloat(const float someValue);
 
+  bool flagsExist(const int & bitmask, const int & whichFlags);
+
   int getAdtVersion(std::string & adtName);
   int getWdtVersion(std::string & wdtName);
 };

@@ -147,6 +147,11 @@ namespace Utilities
     return charVector;
   }
 
+  bool flagsExist(const int & bitmask, const int & whichFlags)
+  {
+    return (bitmask & whichFlags) == whichFlags;
+  }
+
   int getAdtVersion(std::string & adtName)
   {
     std::ifstream adtFile;
