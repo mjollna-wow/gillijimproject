@@ -10,7 +10,7 @@ Mh2o::Mh2o() : Chunk()
 {
 }
 
-Mh2o::Mh2o(std::ifstream & adtFile, int offsetInFile) // TODO : check !
+Mh2o::Mh2o(std::ifstream & adtFile, int offsetInFile)
 {
   letters = Utilities::getLettersFromFile(adtFile, offsetInFile);
   offsetInFile += 4;

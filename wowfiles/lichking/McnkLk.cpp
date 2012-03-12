@@ -185,36 +185,38 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
 void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
 {
   adtFile.open(adtFileName.c_str(), std::ios::out|std::ios::binary|std::ios::app);
-  adtFile.is_open();
 
-  adtFile.write((char *)&letters[0], sizeof(char) * letters.size());
-  adtFile.write((char *)&givenSize, sizeof(char) * sizeof(givenSize));
+  if (adtFile.is_open())
+  {
+    adtFile.write((char *)&letters[0], sizeof(char) * letters.size());
+    adtFile.write((char *)&givenSize, sizeof(char) * sizeof(givenSize));
 
-  adtFile.write((char *)&mcnkHeader[0], sizeof(char) * mcnkHeader.size());
+    adtFile.write((char *)&mcnkHeader[0], sizeof(char) * mcnkHeader.size());
 
-  adtFile.write((char *)&mcvt.getWholeChunk()[0], sizeof(char) * mcvt.getWholeChunk().size());
+    adtFile.write((char *)&mcvt.getWholeChunk()[0], sizeof(char) * mcvt.getWholeChunk().size());
 
-  if (!mccv.isEmpty())
-    adtFile.write((char *)&mccv.getWholeChunk()[0], sizeof(char) * mccv.getWholeChunk().size());
+    if (!mccv.isEmpty())
+      adtFile.write((char *)&mccv.getWholeChunk()[0], sizeof(char) * mccv.getWholeChunk().size());
 
-  adtFile.write((char *)&mcnr.getWholeChunk()[0], sizeof(char) * mcnr.getWholeChunk().size());
+    adtFile.write((char *)&mcnr.getWholeChunk()[0], sizeof(char) * mcnr.getWholeChunk().size());
 
-  if (!mcly.isEmpty())
-    adtFile.write((char *)&mcly.getWholeChunk()[0], sizeof(char) * mcly.getWholeChunk().size());
+    if (!mcly.isEmpty())
+      adtFile.write((char *)&mcly.getWholeChunk()[0], sizeof(char) * mcly.getWholeChunk().size());
 
-  adtFile.write((char *)&mcrf.getWholeChunk()[0], sizeof(char) * mcrf.getWholeChunk().size());
+    adtFile.write((char *)&mcrf.getWholeChunk()[0], sizeof(char) * mcrf.getWholeChunk().size());
 
-  if (!mcsh.isEmpty())
-    adtFile.write((char *)&mcsh.getWholeChunk()[0], sizeof(char) * mcsh.getWholeChunk().size());
+    if (!mcsh.isEmpty())
+      adtFile.write((char *)&mcsh.getWholeChunk()[0], sizeof(char) * mcsh.getWholeChunk().size());
 
-  if (!mcal.isEmpty())
-    adtFile.write((char *)&mcal.getWholeChunk()[0], sizeof(char) * mcal.getWholeChunk().size());
+    if (!mcal.isEmpty())
+      adtFile.write((char *)&mcal.getWholeChunk()[0], sizeof(char) * mcal.getWholeChunk().size());
 
-  if (!mclq.isEmpty())
-    adtFile.write((char *)&mclq.getWholeChunk()[0], sizeof(char) * mclq.getWholeChunk().size());
+    if (!mclq.isEmpty())
+      adtFile.write((char *)&mclq.getWholeChunk()[0], sizeof(char) * mclq.getWholeChunk().size());
 
-  if (!mcse.isEmpty())
-    adtFile.write((char *)&mcse.getWholeChunk()[0], sizeof(char) * mcse.getWholeChunk().size());
+    if (!mcse.isEmpty())
+      adtFile.write((char *)&mcse.getWholeChunk()[0], sizeof(char) * mcse.getWholeChunk().size());
+  }
 
   adtFile.close();
 }

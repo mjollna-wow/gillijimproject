@@ -41,9 +41,13 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 
   mcin = Mcin(adtFile, offsetInFile); 
 
+  int mh2oSizeInFile = 0;
+
   if (mhdr.getOffset(mh2oOffset) != 0)
   {
+    const int lettersSize = 4;
     offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mh2oOffset);
+    mh2oSizeInFile = Utilities::getIntFromFile(adtFile, offsetInFile + lettersSize);
     mh2o = Mh2o(adtFile, offsetInFile);
   }
 
@@ -87,6 +91,13 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
   {
     offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mtxfOffset);
     mtxf = Chunk(adtFile, offsetInFile);
+  }
+
+  const int GRETSize = 1413829191;
+
+  if (mh2oSizeInFile == GRETSize)
+  {
+    updateMhdrAndMcin();
   }
 }
 
@@ -240,20 +251,22 @@ void AdtLk::toFile()
 {
   std::string fileName = adtName.append("_new");
   std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
-  outputFile.is_open();
-	
-  outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());
-  outputFile.write((char *)&mhdr.getWholeChunk()[0], sizeof(char) * mhdr.getWholeChunk().size());
-  outputFile.write((char *)&mcin.getWholeChunk()[0], sizeof(char) * mcin.getWholeChunk().size());
-  outputFile.write((char *)&mtex.getWholeChunk()[0], sizeof(char) * mtex.getWholeChunk().size());
-  outputFile.write((char *)&mmdx.getWholeChunk()[0], sizeof(char) * mmdx.getWholeChunk().size());
-  outputFile.write((char *)&mmid.getWholeChunk()[0], sizeof(char) * mmid.getWholeChunk().size());
-  outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
-  outputFile.write((char *)&mwid.getWholeChunk()[0], sizeof(char) * mwid.getWholeChunk().size());
-  outputFile.write((char *)&mddf.getWholeChunk()[0], sizeof(char) * mddf.getWholeChunk().size());
-  outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());
-  if (!mh2o.isEmpty())
-    outputFile.write((char *)&mh2o.getWholeChunk()[0], sizeof(char) * mh2o.getWholeChunk().size());
+
+  if (outputFile.is_open())
+  {
+    outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());
+    outputFile.write((char *)&mhdr.getWholeChunk()[0], sizeof(char) * mhdr.getWholeChunk().size());
+    outputFile.write((char *)&mcin.getWholeChunk()[0], sizeof(char) * mcin.getWholeChunk().size());
+    outputFile.write((char *)&mtex.getWholeChunk()[0], sizeof(char) * mtex.getWholeChunk().size());
+    outputFile.write((char *)&mmdx.getWholeChunk()[0], sizeof(char) * mmdx.getWholeChunk().size());
+    outputFile.write((char *)&mmid.getWholeChunk()[0], sizeof(char) * mmid.getWholeChunk().size());
+    outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
+    outputFile.write((char *)&mwid.getWholeChunk()[0], sizeof(char) * mwid.getWholeChunk().size());
+    outputFile.write((char *)&mddf.getWholeChunk()[0], sizeof(char) * mddf.getWholeChunk().size());
+    outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());
+    if (!mh2o.isEmpty())
+      outputFile.write((char *)&mh2o.getWholeChunk()[0], sizeof(char) * mh2o.getWholeChunk().size());
+  }
 
   outputFile.close();
 
@@ -264,36 +277,50 @@ void AdtLk::toFile()
     mcnks[currentMcnk].toFile(outputFile, fileName);
   }
 
-  outputFile.is_open();
+  outputFile.open(fileName.c_str(), std::ios::out|std::ios::binary|std::ios::app);
 
-  if (!mfbo.isEmpty())
-    outputFile.write((char *)&mfbo.getWholeChunk()[0], sizeof(char) * mfbo.getWholeChunk().size());
-  if (!mtxf.isEmpty())
-    outputFile.write((char *)&mtxf.getWholeChunk()[0], sizeof(char) * mtxf.getWholeChunk().size());
+  if (outputFile.is_open())
+  {
+    if (!mfbo.isEmpty())
+      outputFile.write((char *)&mfbo.getWholeChunk()[0], sizeof(char) * mfbo.getWholeChunk().size());
+    if (!mtxf.isEmpty())
+      outputFile.write((char *)&mtxf.getWholeChunk()[0], sizeof(char) * mtxf.getWholeChunk().size());
+  }
 
   outputFile.close();
 }
 
-void AdtLk::mh2oToFile()
+void AdtLk::mh2oToFile() // TODO : Make this better, not only for one kind of chunk out of the blue like this.
 {
   std::string fileName = adtName; 
   fileName = fileName.substr(0, fileName.size() - 3);
   fileName = fileName.append("mh2o");
   std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
-  outputFile.is_open();
   
-  if (!mh2o.isEmpty())
-  outputFile.write((char *)&mh2o.getWholeChunk()[0], sizeof(char) * mh2o.getWholeChunk().size());
+  if (outputFile.is_open())
+  {
+    if (!mh2o.isEmpty())
+    outputFile.write((char *)&mh2o.getWholeChunk()[0], sizeof(char) * mh2o.getWholeChunk().size());
+  }
   
   outputFile.close();
 }
 
-AdtLk AdtLk::importMh2o(std::string mh2oName) // TODO : check
+AdtLk AdtLk::importMh2o(std::string mh2oName)
 {
   std::ifstream mh2oFile;
   mh2oFile.open(mh2oName.c_str(), std::ios::binary);
   
-  Mh2o mh2oFromFile = Mh2o(mh2oFile, 0);
+  Mh2o mh2oFromFile;
+
+  if (mh2oFile.is_open())
+  {
+    mh2oFromFile = Mh2o(mh2oFile, 0);
+  }
+  else 
+  {
+    mh2oFromFile = Mh2o();
+  }
   
   mh2oFile.close();
   
@@ -319,6 +346,11 @@ AdtLk AdtLk::importMh2o(std::string mh2oName) // TODO : check
 int AdtLk::getMhdrFlags()
 {
   return mhdr.getOffset(0);
+}
+
+void AdtLk::updateMhdrAndMcin()
+{
+  // TODO !
 }
 
 std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)

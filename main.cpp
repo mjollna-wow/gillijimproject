@@ -67,12 +67,6 @@ int main(int argc, char **argv)
   testAdt.toFile();
   //testAdtLk.toFile();*/
 
-  int bitmask = 95; // 01011111
-  int flag = 0x40;  // 01000000
-  int flag2 = 0x01; // 00000001
-
-  std::cout << Utilities::flagsExist(bitmask, flag + flag2);
-
   /*std::string adtName = argv[1];
   std::string mh2oName = argv[2];
   

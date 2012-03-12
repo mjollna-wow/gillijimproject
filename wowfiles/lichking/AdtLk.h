@@ -40,6 +40,7 @@ class AdtLk
   private:
 
     int getMhdrFlags();
+    void updateMhdrAndMcin();
 
     std::string adtName;
     Chunk mver;

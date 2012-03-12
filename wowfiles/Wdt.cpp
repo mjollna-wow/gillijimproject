@@ -51,16 +51,18 @@ Wdt::Wdt(const std::string & name
 
 void Wdt::toFile()
 {
-  std::string fileName = wdtName.append("test"); // TODO : remove this line and find another way to rename the file
+  std::string fileName = wdtName.append("_new");
   std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
-  outputFile.is_open();
-	
-  outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());
-  outputFile.write((char *)&mphd.getWholeChunk()[0], sizeof(char) * mphd.getWholeChunk().size());
-  outputFile.write((char *)&main.getWholeChunk()[0], sizeof(char) * main.getWholeChunk().size());
-  outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
-  if (!modf.isEmpty())
-    outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());
+  if (outputFile.is_open())
+  {
+    outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());
+    outputFile.write((char *)&mphd.getWholeChunk()[0], sizeof(char) * mphd.getWholeChunk().size());
+    outputFile.write((char *)&main.getWholeChunk()[0], sizeof(char) * main.getWholeChunk().size());
+    outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
+    
+    if (!modf.isEmpty())
+      outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());
+  }
 	
   outputFile.close();
 }
