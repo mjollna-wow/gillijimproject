@@ -11,8 +11,6 @@ Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
   std::ifstream wdtFile;
   wdtFile.open(wdtName.c_str(), std::ios::binary);
 
-  const int chunkLettersAndSize = 8;
-
   int offsetInFile = 0;
 
   mver = Chunk(wdtFile, offsetInFile);
@@ -24,8 +22,13 @@ Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
   main = Chunk(wdtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + main.getGivenSize();
 
-  mwmo = Chunk(wdtFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mwmo.getGivenSize();
+  const int mphdFlags = mphd.getOffset(0);
+  std::cout << mphdFlags;
+  if (Utilities::flagsExist(mphdFlags, 0x1))
+  {
+    mwmo = Chunk(wdtFile, offsetInFile);
+    offsetInFile = chunkLettersAndSize + offsetInFile + mwmo.getGivenSize();
+  }
 
   if (mwmo.getGivenSize() != 0)
   {
@@ -51,14 +54,17 @@ Wdt::Wdt(const std::string & name
 
 void Wdt::toFile()
 {
-  std::string fileName = wdtName.append("_new");
+  std::string fileName = wdtName;
+  fileName.append("_new");
   std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
   if (outputFile.is_open())
   {
     outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());
     outputFile.write((char *)&mphd.getWholeChunk()[0], sizeof(char) * mphd.getWholeChunk().size());
     outputFile.write((char *)&main.getWholeChunk()[0], sizeof(char) * main.getWholeChunk().size());
-    outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
+
+    if (!mwmo.isEmpty())
+      outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
     
     if (!modf.isEmpty())
       outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());

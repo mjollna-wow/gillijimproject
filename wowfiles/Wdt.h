@@ -5,9 +5,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "WowChunkedFormat.h"
 #include "Chunk.h"
 
-class Wdt
+class Wdt : public WowChunkedFormat
 {
   public:
 

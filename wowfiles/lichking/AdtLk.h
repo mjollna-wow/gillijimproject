@@ -5,12 +5,13 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "../WowChunkedFormat.h"
 #include "../Chunk.h"
 #include "../Mh2o.h"
 #include "../Mcin.h"
 #include "McnkLk.h"
 
-class AdtLk
+class AdtLk : public WowChunkedFormat
 {
   public:
 
@@ -32,6 +33,7 @@ class AdtLk
       );
 
     void toFile();
+
     void mh2oToFile();
     AdtLk importMh2o(std::string mh2oName);
 

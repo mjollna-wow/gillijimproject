@@ -11,7 +11,7 @@
 McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {
   const int mcnkHeaderSize = 128;
-  const int chunkLettersAndSize = 8;
+  const int chunkLettersAndSize = 8; // TODO : find a way to place this somewhere else.
   const int headerStartOffset = offsetInFile;
 
   offsetInFile = chunkLettersAndSize + offsetInFile;

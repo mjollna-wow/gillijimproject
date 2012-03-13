@@ -52,6 +52,8 @@ set ( wowfiles
   wowfiles/Mphd.cpp
   wowfiles/Wdt.h	
   wowfiles/Wdt.cpp		
+  wowfiles/WowChunkedFormat.h	
+  wowfiles/WowChunkedFormat.cpp	  
   )
 	
 set ( alpha_sources

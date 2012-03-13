@@ -4,13 +4,14 @@
 #include <vector>
 #include <string>
 #include "../Wdt.h"
+#include "../WowChunkedFormat.h"
 #include "../Chunk.h"
 #include "MphdAlpha.h"
 #include "MainAlpha.h"
 #include "Monm.h"
 #include "AdtAlpha.h"
 
-class WdtAlpha
+class WdtAlpha : public WowChunkedFormat
 {
   public:
 
@@ -18,6 +19,8 @@ class WdtAlpha
     Wdt toWdt() const;
     std::vector<int> getExistingAdtsNumbers() const;
     std::vector<int> getAdtOffsetsInMain() const; // TODO : change this
+
+    void toFile();
 
     friend std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha);
 

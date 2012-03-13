@@ -8,6 +8,7 @@
 #include "../Wdt.h"
 #include "AdtAlpha.h"
 #include "Monm.h"
+#include "../WowChunkedFormat.h"
 #include "../Chunk.h"
 #include "MainAlpha.h"
 #include "../../utilities/Utilities.h"
@@ -17,7 +18,6 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
   std::ifstream wdtAlphaFile;
   wdtAlphaFile.open(wdtAlphaName.c_str(), std::ios::binary);
 
-  const int chunkLettersAndSize = 8;
   const int mdnmOffset = 4;
   const int monmOffset = 12;
 
@@ -92,6 +92,11 @@ std::vector<int> WdtAlpha::getExistingAdtsNumbers() const
 std::vector<int> WdtAlpha::getAdtOffsetsInMain() const // TODO change this
 {
   return main.getMhdrOffsets();
+}
+
+void WdtAlpha::toFile()
+{
+  // TODO (or not).
 }
 
 std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)

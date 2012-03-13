@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include "../WowChunkedFormat.h"	
 #include "../Chunk.h"	
 #include "AdtAlpha.h"
 #include "../lichking/AdtLk.h"
@@ -15,8 +16,6 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
   wdtAlphaFile.open(wdtAlphaName.c_str(), std::ios::binary);
 
   adtFileName = getAdtFileName(wdtAlphaName);
-
-  const int chunkLettersAndSize = 8;
 	
   const int mcinOffset = 0x0;
   const int mtexOffset = 0x4;
@@ -118,6 +117,11 @@ AdtLk AdtAlpha::toAdtLk() const
 
   AdtLk adtLk(cName, cMver, mhdrFlags, cMh2o, mtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
   return adtLk;
+}
+
+void AdtAlpha::toFile()
+{
+  //TODO (or not ? Doesn't really make sense...).
 }
 
 std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha)

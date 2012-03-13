@@ -15,7 +15,6 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
   std::ifstream adtFile;
   adtFile.open(adtFileName.c_str(), std::ios::binary);
 
-  const int chunkLettersAndSize = 8;
   int offsetInFile = 0;
 
   const int mcinOffset = 4;
@@ -131,7 +130,6 @@ AdtLk::AdtLk(const std::string & name
 {
   const int mhdrFixedSize = 64;
   const int mcinFixedSize = 4096;
-  const int chunkLettersAndSize = 8;
   const int relativeMhdrStart = 0x14;
 
   std::vector<char> mhdrData(0);
@@ -249,7 +247,8 @@ AdtLk::AdtLk(const std::string & name
 
 void AdtLk::toFile()
 {
-  std::string fileName = adtName.append("_new");
+  std::string fileName = adtName;
+  fileName.append("_new");
   std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
 
   if (outputFile.is_open())
@@ -290,20 +289,13 @@ void AdtLk::toFile()
   outputFile.close();
 }
 
-void AdtLk::mh2oToFile() // TODO : Make this better, not only for one kind of chunk out of the blue like this.
+void AdtLk::mh2oToFile() // TODO : Make this better.
 {
   std::string fileName = adtName; 
   fileName = fileName.substr(0, fileName.size() - 3);
   fileName = fileName.append("mh2o");
-  std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
-  
-  if (outputFile.is_open())
-  {
-    if (!mh2o.isEmpty())
-    outputFile.write((char *)&mh2o.getWholeChunk()[0], sizeof(char) * mh2o.getWholeChunk().size());
-  }
-  
-  outputFile.close();
+
+  mh2o.toFile(fileName);
 }
 
 AdtLk AdtLk::importMh2o(std::string mh2oName)
@@ -324,7 +316,7 @@ AdtLk AdtLk::importMh2o(std::string mh2oName)
   
   mh2oFile.close();
   
-  AdtLk newAdt = AdtLk( adtName
+  AdtLk adtWithMh2o = AdtLk( adtName
   , mver
   , getMhdrFlags()
   , mh2oFromFile
@@ -340,7 +332,7 @@ AdtLk AdtLk::importMh2o(std::string mh2oName)
   , mtxf
   );
   
-  return newAdt;
+  return adtWithMh2o;
 }
 
 int AdtLk::getMhdrFlags()

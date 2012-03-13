@@ -15,7 +15,6 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
   std::ifstream adtTerrainFile;
   adtTerrainFile.open(adtFileName.c_str(), std::ios::binary);
 
-  const int chunkLettersAndSize = 8;
   int offsetInFile = 0;
   int currentMcnk;
 
@@ -122,6 +121,11 @@ std::string AdtCata::getObj0FileName() const
   std::string extensionReplacement = "_obj0.adt";
   std::string obj0Name = adtName;
   return obj0Name.replace(obj0Name.size() - 4, obj0Name.size(), extensionReplacement);
+}
+
+void AdtCata::toFile()
+{
+  // TODO.
 }
 
 std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata)
