@@ -7,6 +7,7 @@
 #include "../Chunk.h"
 #include "../Mh2o.h"
 #include "../Mcin.h"
+#include "../Mhdr.h"
 #include "McnkLk.h"
 #include "../../utilities/Utilities.h"
 
@@ -17,58 +18,46 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 
   int offsetInFile = 0;
 
-  const int mcinOffset = 4;
-  const int mh2oOffset = 40;
-  const int mtexOffset = 8;
-  const int mmdxOffset = 12;
-  const int mmidOffset = 16;
-  const int mwmoOffset = 20;
-  const int mwidOffset = 24;
-  const int mddfOffset = 28;
-  const int modfOffset = 32;
-  const int mfboOffset = 36;
-  const int mtxfOffset = 44;
-
   mver = Chunk(adtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + mver.getRealSize();
 
   const int MhdrStartOffset = offsetInFile + chunkLettersAndSize;
 
-  mhdr = Chunk(adtFile, offsetInFile);
-
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mcinOffset);
+  mhdr = Mhdr(adtFile, offsetInFile);
+  
+  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mcinOffset);
 
   mcin = Mcin(adtFile, offsetInFile); 
 
   int mh2oSizeInFile = 0;
 
-  if (mhdr.getOffset(mh2oOffset) != 0)
+  if (mhdr.getOffset(mhdr.mh2oOffset) != 0)
   {
     const int lettersSize = 4;
-    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mh2oOffset);
+    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mh2oOffset);
     mh2oSizeInFile = Utilities::getIntFromFile(adtFile, offsetInFile + lettersSize);
     mh2o = Mh2o(adtFile, offsetInFile);
   }
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mtexOffset);
+  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mtexOffset);
   mtex = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mmdxOffset);
+  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mmdxOffset);
   mmdx = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mmidOffset);
+  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mmidOffset);
   mmid = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mwmoOffset);
+  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mwmoOffset);
   mwmo = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mwidOffset);
+  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mwidOffset);
   mwid = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mddfOffset);
+  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mddfOffset);
   mddf = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + modfOffset);
+  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.modfOffset);
   modf = Chunk(adtFile, offsetInFile);
 
   std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
@@ -80,21 +69,19 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
     mcnks.push_back(McnkLk(adtFile, offsetInFile));
   }
 
-  if (mhdr.getOffset(mfboOffset) != 0)
+  if (mhdr.getOffset(mhdr.mfboOffset) != 0)
   {
-    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mfboOffset);
+    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mfboOffset);
     mfbo = Chunk(adtFile, offsetInFile);
   }
 
-  if (mhdr.getOffset(mtxfOffset) != 0)
+  if (mhdr.getOffset(mhdr.mtxfOffset) != 0)
   {
-    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mtxfOffset);
+    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mtxfOffset);
     mtxf = Chunk(adtFile, offsetInFile);
   }
 
-  const int GRETSize = 1413829191;
-
-  if (mh2oSizeInFile == GRETSize)
+  if (checkIntegrity() == false)
   {
     updateMhdrAndMcin();
   }
@@ -242,7 +229,7 @@ AdtLk::AdtLk(const std::string & name
     mhdrData.push_back(0);
   }
 
-  mhdr = Chunk("RDHM", mhdrFixedSize, mhdrData);
+  mhdr = Mhdr("RDHM", mhdrFixedSize, mhdrData);
 }
 
 void AdtLk::toFile()
@@ -287,6 +274,24 @@ void AdtLk::toFile()
   }
 
   outputFile.close();
+}
+
+int AdtLk::getMcnksWholeSize()
+{
+	int wholeSize = 0;
+	
+	int currentMcnk;
+	for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; currentMcnk++)
+	{
+		wholeSize = wholeSize + mcnks[currentMcnk].getWholeSize();
+	}
+		
+	return wholeSize;
+}
+
+bool AdtLk::checkIntegrity()
+{
+  return checkMhdrOffsets() && checkMcinOffsets(); // TODO : the check is better than nothing but incomplete... Make it better.
 }
 
 void AdtLk::mh2oToFile() // TODO : Make this better.
@@ -335,29 +340,6 @@ AdtLk AdtLk::importMh2o(std::string mh2oName)
   return adtWithMh2o;
 }
 
-int AdtLk::getMhdrFlags()
-{
-  return mhdr.getOffset(0);
-}
-
-int AdtLk::getMcnksWholeSize()
-{
-	int wholeSize = 0;
-	
-	int currentMcnk;
-	for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; currentMcnk++)
-	{
-		wholeSize = wholeSize + mcnks[currentMcnk].getWholeSize();
-	}
-		
-	return wholeSize;
-}
-
-void AdtLk::updateMhdrAndMcin()
-{
-  // TODO !
-}
-
 std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)
 {
   os << adtLk.adtName << std::endl;
@@ -388,4 +370,130 @@ std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)
   os << adtLk.mtxf;
 
   return os;
+}
+
+int AdtLk::getMhdrFlags()
+{
+  return mhdr.getOffset(0);
+}
+
+bool AdtLk::checkMcinOffsets()
+{
+  std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
+
+  int mcnkFoundOffset = chunkLettersAndSize + mver.getRealSize()
+      + chunkLettersAndSize + mhdr.getRealSize()
+      + chunkLettersAndSize + mcin.getRealSize()
+	    + chunkLettersAndSize + mtex.getRealSize()
+	    + chunkLettersAndSize + mmdx.getRealSize()
+	    + chunkLettersAndSize + mmid.getRealSize()
+	    + chunkLettersAndSize + mwmo.getRealSize()
+	    + chunkLettersAndSize + mwid.getRealSize()
+	    + chunkLettersAndSize + mddf.getRealSize()
+	    + chunkLettersAndSize + modf.getRealSize()
+      ;
+  
+  if (!mh2o.isEmpty()) 
+    mcnkFoundOffset = mcnkFoundOffset + chunkLettersAndSize + mh2o.getRealSize();
+
+  int currentMcnk;
+  bool offsetsOk = true;
+
+  for (currentMcnk = 0 ; currentMcnk < mcnkOffsets.size() ; currentMcnk++)
+  {
+    offsetsOk = mcnkOffsets[currentMcnk] == mcnkFoundOffset;
+    
+    if (!offsetsOk) 
+      break;
+    
+    mcnkFoundOffset = mcnkFoundOffset + chunkLettersAndSize + mcnks[currentMcnk].getRealSize();
+  }
+
+  return offsetsOk;
+}
+
+bool AdtLk::checkMhdrOffsets()
+{
+	const int mhdrStartOffset = 0x14;
+	
+	int offsetInFile = chunkLettersAndSize + mver.getRealSize()
+	+ chunkLettersAndSize + mhdr.getRealSize()
+	;
+
+	bool offsetsOk = true;
+	
+	offsetsOk = mhdr.getOffset(mhdr.mcinOffset) + mhdrStartOffset == offsetInFile;
+  if (offsetsOk == false) return offsetsOk;
+	offsetInFile = offsetInFile + chunkLettersAndSize + mcin.getRealSize();
+		
+	offsetsOk = mhdr.getOffset(mhdr.mtexOffset) + mhdrStartOffset == offsetInFile;
+  if (offsetsOk == false) return offsetsOk;
+  offsetInFile = offsetInFile + chunkLettersAndSize + mtex.getRealSize();
+		
+	offsetsOk = mhdr.getOffset(mhdr.mmdxOffset) + mhdrStartOffset == offsetInFile;
+  if (offsetsOk == false) return offsetsOk;
+	offsetInFile = offsetInFile + chunkLettersAndSize + mmdx.getRealSize();
+		
+	offsetsOk = mhdr.getOffset(mhdr.mmidOffset) + mhdrStartOffset == offsetInFile;
+  if (offsetsOk == false) return offsetsOk;
+	offsetInFile = offsetInFile + chunkLettersAndSize + mmid.getRealSize();
+		
+	offsetsOk = mhdr.getOffset(mhdr.mwmoOffset) + mhdrStartOffset == offsetInFile;
+  if (offsetsOk == false) return offsetsOk;
+	offsetInFile = offsetInFile + chunkLettersAndSize + mwmo.getRealSize();
+		
+	offsetsOk = mhdr.getOffset(mhdr.mwidOffset) + mhdrStartOffset == offsetInFile;
+  if (offsetsOk == false) return offsetsOk;
+	offsetInFile = offsetInFile + chunkLettersAndSize + mwid.getRealSize();
+		
+	offsetsOk = mhdr.getOffset(mhdr.mddfOffset) + mhdrStartOffset == offsetInFile;
+  if (offsetsOk == false) return offsetsOk;
+	offsetInFile = offsetInFile + chunkLettersAndSize + mddf.getRealSize();
+		
+	offsetsOk = mhdr.getOffset(mhdr.modfOffset) + mhdrStartOffset == offsetInFile;
+  if (offsetsOk == false) return offsetsOk;
+	offsetInFile = offsetInFile + chunkLettersAndSize + modf.getRealSize();
+
+  if (!mh2o.isEmpty())
+  {
+    offsetsOk = mhdr.getOffset(mhdr.mh2oOffset) + mhdrStartOffset == offsetInFile;		
+    if (offsetsOk == false) return offsetsOk;
+    offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize() + getMcnksWholeSize();
+  }
+  else
+  {
+    offsetsOk = mhdr.getOffset(mhdr.mh2oOffset) == 0;		
+    if (offsetsOk == false) return offsetsOk;
+    offsetInFile = offsetInFile + getMcnksWholeSize();
+  }
+
+  if (!mfbo.isEmpty())
+  {
+		offsetsOk = mhdr.getOffset(mhdr.mfboOffset) + mhdrStartOffset == offsetInFile;
+    if (offsetsOk == false) return offsetsOk;
+		offsetInFile = offsetInFile + chunkLettersAndSize + mfbo.getRealSize();
+  }
+  else
+  {
+    offsetsOk = mhdr.getOffset(mhdr.mfboOffset) == 0;		
+    if (offsetsOk == false) return offsetsOk;
+  }
+
+  if (!mtxf.isEmpty())
+  {
+		offsetsOk = mhdr.getOffset(mhdr.mtxfOffset) + mhdrStartOffset == offsetInFile;
+    if (offsetsOk == false) return offsetsOk;
+  }
+  else
+  {
+    offsetsOk = mhdr.getOffset(mhdr.mtxfOffset) == 0;	
+    if (offsetsOk == false) return offsetsOk;
+  }
+
+  return offsetsOk;
+}
+
+void AdtLk::updateMhdrAndMcin()
+{
+  std::cout << "Offsets are wrong !";
 }

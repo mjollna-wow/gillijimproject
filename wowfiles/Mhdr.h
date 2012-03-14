@@ -1,5 +1,5 @@
-#ifndef MPHD_H_
-#define MPHD_H_
+#ifndef MHDR_H_
+#define MHDR_H_
 
 #include <vector>
 #include <string>
@@ -14,6 +14,19 @@ class Mhdr : public Chunk
     Mhdr();
     Mhdr(std::ifstream & adtFile, int offsetInFile);
     Mhdr(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
+
+    // TODO : I'm not sure about keeping this *at all* -_-
+    static const int mcinOffset = 4;
+	  static const int mh2oOffset = 40;
+	  static const int mtexOffset = 8;
+	  static const int mmdxOffset = 12;
+	  static const int mmidOffset = 16;
+	  static const int mwmoOffset = 20;
+	  static const int mwidOffset = 24;
+	  static const int mddfOffset = 28;
+	  static const int modfOffset = 32;
+	  static const int mfboOffset = 36;
+	  static const int mtxfOffset = 44;
 };
 
 #endif

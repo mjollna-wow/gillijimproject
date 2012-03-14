@@ -9,6 +9,7 @@
 #include "../Chunk.h"
 #include "../Mh2o.h"
 #include "../Mcin.h"
+#include "../Mhdr.h"
 #include "McnkLk.h"
 
 class AdtLk : public WowChunkedFormat
@@ -34,6 +35,7 @@ class AdtLk : public WowChunkedFormat
 
     void toFile();
     int getMcnksWholeSize();
+    bool checkIntegrity();
 
     void mh2oToFile();
     AdtLk importMh2o(std::string mh2oName);
@@ -43,11 +45,13 @@ class AdtLk : public WowChunkedFormat
   private:
 
     int getMhdrFlags();
+    bool checkMcinOffsets();
+    bool checkMhdrOffsets();
     void updateMhdrAndMcin();
 
     std::string adtName;
     Chunk mver;
-    Chunk mhdr;
+    Mhdr mhdr;
     Mcin mcin;
     Mh2o mh2o;
     Chunk mtex;

@@ -13,7 +13,6 @@ int main(int argc, char **argv)
   //std::string adtName = "Azeroth_30_43.adt"; 
   //std::string adtName = "Northrend_27_22.adt";
   //std::string adtName = "Northrend_32_21.adt";
-  //std::string adtName = "EdEdited_26_29.adt";
   //std::string adtName = "EdEdited_27_29.adt";
   std::string adtName = "EdEdited_27_29_water.adt";
   AdtLk testAdt = AdtLk(adtName);
