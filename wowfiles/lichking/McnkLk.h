@@ -28,6 +28,7 @@ class McnkLk : public Chunk
       );
 
     void toFile(std::ofstream & adtFile, std::string & adtFileName);
+    int getWholeSize();
 
     friend std::ostream & operator<<(std::ostream & os, const McnkLk & mcnkLk);
 

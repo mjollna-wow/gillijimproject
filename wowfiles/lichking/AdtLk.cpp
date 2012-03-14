@@ -340,6 +340,19 @@ int AdtLk::getMhdrFlags()
   return mhdr.getOffset(0);
 }
 
+int AdtLk::getMcnksWholeSize()
+{
+	int wholeSize = 0;
+	
+	int currentMcnk;
+	for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; currentMcnk++)
+	{
+		wholeSize = wholeSize + mcnks[currentMcnk].getWholeSize();
+	}
+		
+	return wholeSize;
+}
+
 void AdtLk::updateMhdrAndMcin()
 {
   // TODO !

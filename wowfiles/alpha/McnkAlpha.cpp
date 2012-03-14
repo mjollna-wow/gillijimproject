@@ -60,8 +60,6 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum)
   int mclqSize = Utilities::getIntFromCharVector(mcnkHeader, mcnkSizeOffset) - Utilities::getIntFromCharVector(mcnkHeader, mclqOffset);
   std::vector<char> mclqData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mclqSize);
   mclq = Chunk("QLCM", mclqSize, mclqData);
-
-  // TODO (later) : constructor doesn't fill McnkAlpha.data
 }
 
 McnkLk McnkAlpha::toMcnkLk() const

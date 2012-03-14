@@ -33,6 +33,7 @@ class AdtLk : public WowChunkedFormat
       );
 
     void toFile();
+    int getMcnksWholeSize();
 
     void mh2oToFile();
     AdtLk importMh2o(std::string mh2oName);

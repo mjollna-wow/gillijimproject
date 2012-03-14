@@ -11,7 +11,7 @@
 McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {
   const int mcnkHeaderSize = 128;
-  const int chunkLettersAndSize = 8; // TODO : find a way to place this somewhere else.
+  const int chunkLettersAndSize = 8; // TODO : find a better place for this (Chunk deriving from WowChunkedFormat ?).
   const int headerStartOffset = offsetInFile;
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
@@ -72,8 +72,6 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
     offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcseOffset);
     mcse = Chunk(adtFile, offsetInFile);
   }
-
-  // TODO (later) : constructor doesn't fill McnkLk.data
 }
 
 McnkLk::McnkLk(std::string letters, int givenSize, const std::vector<char> &data) : Chunk(letters, givenSize, data)
@@ -219,6 +217,11 @@ void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
   }
 
   adtFile.close();
+}
+
+int McnkLk::getWholeSize()
+{
+  return getWholeChunk().size();
 }
 
 std::ostream & operator<<(std::ostream & os, const McnkLk & mcnkLk)
