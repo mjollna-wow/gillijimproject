@@ -48,8 +48,10 @@ set ( wowfiles
   wowfiles/Mcin.cpp
   wowfiles/Mh2o.h
   wowfiles/Mh2o.cpp
+  wowfiles/Mhdr.h
+  wowfiles/Mhdr.cpp
   wowfiles/Mphd.h
-  wowfiles/Mphd.cpp
+  wowfiles/Mphd.cpp  
   wowfiles/Wdt.h	
   wowfiles/Wdt.cpp		
   wowfiles/WowChunkedFormat.h	

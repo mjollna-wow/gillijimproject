@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "Wdt.h"
+#include "Mphd.h"
 #include "Chunk.h"
 #include "../utilities/Utilities.h"
 
@@ -16,15 +17,13 @@ Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
   mver = Chunk(wdtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mver.getGivenSize();
 
-  mphd = Chunk(wdtFile, offsetInFile);
+  mphd = Mphd(wdtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mphd.getGivenSize();
 
   main = Chunk(wdtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + main.getGivenSize();
 
-  const int mphdFlags = mphd.getOffset(0);
-  std::cout << mphdFlags;
-  if (Utilities::flagsExist(mphdFlags, 0x1))
+  if (Utilities::flagsExist(mphd.getFlags(), 0x1))
   {
     mwmo = Chunk(wdtFile, offsetInFile);
     offsetInFile = chunkLettersAndSize + offsetInFile + mwmo.getGivenSize();
@@ -39,7 +38,7 @@ Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
 
 Wdt::Wdt(const std::string & name
   , const Chunk & cMver
-  , const Chunk & cMphd
+  , const Mphd & cMphd
   , const Chunk & cMain
   , const Chunk & cMwmo
   , const Chunk & cModf

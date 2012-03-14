@@ -14,6 +14,8 @@ class Mphd : public Chunk
     Mphd();
     Mphd(std::ifstream & adtFile, int offsetInFile);
     Mphd(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
+
+    int getFlags();
 };
 
 #endif

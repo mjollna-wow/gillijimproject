@@ -7,6 +7,7 @@
 #include <fstream>
 #include "WowChunkedFormat.h"
 #include "Chunk.h"
+#include "Mphd.h"
 
 class Wdt : public WowChunkedFormat
 {
@@ -15,7 +16,7 @@ class Wdt : public WowChunkedFormat
     Wdt(const std::string & wdtFileName);
     Wdt(const std::string & name
       , const Chunk & cMver
-      , const Chunk & cMphd
+      , const Mphd & cMphd
       , const Chunk & cMain
       , const Chunk & cMwmo
       , const Chunk & cModf
@@ -27,7 +28,7 @@ class Wdt : public WowChunkedFormat
 
     std::string wdtName;
     Chunk mver;
-    Chunk mphd;
+    Mphd mphd;
     Chunk main;
     Chunk mwmo;
     Chunk modf;

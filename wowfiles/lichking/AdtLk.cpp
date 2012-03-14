@@ -30,7 +30,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
   const int mtxfOffset = 44;
 
   mver = Chunk(adtFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mver.getRealSize();
+  offsetInFile = chunkLettersAndSize + mver.getRealSize();
 
   const int MhdrStartOffset = offsetInFile + chunkLettersAndSize;
 
@@ -352,13 +352,14 @@ std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)
   os << adtLk.mver;
   os << adtLk.mhdr;
   os << adtLk.mcin;
-  os << adtLk.mh2o;
   os << adtLk.mtex;
   os << adtLk.mmdx;
   os << adtLk.mmid;
+  os << adtLk.mwmo;
   os << adtLk.mwid;
   os << adtLk.mddf;
   os << adtLk.modf;
+  os << adtLk.mh2o;
 
   std::vector<McnkLk>::const_iterator mcnksIter;
   int i = 0;

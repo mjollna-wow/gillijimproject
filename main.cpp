@@ -21,7 +21,7 @@ int main(int argc, char **argv)
   //std::string adtName = "Deephome_29_29.adt"; // --> Cata files don't work.
   //AdtCata testAdt = AdtCata(adtName);
 
-  std::string wdtName = "Kalimdor.wdt";
+  //std::string wdtName = "Kalimdor.wdt";
   //std::string wdtName = "alpha_dm.wdt";
   //std::string wdtName = "alpha_azsharacrater.wdt";
   //std::string wdtName = "alpha_kalimdor.wdt";
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
   //std::string wdtName = "__testWdtLk.wdttest";
   //--> WdtAlpha testWdtAlpha = WdtAlpha(wdtName);
 
-  Wdt testWdt = Wdt(wdtName);
+  //Wdt testWdt = Wdt(wdtName);
 
   //--> std::vector<int> adtsNums = testWdtAlpha.getExistingAdtsNumbers();
   //--> std::vector<int> adtsOffsets = testWdtAlpha.getAdtOffsetsInMain();
@@ -65,12 +65,12 @@ int main(int argc, char **argv)
   //fileOut << testWdtAlpha;
   //fileOut << testAdtLk;
 
-  testWdt.toFile();
   testAdt.toFile();
   testAdt.mh2oToFile();
-  //testAdtLk.toFile();*/
 
-  std::string test = "test";
+  //testWdt.toFile();
+
+  //testAdtLk.toFile();*/
 
   /*std::string adtName = argv[1];
   std::string mh2oName = argv[2];
