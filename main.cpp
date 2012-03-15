@@ -15,6 +15,7 @@ int main(int argc, char **argv)
   //std::string adtName = "Northrend_32_21.adt";
   //std::string adtName = "EdEdited_27_29.adt";
   std::string adtName = "EdEdited_27_29_water.adt";
+  //std::string adtName = "MonasteryInstances_30_30.adt";
   AdtLk testAdt = AdtLk(adtName);
 
   //std::string adtName = "Deephome_29_29.adt"; // --> Cata files don't work.
@@ -59,13 +60,22 @@ int main(int argc, char **argv)
   //--> Wdt testWdt = testWdtAlpha.toWdt();
   //AdtLk testAdtLk = testAdt.toAdtLk();
 
-  fileOut << testAdt;
   //fileOut << testWdt;
   //fileOut << testWdtAlpha;
   //fileOut << testAdtLk;
 
+  //fileOut << testAdt;
   testAdt.toFile();
   testAdt.mh2oToFile();
+
+  std::string reimportAdtName = "MonasteryInstances_30_30_for_import.adt";
+  //std::string reimportAdtName = "Northrend_27_22.adt";
+  //std::string reimportAdtName = "EdEdited_27_29_water.adt";
+  AdtLk reimportAdt = AdtLk(reimportAdtName);
+
+  reimportAdt.importMh2o("EdEdited_27_29_water.mh2o");
+  //fileOut << reimportAdt;
+  reimportAdt.toFile();
 
   //testWdt.toFile();
 

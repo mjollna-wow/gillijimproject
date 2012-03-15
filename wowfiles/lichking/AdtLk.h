@@ -17,7 +17,7 @@ class AdtLk : public WowChunkedFormat
   public:
 
     AdtLk(const std::string & adtFile);
-    AdtLk(const std::string & name
+    AdtLk(const std::string & name // <-- TODO : that constructor has a problem.
       , const Chunk & cMver
       , const int & mhdrFlags
       , const Mh2o & cMh2o
@@ -38,7 +38,7 @@ class AdtLk : public WowChunkedFormat
     bool checkIntegrity();
 
     void mh2oToFile();
-    AdtLk importMh2o(std::string mh2oName);
+    void importMh2o(std::string mh2oName);
 
     friend std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk);
 

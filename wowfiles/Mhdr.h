@@ -15,6 +15,8 @@ class Mhdr : public Chunk
     Mhdr(std::ifstream & adtFile, int offsetInFile);
     Mhdr(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
 
+    int getFlags();
+
     // TODO : I'm not sure about keeping this *at all* -_-
     static const int mcinOffset = 4;
 	  static const int mh2oOffset = 40;
