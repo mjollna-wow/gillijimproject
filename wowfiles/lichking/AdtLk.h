@@ -34,6 +34,7 @@ class AdtLk : public WowChunkedFormat
       );
 
     void toFile();
+    void toFile(std::string fileName);
     int getMcnksWholeSize();
     bool checkIntegrity();
 

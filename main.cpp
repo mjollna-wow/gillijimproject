@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 
   reimportAdt.importMh2o("EdEdited_27_29_water.mh2o");
   //fileOut << reimportAdt;
-  reimportAdt.toFile();
+  reimportAdt.toFile("test");
 
   //testWdt.toFile();
 

@@ -130,6 +130,12 @@ void AdtLk::toFile()
 {
   std::string fileName = adtName;
   fileName.append("_new");
+
+  toFile(fileName);
+}
+
+void AdtLk::toFile(std::string fileName)
+{
   std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
 
   if (outputFile.is_open())
@@ -370,7 +376,6 @@ void AdtLk::updateMhdrAndMcin()
 {
   const int mhdrFixedSize = 64;
   const int mcinFixedSize = 4096;
-  const int chunkLettersAndSize = 8;
   const int relativeMhdrStart = 0x14;
 
   std::vector<char> mhdrData(0);
@@ -416,7 +421,7 @@ void AdtLk::updateMhdrAndMcin()
 
   std::vector<char> mh2oOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
 
-  offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize();
+  offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize(); // problem if no mh2o at all ?
 
   std::vector<McnkLk>::const_iterator mcnksIter;
   int currentMcnk;
@@ -432,7 +437,7 @@ void AdtLk::updateMhdrAndMcin()
 
     offsetInFile = offsetInFile + mcnks[currentMcnk].getWholeChunk().size();
 
-    std::vector<char> mnckSize = Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize());
+    std::vector<char> mnckSize = Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize); 
     mcinData.insert(mcinData.end(), mnckSize.begin(), mnckSize.end());
  
     for (throughMcinUnusedBytes = 0 ; throughMcinUnusedBytes < unusedMcinBytes ; throughMcinUnusedBytes++)
@@ -465,7 +470,7 @@ void AdtLk::updateMhdrAndMcin()
     mhdrData.insert(mhdrData.end(), emptyOffset.begin(), emptyOffset.end());
   }
 
-  offsetInFile = offsetInFile + chunkLettersAndSize + mtxf.getRealSize();
+  offsetInFile = offsetInFile + chunkLettersAndSize + mfbo.getRealSize(); 
   std::vector<char> mtxfOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
   if (mtxf.getGivenSize() != 0)
   {
