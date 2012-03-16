@@ -8,37 +8,18 @@
 
 namespace Utilities
 {
+  template<typename T, typename U = T> T get (const std::vector<char>& data, std::size_t offset)
+  {
+    return T (*reinterpret_cast<const U*> (&data[offset]));
+  }
   int getIntFromCharVector(const std::vector<char> & someData, int offset)
   {
-    std::vector<char>::const_iterator dataIter;
-    char curValues[4];
-    int i = 0;
-
-    for (dataIter = someData.begin() + offset ; dataIter != someData.begin() + offset + 4 ; ++dataIter)
-    {
-      curValues[i] = *dataIter;
-      i++;
-    }
-    memcpy(&offset, curValues, sizeof(offset));
-
-    return offset;
+    return get<int> (someData, offset);
   }
 
   float getFloatFromCharVector(const std::vector<char> & someData, int offset)
   {
-    float result;
-    std::vector<char>::const_iterator dataIter;
-    char curValues[4];
-    int i = 0;
-
-    for (dataIter = someData.begin() + offset ; dataIter != someData.begin() + offset + 4 ; ++dataIter)
-    {
-      curValues[i] = *dataIter;
-      i++;
-    }
-    memcpy(&result, curValues, sizeof(result));
-
-    return result;
+    return get<float> (someData, offset);
   }
 
   std::string getStringFromCharVector(const std::vector<char> & someData, int start, int stringLength)

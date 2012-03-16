@@ -10,7 +10,7 @@ set ( wowfiles
   wowfiles/alpha/AdtAlpha.h
   wowfiles/alpha/AdtAlpha.cpp
   wowfiles/alpha/WdtAlpha.h
-  wowfiles/alpha/WdtAlpha.cpp	 
+  wowfiles/alpha/WdtAlpha.cpp
   wowfiles/alpha/McnkAlpha.h
   wowfiles/alpha/McnkAlpha.cpp
   wowfiles/alpha/McnrAlpha.h
@@ -18,10 +18,10 @@ set ( wowfiles
   wowfiles/alpha/Monm.h
   wowfiles/alpha/Monm.cpp
   wowfiles/alpha/MphdAlpha.h
-  wowfiles/alpha/MphdAlpha.cpp	
+  wowfiles/alpha/MphdAlpha.cpp
   wowfiles/alpha/MainAlpha.h
-  wowfiles/alpha/MainAlpha.cpp	
-	
+  wowfiles/alpha/MainAlpha.cpp
+
   wowfiles/cataclysm/AdtCata.h
   wowfiles/cataclysm/AdtCata.cpp
   wowfiles/cataclysm/McnkCata.h
@@ -30,20 +30,20 @@ set ( wowfiles
   wowfiles/cataclysm/McnkCataObj0.cpp
   wowfiles/cataclysm/McnkCataTex0.h
   wowfiles/cataclysm/McnkCataTex0.cpp
-	
+
   wowfiles/lichking/AdtLk.h
   wowfiles/lichking/AdtLk.cpp
   wowfiles/lichking/McnkLk.h
   wowfiles/lichking/McnkLk.cpp
   wowfiles/lichking/McnrLk.h
-  wowfiles/lichking/McnrLk.cpp	
+  wowfiles/lichking/McnrLk.cpp
 
   wowfiles/Chunk.h
   wowfiles/Chunk.cpp
   wowfiles/Main.h
   wowfiles/Main.cpp
   wowfiles/Mcal.h
-  wowfiles/Mcal.cpp  
+  wowfiles/Mcal.cpp
   wowfiles/Mcin.h
   wowfiles/Mcin.cpp
   wowfiles/Mh2o.h
@@ -51,18 +51,20 @@ set ( wowfiles
   wowfiles/Mhdr.h
   wowfiles/Mhdr.cpp
   wowfiles/Mphd.h
-  wowfiles/Mphd.cpp  
-  wowfiles/Wdt.h	
-  wowfiles/Wdt.cpp		
-  wowfiles/WowChunkedFormat.h	
-  wowfiles/WowChunkedFormat.cpp	  
+  wowfiles/Mphd.cpp
+  wowfiles/Wdt.h
+  wowfiles/Wdt.cpp
+  wowfiles/WowChunkedFormat.h
+  wowfiles/WowChunkedFormat.cpp
   )
-	
+
 set ( alpha_sources
   main.cpp
   )
 
-add_executable( gillijimproject 
+include_directories (${CMAKE_CURRENT_SOURCE_DIR})
+
+add_executable( gillijimproject
   ${utilities}
   ${wowfiles}
   ${alpha_sources}

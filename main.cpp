@@ -2,21 +2,21 @@
 #include <string>
 #include <cstring>
 #include <fstream>
-#include "wowfiles/Wdt.h"
-#include "wowfiles/alpha/WdtAlpha.h"
-#include "wowfiles/lichking/AdtLk.h"
-#include "wowfiles/cataclysm/AdtCata.h"
-#include "utilities/Utilities.h"
+#include <wowfiles/Wdt.h>
+#include <wowfiles/alpha/WdtAlpha.h>
+#include <wowfiles/lichking/AdtLk.h>
+#include <wowfiles/cataclysm/AdtCata.h>
+#include <utilities/Utilities.h>
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-  //std::string adtName = "Azeroth_30_43.adt"; 
+  //std::string adtName = "Azeroth_30_43.adt";
   //std::string adtName = "Northrend_27_22.adt";
   //std::string adtName = "Northrend_32_21.adt";
   //std::string adtName = "EdEdited_27_29.adt";
-  std::string adtName = "EdEdited_27_29_water.adt";
+  const std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName = "MonasteryInstances_30_30.adt";
-  AdtLk testAdt = AdtLk(adtName);
+  AdtLk testAdt (adtName);
 
   //std::string adtName = "Deephome_29_29.adt"; // --> Cata files don't work.
   //AdtCata testAdt = AdtCata(adtName);
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
   //--> std::vector<int> adtsOffsets = testWdtAlpha.getAdtOffsetsInMain();
 
   std::ofstream fileOut;
-  fileOut.open("debugfile.txt");
+  fileOut.open ("debugfile.txt");
 
   /*const int adtTotalNum = adtsNums.size();
   int currentAdt;
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
   fileOut << testAdt;
   AdtLk testAdtLk = testAdt.toAdtLk();
   testAdtLk.toFile();*/
-  
+
   //std::string wdtName = "EmeraldDream422.wdt";
   //--> Wdt testWdt = testWdtAlpha.toWdt();
   //AdtLk testAdtLk = testAdt.toAdtLk();
@@ -68,14 +68,14 @@ int main(int argc, char **argv)
   testAdt.toFile();
   testAdt.mh2oToFile();
 
-  std::string reimportAdtName = "MonasteryInstances_30_30_for_import.adt";
+  const std::string reimportAdtName ("MonasteryInstances_30_30_for_import.adt");
   //std::string reimportAdtName = "Northrend_27_22.adt";
   //std::string reimportAdtName = "EdEdited_27_29_water.adt";
-  AdtLk reimportAdt = AdtLk(reimportAdtName);
+  AdtLk reimportAdt (reimportAdtName);
 
-  reimportAdt.importMh2o("EdEdited_27_29_water.mh2o");
+  reimportAdt.importMh2o ("EdEdited_27_29_water.mh2o");
   //fileOut << reimportAdt;
-  reimportAdt.toFile("test");
+  reimportAdt.toFile ("test");
 
   //testWdt.toFile();
 
@@ -83,10 +83,10 @@ int main(int argc, char **argv)
 
   /*std::string adtName = argv[1];
   std::string mh2oName = argv[2];
-  
+
   AdtLk inputAdt = AdtLk(adtName);
   AdtLk outputAdt = inputAdt.importMh2o(mh2oName);
-  
+
   outputAdt.toFile();*/
 
   return 0;
