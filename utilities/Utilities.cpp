@@ -13,14 +13,14 @@ namespace Utilities
     std::vector<char>::const_iterator dataIter;
     char curValues[4];
     int i = 0;
-	
+
     for (dataIter = someData.begin() + offset ; dataIter != someData.begin() + offset + 4 ; ++dataIter)
     {
       curValues[i] = *dataIter;
       i++;
     }
     memcpy(&offset, curValues, sizeof(offset));
-	
+
     return offset;
   }
 
@@ -30,21 +30,21 @@ namespace Utilities
     std::vector<char>::const_iterator dataIter;
     char curValues[4];
     int i = 0;
-	
+
     for (dataIter = someData.begin() + offset ; dataIter != someData.begin() + offset + 4 ; ++dataIter)
     {
       curValues[i] = *dataIter;
       i++;
     }
     memcpy(&result, curValues, sizeof(result));
-	
+
     return result;
   }
 
   std::string getStringFromCharVector(const std::vector<char> & someData, int start, int stringLength)
   {
     std::string letters = "";
-	
+
     std::vector<char>::const_iterator adtIter;
     for (adtIter = someData.begin() + start ; adtIter != someData.begin() + start + stringLength ; ++adtIter)
     {
@@ -109,7 +109,7 @@ namespace Utilities
     for (i = 0 ; i < length ; i++)
     {
       data.push_back(dataBuffer[i]);
-    } 
+    }
 
     delete[] dataBuffer;
 
@@ -155,32 +155,32 @@ namespace Utilities
   int getAdtVersion(std::string & adtName)
   {
     std::ifstream adtFile;
-    adtFile.open(adtName, std::ios::binary);
+    adtFile.open(adtName.c_str(), std::ios::binary);
 
     const int mcinOffset = 0x18;
     adtFile.seekg(mcinOffset, std::ios::beg);
 
     int value;
-    adtFile.read((char*)&value, sizeof(int)); 
+    adtFile.read((char*)&value, sizeof(int));
 
     adtFile.close();
 
     if (value == 0)
       return 4;
-    else 
+    else
       return 3;
   }
-  
+
   int getWdtVersion(std::string & wdtName)
   {
     std::ifstream wdtFile;
-    wdtFile.open(wdtName, std::ios::binary);
+    wdtFile.open(wdtName.c_str(), std::ios::binary);
 
     const int mainOffset = 0x98;
     wdtFile.seekg(mainOffset, std::ios::beg);
 
     int value;
-    wdtFile.read((char*)&value, sizeof(int)); 
+    wdtFile.read((char*)&value, sizeof(int));
 
     wdtFile.close();
 
