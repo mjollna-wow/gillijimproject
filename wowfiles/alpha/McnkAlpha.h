@@ -1,15 +1,15 @@
-#ifndef MCNKALPHA_H_
-#define MCNKALPHA_H_
+#ifndef _WOWFILES_ALPHA_MCNKALPHA_H_
+#define _WOWFILES_ALPHA_MCNKALPHA_H_
 
 #include <vector>
 #include <iostream>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../Chunk.h"
-#include "McnrAlpha.h"
-#include "../lichking/McnkLk.h"
-#include "../Mcal.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/McnrAlpha.h>
+#include <wowfiles/lichking/McnkLk.h>
+#include <wowfiles/Mcal.h>
 
 class McnkAlpha : public Chunk
 {

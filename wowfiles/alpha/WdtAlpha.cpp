@@ -3,15 +3,14 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "WdtAlpha.h"
-#include "MphdAlpha.h"
-#include "../Wdt.h"
-#include "AdtAlpha.h"
-#include "Monm.h"
-#include "../WowChunkedFormat.h"
-#include "../Chunk.h"
-#include "MainAlpha.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/alpha/WdtAlpha.h>
+#include <wowfiles/alpha/MphdAlpha.h>
+#include <wowfiles/Wdt.h>
+#include <wowfiles/alpha/AdtAlpha.h>
+#include <wowfiles/alpha/Monm.h>
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/MainAlpha.h>
+#include <utilities/Utilities.h>
 
 WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
 {

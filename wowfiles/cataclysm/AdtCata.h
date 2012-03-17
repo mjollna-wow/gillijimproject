@@ -1,15 +1,15 @@
-#ifndef ADTCATA_H_
-#define ADTCATA_H_
+#ifndef _WOWFILES_CATACLYSM_ADTCATA_H_
+#define _WOWFILES_CATACLYSM_ADTCATA_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../WowChunkedFormat.h"
-#include "../Chunk.h"
-#include "McnkCata.h"
-#include "McnkCataTex0.h"
-#include "McnkCataObj0.h"
+#include <wowfiles/WowChunkedFormat.h>
+#include <wowfiles/Chunk.h>
+#include <wowfiles/cataclysm/McnkCata.h>
+#include <wowfiles/cataclysm/McnkCataTex0.h>
+#include <wowfiles/cataclysm/McnkCataObj0.h>
 
 class AdtCata : public WowChunkedFormat
 {

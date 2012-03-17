@@ -2,9 +2,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
-#include "Mcin.h"
-#include "../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mcin.h>
+#include <utilities/Utilities.h>
 
 Mcin::Mcin() : Chunk()
 {

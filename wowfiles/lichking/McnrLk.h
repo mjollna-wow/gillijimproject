@@ -1,11 +1,11 @@
-#ifndef MCNRLK_H_
-#define MCNRLK_H_
+#ifndef _WOWFILES_LICHKING_MCNRLK_H_
+#define _WOWFILES_LICHKING_MCNRLK_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class McnrLk : public Chunk
 {

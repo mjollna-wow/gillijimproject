@@ -2,10 +2,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "Wdt.h"
-#include "Mphd.h"
-#include "Chunk.h"
-#include "../utilities/Utilities.h"
+#include <wowfiles/Wdt.h>
+#include <wowfiles/Mphd.h>
+#include <wowfiles/Chunk.h>
+#include <utilities/Utilities.h>
 
 Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
 {

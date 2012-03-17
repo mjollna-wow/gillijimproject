@@ -1,11 +1,11 @@
-#ifndef MHDR_H_
-#define MHDR_H_
+#ifndef _WOWFILES_MHDR_H_
+#define _WOWFILES_MHDR_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class Mhdr : public Chunk
 {
@@ -17,7 +17,6 @@ class Mhdr : public Chunk
 
     int getFlags();
 
-    // TODO : I'm not sure about keeping this *at all* -_-
     static const int mcinOffset = 4;
     static const int mh2oOffset = 40;
     static const int mtexOffset = 8;

@@ -1,5 +1,5 @@
-#ifndef CHUNK_H_
-#define CHUNK_H_
+#ifndef _WOWFILES_CHUNK_H_
+#define _WOWFILES_CHUNK_H_
 
 #include <vector>
 #include <iostream>

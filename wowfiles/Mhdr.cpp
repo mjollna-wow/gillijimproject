@@ -2,8 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
-#include "Mhdr.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mhdr.h>
 
 Mhdr::Mhdr() : Chunk()
 {

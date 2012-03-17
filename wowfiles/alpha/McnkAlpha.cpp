@@ -3,11 +3,11 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
-#include "McnkAlpha.h"
-#include "McnrAlpha.h"
-#include "../lichking/McnrLk.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/McnkAlpha.h>
+#include <wowfiles/alpha/McnrAlpha.h>
+#include <wowfiles/lichking/McnrLk.h>
+#include <utilities/Utilities.h>
 
 McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum) : Chunk(wdtAlphaFile, offsetInFile), adtNumber(adtNum)
 {  

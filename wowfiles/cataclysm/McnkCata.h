@@ -1,12 +1,12 @@
-#ifndef MCNKCATA_H_
-#define MCNKCATA_H_
+#ifndef _WOWFILES_CATACLYSM_MCNKCATA_H_
+#define _WOWFILES_CATACLYSM_MCNKCATA_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <iostream>
-#include "../Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class McnkCata : public Chunk
 {

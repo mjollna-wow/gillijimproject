@@ -2,9 +2,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
-#include "McnkCataObj0.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/cataclysm/McnkCataObj0.h>
+#include <utilities/Utilities.h>
 
 McnkCataObj0::McnkCataObj0(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {

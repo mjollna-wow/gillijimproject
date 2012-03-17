@@ -1,15 +1,15 @@
-#ifndef WDT_ALPHA_H_
-#define WDT_ALPHA_H_
+#ifndef _WOWFILES_ALPHA_WDT_ALPHA_H_
+#define _WOWFILES_ALPHA_WDT_ALPHA_H_
 
 #include <vector>
 #include <string>
-#include "../Wdt.h"
-#include "../WowChunkedFormat.h"
-#include "../Chunk.h"
-#include "MphdAlpha.h"
-#include "MainAlpha.h"
-#include "Monm.h"
-#include "AdtAlpha.h"
+#include <wowfiles/Wdt.h>
+#include <wowfiles/WowChunkedFormat.h>
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/MphdAlpha.h>
+#include <wowfiles/alpha/MainAlpha.h>
+#include <wowfiles/alpha/Monm.h>
+#include <wowfiles/alpha/AdtAlpha.h>
 
 class WdtAlpha : public WowChunkedFormat
 {

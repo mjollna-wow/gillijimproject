@@ -2,9 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
-#include "Main.h"
-#include "../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Main.h>
 
 Main::Main() : Chunk()
 {

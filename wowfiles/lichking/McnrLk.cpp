@@ -2,9 +2,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
-#include "McnrLk.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/lichking/McnrLk.h>
+#include <utilities/Utilities.h>
 
 McnrLk::McnrLk() : Chunk()
 {

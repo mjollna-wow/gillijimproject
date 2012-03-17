@@ -2,9 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
-#include "Monm.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/Monm.h>
 
 Monm::Monm() : Chunk()
 {

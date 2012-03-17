@@ -2,9 +2,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
-#include "MphdAlpha.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/MphdAlpha.h>
+#include <utilities/Utilities.h>
 
 MphdAlpha::MphdAlpha() : Chunk()
 {
@@ -28,7 +28,7 @@ Mphd MphdAlpha::toMphd() const
 {
   std::vector<char> mphdLkData(32);
 
-  // I don't think other flags are necessary for alpha to lk... ?
+  // Note : I don't think other flags are necessary for alpha to lk... ?
   if (isWmoBased())
     mphdLkData[0] = 1;
 

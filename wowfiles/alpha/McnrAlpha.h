@@ -1,12 +1,12 @@
-#ifndef MCNRALPHA_H_
-#define MCNRALPHA_H_
+#ifndef _WOWFILES_ALPHA_MCNRALPHA_H_
+#define _WOWFILES_ALPHA_MCNRALPHA_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../lichking/McnrLk.h"
-#include "../Chunk.h"
+#include <wowfiles/lichking/McnrLk.h>
+#include <wowfiles/Chunk.h>
 
 class McnrAlpha : public Chunk
 {

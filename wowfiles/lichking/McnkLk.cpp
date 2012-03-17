@@ -2,11 +2,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../Chunk.h"
-#include "../Mcal.h"
-#include "McnkLk.h"
-#include "McnrLk.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mcal.h>
+#include <wowfiles/lichking/McnkLk.h>
+#include <wowfiles/lichking/McnrLk.h>
+#include <utilities/Utilities.h>
 
 McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {

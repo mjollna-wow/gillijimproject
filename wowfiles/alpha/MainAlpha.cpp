@@ -2,10 +2,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
-#include "MainAlpha.h"
-#include "../Main.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/MainAlpha.h>
+#include <wowfiles/Main.h>
+#include <utilities/Utilities.h>
 
 MainAlpha::MainAlpha() : Chunk()
 {

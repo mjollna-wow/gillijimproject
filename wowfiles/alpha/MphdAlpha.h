@@ -1,12 +1,12 @@
-#ifndef MPHD_ALPHA_H_
-#define MPHD_ALPHA_H_
+#ifndef _WOWFILES_ALPHA_MPHDALPHA_H_
+#define _WOWFILES_ALPHA_MPHDALPHA_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
-#include "../Mphd.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mphd.h>
 
 class MphdAlpha : public Chunk
 {

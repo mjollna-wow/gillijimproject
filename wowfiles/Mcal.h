@@ -1,10 +1,11 @@
-#ifndef MCAL_H_
-#define MCAL_H_
+#ifndef _WOWFILES_MCAL_H_
+#define _WOWFILES_MCAL_H_
 
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <wowfiles/Chunk.h>
 
 class Mcal : public Chunk
 {

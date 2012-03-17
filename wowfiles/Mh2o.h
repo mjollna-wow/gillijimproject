@@ -1,11 +1,11 @@
-#ifndef MH2O_H_
-#define MH2O_H_
+#ifndef _WOWFILES_MH2O_H_
+#define _WOWFILES_MH2O_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class Mh2o : public Chunk
 {

@@ -13,8 +13,9 @@ int main (int argc, char **argv)
   //std::string adtName = "Azeroth_30_43.adt";
   //std::string adtName = "Northrend_27_22.adt";
   //std::string adtName = "Northrend_32_21.adt";
-  //std::string adtName = "EdEdited_27_29.adt";
-  const std::string adtName ("EdEdited_27_29_water.adt");
+  std::string adtName = "EdEdited_27_29.adt";
+  //const std::string adtName ("azeroth_32_35.adt");
+  //const std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName = "MonasteryInstances_30_30.adt";
   AdtLk testAdt (adtName);
 
@@ -64,18 +65,18 @@ int main (int argc, char **argv)
   //fileOut << testWdtAlpha;
   //fileOut << testAdtLk;
 
-  //fileOut << testAdt;
+  fileOut << testAdt;
   testAdt.toFile();
-  testAdt.mh2oToFile();
+  //testAdt.mh2oToFile();
 
-  const std::string reimportAdtName ("MonasteryInstances_30_30_for_import.adt");
+  //const std::string reimportAdtName ("MonasteryInstances_30_30_for_import.adt");
   //std::string reimportAdtName = "Northrend_27_22.adt";
   //std::string reimportAdtName = "EdEdited_27_29_water.adt";
-  AdtLk reimportAdt (reimportAdtName);
+  //AdtLk reimportAdt (reimportAdtName);
 
-  reimportAdt.importMh2o ("EdEdited_27_29_water.mh2o");
+  //reimportAdt.importMh2o ("EdEdited_27_29_water.mh2o");
   //fileOut << reimportAdt;
-  reimportAdt.toFile ("test");
+  //reimportAdt.toFile ("test");
 
   //testWdt.toFile();
 

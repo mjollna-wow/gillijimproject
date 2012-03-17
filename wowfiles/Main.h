@@ -1,11 +1,11 @@
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef _WOWFILES_MAIN_H_
+#define _WOWFILES_MAIN_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class Main : public Chunk
 {

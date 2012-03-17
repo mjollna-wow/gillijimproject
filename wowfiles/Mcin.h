@@ -1,11 +1,11 @@
-#ifndef MCIN_H_
-#define MCIN_H_
+#ifndef _WOWFILES_MCIN_H_
+#define _WOWFILES_MCIN_H_
 
 #include <vector>
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class Mcin : public Chunk
 {

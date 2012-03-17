@@ -2,9 +2,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
-#include "Mh2o.h"
-#include "../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mh2o.h>
+#include <utilities/Utilities.h>
 
 Mh2o::Mh2o() : Chunk()
 {

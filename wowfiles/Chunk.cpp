@@ -2,8 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
-#include "../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <utilities/Utilities.h>
 
 Chunk::Chunk() : letters("NONE"), givenSize(0)
 {

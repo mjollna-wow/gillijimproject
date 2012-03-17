@@ -1,13 +1,13 @@
-#ifndef MCNKLK_H_
-#define MCNKLK_H_
+#ifndef _WOWFILES_LICHKING_MCNKLK_H_
+#define _WOWFILES_LICHKING_MCNKLK_H_
 
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../Chunk.h"
-#include "../Mcal.h"
-#include "McnrLk.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mcal.h>
+#include <wowfiles/lichking/McnrLk.h>
 
 class McnkLk : public Chunk
 {

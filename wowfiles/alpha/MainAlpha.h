@@ -1,12 +1,12 @@
-#ifndef MAIN_ALPHA_H_
-#define MAIN_ALPHA_H_
+#ifndef _WOWFILES_ALPHA_MAINALPHA_H_
+#define _WOWFILES_ALPHA_MAINALPHA_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
-#include "../Main.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Main.h>
 
 class MainAlpha : public Chunk
 {

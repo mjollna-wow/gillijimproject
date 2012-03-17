@@ -3,13 +3,13 @@
 #include <cstring>
 #include <string>
 #include <fstream>
-#include "AdtLk.h"
-#include "../Chunk.h"
-#include "../Mh2o.h"
-#include "../Mcin.h"
-#include "../Mhdr.h"
-#include "McnkLk.h"
-#include "../../utilities/Utilities.h"
+#include <wowfiles/lichking/AdtLk.h>
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mh2o.h>
+#include <wowfiles/Mcin.h>
+#include <wowfiles/Mhdr.h>
+#include <wowfiles/lichking/McnkLk.h>
+#include <utilities/Utilities.h>
 
 AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 {

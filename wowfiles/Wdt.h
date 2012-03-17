@@ -1,13 +1,13 @@
-#ifndef WDT_H_
-#define WDT_H_
+#ifndef _WOWFILES_WDT_H_
+#define _WOWFILES_WDT_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "WowChunkedFormat.h"
-#include "Chunk.h"
-#include "Mphd.h"
+#include <wowfiles/WowChunkedFormat.h>
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mphd.h>
 
 class Wdt : public WowChunkedFormat
 {

@@ -3,12 +3,11 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "../WowChunkedFormat.h"  
-#include "../Chunk.h"  
-#include "AdtAlpha.h"
-#include "../lichking/AdtLk.h"
-#include "McnkAlpha.h"
-#include "../Mcin.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/AdtAlpha.h>
+#include <wowfiles/lichking/AdtLk.h>
+#include <wowfiles/alpha/McnkAlpha.h>
+#include <wowfiles/Mcin.h>
 
 AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : adtNumber(adtNum)
 {

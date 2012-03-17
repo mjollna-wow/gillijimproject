@@ -1,11 +1,11 @@
-#ifndef MCNKCATATEX0_H_
-#define MCNKCATATEX0_H_
+#ifndef _WOWFILES_CATACLYSM_MCNKCATATEX0_H_
+#define _WOWFILES_CATACLYSM_MCNKCATATEX0_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class McnkCataTex0 : public Chunk
 {

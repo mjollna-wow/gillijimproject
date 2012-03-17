@@ -1,15 +1,15 @@
-#ifndef ADT_ALPHA_H_
-#define ADT_ALPHA_H_
+#ifndef _WOWFILES_ALPHA_ADTALPHA_H_
+#define _WOWFILES_ALPHA_ADTALPHA_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../WowChunkedFormat.h"
-#include "../Chunk.h"
-#include "McnkAlpha.h"
-#include "../lichking/AdtLk.h"
-#include "../Mcin.h"
+#include <wowfiles/WowChunkedFormat.h>
+#include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/McnkAlpha.h>
+#include <wowfiles/lichking/AdtLk.h>
+#include <wowfiles/Mcin.h>
 
 class AdtAlpha : public WowChunkedFormat
 {

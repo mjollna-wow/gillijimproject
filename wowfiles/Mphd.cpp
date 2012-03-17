@@ -2,8 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
-#include "Mphd.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mphd.h>
 
 Mphd::Mphd() : Chunk()
 {

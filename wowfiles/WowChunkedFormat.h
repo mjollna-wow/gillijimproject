@@ -1,11 +1,11 @@
-#ifndef WOWCHUNKEDFORMAT_H_
-#define WOWCHUNKEDFORMAT_H_
+#ifndef _WOWFILES_WOWCHUNKEDFORMAT_H_
+#define _WOWFILES_WOWCHUNKEDFORMAT_H_
 
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class WowChunkedFormat
 {

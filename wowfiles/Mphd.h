@@ -1,11 +1,11 @@
-#ifndef MPHD_H_
-#define MPHD_H_
+#ifndef _WOWFILES_MPHD_H_
+#define _WOWFILES_MPHD_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class Mphd : public Chunk
 {

@@ -1,11 +1,11 @@
-#ifndef MONM_H_
-#define MONM_H_
+#ifndef _WOWFILES_ALPHA_MONM_H_
+#define _WOWFILES_ALPHA_MONM_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Chunk.h"
+#include <wowfiles/Chunk.h>
 
 class Monm : public Chunk
 {

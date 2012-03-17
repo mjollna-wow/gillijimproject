@@ -3,12 +3,12 @@
 #include <vector>
 #include <cstring>
 #include <string>
-#include "AdtCata.h"
-#include "../Chunk.h"
-#include "../Mh2o.h"
-#include "McnkCata.h"
-#include "McnkCataTex0.h"
-#include "McnkCataObj0.h"
+#include <wowfiles/cataclysm/AdtCata.h>
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mh2o.h>
+#include <wowfiles/cataclysm/McnkCata.h>
+#include <wowfiles/cataclysm/McnkCataTex0.h>
+#include <wowfiles/cataclysm/McnkCataObj0.h>
 
 AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
 {

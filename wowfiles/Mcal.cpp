@@ -2,9 +2,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Chunk.h"
-#include "Mcal.h"
-#include "../utilities/Utilities.h"
+#include <wowfiles/Chunk.h>
+#include <wowfiles/Mcal.h>
+#include <utilities/Utilities.h>
 
 Mcal::Mcal() : Chunk()
 {
