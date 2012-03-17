@@ -8,10 +8,11 @@
 
 namespace Utilities
 {
-  template<typename T, typename U = T> T get (const std::vector<char>& data, std::size_t offset)
+  template<typename T> T get (const std::vector<char>& data, std::size_t offset)
   {
-    return T (*reinterpret_cast<const U*> (&data[offset]));
+    return T (*reinterpret_cast<const T*> (&data[offset]));
   }
+
   int getIntFromCharVector(const std::vector<char> & someData, int offset)
   {
     return get<int> (someData, offset);
