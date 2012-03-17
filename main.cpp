@@ -44,7 +44,7 @@ int main (int argc, char **argv)
   /*const int adtTotalNum = adtsNums.size();
   int currentAdt;
 
-  for (currentAdt = 0 ; currentAdt < adtTotalNum ; currentAdt++)
+  for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
     AdtAlpha testAdt = AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]);
     AdtLk testAdtLk = testAdt.toAdtLk();

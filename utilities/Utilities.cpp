@@ -57,7 +57,7 @@ namespace Utilities
     adtFile.read(lettersBuffer, 4);
 
     int i;
-    for (i = 0 ; i < sizeof(lettersBuffer) ; i++)
+    for (i = 0 ; i < sizeof(lettersBuffer) ; ++i)
     {
       letters = letters + lettersBuffer[i];
     }
@@ -88,7 +88,7 @@ namespace Utilities
     adtFile.read(dataBuffer, length);
 
     int i;
-    for (i = 0 ; i < length ; i++)
+    for (i = 0 ; i < length ; ++i)
     {
       data.push_back(dataBuffer[i]);
     }
@@ -121,7 +121,7 @@ namespace Utilities
     unsigned char * tempStorage = (unsigned char *)&someValue;
 
     int i;
-    for (i = 0 ; i < sizeof(someValue) ; i++)
+    for (i = 0 ; i < sizeof(someValue) ; ++i)
     {
       charVector.push_back(tempStorage[i]);
     }

@@ -33,7 +33,7 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
     offsetInFile = chunkLettersAndSize + offsetInFile + mh2o.getRealSize();
   }
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     terrainMcnks.push_back(McnkCata(adtTerrainFile, offsetInFile));
     offsetInFile = chunkLettersAndSize + offsetInFile + terrainMcnks[currentMcnk].getGivenSize();
@@ -62,7 +62,7 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
   mtex = Chunk(adtTex0File, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mtex.getGivenSize();
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     tex0Mcnks.push_back(McnkCataTex0(adtTex0File, offsetInFile));
     offsetInFile = chunkLettersAndSize + offsetInFile + tex0Mcnks[currentMcnk].getGivenSize();
@@ -102,7 +102,7 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
   modf = Chunk(adtObj0File, offsetInFile);
   offsetInFile = offsetInFile + modf.getGivenSize();
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     obj0Mcnks[currentMcnk] = McnkCataObj0(adtObj0File, offsetInFile);
     offsetInFile = offsetInFile + obj0Mcnks[currentMcnk].getGivenSize();
@@ -143,7 +143,7 @@ std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata)
   {
     os << "MCNK #" << i << " : " << std::endl;
     os << *mcnksIter;
-    i++;
+    ++i;
   }
 
   os << adtCata.mfbo;
@@ -162,7 +162,7 @@ std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata)
   {
     os << "MCNK (tex0) #" << i << " : " << std::endl;
     os << *mcnkstex0Iter;
-    i++;
+    ++i;
   }
 
   /*os << adtCata.mtxf;*/
@@ -184,7 +184,7 @@ std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata)
   {
     os << "MCNK (obj0) #" << i << " : " << std::endl;
     os << *mcnksIter;
-    i++;
+    ++i;
   }*/
 
   return os;

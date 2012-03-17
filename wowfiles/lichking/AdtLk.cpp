@@ -63,7 +63,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
   std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
   int currentMcnk;
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     offsetInFile = mcnkOffsets[currentMcnk];
     mcnks.push_back(McnkLk(adtFile, offsetInFile));
@@ -158,7 +158,7 @@ void AdtLk::toFile(std::string fileName)
 
   int currentMcnk;
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     mcnks[currentMcnk].toFile(outputFile, fileName);
   }
@@ -181,7 +181,7 @@ int AdtLk::getMcnksWholeSize()
   int wholeSize = 0;
   
   int currentMcnk;
-  for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; ++currentMcnk)
   {
     wholeSize = wholeSize + mcnks[currentMcnk].getWholeSize();
   }
@@ -242,7 +242,7 @@ std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)
   {
     os << "MCNK #" << i << " : " << std::endl;
     os << *mcnksIter;
-    i++;
+    ++i;
   }
 
   os << adtLk.mfbo;
@@ -278,7 +278,7 @@ bool AdtLk::checkMcinOffsets()
   int currentMcnk;
   bool offsetsOk = true;
 
-  for (currentMcnk = 0 ; currentMcnk < mcnkOffsets.size() ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < mcnkOffsets.size() ; ++currentMcnk)
   {
     offsetsOk = mcnkOffsets[currentMcnk] == mcnkFoundOffset;
     
@@ -430,7 +430,7 @@ void AdtLk::updateMhdrAndMcin()
   const int unusedMcinBytes = 8;
   int throughMcinUnusedBytes;
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     std::vector<char> mcnkOffset = Utilities::getCharVectorFromInt(offsetInFile);
     mcinData.insert(mcinData.end(), mcnkOffset.begin(), mcnkOffset.end());
@@ -440,7 +440,7 @@ void AdtLk::updateMhdrAndMcin()
     std::vector<char> mnckSize = Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize); 
     mcinData.insert(mcinData.end(), mnckSize.begin(), mnckSize.end());
  
-    for (throughMcinUnusedBytes = 0 ; throughMcinUnusedBytes < unusedMcinBytes ; throughMcinUnusedBytes++)
+    for (throughMcinUnusedBytes = 0 ; throughMcinUnusedBytes < unusedMcinBytes ; ++throughMcinUnusedBytes)
     {
       mcinData.push_back(0);
     }
@@ -484,7 +484,7 @@ void AdtLk::updateMhdrAndMcin()
   const int unused = 16;
   int fillUnused;
 
-  for(fillUnused = 0 ; fillUnused < unused ; fillUnused++)
+  for(fillUnused = 0 ; fillUnused < unused ; ++fillUnused)
   {
     mhdrData.push_back(0);
   }

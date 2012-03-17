@@ -25,7 +25,7 @@ std::vector<int> Mcin::getMcnkOffsets() const
   int currentMcinOffset = 0;
   int mcnkNumber;
   
-  for (mcnkNumber = 0 ; mcnkNumber < 256 ; mcnkNumber++)
+  for (mcnkNumber = 0 ; mcnkNumber < 256 ; ++mcnkNumber)
   {
     mcnkOffsets[mcnkNumber] = Utilities::getIntFromCharVector(data, currentMcinOffset);
     currentMcinOffset = currentMcinOffset + otherMcinDataSize;
@@ -51,7 +51,7 @@ std::ostream & operator<<(std::ostream & os, const Mcin & mcin)
       os << *mcnkOffsetsIter << std::endl;
     else
       os << *mcnkOffsetsIter << "\t";
-    i++;
+    ++i;
   }
 
   os << "------------------------------" << std::endl;

@@ -219,7 +219,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   std::vector<char> cMcvtData(0);
   int i;
 
-  for (i = mcvt.getRealSize() ; i < 0 ; i++)
+  for (i = mcvt.getRealSize() ; i < 0 ; ++i)
   {
     //cMcvtData.push_back();
   }

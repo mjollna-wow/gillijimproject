@@ -40,7 +40,7 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
   std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
   int currentMcnk;
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     offsetInFile = mcnkOffsets[currentMcnk];
     mcnksAlpha.push_back(McnkAlpha(wdtAlphaFile, offsetInFile, adtNumber));
@@ -104,7 +104,7 @@ AdtLk AdtAlpha::toAdtLk() const
   std::vector<McnkLk> cMcnks;
   int currentMcnk;
 
-  for (currentMcnk = 0 ; currentMcnk < 256 ; currentMcnk++)
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     cMcnks.push_back(mcnksAlpha[currentMcnk].toMcnkLk());
   }
@@ -140,7 +140,7 @@ std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha)
   {
     os << "MCNK #" << i << " : " << std::endl;
     os << *mcnksIter;
-    i++;
+    ++i;
   }
 
   return os;

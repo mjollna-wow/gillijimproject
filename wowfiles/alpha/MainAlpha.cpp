@@ -26,7 +26,7 @@ std::vector<int> MainAlpha::getMhdrOffsets() const
   int currentMainOffset = 0;
   int mhdrNumber;
 
-  for (mhdrNumber = 0 ; mhdrNumber < 4096 ; mhdrNumber++)
+  for (mhdrNumber = 0 ; mhdrNumber < 4096 ; ++mhdrNumber)
   {
     mhdrOffsets[mhdrNumber] = Utilities::getIntFromCharVector(data, currentMainOffset);
     currentMainOffset = currentMainOffset + otherMainDataSize;
@@ -74,7 +74,7 @@ std::ostream & operator<<(std::ostream & os, const MainAlpha & main)
       os << *mhdrOffsetsIter << std::endl;
     else
       os << *mhdrOffsetsIter << "\t";
-    i++;
+    ++i;
   }
 
   os << "------------------------------" << std::endl;
