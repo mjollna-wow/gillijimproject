@@ -24,7 +24,7 @@ std::vector<int> Mcin::getMcnkOffsets() const
   int otherMcinDataSize = 16;
   int currentMcinOffset = 0;
   int mcnkNumber;
-	
+  
   for (mcnkNumber = 0 ; mcnkNumber < 256 ; mcnkNumber++)
   {
     mcnkOffsets[mcnkNumber] = Utilities::getIntFromCharVector(data, currentMcinOffset);
@@ -36,24 +36,24 @@ std::vector<int> Mcin::getMcnkOffsets() const
 
 std::ostream & operator<<(std::ostream & os, const Mcin & mcin)
 {
-	os << "Chunk letters : " << mcin.letters << std::endl;
-	os << "Chunk givenSize : " << mcin.givenSize << std::endl;
-	os << "MCNK Offsets in MCIN : " << std::endl;
+  os << "Chunk letters : " << mcin.letters << std::endl;
+  os << "Chunk givenSize : " << mcin.givenSize << std::endl;
+  os << "MCNK Offsets in MCIN : " << std::endl;
 
-	std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
+  std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
 
-	std::vector<int>::iterator mcnkOffsetsIter;
-	int i = 1;
+  std::vector<int>::iterator mcnkOffsetsIter;
+  int i = 1;
 
-	for (mcnkOffsetsIter = mcnkOffsets.begin() ; mcnkOffsetsIter != mcnkOffsets.end() ; ++mcnkOffsetsIter)
-	{
-		if (i % 16 == 0)
-			os << *mcnkOffsetsIter << std::endl;
-		else
-			os << *mcnkOffsetsIter << "\t";
-		i++;
-	}
+  for (mcnkOffsetsIter = mcnkOffsets.begin() ; mcnkOffsetsIter != mcnkOffsets.end() ; ++mcnkOffsetsIter)
+  {
+    if (i % 16 == 0)
+      os << *mcnkOffsetsIter << std::endl;
+    else
+      os << *mcnkOffsetsIter << "\t";
+    i++;
+  }
 
-	os << "------------------------------" << std::endl;
-	return os;
+  os << "------------------------------" << std::endl;
+  return os;
 }

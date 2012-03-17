@@ -3,8 +3,8 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "../WowChunkedFormat.h"	
-#include "../Chunk.h"	
+#include "../WowChunkedFormat.h"  
+#include "../Chunk.h"  
 #include "AdtAlpha.h"
 #include "../lichking/AdtLk.h"
 #include "McnkAlpha.h"
@@ -16,12 +16,12 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
   wdtAlphaFile.open(wdtAlphaName.c_str(), std::ios::binary);
 
   adtFileName = getAdtFileName(wdtAlphaName);
-	
+  
   const int mcinOffset = 0x0;
   const int mtexOffset = 0x4;
   const int mddfOffset = 0x0C;
   const int modfOffset = 0x14;
-	
+  
   mhdr = Chunk(wdtAlphaFile, offsetInFile);
 
   const int MhdrStartOffset = offsetInFile + chunkLettersAndSize;

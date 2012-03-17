@@ -38,7 +38,7 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
   mdnm = Chunk(wdtAlphaFile, offsetInFile);
 
   offsetInFile = Utilities::getIntFromFile(wdtAlphaFile, MphdStartOffset + monmOffset);
-  monm = Monm(wdtAlphaFile, offsetInFile);	
+  monm = Monm(wdtAlphaFile, offsetInFile);  
 
   offsetInFile = chunkLettersAndSize + offsetInFile + monm.getGivenSize();
 
@@ -79,7 +79,7 @@ std::vector<int> WdtAlpha::getExistingAdtsNumbers() const
   int currentAdt;
 
   for (currentAdt = 0 ; currentAdt < 4096 ; currentAdt++)
-  {	
+  {  
     if (adtsOffsets[currentAdt] != 0)
     {
       existingAdts.push_back(currentAdt);

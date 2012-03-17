@@ -11,7 +11,7 @@
 class McnrAlpha : public Chunk
 {
   public:
-	
+  
   McnrAlpha();
   McnrAlpha(std::ifstream & adtFile, int offsetInFile);
   McnrAlpha(const  std::string letters, int givenSize, const std::vector<char> & chunkData);

@@ -64,7 +64,7 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum)
 
 McnkLk McnkAlpha::toMcnkLk() const
 {
-	std::vector<char> emptyData(0); 
+  std::vector<char> emptyData(0); 
   Chunk emptyChunk = Chunk(); 
 
   McnrLk cMcnr = mcnrAlpha.toMcnrLk();
@@ -227,8 +227,8 @@ McnkLk McnkAlpha::toMcnkLk() const
 
   // ------------- end more junk
 
-	McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, emptyChunk, cMcnr, mcly, mcrf, mcsh, mcal, mclq, emptyChunk);
-	return mcnkLk;
+  McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, emptyChunk, cMcnr, mcly, mcrf, mcsh, mcal, mclq, emptyChunk);
+  return mcnkLk;
 }
 
 std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)

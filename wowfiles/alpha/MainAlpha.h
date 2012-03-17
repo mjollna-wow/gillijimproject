@@ -11,7 +11,7 @@
 class MainAlpha : public Chunk
 {
   public:
-	
+  
   MainAlpha();
   MainAlpha(std::ifstream & wdtAlphaFile, int offsetInFile);
   MainAlpha(const  std::string letters, int givenSize, const std::vector<char> & chunkData);

@@ -10,7 +10,7 @@
 class Main : public Chunk
 {
   public:
-	
+  
   Main();
   Main(std::ifstream & adtFile, int offsetInFile);
   Main(const  std::string letters, int givenSize, const std::vector<char> & chunkData);

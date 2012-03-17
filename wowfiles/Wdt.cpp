@@ -68,7 +68,7 @@ void Wdt::toFile()
     if (!modf.isEmpty())
       outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());
   }
-	
+  
   outputFile.close();
 }
 

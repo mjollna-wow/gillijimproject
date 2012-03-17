@@ -10,7 +10,7 @@
 class Monm : public Chunk
 {
   public:
-	
+  
     Monm();
     Monm(std::ifstream & wdtAlphaFile, int offsetInFile);
     Monm(const  std::string letters, int givenSize, const std::vector<char> & chunkData);

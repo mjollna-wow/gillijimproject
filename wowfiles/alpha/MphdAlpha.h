@@ -11,7 +11,7 @@
 class MphdAlpha : public Chunk
 {
   public:
-	
+  
     MphdAlpha();
     MphdAlpha(std::ifstream & wdtAlphaFile, int offsetInFile);
     MphdAlpha(const  std::string letters, int givenSize, const std::vector<char> & chunkData);

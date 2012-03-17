@@ -178,15 +178,15 @@ void AdtLk::toFile(std::string fileName)
 
 int AdtLk::getMcnksWholeSize()
 {
-	int wholeSize = 0;
-	
-	int currentMcnk;
-	for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; currentMcnk++)
-	{
-		wholeSize = wholeSize + mcnks[currentMcnk].getWholeSize();
-	}
-		
-	return wholeSize;
+  int wholeSize = 0;
+  
+  int currentMcnk;
+  for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; currentMcnk++)
+  {
+    wholeSize = wholeSize + mcnks[currentMcnk].getWholeSize();
+  }
+    
+  return wholeSize;
 }
 
 bool AdtLk::checkIntegrity()
@@ -263,13 +263,13 @@ bool AdtLk::checkMcinOffsets()
   int mcnkFoundOffset = chunkLettersAndSize + mver.getRealSize()
       + chunkLettersAndSize + mhdr.getRealSize()
       + chunkLettersAndSize + mcin.getRealSize()
-	    + chunkLettersAndSize + mtex.getRealSize()
-	    + chunkLettersAndSize + mmdx.getRealSize()
-	    + chunkLettersAndSize + mmid.getRealSize()
-	    + chunkLettersAndSize + mwmo.getRealSize()
-	    + chunkLettersAndSize + mwid.getRealSize()
-	    + chunkLettersAndSize + mddf.getRealSize()
-	    + chunkLettersAndSize + modf.getRealSize()
+      + chunkLettersAndSize + mtex.getRealSize()
+      + chunkLettersAndSize + mmdx.getRealSize()
+      + chunkLettersAndSize + mmid.getRealSize()
+      + chunkLettersAndSize + mwmo.getRealSize()
+      + chunkLettersAndSize + mwid.getRealSize()
+      + chunkLettersAndSize + mddf.getRealSize()
+      + chunkLettersAndSize + modf.getRealSize()
       ;
   
   if (!mh2o.isEmpty()) 
@@ -293,79 +293,79 @@ bool AdtLk::checkMcinOffsets()
 
 bool AdtLk::checkMhdrOffsets()
 {
-	const int mhdrStartOffset = 0x14;
-	
-	int offsetInFile = chunkLettersAndSize + mver.getRealSize()
-	+ chunkLettersAndSize + mhdr.getRealSize()
-	;
+  const int mhdrStartOffset = 0x14;
+  
+  int offsetInFile = chunkLettersAndSize + mver.getRealSize()
+  + chunkLettersAndSize + mhdr.getRealSize()
+  ;
 
-	bool offsetsOk = true;
-	
-	offsetsOk = mhdr.getOffset(mhdr.mcinOffset) + mhdrStartOffset == offsetInFile;
+  bool offsetsOk = true;
+  
+  offsetsOk = mhdr.getOffset(mhdr.mcinOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
-	offsetInFile = offsetInFile + chunkLettersAndSize + mcin.getRealSize();
-		
-	offsetsOk = mhdr.getOffset(mhdr.mtexOffset) + mhdrStartOffset == offsetInFile;
+  offsetInFile = offsetInFile + chunkLettersAndSize + mcin.getRealSize();
+    
+  offsetsOk = mhdr.getOffset(mhdr.mtexOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
   offsetInFile = offsetInFile + chunkLettersAndSize + mtex.getRealSize();
-		
-	offsetsOk = mhdr.getOffset(mhdr.mmdxOffset) + mhdrStartOffset == offsetInFile;
+    
+  offsetsOk = mhdr.getOffset(mhdr.mmdxOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
-	offsetInFile = offsetInFile + chunkLettersAndSize + mmdx.getRealSize();
-		
-	offsetsOk = mhdr.getOffset(mhdr.mmidOffset) + mhdrStartOffset == offsetInFile;
+  offsetInFile = offsetInFile + chunkLettersAndSize + mmdx.getRealSize();
+    
+  offsetsOk = mhdr.getOffset(mhdr.mmidOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
-	offsetInFile = offsetInFile + chunkLettersAndSize + mmid.getRealSize();
-		
-	offsetsOk = mhdr.getOffset(mhdr.mwmoOffset) + mhdrStartOffset == offsetInFile;
+  offsetInFile = offsetInFile + chunkLettersAndSize + mmid.getRealSize();
+    
+  offsetsOk = mhdr.getOffset(mhdr.mwmoOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
-	offsetInFile = offsetInFile + chunkLettersAndSize + mwmo.getRealSize();
-		
-	offsetsOk = mhdr.getOffset(mhdr.mwidOffset) + mhdrStartOffset == offsetInFile;
+  offsetInFile = offsetInFile + chunkLettersAndSize + mwmo.getRealSize();
+    
+  offsetsOk = mhdr.getOffset(mhdr.mwidOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
-	offsetInFile = offsetInFile + chunkLettersAndSize + mwid.getRealSize();
-		
-	offsetsOk = mhdr.getOffset(mhdr.mddfOffset) + mhdrStartOffset == offsetInFile;
+  offsetInFile = offsetInFile + chunkLettersAndSize + mwid.getRealSize();
+    
+  offsetsOk = mhdr.getOffset(mhdr.mddfOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
-	offsetInFile = offsetInFile + chunkLettersAndSize + mddf.getRealSize();
-		
-	offsetsOk = mhdr.getOffset(mhdr.modfOffset) + mhdrStartOffset == offsetInFile;
+  offsetInFile = offsetInFile + chunkLettersAndSize + mddf.getRealSize();
+    
+  offsetsOk = mhdr.getOffset(mhdr.modfOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
-	offsetInFile = offsetInFile + chunkLettersAndSize + modf.getRealSize();
+  offsetInFile = offsetInFile + chunkLettersAndSize + modf.getRealSize();
 
   if (!mh2o.isEmpty())
   {
-    offsetsOk = mhdr.getOffset(mhdr.mh2oOffset) + mhdrStartOffset == offsetInFile;		
+    offsetsOk = mhdr.getOffset(mhdr.mh2oOffset) + mhdrStartOffset == offsetInFile;    
     if (offsetsOk == false) return offsetsOk;
     offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize() + getMcnksWholeSize();
   }
   else
   {
-    offsetsOk = mhdr.getOffset(mhdr.mh2oOffset) == 0;		
+    offsetsOk = mhdr.getOffset(mhdr.mh2oOffset) == 0;    
     if (offsetsOk == false) return offsetsOk;
     offsetInFile = offsetInFile + getMcnksWholeSize();
   }
 
   if (!mfbo.isEmpty())
   {
-		offsetsOk = mhdr.getOffset(mhdr.mfboOffset) + mhdrStartOffset == offsetInFile;
+    offsetsOk = mhdr.getOffset(mhdr.mfboOffset) + mhdrStartOffset == offsetInFile;
     if (offsetsOk == false) return offsetsOk;
-		offsetInFile = offsetInFile + chunkLettersAndSize + mfbo.getRealSize();
+    offsetInFile = offsetInFile + chunkLettersAndSize + mfbo.getRealSize();
   }
   else
   {
-    offsetsOk = mhdr.getOffset(mhdr.mfboOffset) == 0;		
+    offsetsOk = mhdr.getOffset(mhdr.mfboOffset) == 0;    
     if (offsetsOk == false) return offsetsOk;
   }
 
   if (!mtxf.isEmpty())
   {
-		offsetsOk = mhdr.getOffset(mhdr.mtxfOffset) + mhdrStartOffset == offsetInFile;
+    offsetsOk = mhdr.getOffset(mhdr.mtxfOffset) + mhdrStartOffset == offsetInFile;
     if (offsetsOk == false) return offsetsOk;
   }
   else
   {
-    offsetsOk = mhdr.getOffset(mhdr.mtxfOffset) == 0;	
+    offsetsOk = mhdr.getOffset(mhdr.mtxfOffset) == 0;  
     if (offsetsOk == false) return offsetsOk;
   }
 
