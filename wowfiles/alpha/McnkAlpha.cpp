@@ -11,33 +11,33 @@
 
 McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum) : Chunk(wdtAlphaFile, offsetInFile), adtNumber(adtNum)
 {  
-  const int mcnkHeaderSize = 128;
-  const int chunkLettersAndSize = 8;
-  const int headerStartOffset = offsetInFile;
+  const int mcnkHeaderSize (128);
+  const int chunkLettersAndSize (8);
+  const int headerStartOffset (offsetInFile);
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
   mcnkHeader = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnkHeaderSize);
 
-  const int mcvtOffset = 0x018;
-  const int mcvtSize = 580;
-  const int mcnrOffset = 0x01C;
-  const int mcnrSize = 448;
-  const int mclyOffset = 0x020;
-  const int mcrfOffset = 0x024;
-  const int mcshOffset = 0x030;
-  const int mcshSizeOffset = 0x034;
-  const int mcalOffset = 0x028;
-  const int mcalSizeOffset = 0x02C;
-  const int mcnkSizeOffset = 0x05C;
-  const int mclqOffset = 0x064;
+  const int mcvtOffset (0x018);
+  const int mcvtSize (580);
+  const int mcnrOffset (0x01C);
+  const int mcnrSize (448);
+  const int mclyOffset (0x020);
+  const int mcrfOffset (0x024);
+  const int mcshOffset (0x030);
+  const int mcshSizeOffset (0x034);
+  const int mcalOffset (0x028);
+  const int mcalSizeOffset (0x02C);
+  const int mcnkSizeOffset (0x05C);
+  const int mclqOffset (0x064);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mcvtOffset);
-  std::vector<char> mcvtData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcvtSize);
+  std::vector<char> mcvtData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcvtSize));
   mcvt = Chunk("TVCM", mcvtSize, mcvtData);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mcnrOffset);
-  std::vector<char> mcnrData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnrSize);
+  std::vector<char> mcnrData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnrSize));
   mcnrAlpha = McnrAlpha("RNCM", mcnrSize, mcnrData);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mclyOffset);
@@ -47,38 +47,38 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum)
   mcrf = Chunk(wdtAlphaFile, offsetInFile);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mcshOffset);
-  int mcshSize = Utilities::getIntFromCharVector(mcnkHeader, mcshSizeOffset);
-  std::vector<char> mcshData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcshSize);
+  const int mcshSize (Utilities::getIntFromCharVector(mcnkHeader, mcshSizeOffset));
+  std::vector<char> mcshData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcshSize));
   mcsh = Chunk("HSCM", mcshSize, mcshData);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mcalOffset);
-  int mcalSize = Utilities::getIntFromCharVector(mcnkHeader, mcalSizeOffset);
-  std::vector<char> mcalData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcalSize);
+  const int mcalSize (Utilities::getIntFromCharVector(mcnkHeader, mcalSizeOffset));
+  std::vector<char> mcalData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcalSize));
   mcal = Mcal("LACM", mcalSize, mcalData);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mclqOffset);
-  int mclqSize = Utilities::getIntFromCharVector(mcnkHeader, mcnkSizeOffset) - Utilities::getIntFromCharVector(mcnkHeader, mclqOffset);
-  std::vector<char> mclqData = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mclqSize);
+  const int mclqSize (Utilities::getIntFromCharVector(mcnkHeader, mcnkSizeOffset) - Utilities::getIntFromCharVector(mcnkHeader, mclqOffset));
+  std::vector<char> mclqData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mclqSize));
   mclq = Chunk("QLCM", mclqSize, mclqData);
 }
 
 McnkLk McnkAlpha::toMcnkLk() const
 {
-  std::vector<char> emptyData(0); 
-  Chunk emptyChunk = Chunk(); 
+  std::vector<char> emptyData (0); 
+  Chunk (emptyChunk); 
 
-  McnrLk cMcnr = mcnrAlpha.toMcnrLk();
+  McnrLk cMcnr (mcnrAlpha.toMcnrLk());
 
   // TODO : MCRF is plain wrong, copied from alpha since it's convenient (because of size).
 
-  const int mcnkHeaderSize = 128;
-  const int chunkLettersAndSize = 8;
+  const int mcnkHeaderSize (128);
+  const int chunkLettersAndSize (8);
 
   int offsetInHeader = chunkLettersAndSize + mcnkHeaderSize;
 
-  std::vector<char> cMcnkHeader = emptyData;
-  std::vector<char> emptyInt(4);
-  std::vector<char> tempData(0);
+  std::vector<char> cMcnkHeader (emptyData);
+  std::vector<char> emptyInt (4);
+  std::vector<char> tempData (0);
 
   // flags
   tempData = Utilities::getCharSubVector(mcnkHeader, 0x00, 4); 
@@ -117,7 +117,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   // MCRF
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
-  const int mcshOffset = offsetInHeader + chunkLettersAndSize + mcrf.getRealSize();
+  const int mcshOffset (offsetInHeader + chunkLettersAndSize + mcrf.getRealSize());
   
   offsetInHeader = mcshOffset + chunkLettersAndSize + mcsh.getRealSize();
 
@@ -125,7 +125,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   tempData = Utilities::getCharVectorFromInt(offsetInHeader);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcal.getRealSize();
-  const int mclqOffset = offsetInHeader;
+  const int mclqOffset (offsetInHeader);
   
   // sizeAlpha
   tempData = Utilities::getCharVectorFromInt(mcal.getRealSize() + chunkLettersAndSize);
@@ -183,15 +183,15 @@ McnkLk McnkAlpha::toMcnkLk() const
 
   // ------------- junk
 
-  float mcnkWidth = 33.33333;
-  int adtX = adtNumber % 64;
-  int adtY = adtNumber / 64;
+  float mcnkWidth (33.33333);
+  int adtX (adtNumber % 64);
+  int adtY (adtNumber / 64);
 
-  const int mcnkX = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x04, 4), 0);
-  const int mcnkY = Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x08, 4), 0);
+  const int mcnkX (Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x04, 4), 0));
+  const int mcnkY (Utilities::getIntFromCharVector(Utilities::getCharSubVector(mcnkHeader, 0x08, 4), 0));
 
   // PosX
-  float temp = (((adtX - 32) * 533.33333));// + 266.666666)) + (mcnkWidth * mcnkX);//-(((adtX - 33) * 533.33333)) + (mcnkWidth * mcnkX);
+  float temp ((((adtX - 32) * 533.33333)));// + 266.666666)) + (mcnkWidth * mcnkX);//-(((adtX - 33) * 533.33333)) + (mcnkWidth * mcnkX);
   tempData = Utilities::getCharVectorFromFloat(temp);
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
 
@@ -223,7 +223,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   {
     //cMcvtData.push_back();
   }
-  Chunk cMcvt = Chunk();
+  Chunk (cMcvt);
 
   // ------------- end more junk
 

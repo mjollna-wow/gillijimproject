@@ -8,13 +8,13 @@
 
 McnkCataObj0::McnkCataObj0(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {
-  const int mcnkHeaderSize = 128;
+  const int mcnkHeaderSize (128);
 
   mcnkHeader = Utilities::getCharVectorFromFile(adtFile, offsetInFile, mcnkHeaderSize);
   offsetInFile = mcnkHeaderSize + 1;
 
-  const int mcrdOffset = 0; // TODO (is there any ?)
-  const int mcrwOffset = 0; // TODO (is there any ?)
+  const int mcrdOffset (0); // TODO (is there any ?)
+  const int mcrwOffset (0); // TODO (is there any ?)
 
   if (Utilities::getIntFromCharVector(mcnkHeader, mcrdOffset) != 0)
   {

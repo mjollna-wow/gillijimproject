@@ -20,9 +20,9 @@ Mcin::Mcin(std::string letters, int givenSize, const std::vector<char> & data) :
 
 std::vector<int> Mcin::getMcnkOffsets() const
 {
-  std::vector<int> mcnkOffsets(256);
-  int otherMcinDataSize = 16;
-  int currentMcinOffset = 0;
+  std::vector<int> mcnkOffsets (256);
+  const int otherMcinDataSize (16);
+  int currentMcinOffset (0);
   int mcnkNumber;
   
   for (mcnkNumber = 0 ; mcnkNumber < 256 ; ++mcnkNumber)
@@ -40,7 +40,7 @@ std::ostream & operator<<(std::ostream & os, const Mcin & mcin)
   os << "Chunk givenSize : " << mcin.givenSize << std::endl;
   os << "MCNK Offsets in MCIN : " << std::endl;
 
-  std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
+  std::vector<int> mcnkOffsets (mcin.getMcnkOffsets());
 
   std::vector<int>::iterator mcnkOffsetsIter;
   int i = 1;

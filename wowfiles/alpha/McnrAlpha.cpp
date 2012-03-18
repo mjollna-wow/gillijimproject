@@ -20,9 +20,9 @@ McnrAlpha::McnrAlpha(std::string letters, int givenSize, const std::vector<char>
 
 McnrLk McnrAlpha::toMcnrLk() const
 {
-  const int unknownBytes = 13;
+  const int unknownBytes (13);
 
-  McnrLk mcnrLk = McnrLk("RNCM", givenSize - unknownBytes, data);
+  McnrLk mcnrLk ("RNCM", givenSize - unknownBytes, data);
 
   return mcnrLk;
 }

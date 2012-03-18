@@ -20,18 +20,18 @@ MphdAlpha::MphdAlpha(std::string letters, int givenSize, const std::vector<char>
 
 bool MphdAlpha::isWmoBased() const
 {
-  const int isWmoBasedOffset = 8;
+  const int isWmoBasedOffset (8);
   return Utilities::getIntFromCharVector(data, isWmoBasedOffset) == 2;
 }
 
 Mphd MphdAlpha::toMphd() const
 {
-  std::vector<char> mphdLkData(32);
+  std::vector<char> mphdLkData (32);
 
   // Note : I don't think other flags are necessary for alpha to lk... ?
   if (isWmoBased())
     mphdLkData[0] = 1;
 
-  Mphd mphdLk = Mphd("DHPM", 32, mphdLkData);
+  Mphd mphdLk ("DHPM", 32, mphdLkData);
   return mphdLk;
 }

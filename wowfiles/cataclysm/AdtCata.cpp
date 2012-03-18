@@ -15,11 +15,11 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
   std::ifstream adtTerrainFile;
   adtTerrainFile.open(adtFileName.c_str(), std::ios::binary);
 
-  int offsetInFile = 0;
+  int offsetInFile (0);
   int currentMcnk;
 
-  const int mh2oOffset = 40;
-  const int mfboOffset = 36;
+  const int mh2oOffset (40);
+  const int mfboOffset (36);
 
   terrainMver = Chunk(adtTerrainFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + terrainMver.getGivenSize();
@@ -111,15 +111,15 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
 
 std::string AdtCata::getTex0FileName() const
 {
-  std::string extensionReplacement = "_tex0.adt";
-  std::string tex0Name = adtName;
+  std::string extensionReplacement ("_tex0.adt");
+  std::string tex0Name (adtName);
   return tex0Name.replace(tex0Name.size() - 4, tex0Name.size(), extensionReplacement);
 }
 
 std::string AdtCata::getObj0FileName() const
 {
-  std::string extensionReplacement = "_obj0.adt";
-  std::string obj0Name = adtName;
+  std::string extensionReplacement ("_obj0.adt");
+  std::string obj0Name (adtName);
   return obj0Name.replace(obj0Name.size() - 4, obj0Name.size(), extensionReplacement);
 }
 
@@ -137,7 +137,7 @@ std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata)
   os << adtCata.mh2o;
 
   std::vector<McnkCata>::const_iterator mcnksIter;
-  int i = 0;
+  int i (0);
 
   for (mcnksIter = adtCata.terrainMcnks.begin() ; mcnksIter != adtCata.terrainMcnks.end() ; ++mcnksIter)
   {

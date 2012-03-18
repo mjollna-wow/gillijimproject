@@ -25,7 +25,7 @@ namespace Utilities
 
   std::string getStringFromCharVector(const std::vector<char> & someData, int start, int stringLength)
   {
-    std::string letters = "";
+    std::string letters ("");
 
     std::vector<char>::const_iterator adtIter;
     for (adtIter = someData.begin() + start ; adtIter != someData.begin() + start + stringLength ; ++adtIter)
@@ -50,7 +50,7 @@ namespace Utilities
 
   std::string getLettersFromFile(std::ifstream & adtFile, int position)
   {
-    std::string letters = "";
+    std::string letters ("");
 
     adtFile.seekg(position, std::ios::beg);
     char lettersBuffer[4];
@@ -66,7 +66,7 @@ namespace Utilities
 
   int getIntFromFile(std::ifstream & adtFile, int position)
   {
-    int givenSize = 0;
+    int givenSize (0);
 
     adtFile.seekg(position, std::ios::beg);
     char sizeBuffer[4];
@@ -79,7 +79,7 @@ namespace Utilities
 
   std::vector<char> getCharVectorFromFile(std::ifstream & adtFile, int position, int length)
   {
-    std::vector<char> data(0);
+    std::vector<char> data (0);
 
     adtFile.seekg(position, std::ios::beg);
 
@@ -100,7 +100,7 @@ namespace Utilities
 
   std::vector<char> getCharVectorFromInt(const int someValue)
   {
-    std::vector<char> charVector(0);
+    std::vector<char> charVector (0);
 
     char size[4];
     size[0] = someValue & 0xff;
@@ -117,8 +117,8 @@ namespace Utilities
 
   std::vector<char> getCharVectorFromFloat(const float someValue)
   {
-    std::vector<char> charVector(0);
-    unsigned char * tempStorage = (unsigned char *)&someValue;
+    std::vector<char> charVector (0);
+    unsigned char * tempStorage ((unsigned char *)&someValue);
 
     int i;
     for (i = 0 ; i < sizeof(someValue) ; ++i)
@@ -139,7 +139,7 @@ namespace Utilities
     std::ifstream adtFile;
     adtFile.open(adtName.c_str(), std::ios::binary);
 
-    const int mcinOffset = 0x18;
+    const int mcinOffset (0x18);
     adtFile.seekg(mcinOffset, std::ios::beg);
 
     int value;
@@ -158,7 +158,7 @@ namespace Utilities
     std::ifstream wdtFile;
     wdtFile.open(wdtName.c_str(), std::ios::binary);
 
-    const int mainOffset = 0x98;
+    const int mainOffset (0x98);
     wdtFile.seekg(mainOffset, std::ios::beg);
 
     int value;

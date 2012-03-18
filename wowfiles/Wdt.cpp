@@ -12,7 +12,7 @@ Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
   std::ifstream wdtFile;
   wdtFile.open(wdtName.c_str(), std::ios::binary);
 
-  int offsetInFile = 0;
+  int offsetInFile (0);
 
   mver = Chunk(wdtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mver.getGivenSize();
@@ -53,9 +53,9 @@ Wdt::Wdt(const std::string & name
 
 void Wdt::toFile()
 {
-  std::string fileName = wdtName;
+  std::string fileName (wdtName);
   fileName.append("_new");
-  std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
+  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
   if (outputFile.is_open())
   {
     outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());

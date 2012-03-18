@@ -16,14 +16,14 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
 
   adtFileName = getAdtFileName(wdtAlphaName);
   
-  const int mcinOffset = 0x0;
-  const int mtexOffset = 0x4;
-  const int mddfOffset = 0x0C;
-  const int modfOffset = 0x14;
+  const int mcinOffset (0x0);
+  const int mtexOffset (0x4);
+  const int mddfOffset (0x0C);
+  const int modfOffset (0x14);
   
   mhdr = Chunk(wdtAlphaFile, offsetInFile);
 
-  const int MhdrStartOffset = offsetInFile + chunkLettersAndSize;
+  const int MhdrStartOffset (offsetInFile + chunkLettersAndSize);
 
   offsetInFile = MhdrStartOffset + mhdr.getOffset(mcinOffset);
   mcin = Mcin(wdtAlphaFile, offsetInFile);
@@ -37,7 +37,7 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
   offsetInFile = MhdrStartOffset + mhdr.getOffset(modfOffset);
   modf = Chunk(wdtAlphaFile, offsetInFile);
 
-  std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
+  std::vector<int> mcnkOffsets (mcin.getMcnkOffsets());
   int currentMcnk;
 
   for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
@@ -49,7 +49,7 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
 
 std::string AdtAlpha::getAdtFileName(const std::string & wdtName) const
 {
-  std::string adtFileName = wdtName;
+  std::string adtFileName (wdtName);
   adtFileName = adtFileName.substr(0, adtFileName.size() - 4);
   adtFileName.append("_");
 
@@ -81,25 +81,25 @@ int AdtAlpha::getYCoord() const
 
 AdtLk AdtAlpha::toAdtLk() const
 {  
-  std::string cName = adtFileName;
+  std::string cName (adtFileName);
 
   std::vector<char> mverData;
   mverData.push_back(0x12);
   mverData.push_back(0x0);
   mverData.push_back(0x0);
   mverData.push_back(0x0);
-  Chunk cMver = Chunk("REVM", 4, mverData);
-  
-  Mh2o cMh2o = Mh2o();
+  Chunk cMver ("REVM", 4, mverData);
+
+  Mh2o (cMh2o);
   
   std::vector<char> emptyData(0);
 
-  Chunk cMmdx = Chunk("XDMM", 0, emptyData); // TODO : fill emptiness for objects
-  Chunk cMmid = Chunk("DIMM", 0, emptyData);
-  Chunk cMwmo = Chunk("OMWM", 0, emptyData);
-  Chunk cMwid = Chunk("DIWM", 0, emptyData);
-  Chunk cMddf = Chunk("FDDM", 0, emptyData);
-  Chunk cModf = Chunk("FDOM", 0, emptyData);
+  Chunk cMmdx ("XDMM", 0, emptyData); // TODO : fill emptiness for objects
+  Chunk cMmid ("DIMM", 0, emptyData);
+  Chunk cMwmo ("OMWM", 0, emptyData);
+  Chunk cMwid ("DIWM", 0, emptyData);
+  Chunk cMddf ("FDDM", 0, emptyData);
+  Chunk cModf ("FDOM", 0, emptyData);
   
   std::vector<McnkLk> cMcnks;
   int currentMcnk;
@@ -109,8 +109,8 @@ AdtLk AdtAlpha::toAdtLk() const
     cMcnks.push_back(mcnksAlpha[currentMcnk].toMcnkLk());
   }
 
-  Chunk cMfbo = Chunk();
-  Chunk cMtxf = Chunk();
+  Chunk (cMfbo);
+  Chunk (cMtxf);
 
   const int mhdrFlags = 0;
 

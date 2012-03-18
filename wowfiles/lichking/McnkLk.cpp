@@ -10,27 +10,27 @@
 
 McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {
-  const int mcnkHeaderSize = 128;
-  const int chunkLettersAndSize = 8; // TODO : find a better place for this (Chunk deriving from WowChunkedFormat ?).
-  const int headerStartOffset = offsetInFile;
+  const int mcnkHeaderSize (128);
+  const int chunkLettersAndSize (8); // TODO : find a better place for this (Chunk deriving from WowChunkedFormat ?).
+  const int headerStartOffset (offsetInFile);
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
   mcnkHeader = Utilities::getCharVectorFromFile(adtFile, offsetInFile, mcnkHeaderSize);
 
-  const int headerFlags = Utilities::getIntFromCharVector(mcnkHeader, 0);
-  const int mcshFlag = 0x1;
+  const int headerFlags (Utilities::getIntFromCharVector(mcnkHeader, 0));
+  const int mcshFlag (0x1);
 
-  const int mcvtOffset = 0x014;
-  const int mccvOffset = 0x074;
-  const int mcnrOffset = 0x018;
-  const int mclyOffset = 0x01C;
-  const int mcrfOffset = 0x020;
-  const int mcshOffset = 0x02C;
-  const int mcalOffset = 0x024;
-  const int mcalSizeOffset = 0x028;
-  const int mclqOffset = 0x060;
-  const int mcseOffset = 0x058;
+  const int mcvtOffset (0x014);
+  const int mccvOffset (0x074);
+  const int mcnrOffset (0x018);
+  const int mclyOffset (0x01C);
+  const int mcrfOffset (0x020);
+  const int mcshOffset (0x02C);
+  const int mcalOffset (0x024);
+  const int mcalSizeOffset (0x028);
+  const int mclqOffset (0x060);
+  const int mcseOffset (0x058);
 
   offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcvtOffset);
 
@@ -51,7 +51,7 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
   offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcrfOffset);
   mcrf = Chunk(adtFile, offsetInFile);
 
-  // Note : I don't check the 0x1 Mcnk header flag since it's not set on some maps even though there is a shadow map (e.g. MonasteryInstances)
+  // Note : I don't check the 0x1 Mcnk header flag since it's not set on some maps, even though there is a shadow map (e.g. MonasteryInstances)
   if ((Utilities::getIntFromCharVector(mcnkHeader, mcshOffset) != 0) && (Utilities::getIntFromCharVector(mcnkHeader, mcshOffset) != Utilities::getIntFromCharVector(mcnkHeader, mcalOffset))) 
   {
     offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcshOffset);
@@ -59,7 +59,7 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offse
   }
 
   offsetInFile = headerStartOffset + Utilities::getIntFromCharVector(mcnkHeader, mcalOffset);
-  const int alphaSize = Utilities::getIntFromCharVector(mcnkHeader, mcalSizeOffset) - chunkLettersAndSize;
+  const int alphaSize (Utilities::getIntFromCharVector(mcnkHeader, mcalSizeOffset) - chunkLettersAndSize);
   mcal = Mcal(adtFile, offsetInFile, alphaSize);
 
   if (Utilities::getIntFromCharVector(mcnkHeader, mclqOffset) != 0)
@@ -102,8 +102,8 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
 {
   letters = "KNCM";
 
-  const int chunkLettersAndSize = 8;
-  const int mcnkHeaderSize = 128;
+  const int chunkLettersAndSize (8);
+  const int mcnkHeaderSize (128);
 
   givenSize = mcnkHeaderSize
     + mcvt.getRealSize()

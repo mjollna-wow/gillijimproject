@@ -16,12 +16,12 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
   std::ifstream adtFile;
   adtFile.open(adtFileName.c_str(), std::ios::binary);
 
-  int offsetInFile = 0;
+  int offsetInFile (0);
 
   mver = Chunk(adtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + mver.getRealSize();
 
-  const int MhdrStartOffset = offsetInFile + chunkLettersAndSize;
+  const int MhdrStartOffset (offsetInFile + chunkLettersAndSize);
 
   mhdr = Mhdr(adtFile, offsetInFile);
   
@@ -29,7 +29,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 
   mcin = Mcin(adtFile, offsetInFile); 
 
-  int mh2oSizeInFile = 0;
+  int mh2oSizeInFile (0);
 
   if (mhdr.getOffset(mhdr.mh2oOffset) != 0)
   {
@@ -60,7 +60,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
   offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.modfOffset);
   modf = Chunk(adtFile, offsetInFile);
 
-  std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
+  std::vector<int> mcnkOffsets (mcin.getMcnkOffsets());
   int currentMcnk;
 
   for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
@@ -115,20 +115,20 @@ AdtLk::AdtLk(const std::string & name
   , mfbo(cMfbo)
   , mtxf(cMtxf)
 {
-  const int mhdrFixedSize = 64;
-  const int mcinFixedSize = 4096;
+  const int mhdrFixedSize (64);
+  const int mcinFixedSize (4096);
 
-  std::vector<char> emptyData(0);
+  std::vector<char> emptyData (0);
 
   mhdr = Mhdr("RDHM", mhdrFixedSize, emptyData);    
   mcin = Mcin("NICM", mcinFixedSize, emptyData);
 
-  updateMhdrAndMcin();
+  updateMhdrAndMcin(); // TODO : problem on constructor occurs here
 }
 
 void AdtLk::toFile()
 {
-  std::string fileName = adtName;
+  std::string fileName (adtName);
   fileName.append("_new");
 
   toFile(fileName);
@@ -136,7 +136,7 @@ void AdtLk::toFile()
 
 void AdtLk::toFile(std::string fileName)
 {
-  std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
+  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
 
   if (outputFile.is_open())
   {
@@ -178,9 +178,9 @@ void AdtLk::toFile(std::string fileName)
 
 int AdtLk::getMcnksWholeSize()
 {
-  int wholeSize = 0;
+  int wholeSize (0);
   
-  int currentMcnk;
+  unsigned int currentMcnk;
   for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; ++currentMcnk)
   {
     wholeSize = wholeSize + mcnks[currentMcnk].getWholeSize();
@@ -236,7 +236,7 @@ std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)
   os << adtLk.mh2o;
 
   std::vector<McnkLk>::const_iterator mcnksIter;
-  int i = 0;
+  int i (0);
 
   for (mcnksIter = adtLk.mcnks.begin() ; mcnksIter != adtLk.mcnks.end() ; ++mcnksIter)
   {
@@ -258,7 +258,7 @@ int AdtLk::getMhdrFlags()
 
 bool AdtLk::checkMcinOffsets()
 {
-  std::vector<int> mcnkOffsets = mcin.getMcnkOffsets();
+  std::vector<int> mcnkOffsets (mcin.getMcnkOffsets());
 
   int mcnkFoundOffset = chunkLettersAndSize + mver.getRealSize()
       + chunkLettersAndSize + mhdr.getRealSize()
@@ -275,8 +275,8 @@ bool AdtLk::checkMcinOffsets()
   if (!mh2o.isEmpty()) 
     mcnkFoundOffset = mcnkFoundOffset + chunkLettersAndSize + mh2o.getRealSize();
 
-  int currentMcnk;
-  bool offsetsOk = true;
+  unsigned int currentMcnk;
+  bool offsetsOk (true);
 
   for (currentMcnk = 0 ; currentMcnk < mcnkOffsets.size() ; ++currentMcnk)
   {
@@ -293,13 +293,13 @@ bool AdtLk::checkMcinOffsets()
 
 bool AdtLk::checkMhdrOffsets()
 {
-  const int mhdrStartOffset = 0x14;
+  const int mhdrStartOffset (0x14);
   
-  int offsetInFile = chunkLettersAndSize + mver.getRealSize()
+  int offsetInFile (chunkLettersAndSize + mver.getRealSize()
   + chunkLettersAndSize + mhdr.getRealSize()
-  ;
+  );
 
-  bool offsetsOk = true;
+  bool offsetsOk (true);
   
   offsetsOk = mhdr.getOffset(mhdr.mcinOffset) + mhdrStartOffset == offsetInFile;
   if (offsetsOk == false) return offsetsOk;
@@ -374,70 +374,71 @@ bool AdtLk::checkMhdrOffsets()
 
 void AdtLk::updateMhdrAndMcin()
 {
-  const int mhdrFixedSize = 64;
-  const int mcinFixedSize = 4096;
-  const int relativeMhdrStart = 0x14;
+  const int mhdrFixedSize (64);
+  const int mcinFixedSize (4096);
+  const int relativeMhdrStart (0x14);
 
-  std::vector<char> mhdrData(0);
+  std::vector<char> mhdrData (0);
 
-  std::vector<char> flags = Utilities::getCharVectorFromInt(mhdr.getFlags());
+  std::vector<char> flags (Utilities::getCharVectorFromInt(mhdr.getFlags()));
   mhdrData.insert(mhdrData.end(), flags.begin(), flags.end());
 
-  int offsetInFile;
-
-  offsetInFile = chunkLettersAndSize + mver.getRealSize() + chunkLettersAndSize + mhdrFixedSize;
-  std::vector<char> mcinOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  int offsetInFile (chunkLettersAndSize + mver.getRealSize() + chunkLettersAndSize + mhdrFixedSize);
+  std::vector<char> mcinOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   mhdrData.insert(mhdrData.end(), mcinOffset.begin(), mcinOffset.end());
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mcinFixedSize;
-  std::vector<char> mtexOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mtexOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   mhdrData.insert(mhdrData.end(), mtexOffset.begin(), mtexOffset.end());
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mtex.getRealSize();
-  std::vector<char> mmdxOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mmdxOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   mhdrData.insert(mhdrData.end(), mmdxOffset.begin(), mmdxOffset.end());
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mmdx.getRealSize();
-  std::vector<char> mmidOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mmidOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   mhdrData.insert(mhdrData.end(), mmidOffset.begin(), mmidOffset.end());
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mmid.getRealSize();
-  std::vector<char> mwmoOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mwmoOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   mhdrData.insert(mhdrData.end(), mwmoOffset.begin(), mwmoOffset.end());
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mwmo.getRealSize();
-  std::vector<char> mwidOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mwidOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   mhdrData.insert(mhdrData.end(), mwidOffset.begin(), mwidOffset.end());
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mwid.getRealSize();
-  std::vector<char> mddfOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mddfOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   mhdrData.insert(mhdrData.end(), mddfOffset.begin(), mddfOffset.end());
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mddf.getRealSize();
-  std::vector<char> modfOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> modfOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   mhdrData.insert(mhdrData.end(), modfOffset.begin(), modfOffset.end());
 
   offsetInFile = offsetInFile + chunkLettersAndSize + modf.getRealSize();
 
-  std::vector<char> mh2oOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mh2oOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
 
-  offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize(); // problem if no mh2o at all ?
+  if (!mh2o.isEmpty())
+  {
+    offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize(); // problem if no mh2o at all ? Test isEmpty() (not done yet)
+  }
 
   std::vector<McnkLk>::const_iterator mcnksIter;
   int currentMcnk;
 
-  std::vector<char> mcinData(0);
-  const int unusedMcinBytes = 8;
+  std::vector<char> mcinData (0);
+  const int unusedMcinBytes (8);
   int throughMcinUnusedBytes;
 
   for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
-    std::vector<char> mcnkOffset = Utilities::getCharVectorFromInt(offsetInFile);
+    std::vector<char> mcnkOffset (Utilities::getCharVectorFromInt(offsetInFile));
     mcinData.insert(mcinData.end(), mcnkOffset.begin(), mcnkOffset.end());
 
     offsetInFile = offsetInFile + mcnks[currentMcnk].getWholeChunk().size();
 
-    std::vector<char> mnckSize = Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize); 
+    std::vector<char> mnckSize (Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize)); 
     mcinData.insert(mcinData.end(), mnckSize.begin(), mnckSize.end());
  
     for (throughMcinUnusedBytes = 0 ; throughMcinUnusedBytes < unusedMcinBytes ; ++throughMcinUnusedBytes)
@@ -446,12 +447,12 @@ void AdtLk::updateMhdrAndMcin()
     }
   }
 
-  Mcin mcinCorrected = Mcin("NICM", mcin.getGivenSize(), mcinData);
+  Mcin mcinCorrected (Mcin("NICM", mcin.getGivenSize(), mcinData));
   mcin = mcinCorrected;
 
-  const std::vector<char> emptyOffset(4);
+  const std::vector<char> emptyOffset (4);
 
-  std::vector<char> mfboOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mfboOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   if (mfbo.getGivenSize() != 0)
   {
     mhdrData.insert(mhdrData.end(), mfboOffset.begin(), mfboOffset.end());
@@ -471,7 +472,7 @@ void AdtLk::updateMhdrAndMcin()
   }
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mfbo.getRealSize(); 
-  std::vector<char> mtxfOffset = Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart);
+  std::vector<char> mtxfOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
   if (mtxf.getGivenSize() != 0)
   {
     mhdrData.insert(mhdrData.end(), mtxfOffset.begin(), mtxfOffset.end());
@@ -481,7 +482,7 @@ void AdtLk::updateMhdrAndMcin()
     mhdrData.insert(mhdrData.end(), emptyOffset.begin(), emptyOffset.end());
   }
 
-  const int unused = 16;
+  const int unused (16);
   int fillUnused;
 
   for(fillUnused = 0 ; fillUnused < unused ; ++fillUnused)

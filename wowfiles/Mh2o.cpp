@@ -18,12 +18,12 @@ Mh2o::Mh2o(std::ifstream & adtFile, int offsetInFile)
   givenSize = Utilities::getIntFromFile(adtFile, offsetInFile);
   offsetInFile += 4;
 
-  const int GRETSize = 1413829191;
+  const int GRETSize (1413829191);
 
   if (givenSize == GRETSize)
   {
     adtFile.seekg(0, std::ios::end);
-    int fileSize = adtFile.tellg();
+    const int fileSize (adtFile.tellg());
     adtFile.seekg(offsetInFile, std::ios::beg); // TODO : check if necessary
 
     givenSize = fileSize - offsetInFile;

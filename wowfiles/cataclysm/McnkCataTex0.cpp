@@ -7,7 +7,7 @@
 
 McnkCataTex0::McnkCataTex0(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {
-  const int chunkLettersAndSize = 8;
+  const int chunkLettersAndSize (8);
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
   mcly = Chunk(adtFile, offsetInFile); // TODO : check that...

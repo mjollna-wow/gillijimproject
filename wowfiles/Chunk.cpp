@@ -28,12 +28,12 @@ Chunk::Chunk(std::string let, int givSize, const std::vector<char> & da) : lette
 
 std::vector<char> Chunk::getWholeChunk() const
 {
-  std::vector<char> wholeChunk(0);
+  std::vector<char> wholeChunk (0);
 
-  std::vector<char> let(letters.begin(), letters.end());
+  std::vector<char> let (letters.begin(), letters.end());
   wholeChunk.insert(wholeChunk.end(), let.begin(), let.end());
 
-  std::vector<char> siz = Utilities::getCharVectorFromInt(givenSize);
+  std::vector<char> siz (Utilities::getCharVectorFromInt(givenSize));
   wholeChunk.insert(wholeChunk.end(), siz.begin(), siz.end());
 
   wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
@@ -62,7 +62,7 @@ int Chunk::getOffset(const int offsetInData)  const
 
 void Chunk::toFile(std::string & fileName)
 {
-  std::ofstream outputFile(fileName.c_str(), std::ios::out|std::ios::binary);
+  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
   
   if (outputFile.is_open())
   {

@@ -17,15 +17,15 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
   std::ifstream wdtAlphaFile;
   wdtAlphaFile.open(wdtAlphaName.c_str(), std::ios::binary);
 
-  const int mdnmOffset = 4;
-  const int monmOffset = 12;
+  const int mdnmOffset (4);
+  const int monmOffset (12);
 
-  int offsetInFile = 0;
+  int offsetInFile (0);
 
   mver = Chunk(wdtAlphaFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mver.getGivenSize();
 
-  const int MphdStartOffset = offsetInFile + chunkLettersAndSize;
+  const int MphdStartOffset (offsetInFile + chunkLettersAndSize);
 
   mphd = MphdAlpha(wdtAlphaFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mphd.getGivenSize();
@@ -50,14 +50,14 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
 
 Wdt WdtAlpha::toWdt() const
 {
-  std::string name = "__testWdtLk.wdt";
+  std::string name ("__testWdtLk.wdt");
 
-  Mphd cMphd = mphd.toMphd();
-  Main cMain = main.toMain();
+  Mphd cMphd (mphd.toMphd());
+  Main cMain (main.toMain());
 
   std::vector<char> emptyData(0);
-  Chunk cMwmo = Chunk("OMWM", 0, emptyData);
-  Chunk cModf = Chunk();
+  Chunk cMwmo ("OMWM", 0, emptyData);
+  Chunk(cModf);
 
   if (mphd.isWmoBased())
   {
@@ -71,9 +71,9 @@ Wdt WdtAlpha::toWdt() const
 
 std::vector<int> WdtAlpha::getExistingAdtsNumbers() const
 {
-  std::vector<int> adtsOffsets = main.getMhdrOffsets();
+  std::vector<int> adtsOffsets (main.getMhdrOffsets());
 
-  std::vector<int> existingAdts(0);
+  std::vector<int> existingAdts (0);
 
   int currentAdt;
 

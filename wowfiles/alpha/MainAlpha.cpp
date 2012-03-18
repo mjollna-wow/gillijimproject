@@ -21,9 +21,9 @@ MainAlpha::MainAlpha(std::string letters, int givenSize, const std::vector<char>
 
 std::vector<int> MainAlpha::getMhdrOffsets() const
 {
-  std::vector<int> mhdrOffsets(4096);
-  int otherMainDataSize = 16;
-  int currentMainOffset = 0;
+  std::vector<int> mhdrOffsets (4096);
+  const int otherMainDataSize (16);
+  int currentMainOffset (0);
   int mhdrNumber;
 
   for (mhdrNumber = 0 ; mhdrNumber < 4096 ; ++mhdrNumber)
@@ -37,13 +37,13 @@ std::vector<int> MainAlpha::getMhdrOffsets() const
 
 Main MainAlpha::toMain() const
 {
-  const int mainLkDataSize = 32768;
+  const int mainLkDataSize (32768);
   std::vector<char> mainLkData(mainLkDataSize);
 
   int i;
-  int j = 0;
+  int j (0);
 
-  // If there's a value on alpha every 16 bytes, every 8 bytes on lk = 1
+  // Note : If there's a value on alpha every 16 bytes, every 8 bytes on lk = 1
   for (i = 0 ; i < 65536 ; i = i+16)
   {
     if (Utilities::getIntFromCharVector(data, i) != 0)
@@ -66,7 +66,7 @@ std::ostream & operator<<(std::ostream & os, const MainAlpha & main)
   std::vector<int> mhdrOffsets = main.getMhdrOffsets();
 
   std::vector<int>::iterator mhdrOffsetsIter;
-  int i = 1;
+  int i (1);
 
   for (mhdrOffsetsIter = mhdrOffsets.begin() ; mhdrOffsetsIter != mhdrOffsets.end() ; ++mhdrOffsetsIter)
   {

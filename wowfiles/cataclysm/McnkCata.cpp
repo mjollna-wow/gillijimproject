@@ -8,18 +8,18 @@
 
 McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
 {
-  const int mcnkHeaderSize = 128;
-  const int chunkLettersAndSize = 8;
+  const int mcnkHeaderSize (128);
+  const int chunkLettersAndSize (8);
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
   mcnkHeader = Utilities::getCharVectorFromFile(adtFile, offsetInFile, mcnkHeaderSize);
   offsetInFile = mcnkHeaderSize + offsetInFile;
 
-  const int mccvOffset = 0x074;
-  const int mclvOffset = 0x078;
-  const int mcshOffset = 0x02C;
-  const int mclqOffset = 0x060;
+  const int mccvOffset (0x074);
+  const int mclvOffset (0x078);
+  const int mcshOffset (0x02C);
+  const int mclqOffset (0x060);
 
   mcvt = Chunk(adtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mcvt.getGivenSize();

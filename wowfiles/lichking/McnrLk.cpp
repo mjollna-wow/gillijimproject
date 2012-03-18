@@ -15,7 +15,7 @@ McnrLk::McnrLk(std::ifstream & adtFile, int offsetInFile)
   letters = Utilities::getLettersFromFile(adtFile, offsetInFile);
   offsetInFile += 4;
 
-  const int unknownBytes = 13;
+  const int unknownBytes (13); // TODO : move as member ? (then also change McnrAlpha)
 
   givenSize = Utilities::getIntFromFile(adtFile, offsetInFile);
   offsetInFile += 4;
