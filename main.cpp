@@ -11,13 +11,13 @@
 int main (int argc, char **argv)
 {
   //std::string adtName ("Azeroth_30_43.adt");
-  std::string adtName ("Northrend_27_22.adt");
+  //std::string adtName ("Northrend_27_22.adt");
   //std::string adtName ("Northrend_32_21.adt");
   //std::string adtName ("EdEdited_27_29.adt");
   //const std::string adtName ("azeroth_32_35.adt");
   //const std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName ("MonasteryInstances_30_30.adt");
-  AdtLk testAdt (adtName);
+  //AdtLk testAdt (adtName);
 
   //std::string adtName (Deephome_29_29.adt); // --> Cata files don't work.
   //AdtCata testAdt (adtName);
@@ -28,37 +28,37 @@ int main (int argc, char **argv)
   //std::string wdtName ("alpha_kalimdor.wdt");
   //std::string wdtName ("alpha_kraull.wdt");
   //std::string wdtName ("alpha_uldaman.wdt");
-  //std::string wdtName ("azerothwdtFile00000000.xxx");
+  std::string wdtName ("azerothwdtFile00000000.xxx");
   //std::string wdtName ("kalidarFile00000000.xxx");
   //std::string wdtName ("__testWdtLk.wdttest");
-  //WdtAlpha testWdtAlpha (wdtName);
+  WdtAlpha testWdtAlpha (wdtName);
 
   //Wdt testWdt (Wdt(wdtName));
 
-  /*std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
+  std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
-  std::ofstream fileOut;
-  fileOut.open ("debugfile.txt");*/
+  //std::ofstream fileOut;
+  //fileOut.open ("debugfile.txt");
 
   //fileOut << testAdt;
   //testAdt.toFile();
 
-  //const int adtTotalNum (adtsNums.size());
-  //int currentAdt;
+  const int adtTotalNum (adtsNums.size());
+  int currentAdt;
 
-  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
+  for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
-    std::cout << currentAdt << std::endl;
+    //std::cout << currentAdt << std::endl;
     AdtLk testAdtLk (testAdt.toAdtLk());
-    //testAdtLk.toFile();
-  }*/
+    testAdtLk.toFile();
+  }
 
-  /*AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0])); // 15
-  fileOut << testAdt;
-  AdtLk testAdtLk (testAdt.toAdtLk());
-  testAdtLk.toFile();*/
+  //AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0])); // 15
+  //fileOut << testAdt;
+  //AdtLk testAdtLk (testAdt.toAdtLk());
+  //testAdtLk.toFile();
 
   //std::string wdtName ("EmeraldDream422.wdt");
   //--> Wdt testWdt (testWdtAlpha.toWdt());
@@ -69,7 +69,7 @@ int main (int argc, char **argv)
   //fileOut << testAdtLk;
 
   //fileOut << testAdt;
-  testAdt.toFile();
+  //testAdt.toFile();
   //testAdt.mh2oToFile();
 
   //const std::string reimportAdtName ("MonasteryInstances_30_30_for_import.adt");

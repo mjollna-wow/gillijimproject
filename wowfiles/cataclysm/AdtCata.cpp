@@ -79,7 +79,7 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
   std::string obj0FileName = getObj0FileName();
 
   std::ifstream adtObj0File;
-  adtObj0File.open(obj0FileName, std::ios::binary);
+  adtObj0File.open(obj0FileName.c_str(), std::ios::binary);
 
   obj0Mver = Chunk(adtObj0File, offsetInFile);
   offsetInFile = offsetInFile + obj0Mver.getGivenSize();

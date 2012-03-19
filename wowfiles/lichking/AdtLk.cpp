@@ -83,7 +83,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 
   if (checkIntegrity() == false)
   {
-    updateMhdrAndMcin();
+    updateOrCreateMhdrAndMcin();
   }
 }
 
@@ -115,15 +115,7 @@ AdtLk::AdtLk(const std::string & name
   , mfbo(cMfbo)
   , mtxf(cMtxf)
 {
-  const int mhdrFixedSize (64);
-  const int mcinFixedSize (4096);
-
-  std::vector<char> emptyData (0);
-
-  mhdr = Mhdr("RDHM", mhdrFixedSize, emptyData);    
-  mcin = Mcin("NICM", mcinFixedSize, emptyData);
-
-  updateMhdrAndMcin(); // TODO : problem on constructor occurs here
+  updateOrCreateMhdrAndMcin();
 }
 
 void AdtLk::toFile()
@@ -213,7 +205,7 @@ void AdtLk::importMh2o(std::string mh2oName)
     Mh2o mh2oFromFile = Mh2o();
     mh2oFromFile = Mh2o(mh2oFile, 0);
     mh2o = mh2oFromFile;
-    updateMhdrAndMcin();
+    updateOrCreateMhdrAndMcin();
   }
   
   mh2oFile.close();
@@ -372,16 +364,24 @@ bool AdtLk::checkMhdrOffsets()
   return offsetsOk;
 }
 
-void AdtLk::updateMhdrAndMcin()
+void AdtLk::updateOrCreateMhdrAndMcin()
 {
   const int mhdrFixedSize (64);
   const int mcinFixedSize (4096);
   const int relativeMhdrStart (0x14);
 
   std::vector<char> mhdrData (0);
+  const std::vector<char> emptyData (4);
 
-  std::vector<char> flags (Utilities::getCharVectorFromInt(mhdr.getFlags()));
-  mhdrData.insert(mhdrData.end(), flags.begin(), flags.end());
+  if (mhdr.getGivenSize() != 0)
+  {
+    std::vector<char> flags (Utilities::getCharVectorFromInt(mhdr.getFlags()));
+    mhdrData.insert(mhdrData.end(), flags.begin(), flags.end());
+  }
+  else
+  {
+    mhdrData.insert(mhdrData.end(), emptyData.begin(), emptyData.end());
+  }
 
   int offsetInFile (chunkLettersAndSize + mver.getRealSize() + chunkLettersAndSize + mhdrFixedSize);
   std::vector<char> mcinOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));

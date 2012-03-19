@@ -48,7 +48,7 @@ class AdtLk : public WowChunkedFormat
     int getMhdrFlags();
     bool checkMcinOffsets();
     bool checkMhdrOffsets();
-    void updateMhdrAndMcin();
+    void updateOrCreateMhdrAndMcin();
 
     std::string adtName;
     Chunk mver;
