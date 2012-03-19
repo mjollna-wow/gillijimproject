@@ -447,7 +447,7 @@ void AdtLk::updateOrCreateMhdrAndMcin()
     }
   }
 
-  Mcin mcinCorrected (Mcin("NICM", mcin.getGivenSize(), mcinData));
+  Mcin mcinCorrected (Mcin("NICM", mcinFixedSize, mcinData));
   mcin = mcinCorrected;
 
   const std::vector<char> emptyOffset (4);
@@ -490,6 +490,6 @@ void AdtLk::updateOrCreateMhdrAndMcin()
     mhdrData.push_back(0);
   }
 
-  Mhdr mhdrCorrected = Mhdr("RDHM", mhdr.getGivenSize(), mhdrData);
+  Mhdr mhdrCorrected = Mhdr("RDHM", mhdrFixedSize, mhdrData);
   mhdr = mhdrCorrected;
 }
