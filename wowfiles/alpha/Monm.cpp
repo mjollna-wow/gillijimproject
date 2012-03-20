@@ -13,7 +13,7 @@ Monm::Monm(std::ifstream & wdtAlphaFile, int offsetInFile) : Chunk(wdtAlphaFile,
 {
 }
 
-Monm::Monm(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("NIAM", givenSize, data) 
+Monm::Monm(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("MNOM", givenSize, data) 
 {
 }
 

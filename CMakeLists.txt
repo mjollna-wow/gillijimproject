@@ -8,6 +8,7 @@ set ( gp_sources
   wowfiles/alpha/WdtAlpha.cpp
   wowfiles/alpha/McnkAlpha.cpp  
   wowfiles/alpha/McnrAlpha.cpp  
+  wowfiles/alpha/McvtAlpha.cpp  
   wowfiles/alpha/Monm.cpp  
   wowfiles/alpha/MphdAlpha.cpp  
   wowfiles/alpha/MainAlpha.cpp  
@@ -41,6 +42,7 @@ set ( gp_headers
   wowfiles/alpha/WdtAlpha.h
   wowfiles/alpha/McnkAlpha.h
   wowfiles/alpha/McnrAlpha.h
+  wowfiles/alpha/McvtAlpha.h
   wowfiles/alpha/Monm.h
   wowfiles/alpha/MphdAlpha.h
   wowfiles/alpha/MainAlpha.h

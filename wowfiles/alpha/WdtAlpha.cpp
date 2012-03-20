@@ -55,7 +55,7 @@ Wdt WdtAlpha::toWdt() const
   Mphd cMphd (mphd.toMphd());
   Main cMain (main.toMain());
 
-  std::vector<char> emptyData(0);
+  std::vector<char> emptyData (0);
   Chunk cMwmo ("OMWM", 0, emptyData);
   Chunk(cModf);
 

@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/alpha/McvtAlpha.h>
 #include <wowfiles/alpha/McnrAlpha.h>
 #include <wowfiles/lichking/McnkLk.h>
 #include <wowfiles/Mcal.h>
@@ -25,7 +26,7 @@ class McnkAlpha : public Chunk
 
     int adtNumber;
     std::vector<char> mcnkHeader;
-    Chunk mcvt;
+    McvtAlpha mcvt;
     McnrAlpha mcnrAlpha;
     Chunk mcly;
     Chunk mcrf;

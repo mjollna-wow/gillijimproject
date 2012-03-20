@@ -6,6 +6,7 @@
 #include <wowfiles/Chunk.h>
 #include <wowfiles/alpha/McnkAlpha.h>
 #include <wowfiles/alpha/McnrAlpha.h>
+#include <wowfiles/alpha/McvtAlpha.h>
 #include <wowfiles/lichking/McnrLk.h>
 #include <utilities/Utilities.h>
 
@@ -34,7 +35,7 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum)
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mcvtOffset);
   std::vector<char> mcvtData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcvtSize));
-  mcvt = Chunk("TVCM", mcvtSize, mcvtData);
+  mcvt = McvtAlpha("TVCM", mcvtSize, mcvtData);
 
   offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::getIntFromCharVector(mcnkHeader, mcnrOffset);
   std::vector<char> mcnrData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnrSize));
@@ -214,20 +215,10 @@ McnkLk McnkAlpha::toMcnkLk() const
   // Unused
   cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
 
-  // ------------- more junk (tests for mcvt vertices order)
+  Chunk cMcvt ("TVCM", 0, emptyData);
+  cMcvt = mcvt.toMcvt();
 
-  std::vector<char> cMcvtData(0);
-  int i;
-
-  for (i = mcvt.getRealSize() ; i < 0 ; ++i)
-  {
-    //cMcvtData.push_back();
-  }
-  Chunk (cMcvt);
-
-  // ------------- end more junk
-
-  McnkLk mcnkLk = McnkLk(cMcnkHeader, mcvt, emptyChunk, cMcnr, mcly, mcrf, mcsh, mcal, mclq, emptyChunk);
+  McnkLk mcnkLk = McnkLk(cMcnkHeader, cMcvt, emptyChunk, cMcnr, mcly, mcrf, mcsh, mcal, mclq, emptyChunk);
   return mcnkLk;
 }
 

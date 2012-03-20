@@ -10,7 +10,7 @@
 
 int main (int argc, char **argv)
 {
-  std::string wdtName ("azerothwdtFile00000000.xxx");
+  std::string wdtName ("alpha_azsharacrater.wdt");
   WdtAlpha testWdtAlpha (wdtName);
 
   std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
@@ -25,6 +25,10 @@ int main (int argc, char **argv)
     AdtLk testAdtLk (testAdt.toAdtLk());
     testAdtLk.toFile();
   }
+
+  /*AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
+  AdtLk testAdtLk (testAdt.toAdtLk());
+  testAdtLk.toFile();*/
 
   return 0;
 }
