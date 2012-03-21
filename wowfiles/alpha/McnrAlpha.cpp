@@ -5,6 +5,7 @@
 #include <wowfiles/Chunk.h>
 #include <wowfiles/alpha/McnrAlpha.h>
 #include <wowfiles/lichking/McnrLk.h>
+#include <utilities/Utilities.h>
 
 McnrAlpha::McnrAlpha() : Chunk()
 {
@@ -20,9 +21,34 @@ McnrAlpha::McnrAlpha(std::string letters, int givenSize, const std::vector<char>
 
 McnrLk McnrAlpha::toMcnrLk() const
 {
-  const int unknownBytes (13);
+  std::vector<char> cMcnrData (0);
+  std::vector<char> tempData (0);
 
-  McnrLk mcnrLk ("RNCM", givenSize - unknownBytes, data);
+  const int outerNormalsSequence = 9*3;
+  const int innerNormalsSequence = 8*3;
+
+  const int innerDataStart = outerNormalsSequence*9;
+
+  float currentVertex;
+  int i;
+
+  for (i = 0 ; i < 9 ; ++i)
+  {
+    tempData = Utilities::getCharSubVector(data, i*outerNormalsSequence, outerNormalsSequence);
+    cMcnrData.insert(cMcnrData.end(), tempData.begin(), tempData.end());
+
+    if (i == 8) break; 
+
+    tempData = Utilities::getCharSubVector(data, innerDataStart+(i*innerNormalsSequence), innerNormalsSequence);
+    cMcnrData.insert(cMcnrData.end(), tempData.begin(), tempData.end());
+  }
+
+  const int unknownBytes (13);
+  std::vector<char> unknownData (unknownBytes);
+
+  cMcnrData.insert(cMcnrData.end(), unknownData.begin(), unknownData.end());
+
+  McnrLk mcnrLk ("RNCM", givenSize - unknownBytes, cMcnrData);
 
   return mcnrLk;
 }

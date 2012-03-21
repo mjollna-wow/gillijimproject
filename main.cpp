@@ -10,7 +10,7 @@
 
 int main (int argc, char **argv)
 {
-  std::string wdtName ("alpha_azsharacrater.wdt");
+  std::string wdtName ("azerothwdtFile00000000.xxx");
   WdtAlpha testWdtAlpha (wdtName);
 
   std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());

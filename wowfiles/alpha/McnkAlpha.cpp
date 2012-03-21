@@ -150,7 +150,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   // holes
   cMcnkHeader.insert(cMcnkHeader.end(), emptyInt.begin(), emptyInt.end()); 
 
-  // ReallyLowQualityTexturingMap ???
+  // ReallyLowQualityTexturingMap
   tempData = Utilities::getCharSubVector(mcnkHeader, 0x44, 16); 
   cMcnkHeader.insert(cMcnkHeader.end(), tempData.begin(), tempData.end()); 
 
