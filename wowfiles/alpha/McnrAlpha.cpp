@@ -29,7 +29,6 @@ McnrLk McnrAlpha::toMcnrLk() const
 
   const int innerDataStart = outerNormalsSequence*9;
 
-  float currentVertex;
   int i;
 
   for (i = 0 ; i < 9 ; ++i)

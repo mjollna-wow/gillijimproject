@@ -50,7 +50,7 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
 
 Wdt WdtAlpha::toWdt() const
 {
-  std::string name ("__testWdtLk.wdt");
+  std::string name (wdtName);
 
   Mphd cMphd (mphd.toMphd());
   Main cMain (main.toMain());

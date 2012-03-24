@@ -33,7 +33,6 @@ Chunk McvtAlpha::toMcvt() const
 
   const int innerDataStart = outerVerticesSequence*9;
 
-  float currentVertex;
   int i;
 
   for (i = 0 ; i < 9 ; ++i)
