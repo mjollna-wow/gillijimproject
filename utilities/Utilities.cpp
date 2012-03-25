@@ -13,17 +13,17 @@ namespace Utilities
     return T (*reinterpret_cast<const T*> (&data[offset]));
   }
 
-  int getIntFromCharVector(const std::vector<char> & someData, int offset)
+  int getIntFromCharVector(const std::vector<char> & someData, const int offset)
   {
     return get<int> (someData, offset);
   }
 
-  float getFloatFromCharVector(const std::vector<char> & someData, int offset)
+  float getFloatFromCharVector(const std::vector<char> & someData, const int offset)
   {
     return get<float> (someData, offset);
   }
 
-  std::string getStringFromCharVector(const std::vector<char> & someData, int start, int stringLength)
+  std::string getStringFromCharVector(const std::vector<char> & someData, const int start, const int stringLength)
   {
     std::string letters ("");
 
@@ -35,20 +35,7 @@ namespace Utilities
     return letters;
   }
 
-  std::vector<char> getCharSubVector(const std::vector<char> & someData, int start, int length)
-  {
-    std::vector<char> subVector;
-    std::vector<char>::const_iterator dataIter;
-
-    for (dataIter = someData.begin() + start ; dataIter != someData.begin() + start + length ; ++dataIter)
-    {
-      subVector.push_back(*dataIter);
-    }
-
-    return subVector;
-  }
-
-  std::string getLettersFromFile(std::ifstream & adtFile, int position)
+  std::string getLettersFromFile(std::ifstream & adtFile, const int position)
   {
     std::string letters ("");
 
@@ -64,7 +51,7 @@ namespace Utilities
     return letters;
   }
 
-  int getIntFromFile(std::ifstream & adtFile, int position)
+  int getIntFromFile(std::ifstream & adtFile, const int position)
   {
     int givenSize (0);
 
@@ -77,21 +64,15 @@ namespace Utilities
     return givenSize;
   }
 
-  std::vector<char> getCharVectorFromFile(std::ifstream & adtFile, int position, int length)
+  std::vector<char> getCharVectorFromFile(std::ifstream & adtFile, const int position, const int length)
   {
-    std::vector<char> data (0);
-
     adtFile.seekg(position, std::ios::beg);
 
     char * dataBuffer = new char[length];
+    std::vector<char> data;
 
     adtFile.read(dataBuffer, length);
-
-    int i;
-    for (i = 0 ; i < length ; ++i)
-    {
-      data.push_back(dataBuffer[i]);
-    }
+    data.assign(dataBuffer, dataBuffer + length);
 
     delete[] dataBuffer;
 
@@ -134,7 +115,7 @@ namespace Utilities
     return (bitmask & whichFlags) == whichFlags;
   }
 
-  int getAdtVersion(std::string & adtName)
+  int getAdtVersion(const std::string & adtName)
   {
     std::ifstream adtFile;
     adtFile.open(adtName.c_str(), std::ios::binary);
@@ -153,7 +134,7 @@ namespace Utilities
       return 3;
   }
 
-  int getWdtVersion(std::string & wdtName)
+  int getWdtVersion(const std::string & wdtName)
   {
     std::ifstream wdtFile;
     wdtFile.open(wdtName.c_str(), std::ios::binary);

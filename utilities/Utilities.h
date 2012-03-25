@@ -8,22 +8,21 @@
 
 namespace Utilities
 {
-  int getIntFromCharVector(const std::vector<char> & someData, int offset);
-  float getFloatFromCharVector(const std::vector<char> & someData, int offset);
-  std::string getStringFromCharVector(const std::vector<char> & someData, int start, int stringLength);
-  std::vector<char> getCharSubVector(const std::vector<char> & someData, int start, int length);
+  int getIntFromCharVector(const std::vector<char> & someData, const int offset);
+  float getFloatFromCharVector(const std::vector<char> & someData, const int offset);
+  std::string getStringFromCharVector(const std::vector<char> & someData, const int start, const int stringLength);
 
-  std::string getLettersFromFile(std::ifstream & adtFile, int position);
-  int getIntFromFile(std::ifstream & adtFile, int position);
-  std::vector<char> getCharVectorFromFile(std::ifstream & adtFile, int position, int length);
+  std::string getLettersFromFile(std::ifstream & adtFile, const int position);
+  int getIntFromFile(std::ifstream & adtFile, const int position);
+  std::vector<char> getCharVectorFromFile(std::ifstream & adtFile, const int position, const int length);
 
   std::vector<char> getCharVectorFromInt(const int someValue);
   std::vector<char> getCharVectorFromFloat(const float someValue);
 
   bool flagsExist(const int & bitmask, const int & whichFlags);
 
-  int getAdtVersion(std::string & adtName);
-  int getWdtVersion(std::string & wdtName);
+  int getAdtVersion(const std::string & adtName);
+  int getWdtVersion(const std::string & wdtName);
 };
 
 #endif

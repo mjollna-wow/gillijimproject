@@ -22,7 +22,6 @@ McnrAlpha::McnrAlpha(std::string letters, int givenSize, const std::vector<char>
 McnrLk McnrAlpha::toMcnrLk() const
 {
   std::vector<char> cMcnrData (0);
-  std::vector<char> tempData (0);
 
   const int outerNormalsSequence = 9*3;
   const int innerNormalsSequence = 8*3;
@@ -33,13 +32,17 @@ McnrLk McnrAlpha::toMcnrLk() const
 
   for (i = 0 ; i < 9 ; ++i)
   {
-    tempData = Utilities::getCharSubVector(data, i*outerNormalsSequence, outerNormalsSequence);
-    cMcnrData.insert(cMcnrData.end(), tempData.begin(), tempData.end());
+    cMcnrData.insert(cMcnrData.end()
+      , data.begin() + i*outerNormalsSequence
+      , data.begin() + i*outerNormalsSequence + outerNormalsSequence
+      );
 
     if (i == 8) break; 
 
-    tempData = Utilities::getCharSubVector(data, innerDataStart+(i*innerNormalsSequence), innerNormalsSequence);
-    cMcnrData.insert(cMcnrData.end(), tempData.begin(), tempData.end());
+    cMcnrData.insert(cMcnrData.end()
+      , data.begin() + innerDataStart+(i*innerNormalsSequence)
+      , data.begin() + innerDataStart+(i*innerNormalsSequence) + innerNormalsSequence
+      );
   }
 
   const int unknownBytes (13);

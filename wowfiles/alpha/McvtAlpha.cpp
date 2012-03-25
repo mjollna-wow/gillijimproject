@@ -26,7 +26,6 @@ Chunk McvtAlpha::toMcvt() const
    */
 
   std::vector<char> cMcvtData (0);
-  std::vector<char> tempData (0);
 
   const int outerVerticesSequence = 9*4;
   const int innerVerticesSequence = 8*4;
@@ -37,13 +36,17 @@ Chunk McvtAlpha::toMcvt() const
 
   for (i = 0 ; i < 9 ; ++i)
   {
-    tempData = Utilities::getCharSubVector(data, i*outerVerticesSequence, outerVerticesSequence);
-    cMcvtData.insert(cMcvtData.end(), tempData.begin(), tempData.end());
+    cMcvtData.insert(cMcvtData.end()
+      , data.begin() + i*outerVerticesSequence
+      , data.begin() + i*outerVerticesSequence + outerVerticesSequence
+      );
 
     if (i == 8) break; 
 
-    tempData = Utilities::getCharSubVector(data, innerDataStart+(i*innerVerticesSequence), innerVerticesSequence);
-    cMcvtData.insert(cMcvtData.end(), tempData.begin(), tempData.end());
+    cMcvtData.insert(cMcvtData.end()
+      , data.begin() + innerDataStart+(i*innerVerticesSequence)
+      , data.begin() + innerDataStart+(i*innerVerticesSequence) + innerVerticesSequence
+      );
   }
 
   Chunk mcvtLk ("TVCM", givenSize, cMcvtData);

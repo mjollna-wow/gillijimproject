@@ -13,8 +13,8 @@ int main (int argc, char **argv)
   std::string wdtName ("alpha_dm.wdt");
   WdtAlpha testWdtAlpha (wdtName);
 
-  Wdt testWdt (testWdtAlpha.toWdt());
-  testWdt.toFile();
+  //Wdt testWdt (testWdtAlpha.toWdt());
+  //testWdt.toFile();
 
   std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
@@ -31,7 +31,10 @@ int main (int argc, char **argv)
 
   AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
   AdtLk testAdtLk (testAdt.toAdtLk());
-  //testAdtLk.toFile();
+  testAdtLk.toFile();
+
+  AdtLk testAdt2("Azeroth_30_43.adt");
+  testAdt2.toFile();
 
   return 0;
 }
