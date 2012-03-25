@@ -66,7 +66,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
   for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
     offsetInFile = mcnkOffsets[currentMcnk];
-    mcnks.push_back(McnkLk(adtFile, offsetInFile));
+    mcnks.push_back(McnkLk(adtFile, offsetInFile, mcnkTerrainHeaderSize));
   }
 
   if (mhdr.getOffset(mhdr.mfboOffset) != 0)
@@ -436,7 +436,7 @@ void AdtLk::updateOrCreateMhdrAndMcin()
     std::vector<char> mcnkOffset (Utilities::getCharVectorFromInt(offsetInFile));
     mcinData.insert(mcinData.end(), mcnkOffset.begin(), mcnkOffset.end());
 
-    offsetInFile = offsetInFile + mcnks[currentMcnk].getWholeChunk().size();
+    offsetInFile = offsetInFile + mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize;
 
     std::vector<char> mnckSize (Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize)); 
     mcinData.insert(mcinData.end(), mnckSize.begin(), mnckSize.end());

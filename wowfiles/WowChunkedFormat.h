@@ -5,7 +5,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <wowfiles/Chunk.h>
 
 class WowChunkedFormat
 {
@@ -14,6 +13,7 @@ class WowChunkedFormat
     virtual void toFile() = 0;
     
     static const int chunkLettersAndSize = 8;
+    static const int mcnkTerrainHeaderSize = 128;
 };
 
 #endif

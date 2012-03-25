@@ -5,8 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <wowfiles/WowChunkedFormat.h>
 
-class Chunk
+class Chunk : public WowChunkedFormat
 {
   public:
 
@@ -20,6 +21,8 @@ class Chunk
     std::vector<char> getWholeChunk() const;
     int getOffset(const int offsetInData) const;
     void toFile(std::string & fileName);
+    
+    void toFile(); // TODO : implement correctly
 
     friend std::ostream & operator<<(std::ostream & os, const Chunk & chunk);
 

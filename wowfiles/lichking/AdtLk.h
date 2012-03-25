@@ -17,7 +17,7 @@ class AdtLk : public WowChunkedFormat
   public:
 
     AdtLk(const std::string & adtFile);
-    AdtLk(const std::string & name // <-- TODO : that constructor has a problem.
+    AdtLk(const std::string & name
       , const Chunk & cMver
       , const int & mhdrFlags
       , const Mh2o & cMh2o

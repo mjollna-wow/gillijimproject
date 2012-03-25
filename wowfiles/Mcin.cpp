@@ -27,7 +27,7 @@ std::vector<int> Mcin::getMcnkOffsets() const
   
   for (mcnkNumber = 0 ; mcnkNumber < 256 ; ++mcnkNumber)
   {
-    mcnkOffsets[mcnkNumber] = Utilities::getIntFromCharVector(data, currentMcinOffset);
+    mcnkOffsets[mcnkNumber] = Utilities::get<int>(data, currentMcinOffset);
     currentMcinOffset = currentMcinOffset + otherMcinDataSize;
   }
 

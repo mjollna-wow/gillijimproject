@@ -28,7 +28,7 @@ std::vector<int> MainAlpha::getMhdrOffsets() const
 
   for (mhdrNumber = 0 ; mhdrNumber < 4096 ; ++mhdrNumber)
   {
-    mhdrOffsets[mhdrNumber] = Utilities::getIntFromCharVector(data, currentMainOffset);
+    mhdrOffsets[mhdrNumber] = Utilities::get<int>(data, currentMainOffset);
     currentMainOffset = currentMainOffset + otherMainDataSize;
   }
 
@@ -46,7 +46,7 @@ Main MainAlpha::toMain() const
   // Note : If there's a value on alpha every 16 bytes, every 8 bytes on lk = 1
   for (i = 0 ; i < 65536 ; i = i+16)
   {
-    if (Utilities::getIntFromCharVector(data, i) != 0)
+    if (Utilities::get<int>(data, i) != 0)
     {
       mainLkData[j] = 1;
     }

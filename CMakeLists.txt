@@ -26,6 +26,7 @@ set ( gp_sources
   wowfiles/Main.cpp  
   wowfiles/Mcal.cpp  
   wowfiles/Mcin.cpp 
+  wowfiles/Mcnk.cpp 
   wowfiles/Mh2o.cpp
   wowfiles/Mhdr.cpp  
   wowfiles/Mphd.cpp  
@@ -60,6 +61,7 @@ set ( gp_headers
   wowfiles/Main.h
   wowfiles/Mcal.h
   wowfiles/Mcin.h
+  wowfiles/Mcnk.h
   wowfiles/Mh2o.h
   wowfiles/Mhdr.h
   wowfiles/Mphd.h

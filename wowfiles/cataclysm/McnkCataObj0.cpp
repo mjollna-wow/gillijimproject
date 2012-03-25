@@ -16,7 +16,7 @@ McnkCataObj0::McnkCataObj0(std::ifstream & adtFile, int offsetInFile) : Chunk(ad
   const int mcrdOffset (0); // TODO (is there any ?)
   const int mcrwOffset (0); // TODO (is there any ?)
 
-  if (Utilities::getIntFromCharVector(mcnkHeader, mcrdOffset) != 0)
+  if (Utilities::get<int>(mcnkHeader, mcrdOffset) != 0)
   {
     mcrd = Chunk(adtFile, offsetInFile); // TODO : check that...
     offsetInFile = offsetInFile + mcrd.getRealSize();
@@ -26,7 +26,7 @@ McnkCataObj0::McnkCataObj0(std::ifstream & adtFile, int offsetInFile) : Chunk(ad
     mcrd = Chunk();
   }
 
-  if (Utilities::getIntFromCharVector(mcnkHeader, mcrwOffset) != 0)
+  if (Utilities::get<int>(mcnkHeader, mcrwOffset) != 0)
   {
     mcrw = Chunk(adtFile, offsetInFile);
     offsetInFile = offsetInFile + mcrw.getRealSize();

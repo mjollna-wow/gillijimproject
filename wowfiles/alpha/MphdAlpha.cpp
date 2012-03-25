@@ -21,7 +21,7 @@ MphdAlpha::MphdAlpha(std::string letters, int givenSize, const std::vector<char>
 bool MphdAlpha::isWmoBased() const
 {
   const int isWmoBasedOffset (8);
-  return Utilities::getIntFromCharVector(data, isWmoBasedOffset) == 2;
+  return Utilities::get<int>(data, isWmoBasedOffset) == 2;
 }
 
 Mphd MphdAlpha::toMphd() const

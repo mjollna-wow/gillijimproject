@@ -24,13 +24,13 @@ McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, o
   mcvt = Chunk(adtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mcvt.getGivenSize();
 
-  if (Utilities::getIntFromCharVector(mcnkHeader, mccvOffset) != 0)
+  if (Utilities::get<int>(mcnkHeader, mccvOffset) != 0)
   {
     mccv = Chunk(adtFile, offsetInFile);
     offsetInFile = chunkLettersAndSize + offsetInFile + mccv.getGivenSize();
   }
 
-  if (Utilities::getIntFromCharVector(mcnkHeader, mclvOffset) != 0)
+  if (Utilities::get<int>(mcnkHeader, mclvOffset) != 0)
   {
     mclv = Chunk(adtFile, offsetInFile);
     offsetInFile = chunkLettersAndSize + offsetInFile + mclv.getGivenSize();
@@ -39,13 +39,13 @@ McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, o
   mcnr = Chunk(adtFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mcnr.getGivenSize();
 
-  if (Utilities::getIntFromCharVector(mcnkHeader, mclqOffset) != 0)
+  if (Utilities::get<int>(mcnkHeader, mclqOffset) != 0)
   {
     mclq = Chunk(adtFile, offsetInFile);
     offsetInFile = chunkLettersAndSize + offsetInFile + mclq.getGivenSize();
   }
 
-  if (Utilities::getIntFromCharVector(mcnkHeader, mcshOffset) != 0)
+  if (Utilities::get<int>(mcnkHeader, mcshOffset) != 0)
   {
     mcse = Chunk(adtFile, offsetInFile);
     offsetInFile = chunkLettersAndSize + offsetInFile + mcse.getGivenSize();

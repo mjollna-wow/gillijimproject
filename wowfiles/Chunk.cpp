@@ -57,7 +57,7 @@ std::ostream & operator<<(std::ostream & os, const Chunk & chunk)
 
 int Chunk::getOffset(const int offsetInData)  const
 {
-  return Utilities::getIntFromCharVector(data, offsetInData);
+  return Utilities::get<int>(data, offsetInData);
 }
 
 void Chunk::toFile(std::string & fileName)
@@ -71,6 +71,11 @@ void Chunk::toFile(std::string & fileName)
   }
   
   outputFile.close();
+}
+
+void Chunk::toFile()
+{
+  // TODO : empty
 }
 
 int Chunk::getRealSize()  const

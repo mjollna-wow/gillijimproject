@@ -8,21 +8,6 @@
 
 namespace Utilities
 {
-  template<typename T> T get (const std::vector<char>& data, std::size_t offset)
-  {
-    return T (*reinterpret_cast<const T*> (&data[offset]));
-  }
-
-  int getIntFromCharVector(const std::vector<char> & someData, const int offset)
-  {
-    return get<int> (someData, offset);
-  }
-
-  float getFloatFromCharVector(const std::vector<char> & someData, const int offset)
-  {
-    return get<float> (someData, offset);
-  }
-
   std::string getStringFromCharVector(const std::vector<char> & someData, const int start, const int stringLength)
   {
     std::string letters ("");
