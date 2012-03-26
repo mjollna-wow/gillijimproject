@@ -79,7 +79,7 @@ McnkLk McnkAlpha::toMcnkLk() const // TODO : yes I know, it's a whole mess again
 
   const int emptyInt (0);
 
-  McnkLkHeader cMcnkHeader;// TODO : change that absolutely when I have a proper alpha header, it's temporary
+  McnkLkHeader (cMcnkHeader);// TODO : change that absolutely when I have a proper alpha header, it's temporary
 
   // flags
   memcpy(&cMcnkHeader.flags, &mcnkHeader[0], 4);

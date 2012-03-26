@@ -40,7 +40,6 @@ class McnkLk : public Mcnk
 
     void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length);
 
-    //std::vector<char> mcnkHeader;
     McnkLkHeader mcnkHeader;
     Chunk mcvt;
     Chunk mccv;

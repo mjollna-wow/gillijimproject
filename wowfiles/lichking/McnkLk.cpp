@@ -103,10 +103,7 @@ McnkLk::McnkLk(const McnkLkHeader & cMcnkHeader
 {
   letters = "KNCM";
 
-  const int chunkLettersAndSize (8); // TODO : get rid of this
-  const int mcnkHeaderSize (128); // TODO : get rid of this
-
-  givenSize = mcnkHeaderSize
+  givenSize = mcnkTerrainHeaderSize
     + mcvt.getRealSize()
     + chunkLettersAndSize
     + mcnr.getRealSize() 
@@ -132,7 +129,7 @@ McnkLk::McnkLk(const McnkLkHeader & cMcnkHeader
   if (!mcse.isEmpty())
     givenSize = givenSize + chunkLettersAndSize + mcse.getRealSize();
 
-  data.assign((char)&mcnkHeader, sizeof(mcnkHeader)); // TODO : urgh ? Seems to work though.
+  // TODO : give McnkLk.data header content somehow.
 
   std::vector<char> tempData;
 
