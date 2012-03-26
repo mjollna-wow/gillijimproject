@@ -72,100 +72,104 @@ McnkLk McnkAlpha::toMcnkLk() const // TODO : yes I know, it's a whole mess again
 
   // TODO : MCRF is plain wrong, copied from alpha since it's convenient (because of size).
 
-  const int mcnkHeaderSize (128);
+  const int mcnkHeaderSize (128); // TODO : get rid of this
   const int chunkLettersAndSize (8);
 
   int offsetInHeader = chunkLettersAndSize + mcnkHeaderSize;
 
-  std::vector<char> cMcnkHeader (mcnkHeaderSize);
   const int emptyInt (0);
 
+  McnkLkHeader cMcnkHeader;// TODO : change that absolutely when I have a proper alpha header, it's temporary
+
   // flags
-  memcpy(&cMcnkHeader[0x0], &mcnkHeader[0], 4);
+  memcpy(&cMcnkHeader.flags, &mcnkHeader[0], 4);
 
   // indexX
-  memcpy(&cMcnkHeader[0x04], &mcnkHeader[0x04], 4);
+  memcpy(&cMcnkHeader.indexX, &mcnkHeader[0x04], 4);
 
   // indexY
-  memcpy(&cMcnkHeader[0x08], &mcnkHeader[0x08], 4);
+  memcpy(&cMcnkHeader.indexY, &mcnkHeader[0x08], 4);
 
   // nLayers
-  memcpy(&cMcnkHeader[0x0C], &mcnkHeader[0x10], 4);
+  memcpy(&cMcnkHeader.nLayers, &mcnkHeader[0x10], 4);
 
   // nDoodadsRefs
-  memcpy(&cMcnkHeader[0x10], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.m2Number, &emptyInt, sizeof(int));
 
   // MCVT
-  memcpy(&cMcnkHeader[0x14], &offsetInHeader, sizeof(int));
+  memcpy(&cMcnkHeader.mcvtOffset, &offsetInHeader, sizeof(int));
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcvt.getRealSize();
 
   // MCNR
-  memcpy(&cMcnkHeader[0x18], &offsetInHeader, sizeof(int));
+  memcpy(&cMcnkHeader.mcnrOffset, &offsetInHeader, sizeof(int));
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcnrAlpha.getRealSize();
 
   // MCLY
-  memcpy(&cMcnkHeader[0x1C], &offsetInHeader, sizeof(int)); 
+  memcpy(&cMcnkHeader.mclyOffset, &offsetInHeader, sizeof(int)); 
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcly.getRealSize();
 
   // MCRF
-  memcpy(&cMcnkHeader[0x20], &offsetInHeader, sizeof(int)); 
+  memcpy(&cMcnkHeader.mcrfOffset, &offsetInHeader, sizeof(int)); 
   const int mcshOffset (offsetInHeader + chunkLettersAndSize + mcrf.getRealSize());  
   offsetInHeader = mcshOffset + chunkLettersAndSize + mcsh.getRealSize();
 
   // MCAL
-  memcpy(&cMcnkHeader[0x24], &offsetInHeader, sizeof(int)); 
+  memcpy(&cMcnkHeader.mcalOffset, &offsetInHeader, sizeof(int)); 
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcal.getRealSize();
   const int mclqOffset (offsetInHeader);
   
   // sizeAlpha
   int tempData (mcal.getRealSize() + chunkLettersAndSize);
-  memcpy(&cMcnkHeader[0x28], &tempData, sizeof(int)); 
+  memcpy(&cMcnkHeader.mcalSize, &tempData, sizeof(int)); 
   offsetInHeader = mcshOffset;
 
   // MCSH
-  memcpy(&cMcnkHeader[0x2C], &mcshOffset, sizeof(int));
+  memcpy(&cMcnkHeader.mcshOffset, &mcshOffset, sizeof(int));
   
   // sizeShadow
   tempData = mcsh.getRealSize();
-  memcpy(&cMcnkHeader[0x30], &tempData, sizeof(int));
+  memcpy(&cMcnkHeader.mcshSize, &tempData, sizeof(int));
 
   // areaID
-  memcpy(&cMcnkHeader[0x34], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.areaId, &emptyInt, sizeof(int));
   
   // nMapObjRefs
-  memcpy(&cMcnkHeader[0x38], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.wmoNumber, &emptyInt, sizeof(int));
   
   // holes
-  memcpy(&cMcnkHeader[0x3C], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.holes, &emptyInt, sizeof(int));
 
   // ReallyLowQualityTexturingMap
-  memcpy(&cMcnkHeader[0x40], &mcnkHeader[0x44], 16);
+  memcpy(&cMcnkHeader.groundEffectsMap1, &mcnkHeader[0x44], 4);
+  memcpy(&cMcnkHeader.groundEffectsMap2, &mcnkHeader[0x48], 4);
+  memcpy(&cMcnkHeader.groundEffectsMap3, &mcnkHeader[0x4C], 4);
+  memcpy(&cMcnkHeader.groundEffectsMap4, &mcnkHeader[0x50], 4);
 
   // predTex
-  memcpy(&cMcnkHeader[0x50], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.predTex, &emptyInt, sizeof(int));
   
   // noEffectDoodad
-  memcpy(&cMcnkHeader[0x54], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.nEffectDoodad, &emptyInt, sizeof(int));
   
   // MCSE
-  memcpy(&cMcnkHeader[0x58], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.mcseOffset, &emptyInt, sizeof(int));
   
   // nSoundEmitters
-  memcpy(&cMcnkHeader[0x5C], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.nSndEmitters, &emptyInt, sizeof(int));
   offsetInHeader = mclqOffset;
 
   // MCLQ
-  memcpy(&cMcnkHeader[0x60], &offsetInHeader, sizeof(int)); 
+  memcpy(&cMcnkHeader.mclqOffset, &offsetInHeader, sizeof(int)); 
   
   // sizeLiquid
   tempData = mclq.getRealSize() + chunkLettersAndSize;
   if (mclq.getRealSize() != 0) 
   {
-    memcpy(&cMcnkHeader[0x64], &tempData, sizeof(int));
+    memcpy(&cMcnkHeader.mclqSize, &tempData, sizeof(int));
   }
   else 
   {
-    memcpy(&cMcnkHeader[0x64], &emptyInt, sizeof(int));
+    memcpy(&cMcnkHeader.mclqSize, &emptyInt, sizeof(int));
   }
 
   // ------------- junk
@@ -175,25 +179,25 @@ McnkLk McnkAlpha::toMcnkLk() const // TODO : yes I know, it's a whole mess again
 
   // PosX
   float temp ((adtX - 32) * 533.33333);
-  memcpy(&cMcnkHeader[0x68], &temp, sizeof(float));
+  memcpy(&cMcnkHeader.posX, &temp, sizeof(float));
 
   // PosY
   temp = ((adtY - 32) * 533.33333);
-  memcpy(&cMcnkHeader[0x6C], &temp, sizeof(float));
+  memcpy(&cMcnkHeader.posY, &temp, sizeof(float));
 
   // ------------- end junk
 
   // PosZ (better results with 0 here)
-  memcpy(&cMcnkHeader[0x70], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.posZ, &emptyInt, sizeof(int));
   
   // MCCV
-  memcpy(&cMcnkHeader[0x74], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.mccvOffset, &emptyInt, sizeof(int));
   
   // MCLV
-  memcpy(&cMcnkHeader[0x78], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.mclvOffset, &emptyInt, sizeof(int));
   
   // Unused
-  memcpy(&cMcnkHeader[0x7C], &emptyInt, sizeof(int));
+  memcpy(&cMcnkHeader.unused, &emptyInt, sizeof(int));
 
   Chunk cMcvt ("TVCM", 0, emptyData);
   cMcvt = mcvt.toMcvt();

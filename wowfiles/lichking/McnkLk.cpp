@@ -17,9 +17,9 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile, const int headerSize) 
 
   getHeaderFromFile(adtFile, offsetInFile, mcnkTerrainHeaderSize);
 
-  mcnkHeader = Utilities::getCharVectorFromFile(adtFile, offsetInFile, mcnkTerrainHeaderSize);
+  //mcnkHeader = Utilities::getCharVectorFromFile(adtFile, offsetInFile, mcnkTerrainHeaderSize);
 
-  const int headerFlags (Utilities::get<int>(mcnkHeader, 0));
+  /*const int headerFlags (Utilities::get<int>(mcnkHeader, 0));
   const int mcshFlag (0x1);
 
   const int mcvtOffset (0x014);
@@ -31,47 +31,47 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile, const int headerSize) 
   const int mcalOffset (0x024);
   const int mcalSizeOffset (0x028);
   const int mclqOffset (0x060);
-  const int mcseOffset (0x058);
+  const int mcseOffset (0x058);*/
 
-  offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mcvtOffset);
+  offsetInFile = headerStartOffset + mcnkHeader.mcvtOffset;
 
   mcvt = Chunk(adtFile, offsetInFile);
 
-  if (Utilities::get<int>(mcnkHeader, mccvOffset) != 0)
+  if (mcnkHeader.mccvOffset != 0)
   {
-    offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mccvOffset);
+    offsetInFile = headerStartOffset + mcnkHeader.mccvOffset;
     mccv = Chunk(adtFile, offsetInFile);
   }
 
-  offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mcnrOffset);
+  offsetInFile = headerStartOffset + mcnkHeader.mcnrOffset;
   mcnr = McnrLk(adtFile, offsetInFile);
 
-  offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mclyOffset);
+  offsetInFile = headerStartOffset + mcnkHeader.mclyOffset;
   mcly = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mcrfOffset);
+  offsetInFile = headerStartOffset + mcnkHeader.mcrfOffset;
   mcrf = Chunk(adtFile, offsetInFile);
 
   // Note : I don't check the 0x1 Mcnk header flag since it's not set on some maps, even though there is a shadow map (e.g. MonasteryInstances)
-  if ((Utilities::get<int>(mcnkHeader, mcshOffset) != 0) && (Utilities::get<int>(mcnkHeader, mcshOffset) != Utilities::get<int>(mcnkHeader, mcalOffset))) 
+  if ((mcnkHeader.mcshOffset != 0) && (mcnkHeader.mcshOffset !=  mcnkHeader.mcalOffset)) 
   {
-    offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mcshOffset);
+    offsetInFile = headerStartOffset + mcnkHeader.mcshOffset;
     mcsh = Chunk(adtFile, offsetInFile);
   }
 
-  offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mcalOffset);
-  const int alphaSize (Utilities::get<int>(mcnkHeader, mcalSizeOffset) - chunkLettersAndSize);
+  offsetInFile = headerStartOffset + mcnkHeader.mcalOffset;
+  const int alphaSize (mcnkHeader.mcalSize - chunkLettersAndSize);
   mcal = Mcal(adtFile, offsetInFile, alphaSize);
 
-  if (Utilities::get<int>(mcnkHeader, mclqOffset) != 0)
+  if (mcnkHeader.mclqOffset != 0)
   {
-    offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mclqOffset);
+    offsetInFile = headerStartOffset + mcnkHeader.mclqOffset;
     mclq = Chunk(adtFile, offsetInFile);
   }
 
-  if (Utilities::get<int>(mcnkHeader, mcseOffset) != 0)
+  if (mcnkHeader.mcseOffset != 0)
   {
-    offsetInFile = headerStartOffset + Utilities::get<int>(mcnkHeader, mcseOffset);
+    offsetInFile = headerStartOffset + mcnkHeader.mcseOffset;
     mcse = Chunk(adtFile, offsetInFile);
   }
 }
@@ -80,7 +80,7 @@ McnkLk::McnkLk(std::string letters, int givenSize, const std::vector<char> &data
 {
 }
 
-McnkLk::McnkLk(const std::vector<char> & cMcnkHeader 
+McnkLk::McnkLk(const McnkLkHeader & cMcnkHeader 
     , const Chunk & cMcvt
     , const Chunk & cMccv
     , const McnrLk & cMcnr
@@ -103,8 +103,8 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
 {
   letters = "KNCM";
 
-  const int chunkLettersAndSize (8);
-  const int mcnkHeaderSize (128);
+  const int chunkLettersAndSize (8); // TODO : get rid of this
+  const int mcnkHeaderSize (128); // TODO : get rid of this
 
   givenSize = mcnkHeaderSize
     + mcvt.getRealSize()
@@ -132,7 +132,7 @@ McnkLk::McnkLk(const std::vector<char> & cMcnkHeader
   if (!mcse.isEmpty())
     givenSize = givenSize + chunkLettersAndSize + mcse.getRealSize();
 
-  data = mcnkHeader;
+  data.assign((char)&mcnkHeader, sizeof(mcnkHeader)); // TODO : urgh ? Seems to work though.
 
   std::vector<char> tempData;
 
@@ -191,7 +191,7 @@ void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
     adtFile.write((char *)&letters[0], sizeof(char) * letters.size());
     adtFile.write((char *)&givenSize, sizeof(char) * sizeof(givenSize));
 
-    adtFile.write((char *)&mcnkHeader[0], sizeof(char) * mcnkHeader.size()); // TODO : replace by getWholeChunk() when mcnk.data == header only
+    adtFile.write((char *)&mcnkHeader, sizeof(char) * sizeof(mcnkHeader)); // TODO : check this absolutely (replace by getWholeChunk() when mcnk.data == header only ?)
 
     adtFile.write((char *)&mcvt.getWholeChunk()[0], sizeof(char) * mcvt.getWholeChunk().size());
 
@@ -238,7 +238,7 @@ void McnkLk::getHeaderFromFile(std::ifstream & adtFile, const int position, cons
 
   adtFile.read(dataBuffer, length);
 
-  testHeader = *reinterpret_cast<TestHeader*>(dataBuffer);
+  mcnkHeader = *reinterpret_cast<McnkLkHeader*>(dataBuffer);
 
   delete[] dataBuffer;
 }

@@ -28,41 +28,40 @@ namespace Utilities
   int getWdtVersion(const std::string & wdtName);
 };
 
-struct TestHeader
+struct McnkLkHeader
 {
     int flags;
-    int ix;
-    int iy;
+    int indexX;
+    int indexY;
     int nLayers;
-    int nDoodadRefs;
-    int ofsHeight;
-    int ofsNormal;
-    int ofsLayer;
-    int ofsRefs;
-    int ofsAlpha;
-    int sizeAlpha;
-    int ofsShadow;
-    int sizeShadow;
-    int areaid;
-    int nMapObjRefs;
+    int m2Number;
+    int mcvtOffset;
+    int mcnrOffset;
+    int mclyOffset;
+    int mcrfOffset;
+    int mcalOffset;
+    int mcalSize;
+    int mcshOffset;
+    int mcshSize;
+    int areaId;
+    int wmoNumber;
     int holes;
-    short s1;
-    short s2;
-    int d1;
-    int d2;
-    int d3;
+    int groundEffectsMap1;
+    int groundEffectsMap2;
+    int groundEffectsMap3;
+    int groundEffectsMap4;
     int predTex;
     int nEffectDoodad;
-    int ofsSndEmitters;
+    int mcseOffset;
     int nSndEmitters;
-    int ofsLiquid;
-    int sizeLiquid;
-    float  zpos;
-    float  xpos;
-    float  ypos;
-    int ofsMCCV;
-    int unused1;
-    int unused2;
+    int mclqOffset;
+    int mclqSize;
+    float posX;
+    float posY;
+    float posZ;
+    int mccvOffset;
+    int mclvOffset;
+    int unused;
 };
 
 #endif

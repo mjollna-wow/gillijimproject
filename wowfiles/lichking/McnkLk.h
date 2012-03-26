@@ -18,7 +18,7 @@ class McnkLk : public Mcnk
 
     McnkLk(std::ifstream & file, int offsetInFile, const int headerSize);
     McnkLk(std::string letters, int givenSize, const std::vector<char> &data);
-    McnkLk(const std::vector<char> & cMcnkHeader
+    McnkLk(const McnkLkHeader & cMcnkHeader
       , const Chunk & cMcvt
       , const Chunk & cMccv
       , const McnrLk & cMcnr
@@ -40,8 +40,8 @@ class McnkLk : public Mcnk
 
     void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length);
 
-    std::vector<char> mcnkHeader;
-    TestHeader testHeader; // TODO : change that
+    //std::vector<char> mcnkHeader;
+    McnkLkHeader mcnkHeader;
     Chunk mcvt;
     Chunk mccv;
     McnrLk mcnr;
