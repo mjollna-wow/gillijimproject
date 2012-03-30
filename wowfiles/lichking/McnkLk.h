@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/Mcal.h>
 #include <wowfiles/lichking/McnrLk.h>
 #include <wowfiles/WowChunkedFormat.h>
@@ -18,7 +19,7 @@ class McnkLk : public Mcnk
 
     McnkLk(std::ifstream & file, int offsetInFile, const int headerSize);
     McnkLk(std::string letters, int givenSize, const std::vector<char> &data);
-    McnkLk(const McnkLkHeader & cMcnkHeader
+    McnkLk(const McnkHeader & cMcnkHeader
       , const Chunk & cMcvt
       , const Chunk & cMccv
       , const McnrLk & cMcnr
@@ -38,9 +39,9 @@ class McnkLk : public Mcnk
 
   private:
 
-    void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length);
+    void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length); // TODO : get rid of this when possible
 
-    McnkLkHeader mcnkHeader;
+    McnkHeader mcnkHeader;
     Chunk mcvt;
     Chunk mccv;
     McnrLk mcnr;

@@ -4,206 +4,142 @@
 #include <iostream>
 #include <fstream>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/alpha/McnkAlpha.h>
 #include <wowfiles/alpha/McnrAlpha.h>
 #include <wowfiles/alpha/McvtAlpha.h>
 #include <wowfiles/lichking/McnrLk.h>
 #include <utilities/Utilities.h>
 
-McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, int adtNum) : Chunk(wdtAlphaFile, offsetInFile), adtNumber(adtNum)
+McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, const int headerSize, int adtNum) : Mcnk(wdtAlphaFile, offsetInFile, mcnkTerrainHeaderSize), adtNumber(adtNum)
 {  
-  const int mcnkHeaderSize (128);
-  const int chunkLettersAndSize (8);
   const int headerStartOffset (offsetInFile);
+  const int mcvtSize (580);
+  const int mcnrSize (448);
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
-  mcnkHeader = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnkHeaderSize);
+  mcnkHeader = Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnkTerrainHeaderSize);
+  getHeaderFromFile(wdtAlphaFile, offsetInFile, mcnkTerrainHeaderSize);
 
-  const int mcvtOffset (0x018);
-  const int mcvtSize (580);
-  const int mcnrOffset (0x01C);
-  const int mcnrSize (448);
-  const int mclyOffset (0x020);
-  const int mcrfOffset (0x024);
-  const int mcshOffset (0x030);
-  const int mcshSizeOffset (0x034);
-  const int mcalOffset (0x028);
-  const int mcalSizeOffset (0x02C);
-  const int mcnkSizeOffset (0x05C);
-  const int mclqOffset (0x064);
-
-  offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::get<int>(mcnkHeader, mcvtOffset);
+  offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mcvtOffset;
   std::vector<char> mcvtData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcvtSize));
   mcvt = McvtAlpha("TVCM", mcvtSize, mcvtData);
 
-  offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::get<int>(mcnkHeader, mcnrOffset);
+  offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mcnrOffset;
   std::vector<char> mcnrData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnrSize));
   mcnrAlpha = McnrAlpha("RNCM", mcnrSize, mcnrData);
 
-  offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::get<int>(mcnkHeader, mclyOffset);
+  offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mclyOffset;
   mcly = Chunk(wdtAlphaFile, offsetInFile);
 
-  offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::get<int>(mcnkHeader, mcrfOffset);
+  offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mcrfOffset;
   mcrf = Chunk(wdtAlphaFile, offsetInFile);
 
-  offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::get<int>(mcnkHeader, mcshOffset);
-  const int mcshSize (Utilities::get<int>(mcnkHeader, mcshSizeOffset));
-  std::vector<char> mcshData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcshSize));
-  mcsh = Chunk("HSCM", mcshSize, mcshData);
+  offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mcshOffset;
+  std::vector<char> mcshData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnkAlphaHeader.mcshSize));
+  mcsh = Chunk("HSCM", mcnkAlphaHeader.mcshSize, mcshData);
 
-  offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::get<int>(mcnkHeader, mcalOffset);
-  const int mcalSize (Utilities::get<int>(mcnkHeader, mcalSizeOffset));
-  std::vector<char> mcalData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcalSize));
-  mcal = Mcal("LACM", mcalSize, mcalData);
+  offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mcalOffset;
+  std::vector<char> mcalData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnkAlphaHeader.mcalSize));
+  mcal = Mcal("LACM", mcnkAlphaHeader.mcalSize, mcalData);
 
-  offsetInFile = headerStartOffset + mcnkHeaderSize + chunkLettersAndSize + Utilities::get<int>(mcnkHeader, mclqOffset);
-  const int mclqSize (Utilities::get<int>(mcnkHeader, mcnkSizeOffset) - Utilities::get<int>(mcnkHeader, mclqOffset));
+  offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mclqOffset;
+  const int mclqSize (mcnkAlphaHeader.mcnkChunksSize - mcnkAlphaHeader.mclqOffset);
   std::vector<char> mclqData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mclqSize));
   mclq = Chunk("QLCM", mclqSize, mclqData);
 }
 
-McnkLk McnkAlpha::toMcnkLk() const // TODO : yes I know, it's a whole mess again in there, I'm testing out things. It'll be better tomorrow :)
+McnkLk McnkAlpha::toMcnkLk() const
 {
-  std::vector<char> emptyData (0); 
-  Chunk (emptyChunk); 
+  McnkHeader (cMcnkHeader);  
+  int offsetInHeader (chunkLettersAndSize + mcnkTerrainHeaderSize);
 
-  McnrLk cMcnr (mcnrAlpha.toMcnrLk());
-
-  // TODO : MCRF is plain wrong, copied from alpha since it's convenient (because of size).
-
-  const int mcnkHeaderSize (128); // TODO : get rid of this
-  const int chunkLettersAndSize (8);
-
-  int offsetInHeader = chunkLettersAndSize + mcnkHeaderSize;
-
-  const int emptyInt (0);
-
-  McnkLkHeader (cMcnkHeader);// TODO : change that absolutely when I have a proper alpha header, it's temporary
-
-  // flags
-  memcpy(&cMcnkHeader.flags, &mcnkHeader[0], 4);
-
-  // indexX
-  memcpy(&cMcnkHeader.indexX, &mcnkHeader[0x04], 4);
-
-  // indexY
-  memcpy(&cMcnkHeader.indexY, &mcnkHeader[0x08], 4);
-
-  // nLayers
-  memcpy(&cMcnkHeader.nLayers, &mcnkHeader[0x10], 4);
-
-  // nDoodadsRefs
-  memcpy(&cMcnkHeader.m2Number, &emptyInt, sizeof(int));
-
-  // MCVT
-  memcpy(&cMcnkHeader.mcvtOffset, &offsetInHeader, sizeof(int));
-  offsetInHeader = offsetInHeader + chunkLettersAndSize + mcvt.getRealSize();
-
-  // MCNR
-  memcpy(&cMcnkHeader.mcnrOffset, &offsetInHeader, sizeof(int));
-  offsetInHeader = offsetInHeader + chunkLettersAndSize + mcnrAlpha.getRealSize();
-
-  // MCLY
-  memcpy(&cMcnkHeader.mclyOffset, &offsetInHeader, sizeof(int)); 
+  cMcnkHeader.flags = mcnkAlphaHeader.flags;
+  cMcnkHeader.indexX = mcnkAlphaHeader.indexX;
+  cMcnkHeader.indexY = mcnkAlphaHeader.indexY;
+  cMcnkHeader.nLayers = mcnkAlphaHeader.nLayers;
+  cMcnkHeader.m2Number = 0; // TODO
+  
+  cMcnkHeader.mcvtOffset = offsetInHeader;
+  offsetInHeader = offsetInHeader + chunkLettersAndSize + mcvt.getRealSize();  
+  
+  cMcnkHeader.mcnrOffset = offsetInHeader;  
+  offsetInHeader = offsetInHeader + chunkLettersAndSize + mcnrAlpha.getRealSize();  
+  
+  cMcnkHeader.mclyOffset = offsetInHeader; 
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcly.getRealSize();
-
-  // MCRF
-  memcpy(&cMcnkHeader.mcrfOffset, &offsetInHeader, sizeof(int)); 
+  
+  cMcnkHeader.mcrfOffset = offsetInHeader;   
   const int mcshOffset (offsetInHeader + chunkLettersAndSize + mcrf.getRealSize());  
-  offsetInHeader = mcshOffset + chunkLettersAndSize + mcsh.getRealSize();
-
-  // MCAL
-  memcpy(&cMcnkHeader.mcalOffset, &offsetInHeader, sizeof(int)); 
+  offsetInHeader = mcshOffset + chunkLettersAndSize + mcsh.getRealSize();  
+  
+  cMcnkHeader.mcalOffset = offsetInHeader;
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcal.getRealSize();
   const int mclqOffset (offsetInHeader);
   
-  // sizeAlpha
-  int tempData (mcal.getRealSize() + chunkLettersAndSize);
-  memcpy(&cMcnkHeader.mcalSize, &tempData, sizeof(int)); 
+  cMcnkHeader.mcalSize = mcal.getRealSize() + chunkLettersAndSize;  
   offsetInHeader = mcshOffset;
-
-  // MCSH
-  memcpy(&cMcnkHeader.mcshOffset, &mcshOffset, sizeof(int));
   
-  // sizeShadow
-  tempData = mcsh.getRealSize();
-  memcpy(&cMcnkHeader.mcshSize, &tempData, sizeof(int));
-
-  // areaID
-  memcpy(&cMcnkHeader.areaId, &emptyInt, sizeof(int));
+  cMcnkHeader.mcshOffset = mcshOffset;
+  cMcnkHeader.mcshSize = mcsh.getRealSize();
+  cMcnkHeader.areaId = 0; // TODO
+  cMcnkHeader.wmoNumber = 0; // TODO  
+  cMcnkHeader.holes = 0; // TODO
+  cMcnkHeader.groundEffectsMap1 = mcnkAlphaHeader.groundEffectsMap1;    
+  cMcnkHeader.groundEffectsMap2 = mcnkAlphaHeader.groundEffectsMap2; 
+  cMcnkHeader.groundEffectsMap3 = mcnkAlphaHeader.groundEffectsMap3; 
+  cMcnkHeader.groundEffectsMap4 = mcnkAlphaHeader.groundEffectsMap4;   
+  cMcnkHeader.predTex = 0; 
+  cMcnkHeader.nEffectDoodad = 0;  
+  cMcnkHeader.mcseOffset = 0;    
+  cMcnkHeader.nSndEmitters = 0; 
+  cMcnkHeader.mclqOffset = mclqOffset; 
   
-  // nMapObjRefs
-  memcpy(&cMcnkHeader.wmoNumber, &emptyInt, sizeof(int));
-  
-  // holes
-  memcpy(&cMcnkHeader.holes, &emptyInt, sizeof(int));
-
-  // ReallyLowQualityTexturingMap
-  memcpy(&cMcnkHeader.groundEffectsMap1, &mcnkHeader[0x44], 4);
-  memcpy(&cMcnkHeader.groundEffectsMap2, &mcnkHeader[0x48], 4);
-  memcpy(&cMcnkHeader.groundEffectsMap3, &mcnkHeader[0x4C], 4);
-  memcpy(&cMcnkHeader.groundEffectsMap4, &mcnkHeader[0x50], 4);
-
-  // predTex
-  memcpy(&cMcnkHeader.predTex, &emptyInt, sizeof(int));
-  
-  // noEffectDoodad
-  memcpy(&cMcnkHeader.nEffectDoodad, &emptyInt, sizeof(int));
-  
-  // MCSE
-  memcpy(&cMcnkHeader.mcseOffset, &emptyInt, sizeof(int));
-  
-  // nSoundEmitters
-  memcpy(&cMcnkHeader.nSndEmitters, &emptyInt, sizeof(int));
-  offsetInHeader = mclqOffset;
-
-  // MCLQ
-  memcpy(&cMcnkHeader.mclqOffset, &offsetInHeader, sizeof(int)); 
-  
-  // sizeLiquid
-  tempData = mclq.getRealSize() + chunkLettersAndSize;
   if (mclq.getRealSize() != 0) 
-  {
-    memcpy(&cMcnkHeader.mclqSize, &tempData, sizeof(int));
-  }
+    cMcnkHeader.mclqSize = mclq.getRealSize() + chunkLettersAndSize; 
   else 
-  {
-    memcpy(&cMcnkHeader.mclqSize, &emptyInt, sizeof(int));
-  }
+    cMcnkHeader.mclqSize = 0;
 
   // ------------- junk
 
   int adtX (adtNumber % 64);
   int adtY (adtNumber / 64);
 
-  // PosX
-  float temp ((adtX - 32) * 533.33333);
-  memcpy(&cMcnkHeader.posX, &temp, sizeof(float));
-
-  // PosY
-  temp = ((adtY - 32) * 533.33333);
-  memcpy(&cMcnkHeader.posY, &temp, sizeof(float));
+  cMcnkHeader.posX = ((adtX - 32) * 533.33333); 
+  cMcnkHeader.posY = ((adtY - 32) * 533.33333); 
 
   // ------------- end junk
 
-  // PosZ (better results with 0 here)
-  memcpy(&cMcnkHeader.posZ, &emptyInt, sizeof(int));
-  
-  // MCCV
-  memcpy(&cMcnkHeader.mccvOffset, &emptyInt, sizeof(int));
-  
-  // MCLV
-  memcpy(&cMcnkHeader.mclvOffset, &emptyInt, sizeof(int));
-  
-  // Unused
-  memcpy(&cMcnkHeader.unused, &emptyInt, sizeof(int));
+  cMcnkHeader.posZ = 0;
+  cMcnkHeader.mccvOffset = 0;
+  cMcnkHeader.mclvOffset = 0;
+  cMcnkHeader.unused = 0;  
 
+  // TODO : MCRF is plain wrong, copied from alpha since it's convenient (because of size).  
+  
+  std::vector<char> emptyData (0); 
+  Chunk (emptyChunk); 
+
+  McnrLk cMcnr (mcnrAlpha.toMcnrLk());  
+  
   Chunk cMcvt ("TVCM", 0, emptyData);
   cMcvt = mcvt.toMcvt();
 
   McnkLk mcnkLk = McnkLk(cMcnkHeader, cMcvt, emptyChunk, cMcnr, mcly, mcrf, mcsh, mcal, mclq, emptyChunk);
   return mcnkLk;
+}
+
+void McnkAlpha::getHeaderFromFile(std::ifstream & adtFile, const int position, const int length)
+{
+  adtFile.seekg(position, std::ios::beg);
+  char * dataBuffer = new char[length];
+
+  adtFile.read(dataBuffer, length);
+
+  mcnkAlphaHeader = *reinterpret_cast<McnkAlphaHeader*>(dataBuffer);
+
+  delete[] dataBuffer;
 }
 
 std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)

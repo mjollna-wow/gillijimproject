@@ -5,6 +5,7 @@
 #include <fstream>
 #include <wowfiles/lichking/AdtLk.h>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcin.h>
 #include <wowfiles/Mhdr.h>

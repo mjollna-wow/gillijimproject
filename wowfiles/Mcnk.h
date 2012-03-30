@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/Chunk.h>
 
 /*

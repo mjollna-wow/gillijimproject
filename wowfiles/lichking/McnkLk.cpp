@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/Mcal.h>
 #include <wowfiles/lichking/McnkLk.h>
 #include <wowfiles/lichking/McnrLk.h>
@@ -16,22 +17,6 @@ McnkLk::McnkLk(std::ifstream & adtFile, int offsetInFile, const int headerSize) 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
   getHeaderFromFile(adtFile, offsetInFile, mcnkTerrainHeaderSize);
-
-  //mcnkHeader = Utilities::getCharVectorFromFile(adtFile, offsetInFile, mcnkTerrainHeaderSize);
-
-  /*const int headerFlags (Utilities::get<int>(mcnkHeader, 0));
-  const int mcshFlag (0x1);
-
-  const int mcvtOffset (0x014);
-  const int mccvOffset (0x074);
-  const int mcnrOffset (0x018);
-  const int mclyOffset (0x01C);
-  const int mcrfOffset (0x020);
-  const int mcshOffset (0x02C);
-  const int mcalOffset (0x024);
-  const int mcalSizeOffset (0x028);
-  const int mclqOffset (0x060);
-  const int mcseOffset (0x058);*/
 
   offsetInFile = headerStartOffset + mcnkHeader.mcvtOffset;
 
@@ -80,7 +65,7 @@ McnkLk::McnkLk(std::string letters, int givenSize, const std::vector<char> &data
 {
 }
 
-McnkLk::McnkLk(const McnkLkHeader & cMcnkHeader 
+McnkLk::McnkLk(const McnkHeader & cMcnkHeader 
     , const Chunk & cMcvt
     , const Chunk & cMccv
     , const McnrLk & cMcnr
@@ -225,7 +210,7 @@ void McnkLk::toFile()
 
 int McnkLk::getWholeSize()
 {
-  return getWholeChunk().size();
+  return getWholeChunk().size(); // TODO : change behaviour and get all chunks whole size + mcnk letters + header. Change constructor to use it.
 }
 
 void McnkLk::getHeaderFromFile(std::ifstream & adtFile, const int position, const int length)
@@ -235,7 +220,7 @@ void McnkLk::getHeaderFromFile(std::ifstream & adtFile, const int position, cons
 
   adtFile.read(dataBuffer, length);
 
-  mcnkHeader = *reinterpret_cast<McnkLkHeader*>(dataBuffer);
+  mcnkHeader = *reinterpret_cast<McnkHeader*>(dataBuffer);
 
   delete[] dataBuffer;
 }

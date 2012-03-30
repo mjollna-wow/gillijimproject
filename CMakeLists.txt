@@ -58,6 +58,7 @@ set ( gp_headers
   wowfiles/lichking/McnrLk.h
 
   wowfiles/Chunk.h
+  wowfiles/ChunkHeaders.h  
   wowfiles/Main.h
   wowfiles/Mcal.h
   wowfiles/Mcin.h
