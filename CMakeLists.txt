@@ -30,6 +30,7 @@ set ( gp_sources
   wowfiles/Mh2o.cpp
   wowfiles/Mhdr.cpp  
   wowfiles/Mphd.cpp  
+  wowfiles/Wdl.cpp  
   wowfiles/Wdt.cpp  
   wowfiles/WowChunkedFormat.cpp  
   
@@ -66,6 +67,7 @@ set ( gp_headers
   wowfiles/Mh2o.h
   wowfiles/Mhdr.h
   wowfiles/Mphd.h
+  wowfiles/Wdl.h
   wowfiles/Wdt.h
   wowfiles/WowChunkedFormat.h
   )

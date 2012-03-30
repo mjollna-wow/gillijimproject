@@ -3,6 +3,7 @@
 #include <cstring>
 #include <fstream>
 #include <wowfiles/Wdt.h>
+#include <wowfiles/Wdl.h>
 #include <wowfiles/alpha/WdtAlpha.h>
 #include <wowfiles/lichking/AdtLk.h>
 #include <wowfiles/cataclysm/AdtCata.h>
@@ -29,7 +30,7 @@ int main (int argc, char **argv)
     testAdtLk.toFile();
   }*/
 
-  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
+  /*AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
@@ -41,7 +42,16 @@ int main (int argc, char **argv)
 
   AdtLk testAdt2("Azeroth_30_43.adt");
 
-  testAdt2.toFile();
+  testAdt2.toFile();*/
+
+  std::string wdlName ("development.wdl");
+  Wdl testWdl (wdlName);
+
+  std::ofstream fileOut;
+  fileOut.open ("debugfile.txt");
+
+  fileOut << testWdl;
+  testWdl.toFile();
 
   return 0;
 }
