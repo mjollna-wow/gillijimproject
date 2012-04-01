@@ -28,6 +28,10 @@ class Mhdr : public Chunk
     static const int modfOffset = 32;
     static const int mfboOffset = 36;
     static const int mtxfOffset = 44;
+	
+  /*private: // TODO : decide if I use this or not.
+    
+	MhdrContent mhdrContent;*/
 };
 
 #endif

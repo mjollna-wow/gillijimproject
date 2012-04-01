@@ -114,54 +114,7 @@ McnkLk::McnkLk(const McnkHeader & cMcnkHeader
   if (!mcse.isEmpty())
     givenSize = givenSize + chunkLettersAndSize + mcse.getRealSize();
 
-  // TODO : give McnkLk.data header content somehow.
-
-  std::vector<char> tempData;
-
-  tempData = mcvt.getWholeChunk();
-  data.insert(data.end(), tempData.begin(), tempData.end());
-
-  if (!mccv.isEmpty())
-  {
-    tempData = mccv.getWholeChunk();
-    data.insert(data.end(), tempData.begin(), tempData.end());
-  }
-
-  tempData = mcnr.getWholeChunk();
-  data.insert(data.end(), tempData.begin(), tempData.end());
-
-  if (!mcly.isEmpty())
-  {
-    tempData = mcly.getWholeChunk();
-    data.insert(data.end(), tempData.begin(), tempData.end());
-  }
-
-  tempData = mcrf.getWholeChunk();
-  data.insert(data.end(), tempData.begin(), tempData.end());
-
-  if (!mcsh.isEmpty())
-  {
-    tempData = mcsh.getWholeChunk();
-    data.insert(data.end(), tempData.begin(), tempData.end());
-  }
-
-  if (!mcal.isEmpty())
-  {
-    tempData = mcal.getWholeChunk();
-    data.insert(data.end(), tempData.begin(), tempData.end());
-  }
-
-  if (!mclq.isEmpty())
-  {
-    tempData = mclq.getWholeChunk();
-    data.insert(data.end(), tempData.begin(), tempData.end());
-  }
-
-  if (!mcse.isEmpty())
-  {
-    tempData = mcse.getWholeChunk();
-    data.insert(data.end(), tempData.begin(), tempData.end());
-  }
+  // TODO : give McnkLk.data content, somehow.
 }
 
 void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
@@ -173,7 +126,7 @@ void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
     adtFile.write((char *)&letters[0], sizeof(char) * letters.size());
     adtFile.write((char *)&givenSize, sizeof(char) * sizeof(givenSize));
 
-    adtFile.write((char *)&mcnkHeader, sizeof(char) * sizeof(mcnkHeader)); // TODO : check this absolutely (replace by getWholeChunk() when mcnk.data == header only ?)
+    adtFile.write((char *)&mcnkHeader, sizeof(char) * sizeof(mcnkHeader)); // TODO : check this absolutely (replace by getWholeChunk() when mcnk.data == header only ?). I use this instead of data... so it works.
 
     adtFile.write((char *)&mcvt.getWholeChunk()[0], sizeof(char) * mcvt.getWholeChunk().size());
 
@@ -205,12 +158,72 @@ void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
 
 void McnkLk::toFile()
 {
-  // TODO
+  // TODO (getWholeChunk() and write)
 }
 
-int McnkLk::getWholeSize()
+int McnkLk::getWholeSize() // TODO : do I really need this ?
 {
-  return getWholeChunk().size(); // TODO : change behaviour and get all chunks whole size + mcnk letters + header. Change constructor to use it.
+  return getWholeChunk().size(); 
+}
+
+std::vector<char> McnkLk::getWholeChunk() const // TODO : change behaviour and get all chunks whole size + mcnk letters + header. Look if ok everywhere that way.
+{
+  std::vector<char> wholeChunk (0);
+
+  std::vector<char> tempData (letters.begin(), letters.end()); // TODO : check
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(givenSize);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end()); // TODO : when testing, be sure that data has indeed header data (care with broken constructor above)
+  
+  tempData = mcvt.getWholeChunk();
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  if (!mccv.isEmpty())
+  {
+    tempData = mccv.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  tempData = mcnr.getWholeChunk();
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  if (!mcly.isEmpty())
+  {
+    tempData = mcly.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  tempData = mcrf.getWholeChunk();
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  if (!mcsh.isEmpty())
+  {
+    tempData = mcsh.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mcal.isEmpty())
+  {
+    tempData = mcal.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mclq.isEmpty())
+  {
+    tempData = mclq.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mcse.isEmpty())
+  {
+    tempData = mcse.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }  
+  
+  return wholeChunk;
 }
 
 void McnkLk::getHeaderFromFile(std::ifstream & adtFile, const int position, const int length)

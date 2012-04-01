@@ -34,7 +34,8 @@ class McnkLk : public Mcnk
     void toFile(std::ofstream & adtFile, std::string & adtFileName);
     void toFile();
     int getWholeSize();
-
+    std::vector<char> getWholeChunk() const;
+	
     friend std::ostream & operator<<(std::ostream & os, const McnkLk & mcnkLk);
 
   private:

@@ -73,4 +73,44 @@ struct McnkAlphaHeader
   int unused6;
 };
 
+struct MhdrContent // TODO : use !
+{ 
+  int flags;
+  int mcinOffset;
+  int mtexOffset;
+  int mmdxOffset;
+  int mmidOffset;
+  int mwmoOffset;
+  int mwidOffset;
+  int mddfOffset;
+  int modfOffset;
+  int mfboOffset;
+  int mh2oOffset;
+  int mtxfOffset;
+  int unused1;
+  int unused2;
+  int unused3;
+  int unused4;  
+};
+
+struct MhdrAlphaContent // TODO : use !
+{
+  int mcinOffset;
+  int mtexOffset;
+  int mtexSize;
+  int mddfOffset;
+  int unknown1;
+  int modfOffset;
+  int unused1;
+  int unused2;  
+  int unused3;
+  int unused4;
+  int unused5;
+  int unused6;
+  int unused7;
+  int unused8;
+  int unused9;
+  int unused10;  
+};
+
 #endif

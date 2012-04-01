@@ -425,7 +425,6 @@ void AdtLk::updateOrCreateMhdrAndMcin()
     offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getRealSize(); // problem if no mh2o at all ? Test isEmpty() (not done yet)
   }
 
-  std::vector<McnkLk>::const_iterator mcnksIter;
   int currentMcnk;
 
   std::vector<char> mcinData (0);

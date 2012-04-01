@@ -7,25 +7,30 @@
 #include <fstream>
 #include <iostream>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/Mcnk.h>
 
-class McnkCata : public Chunk
+class McnkCata : public Mcnk
 {
   public:
 
     McnkCata(std::ifstream & file, int offsetInFile);
     McnkCata(std::string letters, int givenSize, const std::vector<char> &data);
 
+	  void toFile();
+	  void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length); // TODO : get rid of this, or at least move it.
+	
     friend std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata);
 
   private:
 
-    std::vector<char> mcnkHeader;
+    McnkHeader mcnkHeader;
     Chunk mcvt;
     Chunk mccv;
     Chunk mclv;
     Chunk mcnr;
     Chunk mclq;
     Chunk mcse;
+	std::vector<Chunk> terrainMcnkUnknown;
 };
 
 #endif

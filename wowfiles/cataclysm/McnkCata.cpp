@@ -3,53 +3,81 @@
 #include <iostream>
 #include <fstream>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/Mcnk.h>
 #include <wowfiles/cataclysm/McnkCata.h>
 #include <utilities/Utilities.h>
 
-McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInFile)
+McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Mcnk(adtFile, offsetInFile, mcnkTerrainHeaderSize)
 {
-  const int mcnkHeaderSize (128);
-  const int chunkLettersAndSize (8);
+  const int headerStartOffset (offsetInFile + chunkLettersAndSize);
+  const int absoluteMcnkEnd = offsetInFile + chunkLettersAndSize + givenSize;
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
-  mcnkHeader = Utilities::getCharVectorFromFile(adtFile, offsetInFile, mcnkHeaderSize);
-  offsetInFile = mcnkHeaderSize + offsetInFile;
+  getHeaderFromFile(adtFile, offsetInFile, mcnkTerrainHeaderSize);
 
-  const int mccvOffset (0x074);
-  const int mclvOffset (0x078);
-  const int mcshOffset (0x02C);
-  const int mclqOffset (0x060);
+  offsetInFile = headerStartOffset + mcnkTerrainHeaderSize;
+  
+  int chunkName (Utilities::getIntFromFile(adtFile, offsetInFile));
 
-  mcvt = Chunk(adtFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mcvt.getGivenSize();
-
-  if (Utilities::get<int>(mcnkHeader, mccvOffset) != 0)
+  while (offsetInFile < absoluteMcnkEnd)
   {
-    mccv = Chunk(adtFile, offsetInFile);
-    offsetInFile = chunkLettersAndSize + offsetInFile + mccv.getGivenSize();
-  }
+    switch (chunkName)
+    {
+      case 'MCVT' :
+        mcvt = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mcvt.getGivenSize();
+        break;  
 
-  if (Utilities::get<int>(mcnkHeader, mclvOffset) != 0)
-  {
-    mclv = Chunk(adtFile, offsetInFile);
-    offsetInFile = chunkLettersAndSize + offsetInFile + mclv.getGivenSize();
-  }
+      case 'MCCV' :
+        mccv = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mccv.getGivenSize();
+        break;  		
 
-  mcnr = Chunk(adtFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mcnr.getGivenSize();
+      case 'MCLV' :
+        mclv = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mclv.getGivenSize();
+        break;  
 
-  if (Utilities::get<int>(mcnkHeader, mclqOffset) != 0)
-  {
-    mclq = Chunk(adtFile, offsetInFile);
-    offsetInFile = chunkLettersAndSize + offsetInFile + mclq.getGivenSize();
-  }
+      case 'MCNR' :
+        mcnr = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mcnr.getGivenSize();
+        break;  		
 
-  if (Utilities::get<int>(mcnkHeader, mcshOffset) != 0)
-  {
-    mcse = Chunk(adtFile, offsetInFile);
-    offsetInFile = chunkLettersAndSize + offsetInFile + mcse.getGivenSize();
-  }
+      case 'MCLQ' :
+        mclq = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mclq.getGivenSize();
+        break;  
+		
+      case 'MCSE' :
+        mcse = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mcse.getGivenSize();
+        break;  	
+		
+      default :
+        terrainMcnkUnknown.push_back(Chunk(adtFile, offsetInFile));
+        offsetInFile = offsetInFile + chunkLettersAndSize + terrainMcnkUnknown.back().getGivenSize();
+    }
+	
+    chunkName = Utilities::getIntFromFile(adtFile, offsetInFile);
+  }		
+}
+
+void McnkCata::toFile()
+{
+  // TODO
+}
+
+void McnkCata::getHeaderFromFile(std::ifstream & adtFile, const int position, const int length)
+{
+  adtFile.seekg(position, std::ios::beg);
+  char * dataBuffer = new char[length];
+
+  adtFile.read(dataBuffer, length);
+
+  mcnkHeader = *reinterpret_cast<McnkHeader*>(dataBuffer);
+
+  delete[] dataBuffer;
 }
 
 std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata)
@@ -66,6 +94,16 @@ std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata)
   os << mcnkCata.mclq;
   os << mcnkCata.mcse;
 
+  os << "Hi, in here we're unknown !" << std::endl;
+  os << std::endl;
+
+  std::vector<Chunk>::const_iterator unknownIter;
+
+  for (unknownIter = mcnkCata.terrainMcnkUnknown.begin() ; unknownIter != mcnkCata.terrainMcnkUnknown.end() ; ++unknownIter)
+  {
+    os << *unknownIter;
+  }
+  
   os << "------------------------------" << std::endl;
   return os;
 }

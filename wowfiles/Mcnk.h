@@ -22,7 +22,7 @@ class Mcnk : public Chunk
     Mcnk();
     Mcnk(std::ifstream & adtFile, int offsetInFile, const int headerSize);
     Mcnk(const std::string letters, int givenSize, const std::vector<char> & chunkData);
-	
+		
     void toFile();
 };
 
