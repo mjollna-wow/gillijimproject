@@ -11,7 +11,7 @@ Mcnk::Mcnk() : Chunk()
 {
 }
 
-Mcnk::Mcnk(std::ifstream & adtFile, int offsetInFile, const int headerSize)
+Mcnk::Mcnk(std::ifstream & adtFile, int offsetInFile, const int & headerSize)
 {
   letters = Utilities::getLettersFromFile(adtFile, offsetInFile);
   offsetInFile += 4;
@@ -20,6 +20,20 @@ Mcnk::Mcnk(std::ifstream & adtFile, int offsetInFile, const int headerSize)
   offsetInFile += 4;
 
   data = Utilities::getCharVectorFromFile(adtFile, offsetInFile, headerSize);
+}
+
+Mcnk::Mcnk(const std::vector<char> & wholeFile, int offsetInFile, const int & headerSize)
+{
+  letters = Utilities::getStringFromCharVector(wholeFile, offsetInFile, 4);
+  offsetInFile += 4;
+
+  givenSize = Utilities::get<int>(wholeFile, offsetInFile);
+  offsetInFile += 4;
+
+  std::vector<char>::const_iterator fileIter;
+  fileIter = wholeFile.begin() + offsetInFile;
+
+  data.assign(fileIter, fileIter + headerSize);
 }
 
 Mcnk::Mcnk(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("KNCM", givenSize, data) 

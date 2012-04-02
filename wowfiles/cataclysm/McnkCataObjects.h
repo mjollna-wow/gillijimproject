@@ -13,6 +13,7 @@ class McnkCataObjects : public Mcnk
   public:
 
     McnkCataObjects(std::ifstream & file, int offsetInFile);
+    McnkCataObjects(const std::vector<char> & wholeFile, int offsetInFile);
     McnkCataObjects(std::string letters, int givenSize, const std::vector<char> &data);
 
 	  void toFile();

@@ -13,14 +13,14 @@
 
 int main (int argc, char **argv)
 {
-  /*std::string wdtName ("alpha_dm.wdt");
+  std::string wdtName ("alpha_dm.wdt");
   WdtAlpha testWdtAlpha (wdtName);
 
-  Wdt testWdt (testWdtAlpha.toWdt());
-  testWdt.toFile();
+  /*Wdt testWdt (testWdtAlpha.toWdt());
+  testWdt.toFile();*/
 
   std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
-  std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());*/
+  std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
   /*const int adtTotalNum (adtsNums.size());
   int currentAdt;
@@ -32,19 +32,23 @@ int main (int argc, char **argv)
     testAdtLk.toFile();
   }*/
 
-  /*AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
+  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
 
-  std::ofstream fileOut;
+  /*std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
-  fileOut << testAdt;
+  fileOut << testAdt;*/
 
   AdtLk testAdtLk (testAdt.toAdtLk());
-  testAdtLk.toFile();*/
+  testAdtLk.toFile();
 
-  /*AdtLk testAdt2("Azeroth_30_43.adt");
+  AdtLk testAdt2("Azeroth_30_43.adt");
 
-  testAdt2.toFile();*/
+  testAdt2.toFile();
+
+  AdtLk testAdt4("Northrend_27_22.adt");
+
+  testAdt4.toFile();
 
   /*std::string wdlName ("development.wdl");
   Wdl testWdl (wdlName);
@@ -55,20 +59,22 @@ int main (int argc, char **argv)
   fileOut << testWdl;
   testWdl.toFile();*/
 
-  /*AdtCata testAdt3("Deephome_29_29.adt");
+  /*AdtCata testAdt3("HawaiiMainLand_19_19.adt");
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
   fileOut << testAdt3;
-  fileOut.close();*/
+  fileOut.close();
 
+  AdtLk testAdt2("MonasteryInstances_30_30.adt");*/
+  
   /*AdtCataTextures testAdt3tex("Deephome_29_29_tex0.adt");  
   std::ofstream fileOut2;
   fileOut2.open ("debugfileTex.txt");
   fileOut2 << testAdt3tex;
   fileOut2.close();*/
 
-  AdtCataObjects testAdt3obj("Deephome_30_29_obj0.adt");
-  /*std::ofstream fileOut3;
+  /*AdtCataObjects testAdt3obj("Deephome_30_29_obj0.adt");
+  std::ofstream fileOut3;
   fileOut3.open ("debugfileObj.txt");
   fileOut3 << testAdt3obj;
   fileOut3.close();*/

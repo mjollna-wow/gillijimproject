@@ -18,7 +18,7 @@ class McnkCata : public Mcnk
 
 	  void toFile();
 	  void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length); // TODO : get rid of this, or at least move it.
-	
+
     friend std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata);
 
   private:

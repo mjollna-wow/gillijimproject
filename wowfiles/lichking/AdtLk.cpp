@@ -176,7 +176,7 @@ int AdtLk::getMcnksWholeSize()
   unsigned int currentMcnk;
   for (currentMcnk = 0 ; currentMcnk < mcnks.size() ; ++currentMcnk)
   {
-    wholeSize = wholeSize + mcnks[currentMcnk].getWholeSize();
+    wholeSize = wholeSize + mcnks[currentMcnk].getWholeChunk().size();
   }
     
   return wholeSize;

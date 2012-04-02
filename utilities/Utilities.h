@@ -13,6 +13,8 @@ namespace Utilities
     return T (*reinterpret_cast<const T*> (&data[offset]));
   }
 
+  void getWholeFile(const std::string & adtFileName, std::vector<char> & buffer);
+
   std::string getStringFromCharVector(const std::vector<char> & someData, const int start, const int stringLength);
 
   std::string getLettersFromFile(std::ifstream & adtFile, const int position);

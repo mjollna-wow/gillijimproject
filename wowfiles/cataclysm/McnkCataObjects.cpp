@@ -38,6 +38,11 @@ McnkCataObjects::McnkCataObjects(std::ifstream & adtFile, int offsetInFile) : Mc
   }*/
 }
 
+McnkCataObjects::McnkCataObjects(const std::vector<char> & wholeFile, int offsetInFile) : Mcnk(wholeFile, offsetInFile, mcnkTerrainHeaderSize)
+{
+  // TODO.
+}
+
 void McnkCataObjects::toFile()
 {
   // TODO

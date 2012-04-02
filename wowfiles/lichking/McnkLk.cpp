@@ -114,7 +114,8 @@ McnkLk::McnkLk(const McnkHeader & cMcnkHeader
   if (!mcse.isEmpty())
     givenSize = givenSize + chunkLettersAndSize + mcse.getRealSize();
 
-  // TODO : give McnkLk.data content, somehow.
+  char * tempHeader = (char *)&cMcnkHeader;
+  data.assign(tempHeader, tempHeader + mcnkTerrainHeaderSize);
 }
 
 void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
@@ -122,61 +123,27 @@ void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
   adtFile.open(adtFileName.c_str(), std::ios::out|std::ios::binary|std::ios::app);
 
   if (adtFile.is_open())
-  {
-    adtFile.write((char *)&letters[0], sizeof(char) * letters.size());
-    adtFile.write((char *)&givenSize, sizeof(char) * sizeof(givenSize));
-
-    adtFile.write((char *)&mcnkHeader, sizeof(char) * sizeof(mcnkHeader)); // TODO : check this absolutely (replace by getWholeChunk() when mcnk.data == header only ?). I use this instead of data... so it works.
-
-    adtFile.write((char *)&mcvt.getWholeChunk()[0], sizeof(char) * mcvt.getWholeChunk().size());
-
-    if (!mccv.isEmpty())
-      adtFile.write((char *)&mccv.getWholeChunk()[0], sizeof(char) * mccv.getWholeChunk().size());
-
-    adtFile.write((char *)&mcnr.getWholeChunk()[0], sizeof(char) * mcnr.getWholeChunk().size());
-
-    if (!mcly.isEmpty())
-      adtFile.write((char *)&mcly.getWholeChunk()[0], sizeof(char) * mcly.getWholeChunk().size());
-
-    adtFile.write((char *)&mcrf.getWholeChunk()[0], sizeof(char) * mcrf.getWholeChunk().size());
-
-    if (!mcsh.isEmpty())
-      adtFile.write((char *)&mcsh.getWholeChunk()[0], sizeof(char) * mcsh.getWholeChunk().size());
-
-    if (!mcal.isEmpty())
-      adtFile.write((char *)&mcal.getWholeChunk()[0], sizeof(char) * mcal.getWholeChunk().size());
-
-    if (!mclq.isEmpty())
-      adtFile.write((char *)&mclq.getWholeChunk()[0], sizeof(char) * mclq.getWholeChunk().size());
-
-    if (!mcse.isEmpty())
-      adtFile.write((char *)&mcse.getWholeChunk()[0], sizeof(char) * mcse.getWholeChunk().size());
-  }
+    adtFile.write((char *)&getWholeChunk()[0], sizeof(char) * getWholeChunk().size());
 
   adtFile.close();
 }
 
 void McnkLk::toFile()
 {
-  // TODO (getWholeChunk() and write)
+  // TODO
 }
 
-int McnkLk::getWholeSize() // TODO : do I really need this ?
-{
-  return getWholeChunk().size(); 
-}
-
-std::vector<char> McnkLk::getWholeChunk() const // TODO : change behaviour and get all chunks whole size + mcnk letters + header. Look if ok everywhere that way.
+std::vector<char> McnkLk::getWholeChunk() const
 {
   std::vector<char> wholeChunk (0);
 
-  std::vector<char> tempData (letters.begin(), letters.end()); // TODO : check
+  std::vector<char> tempData (letters.begin(), letters.end());
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
 
   tempData = Utilities::getCharVectorFromInt(givenSize);
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
 
-  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end()); // TODO : when testing, be sure that data has indeed header data (care with broken constructor above)
+  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
   
   tempData = mcvt.getWholeChunk();
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());

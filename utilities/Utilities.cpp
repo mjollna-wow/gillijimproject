@@ -8,6 +8,24 @@
 
 namespace Utilities
 {
+  void getWholeFile(const std::string & adtFileName, std::vector<char> & buffer)
+  {
+    std::ifstream adtFile;
+    adtFile.open(adtFileName.c_str(), std::ios::binary);
+
+    adtFile.seekg(0, std::ios::end);
+    const long fileSize = adtFile.tellg();
+    adtFile.seekg(0, std::ios::beg);
+
+    char * wholeFile;
+    wholeFile = new char[fileSize];
+    adtFile.read(wholeFile, fileSize);
+
+    buffer.assign(wholeFile, wholeFile + fileSize);
+   
+    delete [] wholeFile;
+  }
+
   std::string getStringFromCharVector(const std::vector<char> & someData, const int start, const int stringLength)
   {
     std::string letters ("");
