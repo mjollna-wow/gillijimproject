@@ -9,9 +9,9 @@
 
 Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
 {
-  std::ifstream wdtFile;
-  wdtFile.open(wdtName.c_str(), std::ios::binary);
-
+  std::vector<char> wdtFile(0);
+  Utilities::getWholeFile(wdtFileName, wdtFile);
+  
   int offsetInFile (0);
 
   mver = Chunk(wdtFile, offsetInFile);

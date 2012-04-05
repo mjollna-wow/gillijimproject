@@ -8,12 +8,10 @@
 
 Wdl::Wdl(const std::string & wdlFileName) : wdlName(wdlFileName)
 {
-  std::ifstream wdlFile;
-  wdlFile.open(wdlName.c_str(), std::ios::binary);
-
-  wdlFile.seekg(0, std::ios::end);
-  const int fileSize = wdlFile.tellg();
-  wdlFile.seekg(0, std::ios::beg);
+  std::vector<char> wdlFile(0);
+  Utilities::getWholeFile(wdlFileName, wdlFile);
+  
+  const int fileSize (wdlFile.size());
   
   int offsetInFile (0);
 

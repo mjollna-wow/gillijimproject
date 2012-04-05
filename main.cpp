@@ -25,14 +25,14 @@ int main (int argc, char **argv)
   const int adtTotalNum (adtsNums.size());
   int currentAdt;
 
-  for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
+  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
     AdtLk testAdtLk (testAdt.toAdtLk());
     testAdtLk.toFile();
-  }
+  }*/
 
-  //AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
+  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
 
   /*std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
@@ -55,14 +55,14 @@ int main (int argc, char **argv)
 
   testAdt4.toFile();*/
 
-  /*std::string wdlName ("development.wdl");
+  std::string wdlName ("development.wdl");
   Wdl testWdl (wdlName);
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
   fileOut << testWdl;
-  testWdl.toFile();*/
+  testWdl.toFile();
 
   /*AdtCata testAdt3("HawaiiMainLand_19_19.adt");
   std::ofstream fileOut;
