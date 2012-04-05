@@ -13,6 +13,10 @@ Mhdr::Mhdr(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInF
 {
 }
 
+Mhdr::Mhdr(const std::vector<char> & wholeFile, int offsetInFile) : Chunk(wholeFile, offsetInFile)
+{
+}
+
 Mhdr::Mhdr(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("RDHM", givenSize, data) 
 {
 }

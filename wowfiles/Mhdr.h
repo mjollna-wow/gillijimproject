@@ -13,6 +13,7 @@ class Mhdr : public Chunk
   
     Mhdr();
     Mhdr(std::ifstream & adtFile, int offsetInFile);
+	Mhdr(const std::vector<char> & wholeFile, int offsetInFile);
     Mhdr(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
 
     int getFlags();

@@ -14,9 +14,9 @@
 
 AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 {
-  std::ifstream adtFile;
-  adtFile.open(adtFileName.c_str(), std::ios::binary);
-
+  std::vector<char> adtFile(0);
+  Utilities::getWholeFile(adtFileName, adtFile);
+  
   int offsetInFile (0);
 
   mver = Chunk(adtFile, offsetInFile);
@@ -26,7 +26,7 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 
   mhdr = Mhdr(adtFile, offsetInFile);
   
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mcinOffset);
+  offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mcinOffset);
 
   mcin = Mcin(adtFile, offsetInFile); 
 
@@ -35,30 +35,30 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
   if (mhdr.getOffset(mhdr.mh2oOffset) != 0)
   {
     const int lettersSize = 4;
-    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mh2oOffset);
-    mh2oSizeInFile = Utilities::getIntFromFile(adtFile, offsetInFile + lettersSize);
+    offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mh2oOffset);
+    mh2oSizeInFile = Utilities::get<int>(adtFile, offsetInFile + lettersSize);
     mh2o = Mh2o(adtFile, offsetInFile);
   }
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mtexOffset);
+  offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mtexOffset);
   mtex = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mmdxOffset);
+  offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mmdxOffset);
   mmdx = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mmidOffset);
+  offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mmidOffset);
   mmid = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mwmoOffset);
+  offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mwmoOffset);
   mwmo = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mwidOffset);
+  offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mwidOffset);
   mwid = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mddfOffset);
+  offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mddfOffset);
   mddf = Chunk(adtFile, offsetInFile);
 
-  offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.modfOffset);
+  offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.modfOffset);
   modf = Chunk(adtFile, offsetInFile);
 
   std::vector<int> mcnkOffsets (mcin.getMcnkOffsets());
@@ -72,13 +72,13 @@ AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
 
   if (mhdr.getOffset(mhdr.mfboOffset) != 0)
   {
-    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mfboOffset);
+    offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mfboOffset);
     mfbo = Chunk(adtFile, offsetInFile);
   }
 
   if (mhdr.getOffset(mhdr.mtxfOffset) != 0)
   {
-    offsetInFile = MhdrStartOffset + Utilities::getIntFromFile(adtFile, MhdrStartOffset + mhdr.mtxfOffset);
+    offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mtxfOffset);
     mtxf = Chunk(adtFile, offsetInFile);
   }
 

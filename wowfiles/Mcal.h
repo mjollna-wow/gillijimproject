@@ -13,6 +13,7 @@ class Mcal : public Chunk
 
     Mcal();
     Mcal(std::ifstream & adtFile, int offsetInFile, int alphaSize);
+	Mcal(const std::vector<char> & wholeFile, int offsetInFile, int alphaSize);
     Mcal(std::string letters, int givenSize, const std::vector<char> & chunkData);
 };
 

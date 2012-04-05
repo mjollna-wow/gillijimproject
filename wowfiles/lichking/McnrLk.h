@@ -13,6 +13,7 @@ class McnrLk : public Chunk
   
   McnrLk();
   McnrLk(std::ifstream & adtFile, int offsetInFile);
+  McnrLk(const std::vector<char> & wholeFile, int offsetInFile);
   McnrLk(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
 };
 

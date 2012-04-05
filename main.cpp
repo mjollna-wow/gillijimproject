@@ -13,16 +13,16 @@
 
 int main (int argc, char **argv)
 {
-  std::string wdtName ("alpha_dm.wdt");
+  std::string wdtName ("azerothwdtFile00000000.xxx");
   WdtAlpha testWdtAlpha (wdtName);
 
-  /*Wdt testWdt (testWdtAlpha.toWdt());
-  testWdt.toFile();*/
+  Wdt testWdt (testWdtAlpha.toWdt());
+  testWdt.toFile();
 
   std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
-  /*const int adtTotalNum (adtsNums.size());
+  const int adtTotalNum (adtsNums.size());
   int currentAdt;
 
   for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
@@ -30,25 +30,30 @@ int main (int argc, char **argv)
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
     AdtLk testAdtLk (testAdt.toAdtLk());
     testAdtLk.toFile();
-  }*/
+  }
 
-  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
+  //AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
 
   /*std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
   fileOut << testAdt;*/
 
-  AdtLk testAdtLk (testAdt.toAdtLk());
-  testAdtLk.toFile();
+  //AdtLk testAdtLk (testAdt.toAdtLk());
+  //testAdtLk.toFile();
 
-  AdtLk testAdt2("Azeroth_30_43.adt");
+  /*AdtLk testAdt2("Azeroth_30_43.adt");
+
+  std::ofstream fileOut;
+  fileOut.open ("debugfile.txt");
+
+  fileOut << testAdt2;
 
   testAdt2.toFile();
 
   AdtLk testAdt4("Northrend_27_22.adt");
 
-  testAdt4.toFile();
+  testAdt4.toFile();*/
 
   /*std::string wdlName ("development.wdl");
   Wdl testWdl (wdlName);

@@ -24,7 +24,8 @@ Chunk::Chunk(std::ifstream & file, int offsetInFile) : letters("")
 
 Chunk::Chunk(const std::vector<char> & wholeFile, int offsetInFile)
 {
-  letters = Utilities::getStringFromCharVector(wholeFile, offsetInFile, 4);
+  const int lettersSize (4);
+  letters = Utilities::getStringFromCharVector(wholeFile, offsetInFile, lettersSize);
   offsetInFile += 4;
 
   givenSize = Utilities::get<int>(wholeFile, offsetInFile);
