@@ -5,6 +5,8 @@
 #include <wowfiles/Chunk.h>
 #include <wowfiles/Mcnk.h>
 #include <wowfiles/cataclysm/McnkCata.h>
+#include <wowfiles/cataclysm/McnrCata.h>
+#include <wowfiles/lichking/McnkLk.h>
 #include <utilities/Utilities.h>
 
 McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Mcnk(adtFile, offsetInFile, mcnkTerrainHeaderSize)
@@ -40,7 +42,7 @@ McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Mcnk(adtFile, of
         break;  
 
       case 'MCNR' :
-        mcnr = Chunk(adtFile, offsetInFile);
+        mcnr = McnrCata(adtFile, offsetInFile);
         offsetInFile = offsetInFile + chunkLettersAndSize + mcnr.getGivenSize();
         break;  		
 
@@ -66,6 +68,26 @@ McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Mcnk(adtFile, of
 void McnkCata::toFile()
 {
   // TODO
+}
+
+McnkLk McnkCata::toMcnkLk() // TODO : probably shouldn't be here.
+{
+  std::vector<char> emptyData (0); 
+  Chunk (emptyChunk); 
+
+  McnrLk cMcnr(mcnr.toMcnrLk());
+
+  Chunk (cMccv);
+  if (!mccv.isEmpty())
+    cMccv = mccv;
+
+  Chunk cMcly ("YLCM", 0, emptyData);
+  Chunk cMcrf ("FRCM", 0, emptyData);
+  Chunk cMcsh ("HSCM", 0, emptyData);
+  Mcal (cMcal);
+
+  McnkLk mcnkLk = McnkLk(mcnkHeader, mcvt, cMccv, cMcnr, cMcly, cMcrf, cMcsh, cMcal, emptyChunk, emptyChunk);
+  return mcnkLk;
 }
 
 void McnkCata::getHeaderFromFile(std::ifstream & adtFile, const int position, const int length)

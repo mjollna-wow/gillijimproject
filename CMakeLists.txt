@@ -18,7 +18,8 @@ set ( gp_sources
   wowfiles/cataclysm/AdtCataObjects.cpp  
   wowfiles/cataclysm/McnkCata.cpp  
   wowfiles/cataclysm/McnkCataObjects.cpp  
-  wowfiles/cataclysm/McnkCataTextures.cpp  
+  wowfiles/cataclysm/McnkCataTextures.cpp
+  wowfiles/cataclysm/McnrCata.cpp  
   
   wowfiles/lichking/AdtLk.cpp
   wowfiles/lichking/McnkLk.cpp 
@@ -57,6 +58,7 @@ set ( gp_headers
   wowfiles/cataclysm/McnkCata.h
   wowfiles/cataclysm/McnkCataObjects.h
   wowfiles/cataclysm/McnkCataTextures.h
+  wowfiles/cataclysm/McnrCata.h
 
   wowfiles/lichking/AdtLk.h
   wowfiles/lichking/McnkLk.h

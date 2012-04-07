@@ -129,42 +129,68 @@ void AdtLk::toFile()
 
 void AdtLk::toFile(std::string fileName)
 {
-  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
+  std::vector<char> wholeAdt(0);
+  
+  std::vector<char> tempData(mver.getWholeChunk());
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  
+  tempData = mhdr.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
 
-  if (outputFile.is_open())
+  tempData = mcin.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mtex.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mmdx.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mmid.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mwmo.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mwid.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mddf.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = modf.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  if (!mh2o.isEmpty())
   {
-    outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());
-    outputFile.write((char *)&mhdr.getWholeChunk()[0], sizeof(char) * mhdr.getWholeChunk().size());
-    outputFile.write((char *)&mcin.getWholeChunk()[0], sizeof(char) * mcin.getWholeChunk().size());
-    outputFile.write((char *)&mtex.getWholeChunk()[0], sizeof(char) * mtex.getWholeChunk().size());
-    outputFile.write((char *)&mmdx.getWholeChunk()[0], sizeof(char) * mmdx.getWholeChunk().size());
-    outputFile.write((char *)&mmid.getWholeChunk()[0], sizeof(char) * mmid.getWholeChunk().size());
-    outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
-    outputFile.write((char *)&mwid.getWholeChunk()[0], sizeof(char) * mwid.getWholeChunk().size());
-    outputFile.write((char *)&mddf.getWholeChunk()[0], sizeof(char) * mddf.getWholeChunk().size());
-    outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());
-    if (!mh2o.isEmpty())
-      outputFile.write((char *)&mh2o.getWholeChunk()[0], sizeof(char) * mh2o.getWholeChunk().size());
+    tempData = mh2o.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
   }
-
-  outputFile.close();
 
   int currentMcnk;
 
   for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
-    mcnks[currentMcnk].toFile(outputFile, fileName);
+    tempData =  mcnks[currentMcnk].getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
   }
 
-  outputFile.open(fileName.c_str(), std::ios::out|std::ios::binary|std::ios::app);
+  if (!mfbo.isEmpty())
+  {
+    tempData = mfbo.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mtxf.isEmpty())
+  {
+    tempData = mtxf.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
 
   if (outputFile.is_open())
-  {
-    if (!mfbo.isEmpty())
-      outputFile.write((char *)&mfbo.getWholeChunk()[0], sizeof(char) * mfbo.getWholeChunk().size());
-    if (!mtxf.isEmpty())
-      outputFile.write((char *)&mtxf.getWholeChunk()[0], sizeof(char) * mtxf.getWholeChunk().size());
-  }
+    outputFile.write((char *)&wholeAdt[0], sizeof(char) * wholeAdt.size());
 
   outputFile.close();
 }

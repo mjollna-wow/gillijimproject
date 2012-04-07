@@ -8,6 +8,8 @@
 #include <iostream>
 #include <wowfiles/Chunk.h>
 #include <wowfiles/Mcnk.h>
+#include <wowfiles/lichking/McnkLk.h>
+#include <wowfiles/cataclysm/McnrCata.h>
 
 class McnkCata : public Mcnk
 {
@@ -18,6 +20,7 @@ class McnkCata : public Mcnk
 
 	  void toFile();
 	  void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length); // TODO : get rid of this, or at least move it.
+    McnkLk toMcnkLk();
 
     friend std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata);
 
@@ -27,10 +30,10 @@ class McnkCata : public Mcnk
     Chunk mcvt;
     Chunk mccv;
     Chunk mclv;
-    Chunk mcnr;
+    McnrCata mcnr;
     Chunk mclq;
     Chunk mcse;
-	std::vector<Chunk> terrainMcnkUnknown;
+	  std::vector<Chunk> terrainMcnkUnknown;
 };
 
 #endif

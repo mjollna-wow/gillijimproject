@@ -13,7 +13,7 @@
 
 int main (int argc, char **argv)
 {
-  std::string wdtName ("azerothwdtFile00000000.xxx");
+  /*std::string wdtName ("azerothwdtFile00000000.xxx");
   WdtAlpha testWdtAlpha (wdtName);
 
   Wdt testWdt (testWdtAlpha.toWdt());
@@ -25,14 +25,14 @@ int main (int argc, char **argv)
   const int adtTotalNum (adtsNums.size());
   int currentAdt;
 
-  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
+  for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
     AdtLk testAdtLk (testAdt.toAdtLk());
     testAdtLk.toFile();
-  }*/
+  }
 
-  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
+  //AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));*/
 
   /*std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
@@ -42,35 +42,39 @@ int main (int argc, char **argv)
   //AdtLk testAdtLk (testAdt.toAdtLk());
   //testAdtLk.toFile();
 
-  /*AdtLk testAdt2("Azeroth_30_43.adt");
+  //AdtLk testAdt2("Azeroth_30_43.adt");
 
-  std::ofstream fileOut;
-  fileOut.open ("debugfile.txt");
+  //std::ofstream fileOut;
+  //fileOut.open ("debugfile.txt");
 
-  fileOut << testAdt2;
+  //fileOut << testAdt2;
 
-  testAdt2.toFile();
+  /*testAdt2.toFile();
 
   AdtLk testAdt4("Northrend_27_22.adt");
 
   testAdt4.toFile();*/
 
-  std::string wdlName ("development.wdl");
+  /*std::string wdlName ("development.wdl");
   Wdl testWdl (wdlName);
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
   fileOut << testWdl;
-  testWdl.toFile();
+  testWdl.toFile();*/
 
-  /*AdtCata testAdt3("HawaiiMainLand_19_19.adt");
-  std::ofstream fileOut;
+  AdtCata testAdt3("mop/NewRaceStartZone_26_31.adt");
+  /*std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
   fileOut << testAdt3;
-  fileOut.close();
+  fileOut.close();*/
 
-  AdtLk testAdt2("MonasteryInstances_30_30.adt");*/
+  AdtLk convertedAdt (testAdt3.toAdtLk());
+
+  convertedAdt.toFile();
+
+  //AdtLk testAdt2("MonasteryInstances_30_30.adt");
   
   /*AdtCataTextures testAdt3tex("Deephome_29_29_tex0.adt");  
   std::ofstream fileOut2;

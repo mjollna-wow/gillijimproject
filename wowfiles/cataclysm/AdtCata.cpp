@@ -9,7 +9,9 @@
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcnk.h>
 #include <wowfiles/cataclysm/McnkCata.h>
+#include <wowfiles/cataclysm/McnrCata.h>
 #include <utilities/Utilities.h>
+#include <wowfiles/lichking/AdtLk.h>
 
 AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
 {
@@ -65,6 +67,48 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
 void AdtCata::toFile()
 {
   // TODO.
+}
+
+AdtLk AdtCata::toAdtLk() // TODO : conversion is only partial, only terrain (other chunks are empty), and it's weird to have method in Cata terrain.
+{
+  std::string cName (adtName);
+
+  std::vector<char> mverData;
+  mverData.push_back(0x12);
+  mverData.push_back(0x0);
+  mverData.push_back(0x0);
+  mverData.push_back(0x0);
+  Chunk cMver ("REVM", 4, mverData);
+
+  Mh2o (cMh2o);
+  if (!mh2o.isEmpty())
+    cMh2o = mh2o;
+  
+  std::vector<char> emptyData(0);
+
+  Chunk cMtex ("XETM", 0, emptyData); // TODO : fill emptiness for objects
+  Chunk cMmdx ("XDMM", 0, emptyData); 
+  Chunk cMmid ("DIMM", 0, emptyData);
+  Chunk cMwmo ("OMWM", 0, emptyData);
+  Chunk cMwid ("DIWM", 0, emptyData);
+  Chunk cMddf ("FDDM", 0, emptyData);
+  Chunk cModf ("FDOM", 0, emptyData);
+  
+  std::vector<McnkLk> cMcnks;
+  int currentMcnk;
+
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
+  {
+    cMcnks.push_back(terrainMcnks[currentMcnk].toMcnkLk());
+  }
+
+  Chunk (cMfbo);
+  Chunk (cMtxf);
+
+  const int mhdrFlags = 0;
+
+  AdtLk adtLk(cName, cMver, 0, cMh2o, cMtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
+  return adtLk;  
 }
 
 std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata)

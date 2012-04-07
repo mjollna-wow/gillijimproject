@@ -11,6 +11,7 @@
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcnk.h>
 #include <wowfiles/cataclysm/McnkCata.h>
+#include <wowfiles/lichking/AdtLk.h>
 
 class AdtCata : public WowChunkedFormat
 {
@@ -19,6 +20,7 @@ class AdtCata : public WowChunkedFormat
     AdtCata(const std::string & adtFile);
 
     void toFile();
+    AdtLk toAdtLk();
 
     friend std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata);
 
@@ -31,7 +33,7 @@ class AdtCata : public WowChunkedFormat
     Mh2o mh2o;
     std::vector<McnkCata> terrainMcnks;
     Chunk mfbo;
-	std::vector<Chunk> terrainUnknown;
+	  std::vector<Chunk> terrainUnknown;
 };
 
 #endif
