@@ -17,7 +17,7 @@ class AdtLk : public WowChunkedFormat
 {
   public:
 
-    AdtLk(const std::string & adtFile);
+    AdtLk(const std::vector<char> & adtFile, const std::string & adtFileName);
     AdtLk(const std::string & name
       , const Chunk & cMver
       , const int & mhdrFlags

@@ -12,11 +12,8 @@
 #include <wowfiles/lichking/McnkLk.h>
 #include <utilities/Utilities.h>
 
-AdtLk::AdtLk(const std::string & adtFileName) : adtName(adtFileName)
+AdtLk::AdtLk(const std::vector<char> & adtFile, const std::string & adtFileName) : adtName(adtFileName)
 {
-  std::vector<char> adtFile(0);
-  Utilities::getWholeFile(adtFileName, adtFile);
-  
   int offsetInFile (0);
 
   mver = Chunk(adtFile, offsetInFile);

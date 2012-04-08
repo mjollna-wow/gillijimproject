@@ -46,22 +46,27 @@ int main (int argc, char **argv)
   //AdtLk testAdtLk (testAdt.toAdtLk());
   //testAdtLk.toFile();
 
-  //////////////////// LK STUFF ////////////////////
+  //////////////////// LK STUFF //////////////////// ok
 
-  //AdtLk testAdt2("Azeroth_30_43.adt");
+  /*std::vector<char> adtFile(0);
+  std::string adtName ("Azeroth_30_43.adt");
+  Utilities::getWholeFile(adtName, adtFile);
+  
+  AdtLk testAdt2(adtFile, adtName);
 
-  //std::ofstream fileOut;
-  //fileOut.open ("debugfile.txt");
+  std::ofstream fileOut;
+  fileOut.open ("debugfile.txt");
 
-  //fileOut << testAdt2;
+  fileOut << testAdt2;
 
-  /*testAdt2.toFile();
+  testAdt2.toFile();
 
-  AdtLk testAdt4("Northrend_27_22.adt");
+  std::string adtName2 ("Northrend_27_22.adt");
+  Utilities::getWholeFile(adtName2, adtFile);
+
+  AdtLk testAdt4(adtFile, adtName2);
 
   testAdt4.toFile();*/
-
-  //AdtLk testAdt2("MonasteryInstances_30_30.adt");
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
@@ -87,9 +92,9 @@ int main (int argc, char **argv)
   fileOut3 << testAdt3obj;
   fileOut3.close();*/
 
-  //////////////////// WDT (non-alpha) STUFF ////////////////////
+  //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 
-  std::vector<char> wdtFile(0);
+  /*std::vector<char> wdtFile(0);
   std::string wdtName ("Kalimdor.wdt");
   Utilities::getWholeFile(wdtName, wdtFile);
   
@@ -99,9 +104,9 @@ int main (int argc, char **argv)
   fileOut.open ("debugfile.txt");
 
   fileOut << testWdt;
-  testWdt.toFile();
+  testWdt.toFile();*/
 
-  //////////////////// WDL STUFF ////////////////////
+  //////////////////// WDL STUFF //////////////////// ok
 
   /*std::vector<char> wdlFile(0);
   std::string wdlName ("development.wdl");
