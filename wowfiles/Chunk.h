@@ -22,8 +22,6 @@ class Chunk : public WowChunkedFormat
     std::vector<char> getWholeChunk() const;
     int getOffset(const int offsetInData) const;
     void toFile(std::string & fileName);
-    
-    void toFile(); // TODO : implement correctly
 
     friend std::ostream & operator<<(std::ostream & os, const Chunk & chunk);
 

@@ -9,8 +9,6 @@
 class WowChunkedFormat
 {
   public:
-
-    virtual void toFile() = 0;
     
     static const int chunkLettersAndSize = 8;
     static const int mcnkTerrainHeaderSize = 128;

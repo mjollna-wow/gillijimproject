@@ -88,11 +88,6 @@ void Chunk::toFile(std::string & fileName)
   outputFile.close();
 }
 
-void Chunk::toFile()
-{
-  // TODO : empty
-}
-
 int Chunk::getRealSize()  const
 {
   return data.size();

@@ -20,8 +20,6 @@ class AdtAlpha : public WowChunkedFormat
     int getYCoord() const;
     AdtLk toAdtLk() const;
 
-    void toFile();
-
     friend std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha);
 
   private:

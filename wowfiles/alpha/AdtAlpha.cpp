@@ -118,11 +118,6 @@ AdtLk AdtAlpha::toAdtLk() const
   return adtLk;
 }
 
-void AdtAlpha::toFile()
-{
-  //TODO (or not ? Doesn't really make sense...).
-}
-
 std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha)
 {
   os << "ADT #" << adtAlpha.adtNumber << std::endl;

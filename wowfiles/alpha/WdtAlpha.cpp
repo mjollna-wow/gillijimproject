@@ -93,11 +93,6 @@ std::vector<int> WdtAlpha::getAdtOffsetsInMain() const // TODO change this
   return main.getMhdrOffsets();
 }
 
-void WdtAlpha::toFile()
-{
-  // TODO (or not).
-}
-
 std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)
 {
   os << wdtAlpha.wdtName << std::endl;

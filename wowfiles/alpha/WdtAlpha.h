@@ -20,8 +20,6 @@ class WdtAlpha : public WowChunkedFormat
     std::vector<int> getExistingAdtsNumbers() const;
     std::vector<int> getAdtOffsetsInMain() const; // TODO : change this
 
-    void toFile();
-
     friend std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha);
 
   private:
