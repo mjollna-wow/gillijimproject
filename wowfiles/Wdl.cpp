@@ -6,14 +6,14 @@
 #include <wowfiles/Chunk.h>
 #include <utilities/Utilities.h>
 
-Wdl::Wdl(const std::string & wdlFileName) : wdlName(wdlFileName)
+Wdl::Wdl(const std::vector<char> & wdlFile, const std::string & wdlFileName) : wdlName(wdlFileName)
 {
-  std::vector<char> wdlFile(0);
-  Utilities::getWholeFile(wdlFileName, wdlFile);
-  
   const int fileSize (wdlFile.size());
   
   int offsetInFile (0);
+
+  mver = Chunk(wdlFile, offsetInFile);
+  offsetInFile = chunkLettersAndSize + offsetInFile + mver.getGivenSize();
 
   mwmo = Chunk(wdlFile, offsetInFile);
   offsetInFile = chunkLettersAndSize + offsetInFile + mwmo.getGivenSize();
@@ -35,6 +35,7 @@ Wdl::Wdl(const std::string & wdlFileName) : wdlName(wdlFileName)
 }
 
 Wdl::Wdl(const std::string & name // TODO : that one is untested but should work
+      , const Chunk & cMver
       , const Chunk & cMwmo
       , const Chunk & cMwid
       , const Chunk & cModf
@@ -51,24 +52,35 @@ Wdl::Wdl(const std::string & name // TODO : that one is untested but should work
 
 void Wdl::toFile()
 {
+  std::vector<char> wholeWdl(mver.getWholeChunk());
+
+  std::vector<char> tempData(mwmo.getWholeChunk());
+  wholeWdl.insert(wholeWdl.end(), tempData.begin(), tempData.end());
+
+  tempData = mwid.getWholeChunk();
+  wholeWdl.insert(wholeWdl.end(), tempData.begin(), tempData.end());
+
+  tempData = modf.getWholeChunk();
+  wholeWdl.insert(wholeWdl.end(), tempData.begin(), tempData.end());
+
+  tempData = maof.getWholeChunk();
+  wholeWdl.insert(wholeWdl.end(), tempData.begin(), tempData.end());
+
+  int currentMareAndMaho;
+
+  for (currentMareAndMaho = 0 ; currentMareAndMaho < mareAndMaho.size() ; ++currentMareAndMaho)
+  {
+    tempData =  mareAndMaho[currentMareAndMaho].getWholeChunk();
+    wholeWdl.insert(wholeWdl.end(), tempData.begin(), tempData.end());
+  }
+
   std::string fileName (wdlName);
   fileName.append("_new");
   std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
+
   if (outputFile.is_open())
-  {
-    outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
-    outputFile.write((char *)&mwid.getWholeChunk()[0], sizeof(char) * mwid.getWholeChunk().size());
-    outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());
-    outputFile.write((char *)&maof.getWholeChunk()[0], sizeof(char) * maof.getWholeChunk().size());	
+    outputFile.write((char *)&wholeWdl[0], sizeof(char) * wholeWdl.size());
 
-    std::vector<Chunk>::const_iterator mareAndMahoIter;
-
-    for (mareAndMahoIter = mareAndMaho.begin() ; mareAndMahoIter != mareAndMaho.end() ; ++mareAndMahoIter)
-    {
-	  outputFile.write((char *)&(*mareAndMahoIter).getWholeChunk()[0], sizeof(char) * (*mareAndMahoIter).getWholeChunk().size());
-    }	
-  }
-  
   outputFile.close();
 }
 
@@ -76,6 +88,7 @@ std::ostream & operator<<(std::ostream & os, const Wdl & wdl)
 {
   os << wdl.wdlName << std::endl;
   os << "------------------------------" << std::endl;
+  os << wdl.mver;
   os << wdl.mwmo;
   os << wdl.mwid;
   os << wdl.modf;

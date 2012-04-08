@@ -13,7 +13,7 @@ class Wdt : public WowChunkedFormat
 {
   public:
 
-    Wdt(const std::string & wdtFileName);
+    Wdt(const std::vector<char> & wdtFile, const std::string & wdtFileName);
     Wdt(const std::string & name
       , const Chunk & cMver
       , const Mphd & cMphd

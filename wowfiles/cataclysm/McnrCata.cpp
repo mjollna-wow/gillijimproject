@@ -26,9 +26,6 @@ McnrCata::McnrCata(std::string letters, int givenSize, const std::vector<char> &
 McnrLk McnrCata::toMcnrLk()
 {
   const int unknownBytes (13);
-  //std::vector<char> emptyBytes (unknownBytes); 
-
-  //data.insert(data.end(), emptyBytes.begin(), emptyBytes.end());
 
   return McnrLk("RNCM", givenSize - unknownBytes, data);
 }

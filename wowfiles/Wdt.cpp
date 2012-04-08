@@ -7,11 +7,8 @@
 #include <wowfiles/Chunk.h>
 #include <utilities/Utilities.h>
 
-Wdt::Wdt(const std::string & wdtFileName) : wdtName(wdtFileName)
+Wdt::Wdt(const std::vector<char> & wdtFile, const std::string & wdtFileName) : wdtName(wdtFileName)
 {
-  std::vector<char> wdtFile(0);
-  Utilities::getWholeFile(wdtFileName, wdtFile);
-  
   int offsetInFile (0);
 
   mver = Chunk(wdtFile, offsetInFile);
@@ -53,22 +50,33 @@ Wdt::Wdt(const std::string & name
 
 void Wdt::toFile()
 {
+  std::vector<char> wholeWdt(mver.getWholeChunk());
+
+  std::vector<char> tempData(mphd.getWholeChunk());
+  wholeWdt.insert(wholeWdt.end(), tempData.begin(), tempData.end());
+
+  tempData = main.getWholeChunk();
+  wholeWdt.insert(wholeWdt.end(), tempData.begin(), tempData.end());
+
+  if (!mwmo.isEmpty())
+  {
+    tempData = mwmo.getWholeChunk();
+    wholeWdt.insert(wholeWdt.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!modf.isEmpty())
+  {
+    tempData = modf.getWholeChunk();
+    wholeWdt.insert(wholeWdt.end(), tempData.begin(), tempData.end());
+  }
+
   std::string fileName (wdtName);
   fileName.append("_new");
   std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
-  if (outputFile.is_open())
-  {
-    outputFile.write((char *)&mver.getWholeChunk()[0], sizeof(char) * mver.getWholeChunk().size());
-    outputFile.write((char *)&mphd.getWholeChunk()[0], sizeof(char) * mphd.getWholeChunk().size());
-    outputFile.write((char *)&main.getWholeChunk()[0], sizeof(char) * main.getWholeChunk().size());
 
-    if (!mwmo.isEmpty())
-      outputFile.write((char *)&mwmo.getWholeChunk()[0], sizeof(char) * mwmo.getWholeChunk().size());
-    
-    if (!modf.isEmpty())
-      outputFile.write((char *)&modf.getWholeChunk()[0], sizeof(char) * modf.getWholeChunk().size());
-  }
-  
+  if (outputFile.is_open())
+    outputFile.write((char *)&wholeWdt[0], sizeof(char) * wholeWdt.size());
+
   outputFile.close();
 }
 

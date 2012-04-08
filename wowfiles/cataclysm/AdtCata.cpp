@@ -107,7 +107,7 @@ AdtLk AdtCata::toAdtLk() // TODO : conversion is only partial, only terrain (oth
 
   const int mhdrFlags = 0;
 
-  AdtLk adtLk(cName, cMver, 0, cMh2o, cMtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
+  AdtLk adtLk(cName, cMver, mhdrFlags, cMh2o, cMtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
   return adtLk;  
 }
 

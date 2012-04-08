@@ -12,8 +12,9 @@ class Wdl : public WowChunkedFormat
 {
   public:
 
-    Wdl(const std::string & wdlFileName);
+    Wdl(const std::vector<char> & wdlFile, const std::string & wdlFileName);
     Wdl(const std::string & name
+      , const Chunk & cMver
       , const Chunk & cMwmo
       , const Chunk & cMwmid
       , const Chunk & cModf
@@ -26,6 +27,7 @@ class Wdl : public WowChunkedFormat
   private:
   
     std::string wdlName;
+    Chunk mver;
     Chunk mwmo;
     Chunk mwid;
     Chunk modf;
