@@ -9,21 +9,23 @@
 #include <wowfiles/lichking/McnkLk.h>
 #include <utilities/Utilities.h>
 
-McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Mcnk(adtFile, offsetInFile, mcnkTerrainHeaderSize)
+McnkCata::McnkCata(const std::vector<char> & adtFile, int offsetInFile, const int & headerSize) : Mcnk(adtFile, offsetInFile, mcnkTerrainHeaderSize)
 {
   const int headerStartOffset (offsetInFile + chunkLettersAndSize);
   const int absoluteMcnkEnd = offsetInFile + chunkLettersAndSize + givenSize;
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
-  getHeaderFromFile(adtFile, offsetInFile, mcnkTerrainHeaderSize);
+  mcnkHeader = *reinterpret_cast<McnkHeader*>(&data[0]);
 
   offsetInFile = headerStartOffset + mcnkTerrainHeaderSize;
   
-  int chunkName (Utilities::getIntFromFile(adtFile, offsetInFile));
+  int chunkName;
 
   while (offsetInFile < absoluteMcnkEnd)
   {
+    chunkName = Utilities::get<int>(adtFile, offsetInFile);
+
     switch (chunkName)
     {
       case 'MCVT' :
@@ -60,8 +62,6 @@ McnkCata::McnkCata(std::ifstream & adtFile, int offsetInFile) : Mcnk(adtFile, of
         terrainMcnkUnknown.push_back(Chunk(adtFile, offsetInFile));
         offsetInFile = offsetInFile + chunkLettersAndSize + terrainMcnkUnknown.back().getGivenSize();
     }
-	
-    chunkName = Utilities::getIntFromFile(adtFile, offsetInFile);
   }		
 }
 
@@ -88,18 +88,6 @@ McnkLk McnkCata::toMcnkLk() // TODO : probably shouldn't be here.
 
   McnkLk mcnkLk = McnkLk(mcnkHeader, mcvt, cMccv, cMcnr, cMcly, cMcrf, cMcsh, cMcal, emptyChunk, emptyChunk);
   return mcnkLk;
-}
-
-void McnkCata::getHeaderFromFile(std::ifstream & adtFile, const int position, const int length)
-{
-  adtFile.seekg(position, std::ios::beg);
-  char * dataBuffer = new char[length];
-
-  adtFile.read(dataBuffer, length);
-
-  mcnkHeader = *reinterpret_cast<McnkHeader*>(dataBuffer);
-
-  delete[] dataBuffer;
 }
 
 std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata)

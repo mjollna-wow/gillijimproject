@@ -13,21 +13,17 @@
 #include <utilities/Utilities.h>
 #include <wowfiles/lichking/AdtLk.h>
 
-AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
+AdtCata::AdtCata(const std::string & adtFileName, const std::vector<char> & adtFile) : adtName(adtFileName)
 {
-  std::ifstream adtFile;
-  adtFile.open(adtFileName.c_str(), std::ios::binary);
-
-  adtFile.seekg(0, std::ios::end);
-  const int fileSize = adtFile.tellg();
-  adtFile.seekg(0, std::ios::beg);
-
+  const int fileSize = adtFile.size();
   int offsetInFile (0);
 
-  int chunkName (Utilities::getIntFromFile(adtFile, offsetInFile));
+  int chunkName;
 
   while (offsetInFile < fileSize)
   {
+    chunkName = Utilities::get<int>(adtFile, offsetInFile);
+
     switch (chunkName)
     {
       case 'MVER' :
@@ -46,7 +42,7 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
         break;
 
       case 'MCNK' :
-        terrainMcnks.push_back(McnkCata(adtFile, offsetInFile));
+        terrainMcnks.push_back(McnkCata(adtFile, offsetInFile, mcnkTerrainHeaderSize));
         offsetInFile = offsetInFile + chunkLettersAndSize + terrainMcnks.back().getGivenSize(); 
         break;
 
@@ -59,8 +55,6 @@ AdtCata::AdtCata(const std::string & adtFileName) : adtName(adtFileName)
         terrainUnknown.push_back(Chunk(adtFile, offsetInFile));
         offsetInFile = offsetInFile + chunkLettersAndSize + terrainUnknown.back().getGivenSize();
     }
-	
-    chunkName = Utilities::getIntFromFile(adtFile, offsetInFile);
   }
 }
 

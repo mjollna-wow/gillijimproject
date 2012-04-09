@@ -12,7 +12,7 @@ class McnkCataTextures : public Mcnk
 {
   public:
 
-    McnkCataTextures(std::ifstream & file, int offsetInFile);
+    McnkCataTextures(const std::vector<char> & adtFile, int offsetInFile);
     McnkCataTextures(std::string letters, int givenSize, const std::vector<char> &data);
 
 	  void toFile();

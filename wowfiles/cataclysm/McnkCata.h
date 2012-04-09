@@ -15,11 +15,10 @@ class McnkCata : public Mcnk
 {
   public:
 
-    McnkCata(std::ifstream & file, int offsetInFile);
+    McnkCata(const std::vector<char> & adtFile, int offsetInFile, const int & headerSize);
     McnkCata(std::string letters, int givenSize, const std::vector<char> &data);
 
 	  void toFile();
-	  void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length); // TODO : get rid of this, or at least move it.
     McnkLk toMcnkLk();
 
     friend std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata);

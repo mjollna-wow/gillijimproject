@@ -7,16 +7,18 @@
 #include <wowfiles/cataclysm/McnkCataObjects.h>
 #include <utilities/Utilities.h>
 
-McnkCataObjects::McnkCataObjects(std::ifstream & adtFile, int offsetInFile) : Mcnk(adtFile, offsetInFile, mcnkTerrainHeaderSize)
+McnkCataObjects::McnkCataObjects(const std::vector<char> & adtFile, int offsetInFile) : Mcnk(adtFile, offsetInFile, 0)
 {
   const int absoluteMcnkEnd = offsetInFile + chunkLettersAndSize + givenSize;
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
   
-  int chunkName (Utilities::getIntFromFile(adtFile, offsetInFile));
+  int chunkName;
 
-  /*while (offsetInFile < absoluteMcnkEnd)
+  while (offsetInFile < absoluteMcnkEnd)
   {
+    chunkName = Utilities::get<int>(adtFile, offsetInFile);
+
     switch (chunkName)
     {
       case 'MCRD' :
@@ -33,14 +35,7 @@ McnkCataObjects::McnkCataObjects(std::ifstream & adtFile, int offsetInFile) : Mc
         objectsMcnkUnknown.push_back(Chunk(adtFile, offsetInFile));
         offsetInFile = offsetInFile + chunkLettersAndSize + objectsMcnkUnknown.back().getGivenSize();
     }
-	
-    chunkName = Utilities::getIntFromFile(adtFile, offsetInFile);
-  }*/
-}
-
-McnkCataObjects::McnkCataObjects(const std::vector<char> & wholeFile, int offsetInFile) : Mcnk(wholeFile, offsetInFile, mcnkTerrainHeaderSize)
-{
-  // TODO.
+  }
 }
 
 void McnkCataObjects::toFile()

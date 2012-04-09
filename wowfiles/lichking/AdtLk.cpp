@@ -461,7 +461,7 @@ void AdtLk::updateOrCreateMhdrAndMcin()
 
     offsetInFile = offsetInFile + mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize;
 
-    std::vector<char> mnckSize (Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize)); 
+    std::vector<char> mnckSize (Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize)); // TODO : there's a problem here on givenSize on some adts (8 bytes gap). However, the 335a client doesn't seem to care whether the size is right or wrong.
     mcinData.insert(mcinData.end(), mnckSize.begin(), mnckSize.end());
  
     for (throughMcinUnusedBytes = 0 ; throughMcinUnusedBytes < unusedMcinBytes ; ++throughMcinUnusedBytes)

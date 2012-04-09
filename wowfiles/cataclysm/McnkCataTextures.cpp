@@ -7,16 +7,18 @@
 #include <wowfiles/cataclysm/McnkCataTextures.h>
 #include <utilities/Utilities.h>
 
-McnkCataTextures::McnkCataTextures(std::ifstream & adtFile, int offsetInFile) : Mcnk(adtFile, offsetInFile, mcnkTerrainHeaderSize)
+McnkCataTextures::McnkCataTextures(const std::vector<char> & adtFile, int offsetInFile) : Mcnk(adtFile, offsetInFile, 0)
 {
   const int absoluteMcnkEnd = offsetInFile + chunkLettersAndSize + givenSize;
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
   
-  int chunkName (Utilities::getIntFromFile(adtFile, offsetInFile));
+  int chunkName;
 
   while (offsetInFile < absoluteMcnkEnd)
   {
+    chunkName = Utilities::get<int>(adtFile, offsetInFile);
+
     switch (chunkName)
     {
       case 'MCLY' :
@@ -43,8 +45,6 @@ McnkCataTextures::McnkCataTextures(std::ifstream & adtFile, int offsetInFile) : 
         texturesMcnkUnknown.push_back(Chunk(adtFile, offsetInFile));
         offsetInFile = offsetInFile + chunkLettersAndSize + texturesMcnkUnknown.back().getGivenSize();
     }
-	
-    chunkName = Utilities::getIntFromFile(adtFile, offsetInFile);
   }	
 }
 

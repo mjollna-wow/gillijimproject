@@ -8,21 +8,17 @@
 #include <wowfiles/cataclysm/McnkCataTextures.h>
 #include <utilities/Utilities.h>
 
-AdtCataTextures::AdtCataTextures(const std::string & adtFileName) : adtName(adtFileName)
+AdtCataTextures::AdtCataTextures(const std::string & adtName, const std::vector<char> & adtFile) : adtName(adtName)
 {
-  std::ifstream adtFile;
-  adtFile.open(adtFileName.c_str(), std::ios::binary);
-
-  adtFile.seekg(0, std::ios::end);
-  const int fileSize = adtFile.tellg();
-  adtFile.seekg(0, std::ios::beg);
-  
+  const int fileSize = adtFile.size();
   int offsetInFile (0);
 
-  int chunkName (Utilities::getIntFromFile(adtFile, offsetInFile));
+  int chunkName;
 
   while (offsetInFile < fileSize)
   {
+    chunkName = Utilities::get<int>(adtFile, offsetInFile);
+
     switch (chunkName)
     {
       case 'MVER' :
@@ -59,8 +55,6 @@ AdtCataTextures::AdtCataTextures(const std::string & adtFileName) : adtName(adtF
         texturesUnknown.push_back(Chunk(adtFile, offsetInFile));
         offsetInFile = offsetInFile + chunkLettersAndSize + texturesUnknown.back().getGivenSize();
     }
-	
-    chunkName = Utilities::getIntFromFile(adtFile, offsetInFile);
   }	
 }
 

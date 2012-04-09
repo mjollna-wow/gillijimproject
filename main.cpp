@@ -49,7 +49,12 @@ int main (int argc, char **argv)
   //////////////////// LK STUFF //////////////////// ok
 
   /*std::vector<char> adtFile(0);
-  std::string adtName ("Azeroth_30_43.adt");
+  //std::string adtName ("Azeroth_30_43.adt");
+  //std::string adtName ("Azeroth_32_58.adt");
+  //std::string adtName ("EmeraldDream_28_28.adt");
+  //std::string adtName ("EdEdited_27_30.adt");
+  //std::string adtName ("EdEdited_27_29_water.adt");
+  std::string adtName ("OtherTestMap_30_30.adt");
   Utilities::getWholeFile(adtName, adtFile);
   
   AdtLk testAdt2(adtFile, adtName);
@@ -59,9 +64,9 @@ int main (int argc, char **argv)
 
   fileOut << testAdt2;
 
-  testAdt2.toFile();
+  testAdt2.toFile();*/
 
-  std::string adtName2 ("Northrend_27_22.adt");
+  /*std::string adtName2 ("Northrend_27_22.adt");
   Utilities::getWholeFile(adtName2, adtFile);
 
   AdtLk testAdt4(adtFile, adtName2);
@@ -70,27 +75,38 @@ int main (int argc, char **argv)
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
-  //AdtCata testAdt3("mop/NewRaceStartZone_26_31.adt");
-  /*std::ofstream fileOut;
+  std::vector<char> adtFile(0);
+  
+  /*std::string adtName ("mop/NewRaceStartZone_26_31.adt");
+  Utilities::getWholeFile(adtName, adtFile);
+
+  AdtCata testAdt3(adtName, adtFile);
+  std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
   fileOut << testAdt3;
-  fileOut.close();*/
+  fileOut.close();
 
-  /*AdtLk convertedAdt (testAdt3.toAdtLk());
+  AdtLk convertedAdt (testAdt3.toAdtLk());
 
   convertedAdt.toFile();*/
 
-  /*AdtCataTextures testAdt3tex("Deephome_29_29_tex0.adt");  
+  /*std::string adtName ("Deephome_29_29_tex0.adt");
+  Utilities::getWholeFile(adtName, adtFile);
+
+  AdtCataTextures testAdt3tex(adtName, adtFile);  
   std::ofstream fileOut2;
   fileOut2.open ("debugfileTex.txt");
   fileOut2 << testAdt3tex;
   fileOut2.close();*/
 
-  /*AdtCataObjects testAdt3obj("Deephome_30_29_obj0.adt");
+  std::string adtName ("Deephome_30_29_obj0.adt");
+  Utilities::getWholeFile(adtName, adtFile);
+
+  AdtCataObjects testAdt3obj(adtName, adtFile);
   std::ofstream fileOut3;
   fileOut3.open ("debugfileObj.txt");
   fileOut3 << testAdt3obj;
-  fileOut3.close();*/
+  fileOut3.close();
 
   //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 

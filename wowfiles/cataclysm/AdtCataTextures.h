@@ -14,7 +14,7 @@ class AdtCataTextures : public WowChunkedFormat
 {
   public:
 
-    AdtCataTextures(const std::string & adtFile);
+    AdtCataTextures(const std::string & adtName, const std::vector<char> & adtFile);
 
     void toFile();
 
@@ -28,8 +28,8 @@ class AdtCataTextures : public WowChunkedFormat
     Chunk mtex;
     std::vector<McnkCataTextures> texturesMcnks;
     Chunk mtxf;
-	Chunk mtxp;
-	std::vector<Chunk> texturesUnknown;
+	  Chunk mtxp;
+	  std::vector<Chunk> texturesUnknown;
 };
 
 #endif
