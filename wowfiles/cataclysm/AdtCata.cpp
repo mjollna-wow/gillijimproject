@@ -197,6 +197,9 @@ std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata)
     ++i;
   }
 
+  os << adtCata.mbmh;
+  os << adtCata.mbmi;
+  os << adtCata.mbmv;
   os << adtCata.mfbo;
 
   std::vector<Chunk>::const_iterator terrainUnknownIter;

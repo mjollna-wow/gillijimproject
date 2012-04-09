@@ -77,7 +77,7 @@ int main (int argc, char **argv)
 
   std::vector<char> adtFile(0);
   
-  /*std::string adtName ("mop/NewRaceStartZone_26_31.adt");
+  std::string adtName ("mop/NewRaceStartZone_26_31.adt");
   Utilities::getWholeFile(adtName, adtFile);
 
   AdtCata testAdt3(adtName, adtFile);
@@ -86,7 +86,7 @@ int main (int argc, char **argv)
   fileOut << testAdt3;
   fileOut.close();
 
-  AdtLk convertedAdt (testAdt3.toAdtLk());
+  /*AdtLk convertedAdt (testAdt3.toAdtLk());
 
   convertedAdt.toFile();
 
@@ -103,16 +103,16 @@ int main (int argc, char **argv)
 
   testAdt3tex.toFile();*/
 
-  std::string adtName ("Deephome_30_29_obj0.adt");
+  /*std::string adtName ("Deephome_30_29_obj0.adt");
   Utilities::getWholeFile(adtName, adtFile);
 
   AdtCataObjects testAdt3obj(adtName, adtFile);
-  /*std::ofstream fileOut3;
+  std::ofstream fileOut3;
   fileOut3.open ("debugfileObj.txt");
   fileOut3 << testAdt3obj;
-  fileOut3.close();*/
+  fileOut3.close();
 
-  testAdt3obj.toFile();
+  testAdt3obj.toFile();*/
 
   //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 

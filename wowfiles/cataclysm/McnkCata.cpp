@@ -159,6 +159,7 @@ std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata)
   os << mcnkCata.mcnr;
   os << mcnkCata.mclq;
   os << mcnkCata.mcse;
+  os << mcnkCata.mcbb;
 
   os << "Hi, in here we're unknown !" << std::endl;
   os << std::endl;
