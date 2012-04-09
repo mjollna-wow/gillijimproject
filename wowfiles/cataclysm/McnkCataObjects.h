@@ -15,6 +15,7 @@ class McnkCataObjects : public Mcnk
     McnkCataObjects(const std::vector<char> & adtFile, int offsetInFile);
     McnkCataObjects(std::string letters, int givenSize, const std::vector<char> &data);
 
+    std::vector<char> getWholeChunk() const;
 	  void toFile();
 	
 	  friend std::ostream & operator<<(std::ostream & os, const McnkCataObjects & mcnkCataObjects);

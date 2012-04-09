@@ -15,6 +15,7 @@ class McnkCataTextures : public Mcnk
     McnkCataTextures(const std::vector<char> & adtFile, int offsetInFile);
     McnkCataTextures(std::string letters, int givenSize, const std::vector<char> &data);
 
+    std::vector<char> getWholeChunk() const;
 	  void toFile();
 	
     friend std::ostream & operator<<(std::ostream & os, const McnkCataTextures & mcnkCataTextures);

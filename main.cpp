@@ -21,9 +21,9 @@ int main (int argc, char **argv)
   WdtAlpha testWdtAlpha (wdtName);
 
   Wdt testWdt (testWdtAlpha.toWdt());
-  testWdt.toFile();
+  testWdt.toFile();*/
 
-  std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
+  /*std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
   const int adtTotalNum (adtsNums.size());
@@ -88,7 +88,9 @@ int main (int argc, char **argv)
 
   AdtLk convertedAdt (testAdt3.toAdtLk());
 
-  convertedAdt.toFile();*/
+  convertedAdt.toFile();
+
+  testAdt3.toFile();*/
 
   /*std::string adtName ("Deephome_29_29_tex0.adt");
   Utilities::getWholeFile(adtName, adtFile);
@@ -97,16 +99,20 @@ int main (int argc, char **argv)
   std::ofstream fileOut2;
   fileOut2.open ("debugfileTex.txt");
   fileOut2 << testAdt3tex;
-  fileOut2.close();*/
+  fileOut2.close();
+
+  testAdt3tex.toFile();*/
 
   std::string adtName ("Deephome_30_29_obj0.adt");
   Utilities::getWholeFile(adtName, adtFile);
 
   AdtCataObjects testAdt3obj(adtName, adtFile);
-  std::ofstream fileOut3;
+  /*std::ofstream fileOut3;
   fileOut3.open ("debugfileObj.txt");
   fileOut3 << testAdt3obj;
-  fileOut3.close();
+  fileOut3.close();*/
+
+  testAdt3obj.toFile();
 
   //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 

@@ -38,6 +38,33 @@ McnkCataObjects::McnkCataObjects(const std::vector<char> & adtFile, int offsetIn
   }
 }
 
+std::vector<char> McnkCataObjects::getWholeChunk() const
+{
+  std::vector<char> wholeChunk (0);
+
+  std::vector<char> tempData (letters.begin(), letters.end());
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(givenSize);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
+
+  if (!mcrd.isEmpty())
+  {
+    tempData = mcrd.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mcrw.isEmpty())
+  {
+    tempData = mcrw.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  return wholeChunk;
+}
+
 void McnkCataObjects::toFile()
 {
   // TODO

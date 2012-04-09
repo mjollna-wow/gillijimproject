@@ -56,6 +56,11 @@ McnkCata::McnkCata(const std::vector<char> & adtFile, int offsetInFile, const in
       case 'MCSE' :
         mcse = Chunk(adtFile, offsetInFile);
         offsetInFile = offsetInFile + chunkLettersAndSize + mcse.getGivenSize();
+        break; 
+
+      case 'MCBB' :
+        mcbb = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mcbb.getGivenSize();
         break;  	
 		
       default :
@@ -63,6 +68,57 @@ McnkCata::McnkCata(const std::vector<char> & adtFile, int offsetInFile, const in
         offsetInFile = offsetInFile + chunkLettersAndSize + terrainMcnkUnknown.back().getGivenSize();
     }
   }		
+}
+
+std::vector<char> McnkCata::getWholeChunk() const
+{
+  std::vector<char> wholeChunk (0);
+
+  std::vector<char> tempData (letters.begin(), letters.end());
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(givenSize);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
+  
+  tempData = mcvt.getWholeChunk();
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  if (!mccv.isEmpty())
+  {
+    tempData = mccv.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mclv.isEmpty())
+  {
+    tempData = mccv.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  tempData = mcnr.getWholeChunk();
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  if (!mclq.isEmpty())
+  {
+    tempData = mclq.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mcse.isEmpty())
+  {
+    tempData = mcse.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }  
+
+  if (!mcbb.isEmpty())
+  {
+    tempData = mcbb.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }  
+
+  return wholeChunk;
 }
 
 void McnkCata::toFile()

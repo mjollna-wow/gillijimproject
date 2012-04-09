@@ -46,6 +46,21 @@ AdtCata::AdtCata(const std::string & adtFileName, const std::vector<char> & adtF
         offsetInFile = offsetInFile + chunkLettersAndSize + terrainMcnks.back().getGivenSize(); 
         break;
 
+      case 'MBMH' :
+        mbmh = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mbmh.getGivenSize();
+        break;
+
+      case 'MBMI' :
+        mbmi = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mbmi.getGivenSize();
+        break;
+
+      case 'MBMV' :
+        mbmv = Chunk(adtFile, offsetInFile);
+        offsetInFile = offsetInFile + chunkLettersAndSize + mbmv.getGivenSize();
+        break;
+
       case 'MFBO' :
         mfbo = Chunk(adtFile, offsetInFile);
         offsetInFile = offsetInFile + chunkLettersAndSize + mfbo.getGivenSize();
@@ -60,7 +75,66 @@ AdtCata::AdtCata(const std::string & adtFileName, const std::vector<char> & adtF
 
 void AdtCata::toFile()
 {
-  // TODO.
+  std::string fileName (adtName);
+  fileName.append("_new");
+
+  toFile(fileName);
+}
+
+void AdtCata::toFile(const std::string & fileName)
+{
+  std::vector<char> wholeAdt(0);
+  
+  std::vector<char> tempData(terrainMver.getWholeChunk());
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  
+  tempData = mhdr.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  if (!mh2o.isEmpty())
+  {
+    tempData = mh2o.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  int currentMcnk;
+
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
+  {
+    tempData =  terrainMcnks[currentMcnk].getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mbmh.isEmpty())
+  {
+    tempData = mbmh.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mbmi.isEmpty())
+  {
+    tempData = mbmi.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mbmv.isEmpty())
+  {
+    tempData = mbmv.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mfbo.isEmpty())
+  {
+    tempData = mfbo.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
+
+  if (outputFile.is_open())
+    outputFile.write((char *)&wholeAdt[0], sizeof(char) * wholeAdt.size());
+
+  outputFile.close();
 }
 
 AdtLk AdtCata::toAdtLk() // TODO : conversion is only partial, only terrain (other chunks are empty), and it's weird to have method in Cata terrain.

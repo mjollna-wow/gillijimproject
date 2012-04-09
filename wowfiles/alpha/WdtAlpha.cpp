@@ -46,6 +46,8 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
     modf = Chunk(wdtAlphaFile, offsetInFile);
     offsetInFile = chunkLettersAndSize + offsetInFile + modf.getGivenSize(); 
   }
+
+  wdtAlphaFile.close();
 }
 
 Wdt WdtAlpha::toWdt() const
@@ -88,7 +90,7 @@ std::vector<int> WdtAlpha::getExistingAdtsNumbers() const
   return existingAdts;
 }
 
-std::vector<int> WdtAlpha::getAdtOffsetsInMain() const // TODO change this
+std::vector<int> WdtAlpha::getAdtOffsetsInMain() const
 {
   return main.getMhdrOffsets();
 }

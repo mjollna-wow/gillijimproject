@@ -70,7 +70,51 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
 
 void AdtCataObjects::toFile()
 {
-  // TODO.
+  std::string fileName (adtName);
+  fileName.append("_new");
+
+  toFile(fileName);
+}
+
+void AdtCataObjects::toFile(const std::string & fileName)
+{
+  std::vector<char> wholeAdt(0);
+  
+  std::vector<char> tempData(objectsMver.getWholeChunk());
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  
+  tempData = mmdx.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mmid.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mwmo.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mwid.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mddf.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = modf.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  int currentMcnk;
+
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
+  {
+    tempData =  objectsMcnks[currentMcnk].getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
+
+  if (outputFile.is_open())
+    outputFile.write((char *)&wholeAdt[0], sizeof(char) * wholeAdt.size());
+
+  outputFile.close();
 }
 
 std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjects)

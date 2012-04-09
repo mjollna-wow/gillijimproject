@@ -60,7 +60,51 @@ AdtCataTextures::AdtCataTextures(const std::string & adtName, const std::vector<
 
 void AdtCataTextures::toFile()
 {
-  // TODO.
+  std::string fileName (adtName);
+  fileName.append("_new");
+
+  toFile(fileName);
+}
+
+void AdtCataTextures::toFile(const std::string & fileName)
+{
+  std::vector<char> wholeAdt(0);
+  
+  std::vector<char> tempData(texturesMver.getWholeChunk());
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  
+  tempData = mamp.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  tempData = mtex.getWholeChunk();
+  wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+
+  int currentMcnk;
+
+  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
+  {
+    tempData =  texturesMcnks[currentMcnk].getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mtxf.isEmpty())
+  {
+    tempData = mtxf.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  if (!mtxp.isEmpty())
+  {
+    tempData = mtxp.getWholeChunk();
+    wholeAdt.insert(wholeAdt.end(), tempData.begin(), tempData.end());
+  }
+
+  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
+
+  if (outputFile.is_open())
+    outputFile.write((char *)&wholeAdt[0], sizeof(char) * wholeAdt.size());
+
+  outputFile.close();
 }
 
 std::ostream & operator<<(std::ostream & os, const AdtCataTextures & adtCataTextures)

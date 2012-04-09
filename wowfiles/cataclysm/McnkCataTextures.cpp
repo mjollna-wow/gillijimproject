@@ -48,6 +48,39 @@ McnkCataTextures::McnkCataTextures(const std::vector<char> & adtFile, int offset
   }	
 }
 
+std::vector<char> McnkCataTextures::getWholeChunk() const
+{
+  std::vector<char> wholeChunk (0);
+
+  std::vector<char> tempData (letters.begin(), letters.end());
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(givenSize);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
+  
+  tempData = mcly.getWholeChunk();
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  if (!mcsh.isEmpty())
+  {
+    tempData = mcsh.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  tempData = mcal.getWholeChunk();
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  if (!mcmt.isEmpty())
+  {
+    tempData = mcmt.getWholeChunk();
+    wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+  }
+
+  return wholeChunk;
+}
+
 void McnkCataTextures::toFile()
 {
   // TODO

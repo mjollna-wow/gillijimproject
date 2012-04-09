@@ -17,6 +17,7 @@ class AdtCataObjects : public WowChunkedFormat
     AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile);
 
     void toFile();
+    void toFile(const std::string & fileName);
 
     friend std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjects);
 

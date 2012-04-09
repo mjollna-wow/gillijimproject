@@ -20,6 +20,7 @@ class AdtCata : public WowChunkedFormat
     AdtCata(const std::string & adtName, const std::vector<char> & adtFile);
 
     void toFile();
+    void toFile(const std::string & fileName);
     AdtLk toAdtLk();
 
     friend std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata);
@@ -32,6 +33,9 @@ class AdtCata : public WowChunkedFormat
     Mhdr mhdr;
     Mh2o mh2o;
     std::vector<McnkCata> terrainMcnks;
+    Chunk mbmh;
+    Chunk mbmi;
+    Chunk mbmv;
     Chunk mfbo;
 	  std::vector<Chunk> terrainUnknown;
 };
