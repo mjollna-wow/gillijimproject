@@ -8,6 +8,7 @@
 #include <wowfiles/Chunk.h>
 #include <wowfiles/alpha/MphdAlpha.h>
 #include <wowfiles/alpha/MainAlpha.h>
+#include <wowfiles/alpha/Mdnm.h>
 #include <wowfiles/alpha/Monm.h>
 #include <wowfiles/alpha/AdtAlpha.h>
 
@@ -28,7 +29,7 @@ class WdtAlpha : public WowChunkedFormat
     Chunk mver;
     MphdAlpha mphd;
     MainAlpha main;
-    Chunk mdnm;
+    Mdnm mdnm;
     Monm monm;
     Chunk modf;
 };

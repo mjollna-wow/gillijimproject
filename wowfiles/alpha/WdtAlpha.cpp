@@ -8,6 +8,7 @@
 #include <wowfiles/Wdt.h>
 #include <wowfiles/alpha/AdtAlpha.h>
 #include <wowfiles/alpha/Monm.h>
+#include <wowfiles/alpha/Mdnm.h>
 #include <wowfiles/Chunk.h>
 #include <wowfiles/alpha/MainAlpha.h>
 #include <utilities/Utilities.h>
@@ -34,7 +35,7 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
   offsetInFile = chunkLettersAndSize + offsetInFile + main.getGivenSize(); 
 
   offsetInFile = Utilities::getIntFromFile(wdtAlphaFile, MphdStartOffset + mdnmOffset);
-  mdnm = Chunk(wdtAlphaFile, offsetInFile);
+  mdnm = Mdnm(wdtAlphaFile, offsetInFile);
 
   offsetInFile = Utilities::getIntFromFile(wdtAlphaFile, MphdStartOffset + monmOffset);
   monm = Monm(wdtAlphaFile, offsetInFile);  

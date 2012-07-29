@@ -4,6 +4,7 @@
 #include <fstream>
 #include <wowfiles/Chunk.h>
 #include <wowfiles/alpha/Monm.h>
+#include <utilities/Utilities.h>
 
 Monm::Monm() : Chunk()
 {
@@ -21,4 +22,23 @@ Chunk Monm::toMwmo() const
 {
   Chunk mwmoLk ("OMWM", givenSize, data);
   return mwmoLk;
+}
+
+std::ostream & operator<<(std::ostream & os, const Monm & monm)
+{
+  os << "Chunk letters : " << monm.letters << std::endl;
+  os << "Chunk givenSize : " << monm.givenSize << std::endl;
+  os << "File names in MONM : " << std::endl;
+
+  std::vector<std::string> monmFiles = Utilities::getFileNames(monm.data);
+
+  std::vector<std::string>::iterator filesIter;
+
+  for (filesIter = monmFiles.begin() ; filesIter != monmFiles.end() ; ++filesIter)
+  {
+    os << *filesIter << std::endl;
+  }
+
+  os << "------------------------------" << std::endl;
+  return os;
 }

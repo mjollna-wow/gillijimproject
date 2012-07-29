@@ -28,6 +28,9 @@ namespace Utilities
 
   int getAdtVersion(const std::string & adtName);
   int getWdtVersion(const std::string & wdtName);
+
+  std::vector<std::string> getFileNames(const std::vector<char> & someData);
+
 };
 
 #endif

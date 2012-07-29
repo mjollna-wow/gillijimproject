@@ -155,4 +155,24 @@ namespace Utilities
     else
       return 1;
   }
+
+  std::vector<std::string> getFileNames(const std::vector<char> & someData)
+  {
+    std::vector<std::string> filesNames(0);
+  
+    std::vector<char>::const_iterator dataIter;
+    int currentStart (0);
+  
+    for (dataIter = someData.begin() ; dataIter != someData.end() ; ++dataIter)
+    {
+      if (*dataIter == 0x0)
+	    {
+	    filesNames.push_back(std::string ( someData.begin() + currentStart, dataIter ));
+	    currentStart = std::distance(someData.begin(), dataIter) + 1;
+	    }
+    }
+  
+    return filesNames;
+  }
+
 }

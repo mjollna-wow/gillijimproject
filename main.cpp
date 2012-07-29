@@ -17,31 +17,31 @@ int main (int argc, char **argv)
 
   //////////////////// ALPHA STUFF ////////////////////
 
-  /*std::string wdtName ("azerothwdtFile00000000.xxx");
+  std::string wdtName ("azerothwdtFile00000000.xxx");
   WdtAlpha testWdtAlpha (wdtName);
 
   Wdt testWdt (testWdtAlpha.toWdt());
-  testWdt.toFile();*/
+  testWdt.toFile();
 
-  /*std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
+  std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
   const int adtTotalNum (adtsNums.size());
   int currentAdt;
 
-  for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
+  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
     AdtLk testAdtLk (testAdt.toAdtLk());
     testAdtLk.toFile();
-  }
+  }*/
 
-  //AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));*/
+  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
 
-  /*std::ofstream fileOut;
+  std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
-  fileOut << testAdt;*/
+  fileOut << testWdtAlpha;
 
   //AdtLk testAdtLk (testAdt.toAdtLk());
   //testAdtLk.toFile();
@@ -49,12 +49,12 @@ int main (int argc, char **argv)
   //////////////////// LK STUFF //////////////////// ok
 
   /*std::vector<char> adtFile(0);
-  //std::string adtName ("Azeroth_30_43.adt");
+  std::string adtName ("Azeroth_30_43.adt");
   //std::string adtName ("Azeroth_32_58.adt");
   //std::string adtName ("EmeraldDream_28_28.adt");
   //std::string adtName ("EdEdited_27_30.adt");
   //std::string adtName ("EdEdited_27_29_water.adt");
-  std::string adtName ("OtherTestMap_30_30.adt");
+  //std::string adtName ("OtherTestMap_30_30.adt");
   Utilities::getWholeFile(adtName, adtFile);
   
   AdtLk testAdt2(adtFile, adtName);
@@ -75,7 +75,7 @@ int main (int argc, char **argv)
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
-  std::vector<char> adtFile(0);
+  /*std::vector<char> adtFile(0);
   
   std::string adtName ("mop/NewRaceStartZone_26_31.adt");
   Utilities::getWholeFile(adtName, adtFile);
@@ -84,7 +84,7 @@ int main (int argc, char **argv)
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
   fileOut << testAdt3;
-  fileOut.close();
+  fileOut.close();*/
 
   /*AdtLk convertedAdt (testAdt3.toAdtLk());
 

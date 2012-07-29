@@ -16,6 +16,8 @@ class Monm : public Chunk
     Monm(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
     
     Chunk toMwmo() const;
+
+    friend std::ostream & operator<<(std::ostream & os, const Monm & monm);
 };
 
 #endif
