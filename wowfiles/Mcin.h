@@ -13,7 +13,7 @@ class Mcin : public Chunk
 
     Mcin();
     Mcin(std::ifstream & adtFile, int offsetInFile);
-	  Mcin(const std::vector<char> & wholeFile, int offsetInFile);
+	Mcin(const std::vector<char> & wholeFile, int offsetInFile);
     Mcin(std::string letters, int givenSize, const std::vector<char> & chunkData);
 
     std::vector<int> getMcnkOffsets() const;

@@ -36,12 +36,12 @@ int main (int argc, char **argv)
     testAdtLk.toFile();
   }*/
 
-  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[0]], adtsNums[0]));
+  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
-  fileOut << testWdtAlpha;
+  fileOut << testAdt;
 
   //AdtLk testAdtLk (testAdt.toAdtLk());
   //testAdtLk.toFile();

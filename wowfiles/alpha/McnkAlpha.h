@@ -12,6 +12,7 @@
 #include <wowfiles/alpha/McnrAlpha.h>
 #include <wowfiles/lichking/McnkLk.h>
 #include <wowfiles/Mcal.h>
+#include <wowfiles/Mcrf.h>
 
 class McnkAlpha : public Mcnk
 {
@@ -31,7 +32,7 @@ class McnkAlpha : public Mcnk
     McvtAlpha mcvt;
     McnrAlpha mcnrAlpha;
     Chunk mcly;
-    Chunk mcrf;
+    Mcrf mcrf;
     Chunk mcsh;
     Mcal mcal;
     Chunk mclq;

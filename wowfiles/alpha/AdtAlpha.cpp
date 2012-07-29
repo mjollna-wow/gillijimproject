@@ -120,7 +120,7 @@ AdtLk AdtAlpha::toAdtLk() const
 
 std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha)
 {
-  os << "ADT #" << adtAlpha.adtNumber << std::endl;
+  os << "ADT #" << adtAlpha.adtNumber << " " << adtAlpha.getXCoord() << "_" << adtAlpha.getYCoord() << std::endl;
   os << "------------------------------" << std::endl;
   os << adtAlpha.mhdr;
   os << adtAlpha.mcin;

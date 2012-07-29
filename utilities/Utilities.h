@@ -13,6 +13,26 @@ namespace Utilities
     return T (*reinterpret_cast<const T*> (&data[offset]));
   }
 
+  template<typename T> std::vector<T> vecCharTo (const std::vector<char>& someData)
+  {
+
+    std::vector<T> content (0);
+  
+    std::vector<char>::const_iterator dataIter;
+    int currentStart (0);
+  
+    for (dataIter = someData.begin() ; dataIter != someData.end() ; ++dataIter)
+    {
+      if ( std::distance( someData.begin(), dataIter ) % sizeof(T) == 0 )
+	    {
+	      content.push_back( get<T>( someData, currentStart ) );
+	      currentStart += sizeof(T);
+	    }
+    }
+
+    return content;
+  }
+
   void getWholeFile(const std::string & adtFileName, std::vector<char> & buffer);
 
   std::string getStringFromCharVector(const std::vector<char> & someData, const int start, const int stringLength);

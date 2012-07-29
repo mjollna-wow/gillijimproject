@@ -9,6 +9,7 @@
 #include <wowfiles/alpha/McnrAlpha.h>
 #include <wowfiles/alpha/McvtAlpha.h>
 #include <wowfiles/lichking/McnrLk.h>
+#include <wowfiles/Mcrf.h>
 #include <utilities/Utilities.h>
 
 McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, const int headerSize, int adtNum) : Mcnk(wdtAlphaFile, offsetInFile, mcnkTerrainHeaderSize), adtNumber(adtNum)
@@ -33,7 +34,7 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, const int h
   mcly = Chunk(wdtAlphaFile, offsetInFile);
 
   offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mcrfOffset;
-  mcrf = Chunk(wdtAlphaFile, offsetInFile);
+  mcrf = Mcrf(wdtAlphaFile, offsetInFile);
 
   offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mcshOffset;
   std::vector<char> mcshData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcnkAlphaHeader.mcshSize));
@@ -157,7 +158,7 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   os << "#0x08 IndexY\t\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.indexY << std::dec << std::endl;
   os << "#0x0C I don't know\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.unknown1 << std::endl; 
   os << "#0x10 Layers number\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.nLayers << std::endl;
-  os << "#0x14 WMOs number ?\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.unknown2 << std::endl; 
+  os << "#0x14 Doodads number\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.unknown2 << std::endl; 
   os << "#0x18 MCVT offset\t\t\t\t\t: 0x" << mcnkAlpha.mcnkAlphaHeader.mcvtOffset << std::dec << std::endl; 
   os << "#0x1C MCNR offset\t\t\t\t\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.mcnrOffset << std::dec << std::endl; 
   os << "#0x20 MCLY offset\t\t\t\t\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.mclyOffset << std::dec << std::endl;
@@ -167,7 +168,7 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   os << "#0x30 MCSH offset\t\t\t\t\t: 0x" << mcnkAlpha.mcnkAlphaHeader.mcshOffset << std::dec << std::endl;
   os << "#0x34 MCSH size\t\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.mcshSize << std::dec << std::endl; 
   os << "#0x38 -> #0x3B\t\t\t\t\t\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.unknown3 << std::dec << std::endl; 
-  os << "#0x3C Doodads number ?\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.unknown4 << std::endl;
+  os << "#0x3C Wmo number\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.unknown4 << std::endl;
   os << "#0x40 -> #0x43\t\t\t\t\t\t: 0x" << mcnkAlpha.mcnkAlphaHeader.unknown5 << std::dec << std::endl;
   os << "#0x44 -> #0x47 Low Texturing map\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.groundEffectsMap1 << std::dec << std::endl;
   os << "#0x48 -> #0x4B Low Texturing map\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.groundEffectsMap2 << std::dec << std::endl;
