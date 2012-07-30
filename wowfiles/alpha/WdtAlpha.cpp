@@ -96,6 +96,16 @@ std::vector<int> WdtAlpha::getAdtOffsetsInMain() const
   return main.getMhdrOffsets();
 }
 
+std::vector<std::string> WdtAlpha::getMdnmFileNames() const
+{
+  return mdnm.getFilesNames();
+}
+
+std::vector<std::string> WdtAlpha::getMonmFileNames() const
+{
+  return monm.getFilesNames();
+}
+
 std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha)
 {
   os << wdtAlpha.wdtName << std::endl;

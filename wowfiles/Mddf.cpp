@@ -1,4 +1,5 @@
 #include <vector>
+#include <set>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -34,12 +35,30 @@ std::vector<int> Mddf::getEntriesIndices() const
   {
     if ( ( dataIter - data.begin() ) % entrySize == 0 )
 	  {
-      indices.push_back( Utilities::get<int> ( data, currentStart ));
+      indices.push_back( Utilities::get<int> ( data, currentStart ) );
 	    currentStart = ( dataIter - data.begin() ) + entrySize;
 	  }
   }
 
   return indices;
+}
+
+std::vector<int> Mddf::getM2IndicesForMmdx() const
+{
+  std::vector<int> mddfIndices( getEntriesIndices() );
+  std::set<int> s;
+  
+  int size ( mddfIndices.size() );
+  int i;
+
+  for( i = 0 ; i < size ; ++i ) 
+  {
+    s.insert( mddfIndices[i] );
+  }
+
+  std::vector<int> indicesForMmdx ( s.begin(), s.end() );
+
+  return indicesForMmdx;
 }
 
 std::ostream & operator<<(std::ostream & os, const Mddf & mddf)

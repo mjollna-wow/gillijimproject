@@ -20,15 +20,13 @@ class AdtAlpha : public WowChunkedFormat
     AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum);
     int getXCoord() const;
     int getYCoord() const;
-    AdtLk toAdtLk() const;
+    AdtLk toAdtLk(std::vector<std::string> & mdnmFilesNames, std::vector<std::string> & monmFilesNames) const;
 
     friend std::ostream & operator<<(std::ostream & os, const AdtAlpha & adtAlpha);
 
   private:
 
     std::string getAdtFileName(const std::string & wdtName) const;
-
-    std::vector<int> getM2IndicesForMmdx(const std::vector<int> & mddfIndices) const;
 
     int adtNumber;
     std::string adtFileName;

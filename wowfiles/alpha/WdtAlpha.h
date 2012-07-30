@@ -19,7 +19,9 @@ class WdtAlpha : public WowChunkedFormat
     WdtAlpha(const std::string & wdtAlphaName);
     Wdt toWdt() const;
     std::vector<int> getExistingAdtsNumbers() const;
-    std::vector<int> getAdtOffsetsInMain() const; // TODO : change this
+    std::vector<int> getAdtOffsetsInMain() const;
+    std::vector<std::string> getMdnmFileNames() const;
+    std::vector<std::string> getMonmFileNames() const;
 
     friend std::ostream & operator<<(std::ostream & os, const WdtAlpha & wdtAlpha);
 

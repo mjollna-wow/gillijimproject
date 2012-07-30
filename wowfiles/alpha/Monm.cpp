@@ -18,6 +18,11 @@ Monm::Monm(std::string letters, int givenSize, const std::vector<char> & data) :
 {
 }
 
+std::vector<std::string> Monm::getFilesNames() const
+{
+  return  Utilities::getFileNames(data);
+}
+
 Chunk Monm::toMwmo() const
 {
   Chunk mwmoLk ("OMWM", givenSize, data);
@@ -30,7 +35,7 @@ std::ostream & operator<<(std::ostream & os, const Monm & monm)
   os << "Chunk givenSize : " << monm.givenSize << std::endl;
   os << "File names in MONM : " << std::endl;
 
-  std::vector<std::string> monmFiles = Utilities::getFileNames(monm.data);
+  std::vector<std::string> monmFiles ( monm.getFilesNames() );
 
   std::vector<std::string>::iterator filesIter;
 

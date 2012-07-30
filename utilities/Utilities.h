@@ -13,7 +13,7 @@ namespace Utilities
     return T (*reinterpret_cast<const T*> (&data[offset]));
   }
 
-  template<typename T, typename U> std::vector<T> vecCharTo (const std::vector<U>& someData)
+  template<typename T, typename U> std::vector<T> vecTo (const std::vector<U>& someData) // TODO : cannot work, not reliable at all. To change !
   {
     std::vector<T> content (0);
   

@@ -16,7 +16,7 @@ class Modf : public Chunk
 	  Modf(const std::vector<char> & wholeFile, int offsetInFile);
     Modf(std::string letters, int givenSize, const std::vector<char> & chunkData);
 	
-    std::vector<int> getEntriesIndices() const;
+    std::vector<int> getEntriesIndices() const; // TODO : make this private (same as mddf)
 
     friend std::ostream & operator<<(std::ostream & os, const Modf & modf);	
 };

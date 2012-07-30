@@ -18,13 +18,18 @@ Mdnm::Mdnm(std::string letters, int givenSize, const std::vector<char> & data) :
 {
 }
 
+std::vector<std::string> Mdnm::getFilesNames() const
+{
+  return  Utilities::getFileNames(data);
+}
+
 std::ostream & operator<<(std::ostream & os, const Mdnm & mdnm)
 {
   os << "Chunk letters : " << mdnm.letters << std::endl;
   os << "Chunk givenSize : " << mdnm.givenSize << std::endl;
   os << "File names in MDNM : " << std::endl;
 
-  std::vector<std::string> mdnmFiles = Utilities::getFileNames(mdnm.data);
+  std::vector<std::string> mdnmFiles ( mdnm.getFilesNames() );
 
   std::vector<std::string>::iterator filesIter;
 

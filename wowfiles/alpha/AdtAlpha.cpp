@@ -1,11 +1,11 @@
 #include <vector>
-#include <set>
 #include <string>
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <wowfiles/Chunk.h>
 #include <wowfiles/alpha/AdtAlpha.h>
+#include <wowfiles/alpha/WdtAlpha.h>
 #include <wowfiles/lichking/AdtLk.h>
 #include <wowfiles/alpha/McnkAlpha.h>
 #include <wowfiles/Mcin.h>
@@ -72,22 +72,6 @@ std::string AdtAlpha::getAdtFileName(const std::string & wdtName) const
   return adtFileName;
 }
 
-std::vector<int> AdtAlpha::getM2IndicesForMmdx(const std::vector<int> & mddfIndices) const
-{
-  std::set<int> s;
-  int size ( mddfIndices.size() );
-  int i;
-
-  for( i = 0 ; i < size ; ++i ) 
-  {
-    s.insert( mddfIndices[i] );
-  }
-
-  std::vector<int> indicesForMmdx ( s.begin(), s.end() );
-
-  return indicesForMmdx;
-}
-
 int AdtAlpha::getXCoord() const
 {
   return adtNumber % 64;
@@ -98,7 +82,7 @@ int AdtAlpha::getYCoord() const
   return adtNumber / 64;
 }
 
-AdtLk AdtAlpha::toAdtLk() const
+AdtLk AdtAlpha::toAdtLk(std::vector<std::string> & mdnmFilesNames, std::vector<std::string> & monmFilesNames) const
 {  
   std::string cName (adtFileName);
 
@@ -110,16 +94,15 @@ AdtLk AdtAlpha::toAdtLk() const
   Chunk cMver ("REVM", 4, mverData);
 
   Mh2o (cMh2o);
-  
-  std::vector<char> emptyData(0);
-  std::vector<char> mmdxData( Utilities::vecCharTo<char>( getM2IndicesForMmdx(mddf.getEntriesIndices()) ) );
+  Mmdx cMmdx (mddf.getM2IndicesForMmdx(), mdnmFilesNames); 
+  Mmid cMmid ( cMmdx.getIndicesForMmid() );
 
-  Mmdx cMmdx ("XDMM", 0, emptyData); // TODO : fill emptiness for objects
-  Chunk cMmid ("DIMM", 0, emptyData);
-  Chunk cMwmo ("OMWM", 0, emptyData);
-  Chunk cMwid ("DIWM", 0, emptyData);
-  Chunk cMddf ("FDDM", 0, emptyData);
-  Chunk cModf ("FDOM", 0, emptyData);
+  std::vector<char> emptyData(0); // TODO : change place when possible
+
+  Chunk cMwmo ("OMWM", 0, emptyData); // TODO
+  Chunk cMwid ("DIWM", 0, emptyData); // TODO
+  Chunk cMddf ("FDDM", 0, emptyData); // TODO
+  Chunk cModf ("FDOM", 0, emptyData); // TODO
   
   std::vector<McnkLk> cMcnks;
   int currentMcnk;

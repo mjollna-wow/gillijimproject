@@ -15,7 +15,10 @@ class Mmdx : public Chunk
     Mmdx(std::ifstream & adtFile, int offsetInFile);
 	  Mmdx(const std::vector<char> & wholeFile, int offsetInFile);
     Mmdx(std::string letters, int givenSize, const std::vector<char> & chunkData);
+    Mmdx(const std::vector<int> & indices, const std::vector<std::string> & allFileNames);
 	
+    std::vector<int> getIndicesForMmid() const;
+
     friend std::ostream & operator<<(std::ostream & os, const Mmdx & mmdx);	
 };
 

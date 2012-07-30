@@ -16,9 +16,14 @@ class Mddf : public Chunk
 	  Mddf(const std::vector<char> & wholeFile, int offsetInFile);
     Mddf(std::string letters, int givenSize, const std::vector<char> & chunkData);
 	
-    std::vector<int> getEntriesIndices() const;
+    std::vector<int> getM2IndicesForMmdx() const;
 
     friend std::ostream & operator<<(std::ostream & os, const Mddf & mddf);	
+
+  private: 
+
+    std::vector<int> getEntriesIndices() const;
+
 };
 
 #endif

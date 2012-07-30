@@ -16,6 +16,8 @@ class Mmid : public Chunk
 	  Mmid(const std::vector<char> & wholeFile, int offsetInFile);
     Mmid(std::string letters, int givenSize, const std::vector<char> & chunkData);
 	
+    Mmid( const std::vector<int> & indicesFromMmdx );
+
     friend std::ostream & operator<<(std::ostream & os, const Mmid & mmid);	
 };
 

@@ -15,6 +15,8 @@ class Monm : public Chunk
     Monm(std::ifstream & wdtAlphaFile, int offsetInFile);
     Monm(const  std::string letters, int givenSize, const std::vector<char> & chunkData);
     
+    std::vector<std::string> getFilesNames() const;
+
     Chunk toMwmo() const;
 
     friend std::ostream & operator<<(std::ostream & os, const Monm & monm);

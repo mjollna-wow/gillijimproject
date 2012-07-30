@@ -24,7 +24,7 @@ Mcrf::Mcrf(std::string letters, int givenSize, const std::vector<char> & data) :
 
 std::vector<int> Mcrf::getDoodadsIndices(const int & doodadsNumber) const
 {
-  std::vector<int> mcrfIndices ( Utilities::vecCharTo<int>(data) );
+  std::vector<int> mcrfIndices ( Utilities::vecTo<int>(data) );
   std::vector<int> doodadsIndices ( mcrfIndices.begin(), mcrfIndices.begin() + doodadsNumber );
 
   return doodadsIndices;
@@ -32,7 +32,7 @@ std::vector<int> Mcrf::getDoodadsIndices(const int & doodadsNumber) const
 
 std::vector<int> Mcrf::getWmosIndices(const int & wmosNumber) const
 {
-  std::vector<int> mcrfIndices ( Utilities::vecCharTo<int>(data) );
+  std::vector<int> mcrfIndices ( Utilities::vecTo<int>(data) );
   std::vector<int> wmosIndices ( mcrfIndices.end() - wmosNumber, mcrfIndices.end() );
 
   return wmosIndices;
@@ -46,7 +46,7 @@ std::ostream & operator<<(std::ostream & os, const Mcrf & mcrf)
 
   if ( mcrf.data.size() != 0 )
   {
-    std::vector<int> mcrfIndices ( Utilities::vecCharTo<int>(mcrf.data) );
+    std::vector<int> mcrfIndices ( Utilities::vecTo<int>(mcrf.data) );
 
     std::vector<int>::const_iterator mcrfContentIter;
 
