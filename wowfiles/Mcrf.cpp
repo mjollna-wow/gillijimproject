@@ -22,24 +22,41 @@ Mcrf::Mcrf(std::string letters, int givenSize, const std::vector<char> & data) :
 {
 }
 
+std::vector<int> Mcrf::getDoodadsIndices(const int & doodadsNumber) const
+{
+  std::vector<int> mcrfIndices ( Utilities::vecCharTo<int>(data) );
+  std::vector<int> doodadsIndices ( mcrfIndices.begin(), mcrfIndices.begin() + doodadsNumber );
+
+  return doodadsIndices;
+}
+
+std::vector<int> Mcrf::getWmosIndices(const int & wmosNumber) const
+{
+  std::vector<int> mcrfIndices ( Utilities::vecCharTo<int>(data) );
+  std::vector<int> wmosIndices ( mcrfIndices.end() - wmosNumber, mcrfIndices.end() );
+
+  return wmosIndices;
+}
+
 std::ostream & operator<<(std::ostream & os, const Mcrf & mcrf)
 {
   os << "Chunk letters : " << mcrf.letters << std::endl;
   os << "Chunk givenSize : " << mcrf.givenSize << std::endl;
+  os << "Chunk full content : ";
 
   if ( mcrf.data.size() != 0 )
   {
-    os << "MCRF content : " << std::endl;
-
     std::vector<int> mcrfIndices ( Utilities::vecCharTo<int>(mcrf.data) );
 
     std::vector<int>::const_iterator mcrfContentIter;
 
     for (mcrfContentIter = mcrfIndices.begin() ; mcrfContentIter != mcrfIndices.end() ; ++mcrfContentIter)
     {
-      os << *mcrfContentIter << std::endl;
+      os << *mcrfContentIter << " ";
     }
   }
+
+  os << std::endl;
 
   os << "------------------------------" << std::endl;
   return os;

@@ -192,6 +192,25 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   os << mcnkAlpha.mcnrAlpha;
   os << mcnkAlpha.mcly;
   os << mcnkAlpha.mcrf;
+
+  std::vector<int>::const_iterator mcrfContentIter;
+
+  std::vector<int> mcrfDoodads ( mcnkAlpha.mcrf.getDoodadsIndices( mcnkAlpha.mcnkAlphaHeader.unknown2 ) );
+  os << "Doodads indices : ";
+  for (mcrfContentIter = mcrfDoodads.begin() ; mcrfContentIter != mcrfDoodads.end() ; ++mcrfContentIter)
+  {
+    os << *mcrfContentIter << " ";
+  }
+  os << std::endl;
+
+  std::vector<int> mcrfWmos ( mcnkAlpha.mcrf.getWmosIndices( mcnkAlpha.mcnkAlphaHeader.unknown4 ) );
+  os << "Wmos indices : ";
+  for (mcrfContentIter = mcrfWmos.begin() ; mcrfContentIter != mcrfWmos.end() ; ++mcrfContentIter)
+  {
+    os << *mcrfContentIter << " ";
+  }
+  os << std::endl;
+
   os << mcnkAlpha.mcsh;
   os << mcnkAlpha.mcal;
   os << mcnkAlpha.mclq;

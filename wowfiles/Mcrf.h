@@ -15,6 +15,9 @@ class Mcrf : public Chunk
     Mcrf(std::ifstream & adtFile, int offsetInFile);
 	  Mcrf(const std::vector<char> & wholeFile, int offsetInFile);
     Mcrf(std::string letters, int givenSize, const std::vector<char> & chunkData);
+
+    std::vector<int> getDoodadsIndices(const int & doodadsNumber) const;
+    std::vector<int> getWmosIndices(const int & wmosNumber) const;
 	
     friend std::ostream & operator<<(std::ostream & os, const Mcrf & mcrf);	
 };

@@ -168,7 +168,7 @@ namespace Utilities
       if (*dataIter == 0x0)
 	    {
 	      filesNames.push_back(std::string ( someData.begin() + currentStart, dataIter ));
-	      currentStart = std::distance(someData.begin(), dataIter) + 1;
+	      currentStart = ( dataIter - someData.begin() ) + 1;
 	    }
     }
   

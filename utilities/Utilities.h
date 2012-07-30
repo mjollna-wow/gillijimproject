@@ -23,7 +23,7 @@ namespace Utilities
   
     for (dataIter = someData.begin() ; dataIter != someData.end() ; ++dataIter)
     {
-      if ( std::distance( someData.begin(), dataIter ) % sizeof(T) == 0 )
+      if ( ( dataIter - someData.begin() ) % sizeof(T) == 0 )
 	    {
 	      content.push_back( get<T>( someData, currentStart ) );
 	      currentStart += sizeof(T);
