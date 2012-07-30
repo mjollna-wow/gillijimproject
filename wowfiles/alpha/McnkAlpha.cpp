@@ -158,7 +158,7 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   os << "#0x08 IndexY\t\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.indexY << std::dec << std::endl;
   os << "#0x0C I don't know\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.unknown1 << std::endl; 
   os << "#0x10 Layers number\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.nLayers << std::endl;
-  os << "#0x14 Doodads number\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.unknown2 << std::endl; 
+  os << "#0x14 Doodads number\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.m2Number << std::endl; 
   os << "#0x18 MCVT offset\t\t\t\t\t: 0x" << mcnkAlpha.mcnkAlphaHeader.mcvtOffset << std::dec << std::endl; 
   os << "#0x1C MCNR offset\t\t\t\t\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.mcnrOffset << std::dec << std::endl; 
   os << "#0x20 MCLY offset\t\t\t\t\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.mclyOffset << std::dec << std::endl;
@@ -168,7 +168,7 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   os << "#0x30 MCSH offset\t\t\t\t\t: 0x" << mcnkAlpha.mcnkAlphaHeader.mcshOffset << std::dec << std::endl;
   os << "#0x34 MCSH size\t\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.mcshSize << std::dec << std::endl; 
   os << "#0x38 -> #0x3B\t\t\t\t\t\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.unknown3 << std::dec << std::endl; 
-  os << "#0x3C Wmo number\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.unknown4 << std::endl;
+  os << "#0x3C Wmo number\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.wmoNumber << std::endl;
   os << "#0x40 -> #0x43\t\t\t\t\t\t: 0x" << mcnkAlpha.mcnkAlphaHeader.unknown5 << std::dec << std::endl;
   os << "#0x44 -> #0x47 Low Texturing map\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.groundEffectsMap1 << std::dec << std::endl;
   os << "#0x48 -> #0x4B Low Texturing map\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.groundEffectsMap2 << std::dec << std::endl;
@@ -195,7 +195,7 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
 
   std::vector<int>::const_iterator mcrfContentIter;
 
-  std::vector<int> mcrfDoodads ( mcnkAlpha.mcrf.getDoodadsIndices( mcnkAlpha.mcnkAlphaHeader.unknown2 ) );
+  std::vector<int> mcrfDoodads ( mcnkAlpha.mcrf.getDoodadsIndices( mcnkAlpha.mcnkAlphaHeader.m2Number ) );
   os << "Doodads indices : ";
   for (mcrfContentIter = mcrfDoodads.begin() ; mcrfContentIter != mcrfDoodads.end() ; ++mcrfContentIter)
   {
@@ -203,13 +203,14 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   }
   os << std::endl;
 
-  std::vector<int> mcrfWmos ( mcnkAlpha.mcrf.getWmosIndices( mcnkAlpha.mcnkAlphaHeader.unknown4 ) );
+  std::vector<int> mcrfWmos ( mcnkAlpha.mcrf.getWmosIndices( mcnkAlpha.mcnkAlphaHeader.wmoNumber ) );
   os << "Wmos indices : ";
   for (mcrfContentIter = mcrfWmos.begin() ; mcrfContentIter != mcrfWmos.end() ; ++mcrfContentIter)
   {
     os << *mcrfContentIter << " ";
   }
   os << std::endl;
+  os << "------------------------------" << std::endl;
 
   os << mcnkAlpha.mcsh;
   os << mcnkAlpha.mcal;

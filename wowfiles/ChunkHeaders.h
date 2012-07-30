@@ -44,7 +44,7 @@ struct McnkAlphaHeader
   int indexY;
   float unknown1;
   int nLayers;
-  int unknown2;
+  int m2Number;
   int mcvtOffset; 
   int mcnrOffset;
   int mclyOffset;
@@ -54,7 +54,7 @@ struct McnkAlphaHeader
   int mcshOffset;
   int mcshSize;
   int unknown3;
-  int unknown4;
+  int wmoNumber;
   int unknown5;
   int groundEffectsMap1;
   int groundEffectsMap2;
