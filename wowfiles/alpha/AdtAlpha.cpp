@@ -1,4 +1,5 @@
 #include <vector>
+#include <set>
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -8,6 +9,8 @@
 #include <wowfiles/lichking/AdtLk.h>
 #include <wowfiles/alpha/McnkAlpha.h>
 #include <wowfiles/Mcin.h>
+#include <wowfiles/Mddf.h>
+#include <wowfiles/Modf.h>
 
 AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : adtNumber(adtNum)
 {
@@ -32,10 +35,10 @@ AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : a
   mtex = Chunk(wdtAlphaFile, offsetInFile);
 
   offsetInFile = MhdrStartOffset + mhdr.getOffset(mddfOffset);
-  mddf = Chunk(wdtAlphaFile, offsetInFile);
+  mddf = Mddf(wdtAlphaFile, offsetInFile);
 
   offsetInFile = MhdrStartOffset + mhdr.getOffset(modfOffset);
-  modf = Chunk(wdtAlphaFile, offsetInFile);
+  modf = Modf(wdtAlphaFile, offsetInFile);
 
   std::vector<int> mcnkOffsets (mcin.getMcnkOffsets());
   int currentMcnk;
@@ -69,6 +72,22 @@ std::string AdtAlpha::getAdtFileName(const std::string & wdtName) const
   return adtFileName;
 }
 
+std::vector<int> AdtAlpha::getM2IndicesForMmdx(const std::vector<int> & mddfIndices) const
+{
+  std::set<int> s;
+  int size ( mddfIndices.size() );
+  int i;
+
+  for( i = 0 ; i < size ; ++i ) 
+  {
+    s.insert( mddfIndices[i] );
+  }
+
+  std::vector<int> indicesForMmdx ( s.begin(), s.end() );
+
+  return indicesForMmdx;
+}
+
 int AdtAlpha::getXCoord() const
 {
   return adtNumber % 64;
@@ -93,8 +112,9 @@ AdtLk AdtAlpha::toAdtLk() const
   Mh2o (cMh2o);
   
   std::vector<char> emptyData(0);
+  std::vector<char> mmdxData( Utilities::vecCharTo<char>( getM2IndicesForMmdx(mddf.getEntriesIndices()) ) );
 
-  Chunk cMmdx ("XDMM", 0, emptyData); // TODO : fill emptiness for objects
+  Mmdx cMmdx ("XDMM", 0, emptyData); // TODO : fill emptiness for objects
   Chunk cMmid ("DIMM", 0, emptyData);
   Chunk cMwmo ("OMWM", 0, emptyData);
   Chunk cMwid ("DIWM", 0, emptyData);

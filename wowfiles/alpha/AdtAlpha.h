@@ -10,6 +10,8 @@
 #include <wowfiles/alpha/McnkAlpha.h>
 #include <wowfiles/lichking/AdtLk.h>
 #include <wowfiles/Mcin.h>
+#include <wowfiles/Mddf.h>
+#include <wowfiles/Modf.h>
 
 class AdtAlpha : public WowChunkedFormat
 {
@@ -26,13 +28,15 @@ class AdtAlpha : public WowChunkedFormat
 
     std::string getAdtFileName(const std::string & wdtName) const;
 
+    std::vector<int> getM2IndicesForMmdx(const std::vector<int> & mddfIndices) const;
+
     int adtNumber;
     std::string adtFileName;
     Chunk mhdr;
     Mcin mcin;
     Chunk mtex;
-    Chunk mddf;
-    Chunk modf;
+    Mddf mddf;
+    Modf modf;
     std::vector<McnkAlpha> mcnksAlpha;
 };
 

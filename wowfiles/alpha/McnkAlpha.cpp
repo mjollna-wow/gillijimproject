@@ -59,7 +59,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   cMcnkHeader.indexX = mcnkAlphaHeader.indexX;
   cMcnkHeader.indexY = mcnkAlphaHeader.indexY;
   cMcnkHeader.nLayers = mcnkAlphaHeader.nLayers;
-  cMcnkHeader.m2Number = 0; // TODO
+  cMcnkHeader.m2Number = mcnkAlphaHeader.m2Number;
   
   cMcnkHeader.mcvtOffset = offsetInHeader;
   offsetInHeader = offsetInHeader + chunkLettersAndSize + mcvt.getRealSize();  
@@ -84,7 +84,7 @@ McnkLk McnkAlpha::toMcnkLk() const
   cMcnkHeader.mcshOffset = mcshOffset;
   cMcnkHeader.mcshSize = mcsh.getRealSize();
   cMcnkHeader.areaId = 0; // TODO
-  cMcnkHeader.wmoNumber = 0; // TODO  
+  cMcnkHeader.wmoNumber = mcnkAlphaHeader.wmoNumber;
   cMcnkHeader.holes = 0; // TODO
   cMcnkHeader.groundEffectsMap1 = mcnkAlphaHeader.groundEffectsMap1;    
   cMcnkHeader.groundEffectsMap2 = mcnkAlphaHeader.groundEffectsMap2; 

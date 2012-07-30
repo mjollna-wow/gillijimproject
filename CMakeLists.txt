@@ -32,9 +32,15 @@ set ( gp_sources
   wowfiles/Mcin.cpp 
   wowfiles/Mcnk.cpp 
   wowfiles/Mcrf.cpp
+  wowfiles/Mddf.cpp
   wowfiles/Mh2o.cpp
   wowfiles/Mhdr.cpp  
-  wowfiles/Mphd.cpp  
+  wowfiles/Mmid.cpp
+  wowfiles/Mmdx.cpp  
+  wowfiles/Modf.cpp
+  wowfiles/Mphd.cpp
+  wowfiles/Mwid.cpp  
+  wowfiles/Mwmo.cpp    
   wowfiles/Wdl.cpp  
   wowfiles/Wdt.cpp  
   wowfiles/WowChunkedFormat.cpp  
@@ -74,9 +80,15 @@ set ( gp_headers
   wowfiles/Mcin.h
   wowfiles/Mcrf.h
   wowfiles/Mcnk.h
+  wowfiles/Mddf.h  
   wowfiles/Mh2o.h
   wowfiles/Mhdr.h
+  wowfiles/Mmid.h
+  wowfiles/Mmdx.h  
+  wowfiles/Modf.h   
   wowfiles/Mphd.h
+  wowfiles/Mwid.h 
+  wowfiles/Mwmo.h   
   wowfiles/Wdl.h
   wowfiles/Wdt.h
   wowfiles/WowChunkedFormat.h

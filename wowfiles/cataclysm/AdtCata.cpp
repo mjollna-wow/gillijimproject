@@ -155,7 +155,7 @@ AdtLk AdtCata::toAdtLk() // TODO : conversion is only partial, only terrain (oth
   std::vector<char> emptyData(0);
 
   Chunk cMtex ("XETM", 0, emptyData); // TODO : fill emptiness for objects
-  Chunk cMmdx ("XDMM", 0, emptyData); 
+  Mmdx cMmdx ("XDMM", 0, emptyData); 
   Chunk cMmid ("DIMM", 0, emptyData);
   Chunk cMwmo ("OMWM", 0, emptyData);
   Chunk cMwid ("DIWM", 0, emptyData);

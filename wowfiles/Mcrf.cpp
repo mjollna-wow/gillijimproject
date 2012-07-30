@@ -14,7 +14,7 @@ Mcrf::Mcrf(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInF
 {
 }
 
-Mcrf::Mcrf(const std::vector<char> & wholeFile, int offsetInFile)
+Mcrf::Mcrf(const std::vector<char> & wholeFile, int offsetInFile) : Chunk(wholeFile, offsetInFile)
 {
 }
 

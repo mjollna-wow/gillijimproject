@@ -11,6 +11,7 @@
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcin.h>
 #include <wowfiles/Mhdr.h>
+#include <wowfiles/Mmdx.h>
 #include <wowfiles/lichking/McnkLk.h>
 
 class AdtLk : public WowChunkedFormat
@@ -23,7 +24,7 @@ class AdtLk : public WowChunkedFormat
       , const int & mhdrFlags
       , const Mh2o & cMh2o
       , const Chunk & cMtex
-      , const Chunk & cMmdx
+      , const Mmdx & cMmdx
       , const Chunk & cMmid
       , const Chunk & cMwmo
       , const Chunk & cMwid
@@ -57,7 +58,7 @@ class AdtLk : public WowChunkedFormat
     Mcin mcin;
     Mh2o mh2o;
     Chunk mtex;
-    Chunk mmdx;
+    Mmdx mmdx;
     Chunk mmid;
     Chunk mwmo;
     Chunk mwid;

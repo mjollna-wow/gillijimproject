@@ -8,17 +8,16 @@
 
 namespace Utilities
 {
-  template<typename T> T get (const std::vector<char>& data, std::size_t offset)
+  template<typename T, typename U> T get (const std::vector<U>& data, std::size_t offset)
   {
     return T (*reinterpret_cast<const T*> (&data[offset]));
   }
 
-  template<typename T> std::vector<T> vecCharTo (const std::vector<char>& someData)
+  template<typename T, typename U> std::vector<T> vecCharTo (const std::vector<U>& someData)
   {
-
     std::vector<T> content (0);
   
-    std::vector<char>::const_iterator dataIter;
+    std::vector<U>::const_iterator dataIter;
     int currentStart (0);
   
     for (dataIter = someData.begin() ; dataIter != someData.end() ; ++dataIter)
