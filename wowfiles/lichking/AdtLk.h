@@ -10,6 +10,8 @@
 #include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcin.h>
+#include <wowfiles/Mddf.h>
+#include <wowfiles/Modf.h>
 #include <wowfiles/Mhdr.h>
 #include <wowfiles/Mmdx.h>
 #include <wowfiles/Mmid.h>
@@ -31,8 +33,8 @@ class AdtLk : public WowChunkedFormat
       , const Mmid & cMmid
       , const Mwmo & cMwmo
       , const Mwid & cMwid
-      , const Chunk & cMddf
-      , const Chunk & cModf
+      , const Mddf & cMddf
+      , const Modf & cModf
       , const std::vector<McnkLk> & cMcnks
       , const Chunk & cMfbo
       , const Chunk & cMtxf
@@ -65,8 +67,8 @@ class AdtLk : public WowChunkedFormat
     Mmid mmid;
     Mwmo mwmo;
     Mwid mwid;
-    Chunk mddf;
-    Chunk modf;
+    Mddf mddf;
+    Modf modf;
     std::vector<McnkLk> mcnks;
     Chunk mfbo;
     Chunk mtxf;

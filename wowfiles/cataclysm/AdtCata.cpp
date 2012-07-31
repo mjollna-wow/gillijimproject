@@ -5,6 +5,8 @@
 #include <string>
 #include <wowfiles/cataclysm/AdtCata.h>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/Mddf.h>
+#include <wowfiles/Modf.h>
 #include <wowfiles/Mhdr.h>
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcnk.h>
@@ -159,8 +161,8 @@ AdtLk AdtCata::toAdtLk() // TODO : conversion is only partial, only terrain (oth
   Mmid cMmid ("DIMM", 0, emptyData);
   Mwmo cMwmo ("OMWM", 0, emptyData);
   Mwid cMwid ("DIWM", 0, emptyData);
-  Chunk cMddf ("FDDM", 0, emptyData);
-  Chunk cModf ("FDOM", 0, emptyData);
+  Mddf cMddf ("FDDM", 0, emptyData);
+  Modf cModf ("FDOM", 0, emptyData);
   
   std::vector<McnkLk> cMcnks;
   int currentMcnk;

@@ -8,6 +8,8 @@
 #include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcin.h>
+#include <wowfiles/Mddf.h>
+#include <wowfiles/Modf.h>
 #include <wowfiles/Mhdr.h>
 #include <wowfiles/Mmdx.h>
 #include <wowfiles/Mmid.h>
@@ -57,10 +59,10 @@ AdtLk::AdtLk(const std::vector<char> & adtFile, const std::string & adtFileName)
   mwid = Mwid(adtFile, offsetInFile);
 
   offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mddfOffset);
-  mddf = Chunk(adtFile, offsetInFile);
+  mddf = Mddf(adtFile, offsetInFile);
 
   offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.modfOffset);
-  modf = Chunk(adtFile, offsetInFile);
+  modf = Modf(adtFile, offsetInFile);
 
   std::vector<int> mcnkOffsets (mcin.getMcnkOffsets());
   int currentMcnk;
@@ -98,8 +100,8 @@ AdtLk::AdtLk(const std::string & name
   , const Mmid & cMmid
   , const Mwmo & cMwmo
   , const Mwid & cMwid
-  , const Chunk & cMddf
-  , const Chunk & cModf
+  , const Mddf & cMddf
+  , const Modf & cModf
   , const std::vector<McnkLk> & cMcnks
   , const Chunk & cMfbo
   , const Chunk & cMtxf

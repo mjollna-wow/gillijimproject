@@ -23,6 +23,15 @@ Mddf::Mddf(std::string letters, int givenSize, const std::vector<char> & data) :
 {
 }
 
+Mddf::Mddf(std::vector<int> & alphaIndices)
+{
+  letters = "FDDM";
+
+
+
+  givenSize = data.size();
+}
+
 std::vector<int> Mddf::getEntriesIndices() const
 {
   const int entrySize (36);
@@ -56,7 +65,7 @@ std::vector<int> Mddf::getM2IndicesForMmdx() const
     s.insert( mddfIndices[i] );
   }
 
-  std::vector<int> indicesForMmdx ( s.begin(), s.end() );
+  std::vector<int> indicesForMmdx( s.begin(), s.end() );
 
   return indicesForMmdx;
 }
