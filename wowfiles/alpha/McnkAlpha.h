@@ -19,7 +19,7 @@ class McnkAlpha : public Mcnk
   public:
 
     McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, const int headerSize, int adtNum);
-    McnkLk toMcnkLk() const;
+    McnkLk toMcnkLk( std::vector<int> & alphaM2Indices, std::vector<int> & alphaWmoIndices ) const;
 
     friend std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha);
 

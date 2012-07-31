@@ -50,7 +50,7 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, const int h
   mclq = Chunk("QLCM", mclqSize, mclqData);
 }
 
-McnkLk McnkAlpha::toMcnkLk() const
+McnkLk McnkAlpha::toMcnkLk( std::vector<int> & alphaM2Indices, std::vector<int> & alphaWmoIndices ) const
 {
   McnkHeader (cMcnkHeader);  
   int offsetInHeader (chunkLettersAndSize + mcnkTerrainHeaderSize);
@@ -115,8 +115,6 @@ McnkLk McnkAlpha::toMcnkLk() const
   cMcnkHeader.mccvOffset = 0;
   cMcnkHeader.mclvOffset = 0;
   cMcnkHeader.unused = 0;  
-
-  // TODO : MCRF is plain wrong, copied from alpha since it's convenient (because of size).  
   
   std::vector<char> emptyData (0); 
   Chunk (emptyChunk); 
@@ -126,7 +124,10 @@ McnkLk McnkAlpha::toMcnkLk() const
   Chunk cMcvt ("TVCM", 0, emptyData);
   cMcvt = mcvt.toMcvt();
 
-  McnkLk mcnkLk = McnkLk(cMcnkHeader, cMcvt, emptyChunk, cMcnr, mcly, mcrf, mcsh, mcal, mclq, emptyChunk);
+  Mcrf cMcrf (mcrf);
+  cMcrf.updateIndicesForLk( alphaM2Indices, mcnkAlphaHeader.m2Number, alphaWmoIndices, mcnkAlphaHeader.wmoNumber );
+
+  McnkLk mcnkLk = McnkLk(cMcnkHeader, cMcvt, emptyChunk, cMcnr, mcly, cMcrf, mcsh, mcal, mclq, emptyChunk);
   return mcnkLk;
 }
 

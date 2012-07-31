@@ -5,6 +5,7 @@
 #include <wowfiles/Chunk.h>
 #include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/Mcal.h>
+#include <wowfiles/Mcrf.h>
 #include <wowfiles/lichking/McnkLk.h>
 #include <wowfiles/lichking/McnrLk.h>
 #include <utilities/Utilities.h>
@@ -35,7 +36,7 @@ McnkLk::McnkLk(const std::vector<char> & adtFile, int offsetInFile, const int & 
   mcly = Chunk(adtFile, offsetInFile);
 
   offsetInFile = headerStartOffset + mcnkHeader.mcrfOffset;
-  mcrf = Chunk(adtFile, offsetInFile);
+  mcrf = Mcrf(adtFile, offsetInFile);
 
   // Note : I don't check the 0x1 Mcnk header flag since it's not set on some maps, even though there is a shadow map (e.g. MonasteryInstances)
   if ((mcnkHeader.mcshOffset != 0) && (mcnkHeader.mcshOffset !=  mcnkHeader.mcalOffset)) 
@@ -70,7 +71,7 @@ McnkLk::McnkLk(const McnkHeader & cMcnkHeader
     , const Chunk & cMccv
     , const McnrLk & cMcnr
     , const Chunk & cMcly
-    , const Chunk & cMcrf
+    , const Mcrf & cMcrf
     , const Chunk & cMcsh
     , const Mcal & cMcal
     , const Chunk & cMclq

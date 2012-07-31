@@ -27,7 +27,7 @@ int main (int argc, char **argv)
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
   const int adtTotalNum (adtsNums.size());
-  int currentAdt;
+  //int currentAdt;
 
   /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
@@ -39,7 +39,7 @@ int main (int argc, char **argv)
   AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
 
   AdtLk testAdtLk ( testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ) );
-  //testAdtLk.toFile();
+  testAdtLk.toFile();
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");

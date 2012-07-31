@@ -138,7 +138,7 @@ McnkLk McnkCata::toMcnkLk() // TODO : probably shouldn't be here.
     cMccv = mccv;
 
   Chunk cMcly ("YLCM", 0, emptyData);
-  Chunk cMcrf ("FRCM", 0, emptyData);
+  Mcrf cMcrf ("FRCM", 0, emptyData);
   Chunk cMcsh ("HSCM", 0, emptyData);
   Mcal (cMcal);
 

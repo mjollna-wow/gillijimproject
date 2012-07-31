@@ -18,7 +18,8 @@ class Mcrf : public Chunk
 
     std::vector<int> getDoodadsIndices(const int & doodadsNumber) const;
     std::vector<int> getWmosIndices(const int & wmosNumber) const;
-	
+	  void updateIndicesForLk(std::vector<int> & alphaM2Indices, int m2Number, std::vector<int> & alphaWmoIndices, int wmoNumber);
+
     friend std::ostream & operator<<(std::ostream & os, const Mcrf & mcrf);	
 };
 

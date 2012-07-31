@@ -112,7 +112,7 @@ AdtLk AdtAlpha::toAdtLk(std::vector<std::string> & mdnmFilesNames, std::vector<s
 
   for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
   {
-    cMcnks.push_back(mcnksAlpha[currentMcnk].toMcnkLk());
+    cMcnks.push_back(mcnksAlpha[currentMcnk].toMcnkLk( cMddf.getM2IndicesForMmdx(),  cModf.getWmoIndicesForMwmo() ));
   }
 
   Chunk (cMfbo);

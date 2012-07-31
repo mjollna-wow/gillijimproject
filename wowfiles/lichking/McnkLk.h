@@ -8,6 +8,7 @@
 #include <wowfiles/Chunk.h>
 #include <wowfiles/ChunkHeaders.h>
 #include <wowfiles/Mcal.h>
+#include <wowfiles/Mcrf.h>
 #include <wowfiles/lichking/McnrLk.h>
 #include <wowfiles/WowChunkedFormat.h>
 #include <utilities/Utilities.h>
@@ -24,7 +25,7 @@ class McnkLk : public Mcnk
       , const Chunk & cMccv
       , const McnrLk & cMcnr
       , const Chunk & cMcly
-      , const Chunk & cMcrf
+      , const Mcrf & cMcrf
       , const Chunk & cMcsh
       , const Mcal & cMcal
       , const Chunk & cMclq
@@ -44,7 +45,7 @@ class McnkLk : public Mcnk
     Chunk mccv;
     McnrLk mcnr;
     Chunk mcly;
-    Chunk mcrf;
+    Mcrf mcrf;
     Chunk mcsh;
     Mcal mcal;
     Chunk mclq;

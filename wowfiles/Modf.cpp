@@ -82,7 +82,6 @@ void Modf::updateIndicesForLk(std::vector<int> & alphaIndices) // TODO : that th
   std::vector<char> newModfData (0);
 
   std::vector<char>::const_iterator dataIter;
-  int currentStart (0);
   int newIndex (0);
   
   for (dataIter = data.begin() ; dataIter != data.end() ; ++dataIter)
