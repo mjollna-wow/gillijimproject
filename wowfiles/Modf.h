@@ -15,10 +15,14 @@ class Modf : public Chunk
     Modf(std::ifstream & adtFile, int offsetInFile);
 	  Modf(const std::vector<char> & wholeFile, int offsetInFile);
     Modf(std::string letters, int givenSize, const std::vector<char> & chunkData);
-	
-    std::vector<int> getEntriesIndices() const; // TODO : make this private (same as mddf)
+
+    std::vector<int> getWmoIndicesForMwmo() const;
 
     friend std::ostream & operator<<(std::ostream & os, const Modf & modf);	
+
+  private:
+
+    std::vector<int> getEntriesIndices() const;
 };
 
 #endif

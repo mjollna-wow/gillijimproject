@@ -15,7 +15,10 @@ class Mwmo : public Chunk
     Mwmo(std::ifstream & adtFile, int offsetInFile);
 	  Mwmo(const std::vector<char> & wholeFile, int offsetInFile);
     Mwmo(std::string letters, int givenSize, const std::vector<char> & chunkData);
-	
+	  Mwmo(const std::vector<int> & indices, const std::vector<std::string> & allFileNames);
+
+    std::vector<int> getIndicesForMwid() const;
+
     friend std::ostream & operator<<(std::ostream & os, const Mwmo & mwmo);	
 };
 

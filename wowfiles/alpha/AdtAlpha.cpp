@@ -11,6 +11,8 @@
 #include <wowfiles/Mcin.h>
 #include <wowfiles/Mddf.h>
 #include <wowfiles/Modf.h>
+#include <wowfiles/Mwmo.h>
+#include <wowfiles/Mwid.h>
 
 AdtAlpha::AdtAlpha(std::string & wdtAlphaName, int offsetInFile, int adtNum) : adtNumber(adtNum)
 {
@@ -94,13 +96,13 @@ AdtLk AdtAlpha::toAdtLk(std::vector<std::string> & mdnmFilesNames, std::vector<s
   Chunk cMver ("REVM", 4, mverData);
 
   Mh2o (cMh2o);
-  Mmdx cMmdx (mddf.getM2IndicesForMmdx(), mdnmFilesNames); 
-  Mmid cMmid ( cMmdx.getIndicesForMmid() );
+  Mmdx cMmdx( mddf.getM2IndicesForMmdx(), mdnmFilesNames ); 
+  Mmid cMmid( cMmdx.getIndicesForMmid() );
+  Mwmo cMwmo( modf.getWmoIndicesForMwmo(), monmFilesNames);
+  Mwid cMwid( cMwmo.getIndicesForMwid() );
 
   std::vector<char> emptyData(0); // TODO : change place when possible
 
-  Chunk cMwmo ("OMWM", 0, emptyData); // TODO
-  Chunk cMwid ("DIWM", 0, emptyData); // TODO
   Chunk cMddf ("FDDM", 0, emptyData); // TODO
   Chunk cModf ("FDOM", 0, emptyData); // TODO
   

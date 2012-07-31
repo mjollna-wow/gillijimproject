@@ -11,6 +11,8 @@
 #include <wowfiles/Mhdr.h>
 #include <wowfiles/Mmdx.h>
 #include <wowfiles/Mmid.h>
+#include <wowfiles/Mwmo.h>
+#include <wowfiles/Mwid.h>
 #include <wowfiles/lichking/McnkLk.h>
 #include <utilities/Utilities.h>
 
@@ -49,10 +51,10 @@ AdtLk::AdtLk(const std::vector<char> & adtFile, const std::string & adtFileName)
   mmid = Mmid(adtFile, offsetInFile);
 
   offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mwmoOffset);
-  mwmo = Chunk(adtFile, offsetInFile);
+  mwmo = Mwmo(adtFile, offsetInFile);
 
   offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mwidOffset);
-  mwid = Chunk(adtFile, offsetInFile);
+  mwid = Mwid(adtFile, offsetInFile);
 
   offsetInFile = MhdrStartOffset + Utilities::get<int>(adtFile, MhdrStartOffset + mhdr.mddfOffset);
   mddf = Chunk(adtFile, offsetInFile);
@@ -94,8 +96,8 @@ AdtLk::AdtLk(const std::string & name
   , const Chunk & cMtex
   , const Mmdx & cMmdx
   , const Mmid & cMmid
-  , const Chunk & cMwmo
-  , const Chunk & cMwid
+  , const Mwmo & cMwmo
+  , const Mwid & cMwid
   , const Chunk & cMddf
   , const Chunk & cModf
   , const std::vector<McnkLk> & cMcnks

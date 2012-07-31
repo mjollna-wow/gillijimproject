@@ -1,4 +1,5 @@
 #include <vector>
+#include <set>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -40,6 +41,24 @@ std::vector<int> Modf::getEntriesIndices() const
   }
 
   return indices;
+}
+
+std::vector<int> Modf::getWmoIndicesForMwmo() const
+{
+  std::vector<int> mddfIndices( getEntriesIndices() );
+  std::set<int> s;
+  
+  int size ( mddfIndices.size() );
+  int i;
+
+  for( i = 0 ; i < size ; ++i ) 
+  {
+    s.insert( mddfIndices[i] );
+  }
+
+  std::vector<int> indicesForMmdx ( s.begin(), s.end() );
+
+  return indicesForMmdx;
 }
 
 std::ostream & operator<<(std::ostream & os, const Modf & modf)

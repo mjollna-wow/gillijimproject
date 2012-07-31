@@ -13,6 +13,8 @@
 #include <wowfiles/Mhdr.h>
 #include <wowfiles/Mmdx.h>
 #include <wowfiles/Mmid.h>
+#include <wowfiles/Mwmo.h>
+#include <wowfiles/Mwid.h>
 #include <wowfiles/lichking/McnkLk.h>
 
 class AdtLk : public WowChunkedFormat
@@ -27,8 +29,8 @@ class AdtLk : public WowChunkedFormat
       , const Chunk & cMtex
       , const Mmdx & cMmdx
       , const Mmid & cMmid
-      , const Chunk & cMwmo
-      , const Chunk & cMwid
+      , const Mwmo & cMwmo
+      , const Mwid & cMwid
       , const Chunk & cMddf
       , const Chunk & cModf
       , const std::vector<McnkLk> & cMcnks
@@ -61,8 +63,8 @@ class AdtLk : public WowChunkedFormat
     Chunk mtex;
     Mmdx mmdx;
     Mmid mmid;
-    Chunk mwmo;
-    Chunk mwid;
+    Mwmo mwmo;
+    Mwid mwid;
     Chunk mddf;
     Chunk modf;
     std::vector<McnkLk> mcnks;
