@@ -100,7 +100,8 @@ AdtLk AdtAlpha::toAdtLk(std::vector<std::string> & mdnmFilesNames, std::vector<s
   Mmid cMmid( cMmdx.getIndicesForMmid() );
   Mwmo cMwmo( modf.getWmoIndicesForMwmo(), monmFilesNames );
   Mwid cMwid( cMwmo.getIndicesForMwid() );
-  Mddf cMddf( mddf.getM2IndicesForMmdx() );
+  Mddf cMddf (mddf);
+  cMddf.updateIndicesForLk( mddf.getM2IndicesForMmdx() );
 
   std::vector<char> emptyData(0); // TODO : change place when possible
 
