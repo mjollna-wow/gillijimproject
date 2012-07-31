@@ -61,6 +61,48 @@ std::vector<int> Modf::getWmoIndicesForMwmo() const
   return indicesForMmdx;
 }
 
+void Modf::updateIndicesForLk(std::vector<int> & alphaIndices) // TODO : that thing looks awful. Needs to be totally different (at least it does what it's supposed to do though).
+{
+  std::vector<int> modfAlphaIndices( getEntriesIndices() );
+
+  // TODO : add check to be sure alphaIndices.size() == data.size()
+
+  for (int i = 0 ; i < modfAlphaIndices.size() ; ++i)
+  {
+    for (int j = 0 ; j < alphaIndices.size() ; ++j)
+    {
+      if ( modfAlphaIndices[i] == alphaIndices[j] )
+	    {
+        modfAlphaIndices[i] = j;
+	    }
+    }
+  }
+
+  const int entrySize (64);
+  std::vector<char> newModfData (0);
+
+  std::vector<char>::const_iterator dataIter;
+  int currentStart (0);
+  int newIndex (0);
+  
+  for (dataIter = data.begin() ; dataIter != data.end() ; ++dataIter)
+  {
+    if ( ( dataIter - data.begin() ) % entrySize == 0 )
+	  {
+      std::vector<char> currentIndex ( Utilities::getCharVectorFromInt( modfAlphaIndices[newIndex] ) );
+      newModfData.insert( newModfData.end(), currentIndex.begin(), currentIndex.end() );
+      ++newIndex;
+	    dataIter += 3;
+	  }
+    else
+    {
+      newModfData.push_back( *dataIter );
+    }
+  }  
+  
+  data = newModfData;
+}
+
 std::ostream & operator<<(std::ostream & os, const Modf & modf)
 {
   os << "Chunk letters : " << modf.letters << std::endl;

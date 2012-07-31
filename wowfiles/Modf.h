@@ -17,6 +17,7 @@ class Modf : public Chunk
     Modf(std::string letters, int givenSize, const std::vector<char> & chunkData);
 
     std::vector<int> getWmoIndicesForMwmo() const;
+    void updateIndicesForLk(std::vector<int> & alphaIndices);
 
     friend std::ostream & operator<<(std::ostream & os, const Modf & modf);	
 
