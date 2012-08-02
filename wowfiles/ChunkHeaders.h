@@ -55,7 +55,7 @@ struct McnkAlphaHeader
   int mcshSize;
   int unknown3;
   int wmoNumber;
-  int unknown5;
+  int holes;
   int groundEffectsMap1;
   int groundEffectsMap2;
   int groundEffectsMap3;

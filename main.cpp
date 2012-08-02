@@ -17,7 +17,8 @@ int main (int argc, char **argv)
 
   //////////////////// ALPHA STUFF ////////////////////
 
-  std::string wdtName ("azerothwdtFile00000000.xxx");
+  //std::string wdtName ("azerothwdtFile00000000.xxx");
+  std::string wdtName (argv[1]);
   WdtAlpha testWdtAlpha (wdtName);
 
   Wdt testWdt (testWdtAlpha.toWdt());
@@ -27,24 +28,24 @@ int main (int argc, char **argv)
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
   const int adtTotalNum (adtsNums.size());
-  //int currentAdt;
+  int currentAdt;
 
-  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
+  for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
-    AdtLk testAdtLk (testAdt.toAdtLk());
+    AdtLk testAdtLk (testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ));
     testAdtLk.toFile();
-  }*/
+  }
 
-  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
+  //AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
 
-  AdtLk testAdtLk ( testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ) );
-  testAdtLk.toFile();
+  //AdtLk testAdtLk ( testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ) );
+  //testAdtLk.toFile();
 
-  std::ofstream fileOut;
+  /*std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
-  fileOut << testAdtLk;
+  fileOut << testAdtLk;*/
 
   //////////////////// LK STUFF //////////////////// ok
 

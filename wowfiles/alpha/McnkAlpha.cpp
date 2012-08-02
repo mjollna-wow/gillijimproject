@@ -85,7 +85,7 @@ McnkLk McnkAlpha::toMcnkLk( std::vector<int> & alphaM2Indices, std::vector<int> 
   cMcnkHeader.mcshSize = mcsh.getRealSize();
   cMcnkHeader.areaId = 0; // TODO
   cMcnkHeader.wmoNumber = mcnkAlphaHeader.wmoNumber;
-  cMcnkHeader.holes = 0; // TODO
+  cMcnkHeader.holes = mcnkAlphaHeader.holes; // TODO
   cMcnkHeader.groundEffectsMap1 = mcnkAlphaHeader.groundEffectsMap1;    
   cMcnkHeader.groundEffectsMap2 = mcnkAlphaHeader.groundEffectsMap2; 
   cMcnkHeader.groundEffectsMap3 = mcnkAlphaHeader.groundEffectsMap3; 
@@ -170,7 +170,7 @@ std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)
   os << "#0x34 MCSH size\t\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.mcshSize << std::dec << std::endl; 
   os << "#0x38 -> #0x3B\t\t\t\t\t\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.unknown3 << std::dec << std::endl; 
   os << "#0x3C Wmo number\t\t\t\t\t: " << mcnkAlpha.mcnkAlphaHeader.wmoNumber << std::endl;
-  os << "#0x40 -> #0x43\t\t\t\t\t\t: 0x" << mcnkAlpha.mcnkAlphaHeader.unknown5 << std::dec << std::endl;
+  os << "#0x40 -> Holes #0x43\t\t\t\t\t\t: 0x" << mcnkAlpha.mcnkAlphaHeader.holes << std::dec << std::endl;
   os << "#0x44 -> #0x47 Low Texturing map\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.groundEffectsMap1 << std::dec << std::endl;
   os << "#0x48 -> #0x4B Low Texturing map\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.groundEffectsMap2 << std::dec << std::endl;
   os << "#0x4C -> #0x4F Low Texturing map\t: 0x" << std::hex << mcnkAlpha.mcnkAlphaHeader.groundEffectsMap3 << std::dec << std::endl;
