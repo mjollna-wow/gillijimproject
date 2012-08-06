@@ -70,6 +70,11 @@ McnkCata::McnkCata(const std::vector<char> & adtFile, int offsetInFile, const in
   }		
 }
 
+void McnkCata::setRelativeHeight(const int & heightToAdd)
+{
+  mcnkHeader.posZ += heightToAdd;
+}
+
 std::vector<char> McnkCata::getWholeChunk() const
 {
   std::vector<char> wholeChunk (0);
@@ -80,8 +85,102 @@ std::vector<char> McnkCata::getWholeChunk() const
   tempData = Utilities::getCharVectorFromInt(givenSize);
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
 
-  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.flags);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
   
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.indexX);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.indexY);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.nLayers);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.m2Number);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mcvtOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mcnrOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mclyOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mcrfOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mcalOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mcalSize);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mcshOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mcshSize);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.areaId);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.wmoNumber);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.holes);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.groundEffectsMap1);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.groundEffectsMap2);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.groundEffectsMap3);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.groundEffectsMap4);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.predTex);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.nEffectDoodad);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mcseOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.nSndEmitters);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mclqOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mclqSize);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromFloat(mcnkHeader.posX);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromFloat(mcnkHeader.posY);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromFloat(mcnkHeader.posZ);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mccvOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.mclvOffset);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
+  tempData = Utilities::getCharVectorFromInt(mcnkHeader.unused);
+  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
+
   tempData = mcvt.getWholeChunk();
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
 
@@ -93,7 +192,7 @@ std::vector<char> McnkCata::getWholeChunk() const
 
   if (!mclv.isEmpty())
   {
-    tempData = mccv.getWholeChunk();
+    tempData = mclv.getWholeChunk();
     wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
   }
 
@@ -150,6 +249,16 @@ std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata)
 {
   os << "Chunk letters : " << mcnkCata.letters << std::endl;
   os << "Chunk givenSize : " << mcnkCata.givenSize << std::endl;
+
+  os << std::endl;
+
+  os << "flags : " << std::hex << "0x" << mcnkCata.mcnkHeader.flags << std::dec << std::endl;
+  os << "indexX : " << mcnkCata.mcnkHeader.indexX << std::endl;
+  os << "indexY : " << mcnkCata.mcnkHeader.indexY << std::endl;
+  os << "areaID : " << mcnkCata.mcnkHeader.areaId << std::endl;
+  os << "posX : " << mcnkCata.mcnkHeader.posX << std::endl;
+  os << "posY : " << mcnkCata.mcnkHeader.posY << std::endl;
+  os << "posZ : " << mcnkCata.mcnkHeader.posZ << std::endl;
 
   os << "------------------------------" << std::endl;
 

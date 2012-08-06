@@ -83,9 +83,9 @@ McnkLk McnkAlpha::toMcnkLk( std::vector<int> & alphaM2Indices, std::vector<int> 
   
   cMcnkHeader.mcshOffset = mcshOffset;
   cMcnkHeader.mcshSize = mcsh.getRealSize();
-  cMcnkHeader.areaId = 0; // TODO
+  cMcnkHeader.areaId = mcnkAlphaHeader.unknown3; // TODO : I don't know... AreaID should be here, but results are not really convincing -_-
   cMcnkHeader.wmoNumber = mcnkAlphaHeader.wmoNumber;
-  cMcnkHeader.holes = mcnkAlphaHeader.holes; // TODO
+  cMcnkHeader.holes = mcnkAlphaHeader.holes;
   cMcnkHeader.groundEffectsMap1 = mcnkAlphaHeader.groundEffectsMap1;    
   cMcnkHeader.groundEffectsMap2 = mcnkAlphaHeader.groundEffectsMap2; 
   cMcnkHeader.groundEffectsMap3 = mcnkAlphaHeader.groundEffectsMap3; 

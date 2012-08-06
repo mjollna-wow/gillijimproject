@@ -75,6 +75,16 @@ AdtCata::AdtCata(const std::string & adtFileName, const std::vector<char> & adtF
   }
 }
 
+void AdtCata::setTerrainHeight(const int & heightToAdd)
+{
+  std::vector<McnkCata>::iterator mcnkIter;
+  
+  for (mcnkIter = terrainMcnks.begin() ; mcnkIter != terrainMcnks.end() ; ++mcnkIter)
+  {
+    mcnkIter->setRelativeHeight(heightToAdd);
+  }  
+}
+
 void AdtCata::toFile()
 {
   std::string fileName (adtName);

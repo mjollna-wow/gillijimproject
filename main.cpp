@@ -18,7 +18,7 @@ int main (int argc, char **argv)
   //////////////////// ALPHA STUFF ////////////////////
 
   //std::string wdtName ("azerothwdtFile00000000.xxx");
-  std::string wdtName (argv[1]);
+  /*std::string wdtName (argv[1]);
   WdtAlpha testWdtAlpha (wdtName);
 
   Wdt testWdt (testWdtAlpha.toWdt());
@@ -35,7 +35,7 @@ int main (int argc, char **argv)
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
     AdtLk testAdtLk (testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ));
     testAdtLk.toFile();
-  }
+  }*/
 
   //AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
 
@@ -76,16 +76,22 @@ int main (int argc, char **argv)
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
-  /*std::vector<char> adtFile(0);
+  std::vector<char> adtFile(0);
   
-  std::string adtName ("mop/NewRaceStartZone_26_31.adt");
+  //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
+  std::string adtName ("Deephome_29_29.adt");
   Utilities::getWholeFile(adtName, adtFile);
 
   AdtCata testAdt3(adtName, adtFile);
+
+  testAdt3.setTerrainHeight(2300);
+
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
   fileOut << testAdt3;
-  fileOut.close();*/
+  fileOut.close();
+
+  testAdt3.toFile();
 
   /*AdtLk convertedAdt (testAdt3.toAdtLk());
 
@@ -93,27 +99,27 @@ int main (int argc, char **argv)
 
   testAdt3.toFile();*/
 
-  /*std::string adtName ("Deephome_29_29_tex0.adt");
-  Utilities::getWholeFile(adtName, adtFile);
+  std::string adtNameTex ("Deephome_29_29_tex0.adt");
+  Utilities::getWholeFile(adtNameTex, adtFile);
 
-  AdtCataTextures testAdt3tex(adtName, adtFile);  
+  AdtCataTextures testAdt3tex(adtNameTex, adtFile);  
   std::ofstream fileOut2;
   fileOut2.open ("debugfileTex.txt");
   fileOut2 << testAdt3tex;
   fileOut2.close();
 
-  testAdt3tex.toFile();*/
+  testAdt3tex.toFile();
 
-  /*std::string adtName ("Deephome_30_29_obj0.adt");
-  Utilities::getWholeFile(adtName, adtFile);
+  std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  Utilities::getWholeFile(adtNameObj, adtFile);
 
-  AdtCataObjects testAdt3obj(adtName, adtFile);
+  AdtCataObjects testAdt3obj(adtNameObj, adtFile);
   std::ofstream fileOut3;
   fileOut3.open ("debugfileObj.txt");
   fileOut3 << testAdt3obj;
   fileOut3.close();
 
-  testAdt3obj.toFile();*/
+  testAdt3obj.toFile();
 
   //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 

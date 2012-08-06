@@ -19,6 +19,8 @@ class AdtCata : public WowChunkedFormat
 
     AdtCata(const std::string & adtName, const std::vector<char> & adtFile);
 
+    void setTerrainHeight(const int & heightToAdd);
+
     void toFile();
     void toFile(const std::string & fileName);
     AdtLk toAdtLk();
