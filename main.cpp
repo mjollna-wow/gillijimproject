@@ -78,13 +78,16 @@ int main (int argc, char **argv)
 
   std::vector<char> adtFile(0);
   
+  const int heightToAdd (2800);
+
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
-  std::string adtName ("Deephome_29_29.adt");
+  //std::string adtName ("Deephome_29_29.adt");
+  std::string adtName (argv[1]);
   Utilities::getWholeFile(adtName, adtFile);
 
   AdtCata testAdt3(adtName, adtFile);
 
-  testAdt3.setTerrainHeight(2300);
+  testAdt3.addToTerrainHeight(heightToAdd);
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
@@ -99,7 +102,7 @@ int main (int argc, char **argv)
 
   testAdt3.toFile();*/
 
-  std::string adtNameTex ("Deephome_29_29_tex0.adt");
+  /*std::string adtNameTex ("Deephome_29_29_tex0.adt");
   Utilities::getWholeFile(adtNameTex, adtFile);
 
   AdtCataTextures testAdt3tex(adtNameTex, adtFile);  
@@ -108,18 +111,22 @@ int main (int argc, char **argv)
   fileOut2 << testAdt3tex;
   fileOut2.close();
 
-  testAdt3tex.toFile();
+  testAdt3tex.toFile();*/
 
-  std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  //std::string adtNameObj (argv[1]);
+  /*std::string adtNameObj ("Deephome_29_29_obj0.adt");
   Utilities::getWholeFile(adtNameObj, adtFile);
 
   AdtCataObjects testAdt3obj(adtNameObj, adtFile);
+  
+  testAdt3obj.addToObjectsHeight(heightToAdd);
+
   std::ofstream fileOut3;
   fileOut3.open ("debugfileObj.txt");
   fileOut3 << testAdt3obj;
   fileOut3.close();
 
-  testAdt3obj.toFile();
+  testAdt3obj.toFile();*/
 
   //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 

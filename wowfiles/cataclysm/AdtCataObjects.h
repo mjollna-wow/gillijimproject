@@ -8,6 +8,8 @@
 #include <wowfiles/WowChunkedFormat.h>
 #include <wowfiles/Chunk.h>
 #include <wowfiles/Mcnk.h>
+#include <wowfiles/Mddf.h>
+#include <wowfiles/Modf.h>
 #include <wowfiles/cataclysm/McnkCataObjects.h>
 
 class AdtCataObjects : public WowChunkedFormat
@@ -15,6 +17,8 @@ class AdtCataObjects : public WowChunkedFormat
   public:
 
     AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile);
+
+    void addToObjectsHeight(const int & heightToAdd);
 
     void toFile();
     void toFile(const std::string & fileName);
@@ -29,8 +33,8 @@ class AdtCataObjects : public WowChunkedFormat
     Chunk mmid;
     Chunk mwmo;
     Chunk mwid;
-    Chunk mddf;
-    Chunk modf;
+    Mddf mddf;
+    Modf modf;
     std::vector<McnkCataObjects> objectsMcnks;
 	  std::vector<Chunk> objectsUnknown;
 };

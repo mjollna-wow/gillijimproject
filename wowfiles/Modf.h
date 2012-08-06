@@ -16,6 +16,8 @@ class Modf : public Chunk
 	  Modf(const std::vector<char> & wholeFile, int offsetInFile);
     Modf(std::string letters, int givenSize, const std::vector<char> & chunkData);
 
+    void addToObjectsHeight(const int & heightToAdd);
+
     std::vector<int> getWmoIndicesForMwmo() const;
     void updateIndicesForLk(std::vector<int> & alphaIndices);
 
@@ -24,6 +26,7 @@ class Modf : public Chunk
   private:
 
     std::vector<int> getEntriesIndices() const;
+    std::vector<float> getObjectsHeights() const;
 };
 
 #endif

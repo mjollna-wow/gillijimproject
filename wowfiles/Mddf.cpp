@@ -23,6 +23,50 @@ Mddf::Mddf(std::string letters, int givenSize, const std::vector<char> & data) :
 {
 }
 
+void Mddf::addToObjectsHeight(const int & heightToAdd)
+{
+  if (givenSize <= 0) return;
+
+  std::vector<float> mddfHeights( getObjectsHeights() );
+
+  for (int i = 0 ; i < mddfHeights.size() ; ++i)
+  {
+    mddfHeights[i] += (float)heightToAdd;
+  }
+
+  const int entrySize (36);
+  std::vector<char> newMddfData (0);
+
+  std::vector<char>::const_iterator dataIter;
+  int newIndex (0);
+  
+  for (dataIter = data.begin() ; dataIter != data.begin() + 12 ; ++dataIter)
+  {
+    newMddfData.push_back( *dataIter );
+  }
+
+  std::vector<char> currentIndex ( Utilities::getCharVectorFromFloat( mddfHeights[newIndex] ) );
+  newMddfData.insert( newMddfData.end(), currentIndex.begin(), currentIndex.end() );
+  ++newIndex;
+
+  for (dataIter = data.begin() + 16 ; dataIter != data.end() ; ++dataIter)
+  {
+    if ( ( dataIter - data.begin() + 24 ) % entrySize == 0 )
+	  {
+      std::vector<char> currentIndex ( Utilities::getCharVectorFromFloat( mddfHeights[newIndex] ) );
+      newMddfData.insert( newMddfData.end(), currentIndex.begin(), currentIndex.end() );
+      ++newIndex;
+	    dataIter += 3;
+	  }
+    else
+    {
+      newMddfData.push_back( *dataIter );
+    }
+  }  
+  
+  data = newMddfData;
+}
+
 std::vector<int> Mddf::getEntriesIndices() const
 {
   const int entrySize (36);
@@ -41,6 +85,26 @@ std::vector<int> Mddf::getEntriesIndices() const
   }
 
   return indices;
+}
+
+std::vector<float> Mddf::getObjectsHeights() const
+{
+  const int entrySize (36);
+  std::vector<float> heights (0);
+
+  std::vector<char>::const_iterator dataIter;
+  int currentStart (12);
+  
+  for (dataIter = data.begin() ; dataIter != data.end() ; ++dataIter)
+  {
+    if ( ( dataIter - data.begin() + 24 ) % entrySize == 0 )
+	  {
+      heights.push_back( Utilities::get<float> ( data, currentStart ) );
+	    currentStart = ( dataIter - data.begin() ) + entrySize;
+	  }
+  }
+
+  return heights;
 }
 
 void Mddf::updateIndicesForLk(std::vector<int> & alphaIndices) // TODO : that thing looks awful. Needs to be totally different (at least it does what it's supposed to do though).
@@ -116,6 +180,19 @@ std::ostream & operator<<(std::ostream & os, const Mddf & mddf)
   for (mddfIndicesIter = indices.begin() ; mddfIndicesIter != indices.end() ; ++mddfIndicesIter)
   {
     os << *mddfIndicesIter << " ";
+  }
+
+  os << std::endl;
+
+  os << "Heights : " << std::endl;
+
+  std::vector<float> heights ( mddf.getObjectsHeights() );
+
+  std::vector<float>::const_iterator mddfHeightsIter;
+
+  for (mddfHeightsIter = heights.begin() ; mddfHeightsIter != heights.end() ; ++mddfHeightsIter)
+  {
+    os << *mddfHeightsIter << " ";
   }
 
   os << std::endl;

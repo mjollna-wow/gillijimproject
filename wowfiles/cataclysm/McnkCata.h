@@ -18,7 +18,7 @@ class McnkCata : public Mcnk
     McnkCata(const std::vector<char> & adtFile, int offsetInFile, const int & headerSize);
     McnkCata(std::string letters, int givenSize, const std::vector<char> &data);
 
-    void setRelativeHeight(const int & heightToAdd);
+    void addToRelativeHeight(const int & heightToAdd);
 
     std::vector<char> getWholeChunk() const;
 	  void toFile();

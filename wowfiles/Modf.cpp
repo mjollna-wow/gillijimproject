@@ -23,6 +23,50 @@ Modf::Modf(std::string letters, int givenSize, const std::vector<char> & data) :
 {
 }
 
+void Modf::addToObjectsHeight(const int & heightToAdd)
+{
+  if (givenSize <= 0) return;
+
+  std::vector<float> modfHeights( getObjectsHeights() );
+
+  for (int i = 0 ; i < modfHeights.size() ; ++i)
+  {
+    modfHeights[i] += (float)heightToAdd;
+  }
+
+  const int entrySize (64);
+  std::vector<char> newModfData (0);
+
+  std::vector<char>::const_iterator dataIter;
+  int newIndex (0);
+  
+  for (dataIter = data.begin() ; dataIter != data.begin() + 12 ; ++dataIter)
+  {
+    newModfData.push_back( *dataIter );
+  }
+
+  std::vector<char> currentIndex ( Utilities::getCharVectorFromFloat( modfHeights[newIndex] ) );
+  newModfData.insert( newModfData.end(), currentIndex.begin(), currentIndex.end() );
+  ++newIndex;
+
+  for (dataIter = data.begin() + 16 ; dataIter != data.end() ; ++dataIter)
+  {
+    if ( ( dataIter - data.begin() + 52 ) % entrySize == 0 )
+	  {
+      std::vector<char> currentIndex ( Utilities::getCharVectorFromFloat( modfHeights[newIndex] ) );
+      newModfData.insert( newModfData.end(), currentIndex.begin(), currentIndex.end() );
+      ++newIndex;
+	    dataIter += 3;
+	  }
+    else
+    {
+      newModfData.push_back( *dataIter );
+    }
+  }  
+  
+  data = newModfData;
+}
+
 std::vector<int> Modf::getEntriesIndices() const
 {
   const int entrySize (64);
@@ -41,6 +85,26 @@ std::vector<int> Modf::getEntriesIndices() const
   }
 
   return indices;
+}
+
+std::vector<float> Modf::getObjectsHeights() const
+{
+  const int entrySize (64);
+  std::vector<float> heights (0);
+
+  std::vector<char>::const_iterator dataIter;
+  int currentStart (12);
+  
+  for (dataIter = data.begin() ; dataIter != data.end() ; ++dataIter)
+  {
+    if ( ( dataIter - data.begin() + 52 ) % entrySize == 0 )
+	  {
+      heights.push_back( Utilities::get<float> ( data, currentStart ) );
+	    currentStart = ( dataIter - data.begin() ) + entrySize;
+	  }
+  }
+
+  return heights;
 }
 
 std::vector<int> Modf::getWmoIndicesForMwmo() const
@@ -116,6 +180,19 @@ std::ostream & operator<<(std::ostream & os, const Modf & modf)
   for (modfIndicesIter = indices.begin() ; modfIndicesIter != indices.end() ; ++modfIndicesIter)
   {
     os << *modfIndicesIter << " ";
+  }
+
+  os << std::endl;
+
+  os << "Heights : " << std::endl;
+
+  std::vector<float> heights ( modf.getObjectsHeights() );
+
+  std::vector<float>::const_iterator modfHeightsIter;
+
+  for (modfHeightsIter = heights.begin() ; modfHeightsIter != heights.end() ; ++modfHeightsIter)
+  {
+    os << *modfHeightsIter << " ";
   }
 
   os << std::endl;

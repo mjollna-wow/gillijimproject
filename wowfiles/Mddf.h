@@ -16,6 +16,8 @@ class Mddf : public Chunk
 	  Mddf(const std::vector<char> & wholeFile, int offsetInFile);
     Mddf(std::string letters, int givenSize, const std::vector<char> & chunkData);
 	
+    void addToObjectsHeight(const int & heightToAdd);
+
     std::vector<int> getM2IndicesForMmdx() const;
     void updateIndicesForLk(std::vector<int> & alphaIndices);
 
@@ -24,6 +26,7 @@ class Mddf : public Chunk
   private: 
 
     std::vector<int> getEntriesIndices() const;
+    std::vector<float> getObjectsHeights() const;
 
 };
 

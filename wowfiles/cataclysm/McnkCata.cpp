@@ -70,7 +70,7 @@ McnkCata::McnkCata(const std::vector<char> & adtFile, int offsetInFile, const in
   }		
 }
 
-void McnkCata::setRelativeHeight(const int & heightToAdd)
+void McnkCata::addToRelativeHeight(const int & heightToAdd)
 {
   mcnkHeader.posZ += heightToAdd;
 }

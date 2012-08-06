@@ -5,6 +5,8 @@
 #include <string>
 #include <wowfiles/cataclysm/AdtCataObjects.h>
 #include <wowfiles/Chunk.h>
+#include <wowfiles/Mddf.h>
+#include <wowfiles/Modf.h>
 #include <wowfiles/cataclysm/McnkCataObjects.h>
 #include <utilities/Utilities.h>
 
@@ -47,12 +49,12 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
         break;
 
       case 'MDDF' :
-        mddf = Chunk(adtFile, offsetInFile);
+        mddf = Mddf(adtFile, offsetInFile);
         offsetInFile = offsetInFile + chunkLettersAndSize + mddf.getGivenSize();
         break;	 		
 		
       case 'MODF' :
-        modf = Chunk(adtFile, offsetInFile);
+        modf = Modf(adtFile, offsetInFile);
         offsetInFile = offsetInFile + chunkLettersAndSize + modf.getGivenSize();
         break;	  	
 
@@ -66,6 +68,12 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
         offsetInFile = offsetInFile + chunkLettersAndSize + objectsUnknown.back().getGivenSize();
     }
   }
+}
+
+void AdtCataObjects::addToObjectsHeight(const int & heightToAdd)
+{
+  mddf.addToObjectsHeight(heightToAdd);
+  modf.addToObjectsHeight(heightToAdd);
 }
 
 void AdtCataObjects::toFile()

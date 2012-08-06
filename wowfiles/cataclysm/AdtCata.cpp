@@ -75,13 +75,13 @@ AdtCata::AdtCata(const std::string & adtFileName, const std::vector<char> & adtF
   }
 }
 
-void AdtCata::setTerrainHeight(const int & heightToAdd)
+void AdtCata::addToTerrainHeight(const int & heightToAdd)
 {
   std::vector<McnkCata>::iterator mcnkIter;
   
   for (mcnkIter = terrainMcnks.begin() ; mcnkIter != terrainMcnks.end() ; ++mcnkIter)
   {
-    mcnkIter->setRelativeHeight(heightToAdd);
+    mcnkIter->addToRelativeHeight(heightToAdd);
   }  
 }
 
