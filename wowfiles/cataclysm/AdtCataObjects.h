@@ -11,6 +11,7 @@
 #include <wowfiles/Mddf.h>
 #include <wowfiles/Modf.h>
 #include <wowfiles/cataclysm/McnkCataObjects.h>
+#include <utilities/Utilities.h>
 
 class AdtCataObjects : public WowChunkedFormat
 {
@@ -19,6 +20,8 @@ class AdtCataObjects : public WowChunkedFormat
     AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile);
 
     void addToObjectsHeight(const int & heightToAdd);
+
+    std::vector<Utilities::Point> getAllObjectsCoords() const;
 
     void toFile();
     void toFile(const std::string & fileName);

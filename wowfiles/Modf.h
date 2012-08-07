@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <wowfiles/Chunk.h>
+#include <utilities/Utilities.h>
 
 class Modf : public Chunk
 {
@@ -17,6 +18,8 @@ class Modf : public Chunk
     Modf(std::string letters, int givenSize, const std::vector<char> & chunkData);
 
     void addToObjectsHeight(const int & heightToAdd);
+
+    std::vector<Utilities::Point> getAllWmoCoords() const;
 
     std::vector<int> getWmoIndicesForMwmo() const;
     void updateIndicesForLk(std::vector<int> & alphaIndices);

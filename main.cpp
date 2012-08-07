@@ -77,24 +77,22 @@ int main (int argc, char **argv)
   //////////////////// CATA/MOP STUFF ////////////////////
 
   std::vector<char> adtFile(0);
-  
-  const int heightToAdd (2800);
+ 
 
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
-  //std::string adtName ("Deephome_29_29.adt");
-  std::string adtName (argv[1]);
+  //std::string adtName (argv[1]);
+  /*std::string adtName ("Deephome_29_29.adt");
+
   Utilities::getWholeFile(adtName, adtFile);
 
   AdtCata testAdt3(adtName, adtFile);
-
-  testAdt3.addToTerrainHeight(heightToAdd);
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
   fileOut << testAdt3;
   fileOut.close();
 
-  testAdt3.toFile();
+  testAdt3.toFile();*/
 
   /*AdtLk convertedAdt (testAdt3.toAdtLk());
 
@@ -114,19 +112,30 @@ int main (int argc, char **argv)
   testAdt3tex.toFile();*/
 
   //std::string adtNameObj (argv[1]);
-  /*std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  
   Utilities::getWholeFile(adtNameObj, adtFile);
 
   AdtCataObjects testAdt3obj(adtNameObj, adtFile);
-  
-  testAdt3obj.addToObjectsHeight(heightToAdd);
 
-  std::ofstream fileOut3;
+  /*std::ofstream fileOut3 ;
   fileOut3.open ("debugfileObj.txt");
   fileOut3 << testAdt3obj;
-  fileOut3.close();
+  fileOut3.close();*/
 
-  testAdt3obj.toFile();*/
+  std::ofstream fileOut4;
+  fileOut4.open ("objectsCoords.txt", std::ios::app);
+  
+  std::vector<Utilities::Point> coords ( testAdt3obj.getAllObjectsCoords() );
+
+  for (int i = 0 ; i < coords.size() ; ++i)
+  {
+    fileOut4 << coords[i].x << "\t" << coords[i].y << std::endl;
+  }
+
+  fileOut4.close();
+
+  //testAdt3obj.toFile();
 
   //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 

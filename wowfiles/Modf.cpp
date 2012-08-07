@@ -67,6 +67,30 @@ void Modf::addToObjectsHeight(const int & heightToAdd)
   data = newModfData;
 }
 
+std::vector<Utilities::Point> Modf::getAllWmoCoords() const
+{
+  const int entrySize (64);
+  std::vector<Utilities::Point> coords (0);
+
+  std::vector<char>::const_iterator dataIter;
+  int currentStart (8);
+  
+  for (dataIter = data.begin() ; dataIter != data.end() ; ++dataIter)
+  {
+    if ( ( dataIter - data.begin() + 56 ) % entrySize == 0 )
+	  {
+      Utilities::Point currentPoint;
+      currentPoint.x = Utilities::get<float>( data, currentStart );
+      currentPoint.z = Utilities::get<float>( data, currentStart + 4 );
+      currentPoint.y = Utilities::get<float>( data, currentStart + 8 );
+      coords.push_back( currentPoint );
+	    currentStart = ( dataIter - data.begin() ) + entrySize;
+	  }
+  }
+
+  return coords;
+}
+
 std::vector<int> Modf::getEntriesIndices() const
 {
   const int entrySize (64);

@@ -84,6 +84,16 @@ void AdtCataObjects::toFile()
   toFile(fileName);
 }
 
+std::vector<Utilities::Point> AdtCataObjects::getAllObjectsCoords() const
+{
+  std::vector<Utilities::Point> coords ( mddf.getAllM2Coords() );
+  std::vector<Utilities::Point> wmoCoords ( modf.getAllWmoCoords() ) ;
+
+  //coords.insert( coords.end(), wmoCoords.begin(), wmoCoords.end() );
+
+  return coords;
+}
+
 void AdtCataObjects::toFile(const std::string & fileName)
 {
   std::vector<char> wholeAdt(0);

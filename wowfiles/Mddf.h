@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <wowfiles/Chunk.h>
+#include <utilities/Utilities.h>
 
 class Mddf : public Chunk
 {
@@ -17,6 +18,8 @@ class Mddf : public Chunk
     Mddf(std::string letters, int givenSize, const std::vector<char> & chunkData);
 	
     void addToObjectsHeight(const int & heightToAdd);
+
+    std::vector<Utilities::Point> getAllM2Coords() const;
 
     std::vector<int> getM2IndicesForMmdx() const;
     void updateIndicesForLk(std::vector<int> & alphaIndices);

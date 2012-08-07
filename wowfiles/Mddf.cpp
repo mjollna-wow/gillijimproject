@@ -67,6 +67,30 @@ void Mddf::addToObjectsHeight(const int & heightToAdd)
   data = newMddfData;
 }
 
+std::vector<Utilities::Point> Mddf::getAllM2Coords() const
+{
+  const int entrySize (36);
+  std::vector<Utilities::Point> coords (0);
+
+  std::vector<char>::const_iterator dataIter;
+  int currentStart (8);
+  
+  for (dataIter = data.begin() ; dataIter != data.end() ; ++dataIter)
+  {
+    if ( ( dataIter - data.begin() + 28 ) % entrySize == 0 )
+	  {
+      Utilities::Point currentPoint;
+      currentPoint.x = Utilities::get<float>( data, currentStart );
+      currentPoint.z = Utilities::get<float>( data, currentStart + 4 );
+      currentPoint.y = Utilities::get<float>( data, currentStart + 8 );
+      coords.push_back( currentPoint );
+	    currentStart = ( dataIter - data.begin() ) + entrySize;
+	  }
+  }
+
+  return coords;
+}
+
 std::vector<int> Mddf::getEntriesIndices() const
 {
   const int entrySize (36);

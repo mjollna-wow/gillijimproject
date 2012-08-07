@@ -50,6 +50,13 @@ namespace Utilities
 
   std::vector<std::string> getFileNames(const std::vector<char> & someData);
 
+  struct Point
+  {
+    float x;
+    float y;
+    float z;
+  };
+
 };
 
 #endif
