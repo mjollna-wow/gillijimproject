@@ -49,13 +49,14 @@ int main (int argc, char **argv)
 
   //////////////////// LK STUFF //////////////////// ok
 
-  /*std::vector<char> adtFile(0);
-  std::string adtName ("Azeroth_30_43.adt");
+  std::vector<char> adtFile(0);
+  //std::string adtName ("Azeroth_30_43.adt");
   //std::string adtName ("Azeroth_32_58.adt");
   //std::string adtName ("EmeraldDream_28_28.adt");
   //std::string adtName ("EdEdited_27_30.adt");
   //std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName ("OtherTestMap_30_30.adt");
+  std::string adtName ("origazeroth_30_26.adt");
   Utilities::getWholeFile(adtName, adtFile);
   
   AdtLk testAdt2(adtFile, adtName);
@@ -65,7 +66,7 @@ int main (int argc, char **argv)
 
   fileOut << testAdt2;
 
-  testAdt2.toFile();*/
+  testAdt2.toFile();
 
   /*std::string adtName2 ("Northrend_27_22.adt");
   Utilities::getWholeFile(adtName2, adtFile);
@@ -76,7 +77,7 @@ int main (int argc, char **argv)
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
-  std::vector<char> adtFile(0);
+  //std::vector<char> adtFile(0);
  
 
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
@@ -112,18 +113,18 @@ int main (int argc, char **argv)
   testAdt3tex.toFile();*/
 
   //std::string adtNameObj (argv[1]);
-  std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  /*std::string adtNameObj ("Deephome_29_29_obj0.adt");
   
   Utilities::getWholeFile(adtNameObj, adtFile);
 
-  AdtCataObjects testAdt3obj(adtNameObj, adtFile);
+  AdtCataObjects testAdt3obj(adtNameObj, adtFile);*/
 
   /*std::ofstream fileOut3 ;
   fileOut3.open ("debugfileObj.txt");
   fileOut3 << testAdt3obj;
   fileOut3.close();*/
 
-  std::ofstream fileOut4;
+  /*std::ofstream fileOut4;
   fileOut4.open ("objectsCoords.txt", std::ios::app);
   
   std::vector<Utilities::Point> coords ( testAdt3obj.getAllObjectsCoords() );
@@ -133,7 +134,7 @@ int main (int argc, char **argv)
     fileOut4 << coords[i].x << "\t" << coords[i].y << std::endl;
   }
 
-  fileOut4.close();
+  fileOut4.close();*/
 
   //testAdt3obj.toFile();
 

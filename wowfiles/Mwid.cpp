@@ -14,7 +14,7 @@ Mwid::Mwid(std::ifstream & adtFile, int offsetInFile) : Chunk(adtFile, offsetInF
 {
 }
 
-Mwid::Mwid(const std::vector<char> & wholeFile, int offsetInFile)
+Mwid::Mwid(const std::vector<char> & wholeFile, int offsetInFile) : Chunk(wholeFile, offsetInFile)
 {
 }
 
