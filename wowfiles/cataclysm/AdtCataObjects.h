@@ -9,7 +9,9 @@
 #include <wowfiles/Chunk.h>
 #include <wowfiles/Mcnk.h>
 #include <wowfiles/Mddf.h>
+#include <wowfiles/Mmdx.h>
 #include <wowfiles/Modf.h>
+#include <wowfiles/Mwmo.h>
 #include <wowfiles/cataclysm/McnkCataObjects.h>
 #include <utilities/Utilities.h>
 
@@ -26,15 +28,22 @@ class AdtCataObjects : public WowChunkedFormat
     void toFile();
     void toFile(const std::string & fileName);
 
+    std::vector<std::string> getAllM2Names() const; // TODO : change all that.
+    std::vector<std::string> getAllWmoNames() const;
+    std::vector<Utilities::Point> getAllM2Coords() const; 
+    std::vector<Utilities::Point> getAllWmoCoords() const;
+    std::vector<int> getAllM2Indices() const;
+    std::vector<int> getAllWmoIndices() const;
+
     friend std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjects);
 
   private:
 
     std::string adtName;
     Chunk objectsMver;
-    Chunk mmdx;
+    Mmdx mmdx;
     Chunk mmid;
-    Chunk mwmo;
+    Mwmo mwmo;
     Chunk mwid;
     Mddf mddf;
     Modf modf;

@@ -49,20 +49,19 @@ int main (int argc, char **argv)
 
   //////////////////// LK STUFF //////////////////// ok
 
-  std::vector<char> adtFile(0);
+  //std::vector<char> adtFile(0);
   //std::string adtName ("Azeroth_30_43.adt");
   //std::string adtName ("Azeroth_32_58.adt");
   //std::string adtName ("EmeraldDream_28_28.adt");
-  std::string adtName ("EdEdited_27_30.adt");
+  //std::string adtName ("EdEdited_27_30.adt");
   //std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName ("OtherTestMap_30_30.adt");
   //std::string adtName ("QA_DVD_30_26.adt");
   //std::string adtName ("Northrend_27_22.adt");
-  Utilities::getWholeFile(adtName, adtFile);
   
-  /* Zim ! For you just below */
+  //Utilities::getWholeFile(adtName, adtFile);
 
-  AdtLk testAdt2(adtFile, adtName);
+  /*AdtLk testAdt2(adtFile, adtName);
 
   std::vector<std::string> m2Names ( testAdt2.getAllM2Names() );
   std::vector<int> m2Indices ( testAdt2.getAllM2Indices() );
@@ -91,7 +90,7 @@ int main (int argc, char **argv)
     fileOut << "z : " << wmoCoords[i].z << std::endl;
   }
 
-  fileOut.close();
+  fileOut.close();*/
 
   //testAdt2.toFile();
 
@@ -104,7 +103,7 @@ int main (int argc, char **argv)
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
-  //std::vector<char> adtFile(0);
+  std::vector<char> adtFile(0);
  
 
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
@@ -140,16 +139,46 @@ int main (int argc, char **argv)
   testAdt3tex.toFile();*/
 
   //std::string adtNameObj (argv[1]);
-  /*std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  std::string adtNameObj ("Deephome_29_29_obj0.adt");
   
   Utilities::getWholeFile(adtNameObj, adtFile);
 
-  AdtCataObjects testAdt3obj(adtNameObj, adtFile);*/
+  AdtCataObjects testAdt3obj(adtNameObj, adtFile);
 
-  /*std::ofstream fileOut3 ;
+  std::ofstream fileOut3 ;
   fileOut3.open ("debugfileObj.txt");
-  fileOut3 << testAdt3obj;
-  fileOut3.close();*/
+
+  std::vector<std::string> m2Names ( testAdt3obj.getAllM2Names() );
+  std::vector<int> m2Indices ( testAdt3obj.getAllM2Indices() );
+  std::vector<Utilities::Point> m2Coords ( testAdt3obj.getAllM2Coords() );
+
+  std::vector<std::string> wmoNames ( testAdt3obj.getAllWmoNames() );
+  std::vector<int> wmoIndices ( testAdt3obj.getAllWmoIndices() );
+  std::vector<Utilities::Point> wmoCoords ( testAdt3obj.getAllWmoCoords() );
+
+  std::ofstream fileOut;
+  fileOut.open ("debugfile.txt");
+
+  for ( int i = 0 ; i < m2Indices.size() ; ++i )
+  {
+    fileOut << m2Names[m2Indices[i]] << " : " << std::endl;
+    fileOut << "x : " << m2Coords[i].x << std::endl;
+    fileOut << "y : " << m2Coords[i].y << std::endl;
+    fileOut << "z : " << m2Coords[i].z << std::endl;
+  }
+
+  for ( int i = 0 ; i < wmoIndices.size() ; ++i )
+  {
+    fileOut << wmoNames[wmoIndices[i]] << " : " << std::endl;
+    fileOut << "x : " << wmoCoords[i].x << std::endl;
+    fileOut << "y : " << wmoCoords[i].y << std::endl;
+    fileOut << "z : " << wmoCoords[i].z << std::endl;
+  }
+
+  fileOut.close();
+
+  //fileOut3 << testAdt3obj;
+  fileOut3.close();
 
   /*std::ofstream fileOut4;
   fileOut4.open ("objectsCoords.txt", std::ios::app);

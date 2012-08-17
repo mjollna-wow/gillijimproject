@@ -29,7 +29,7 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
         break;
 
       case 'MMDX' :
-        mmdx = Chunk(adtFile, offsetInFile);
+        mmdx = Mmdx(adtFile, offsetInFile);
         offsetInFile = offsetInFile + chunkLettersAndSize + mmdx.getGivenSize();
         break;
 		
@@ -39,7 +39,7 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
         break;
 
       case 'MWMO' :
-        mwmo = Chunk(adtFile, offsetInFile);
+        mwmo = Mwmo(adtFile, offsetInFile);
         offsetInFile = offsetInFile + chunkLettersAndSize + mwmo.getGivenSize();
         break;
 
@@ -133,6 +133,36 @@ void AdtCataObjects::toFile(const std::string & fileName)
     outputFile.write((char *)&wholeAdt[0], sizeof(char) * wholeAdt.size());
 
   outputFile.close();
+}
+
+std::vector<std::string> AdtCataObjects::getAllM2Names() const
+{
+  return mmdx.getM2Names();
+}
+
+std::vector<std::string> AdtCataObjects::getAllWmoNames() const
+{
+  return mwmo.getWmoNames();
+}
+
+std::vector<Utilities::Point> AdtCataObjects::getAllM2Coords() const
+{
+  return mddf.getAllM2Coords();
+}
+
+std::vector<Utilities::Point> AdtCataObjects::getAllWmoCoords() const
+{
+  return modf.getAllWmoCoords();
+}
+
+std::vector<int> AdtCataObjects::getAllM2Indices() const
+{
+  return mddf.getEntriesIndices();
+}
+
+std::vector<int> AdtCataObjects::getAllWmoIndices() const
+{
+  return modf.getEntriesIndices();
 }
 
 std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjects)
