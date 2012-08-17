@@ -18,6 +18,7 @@ class Mmdx : public Chunk
     Mmdx(const std::vector<int> & indices, const std::vector<std::string> & allFileNames);
 	
     std::vector<int> getIndicesForMmid() const;
+    std::vector<std::string> getM2Names() const;
 
     friend std::ostream & operator<<(std::ostream & os, const Mmdx & mmdx);	
 };

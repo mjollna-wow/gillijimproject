@@ -53,20 +53,47 @@ int main (int argc, char **argv)
   //std::string adtName ("Azeroth_30_43.adt");
   //std::string adtName ("Azeroth_32_58.adt");
   //std::string adtName ("EmeraldDream_28_28.adt");
-  //std::string adtName ("EdEdited_27_30.adt");
+  std::string adtName ("EdEdited_27_30.adt");
   //std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName ("OtherTestMap_30_30.adt");
-  std::string adtName ("origazeroth_30_26.adt");
+  //std::string adtName ("QA_DVD_30_26.adt");
+  //std::string adtName ("Northrend_27_22.adt");
   Utilities::getWholeFile(adtName, adtFile);
   
+  /* Zim ! For you just below */
+
   AdtLk testAdt2(adtFile, adtName);
+
+  std::vector<std::string> m2Names ( testAdt2.getAllM2Names() );
+  std::vector<int> m2Indices ( testAdt2.getAllM2Indices() );
+  std::vector<Utilities::Point> m2Coords ( testAdt2.getAllM2Coords() );
+
+  std::vector<std::string> wmoNames ( testAdt2.getAllWmoNames() );
+  std::vector<int> wmoIndices ( testAdt2.getAllWmoIndices() );
+  std::vector<Utilities::Point> wmoCoords ( testAdt2.getAllWmoCoords() );
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
-  fileOut << testAdt2;
+  for ( int i = 0 ; i < m2Indices.size() ; ++i )
+  {
+    fileOut << m2Names[m2Indices[i]] << " : " << std::endl;
+    fileOut << "x : " << m2Coords[i].x << std::endl;
+    fileOut << "y : " << m2Coords[i].y << std::endl;
+    fileOut << "z : " << m2Coords[i].z << std::endl;
+  }
 
-  testAdt2.toFile();
+  for ( int i = 0 ; i < wmoIndices.size() ; ++i )
+  {
+    fileOut << wmoNames[wmoIndices[i]] << " : " << std::endl;
+    fileOut << "x : " << wmoCoords[i].x << std::endl;
+    fileOut << "y : " << wmoCoords[i].y << std::endl;
+    fileOut << "z : " << wmoCoords[i].z << std::endl;
+  }
+
+  fileOut.close();
+
+  //testAdt2.toFile();
 
   /*std::string adtName2 ("Northrend_27_22.adt");
   Utilities::getWholeFile(adtName2, adtFile);

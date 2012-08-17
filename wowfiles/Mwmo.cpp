@@ -63,6 +63,11 @@ std::vector<int> Mwmo::getIndicesForMwid() const
   return mwidData;
 }
 
+std::vector<std::string> Mwmo::getWmoNames() const
+{
+  return Utilities::getFileNames( data );
+}
+
 std::ostream & operator<<(std::ostream & os, const Mwmo & mwmo)
 {
   os << "Chunk letters : " << mwmo.letters << std::endl;

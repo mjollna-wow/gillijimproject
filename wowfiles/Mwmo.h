@@ -18,6 +18,7 @@ class Mwmo : public Chunk
 	  Mwmo(const std::vector<int> & indices, const std::vector<std::string> & allFileNames);
 
     std::vector<int> getIndicesForMwid() const;
+    std::vector<std::string> getWmoNames() const;
 
     friend std::ostream & operator<<(std::ostream & os, const Mwmo & mwmo);	
 };

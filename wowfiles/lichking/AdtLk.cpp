@@ -241,6 +241,36 @@ void AdtLk::importMh2o(std::string mh2oName)
   mh2oFile.close();
 }
 
+std::vector<std::string> AdtLk::getAllM2Names() const
+{
+  return mmdx.getM2Names();
+}
+
+std::vector<std::string> AdtLk::getAllWmoNames() const
+{
+  return mwmo.getWmoNames();
+}
+
+std::vector<Utilities::Point> AdtLk::getAllM2Coords() const
+{
+  return mddf.getAllM2Coords();
+}
+
+std::vector<Utilities::Point> AdtLk::getAllWmoCoords() const
+{
+  return modf.getAllWmoCoords();
+}
+
+std::vector<int> AdtLk::getAllM2Indices() const
+{
+  return mddf.getEntriesIndices();
+}
+
+std::vector<int> AdtLk::getAllWmoIndices() const
+{
+  return modf.getEntriesIndices();
+}
+
 std::ostream & operator<<(std::ostream & os, const AdtLk & adtLk)
 {
   os << adtLk.adtName << std::endl;

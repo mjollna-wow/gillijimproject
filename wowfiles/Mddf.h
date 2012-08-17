@@ -23,12 +23,12 @@ class Mddf : public Chunk
 
     std::vector<int> getM2IndicesForMmdx() const;
     void updateIndicesForLk(std::vector<int> & alphaIndices);
+    std::vector<int> getEntriesIndices() const;
 
     friend std::ostream & operator<<(std::ostream & os, const Mddf & mddf);	
 
   private: 
 
-    std::vector<int> getEntriesIndices() const;
     std::vector<float> getObjectsHeights() const;
 
 };

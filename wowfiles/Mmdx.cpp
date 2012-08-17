@@ -63,6 +63,11 @@ std::vector<int> Mmdx::getIndicesForMmid() const
   return mmidData;
 }
 
+std::vector<std::string> Mmdx::getM2Names() const
+{
+  return Utilities::getFileNames( data );
+}
+
 std::ostream & operator<<(std::ostream & os, const Mmdx & mmdx)
 {
   os << "Chunk letters : " << mmdx.letters << std::endl;

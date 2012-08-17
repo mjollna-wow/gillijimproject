@@ -23,12 +23,12 @@ class Modf : public Chunk
 
     std::vector<int> getWmoIndicesForMwmo() const;
     void updateIndicesForLk(std::vector<int> & alphaIndices);
-
+    std::vector<int> getEntriesIndices() const;
+    
     friend std::ostream & operator<<(std::ostream & os, const Modf & modf);	
 
   private:
 
-    std::vector<int> getEntriesIndices() const;
     std::vector<float> getObjectsHeights() const;
 };
 
