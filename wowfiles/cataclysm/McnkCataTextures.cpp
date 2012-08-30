@@ -81,11 +81,6 @@ std::vector<char> McnkCataTextures::getWholeChunk() const
   return wholeChunk;
 }
 
-void McnkCataTextures::toFile()
-{
-  // TODO
-}
-
 std::ostream & operator<<(std::ostream & os, const McnkCataTextures & mcnkCataTextures)
 {
   os << "Chunk letters : " << mcnkCataTextures.letters << std::endl;

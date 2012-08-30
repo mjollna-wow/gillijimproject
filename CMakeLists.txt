@@ -14,10 +14,10 @@ set ( gp_sources
   wowfiles/alpha/MphdAlpha.cpp  
   wowfiles/alpha/MainAlpha.cpp  
   
-  wowfiles/cataclysm/AdtCata.cpp  
+  wowfiles/cataclysm/AdtCataTerrain.cpp  
   wowfiles/cataclysm/AdtCataTextures.cpp  
   wowfiles/cataclysm/AdtCataObjects.cpp  
-  wowfiles/cataclysm/McnkCata.cpp  
+  wowfiles/cataclysm/McnkCataTerrain.cpp  
   wowfiles/cataclysm/McnkCataObjects.cpp  
   wowfiles/cataclysm/McnkCataTextures.cpp
   wowfiles/cataclysm/McnrCata.cpp  
@@ -60,10 +60,10 @@ set ( gp_headers
   wowfiles/alpha/MphdAlpha.h
   wowfiles/alpha/MainAlpha.h
 
-  wowfiles/cataclysm/AdtCata.h
+  wowfiles/cataclysm/AdtCataTerrain.h
   wowfiles/cataclysm/AdtCataTextures.h  
   wowfiles/cataclysm/AdtCataObjects.h    
-  wowfiles/cataclysm/McnkCata.h
+  wowfiles/cataclysm/McnkCataTerrain.h
   wowfiles/cataclysm/McnkCataObjects.h
   wowfiles/cataclysm/McnkCataTextures.h
   wowfiles/cataclysm/McnrCata.h

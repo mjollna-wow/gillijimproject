@@ -3,19 +3,19 @@
 #include <vector>
 #include <cstring>
 #include <string>
-#include <wowfiles/cataclysm/AdtCata.h>
+#include <wowfiles/cataclysm/AdtCataTerrain.h>
 #include <wowfiles/Chunk.h>
 #include <wowfiles/Mddf.h>
 #include <wowfiles/Modf.h>
 #include <wowfiles/Mhdr.h>
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcnk.h>
-#include <wowfiles/cataclysm/McnkCata.h>
+#include <wowfiles/cataclysm/McnkCataTerrain.h>
 #include <wowfiles/cataclysm/McnrCata.h>
 #include <utilities/Utilities.h>
 #include <wowfiles/lichking/AdtLk.h>
 
-AdtCata::AdtCata(const std::string & adtFileName, const std::vector<char> & adtFile) : adtName(adtFileName)
+AdtCataTerrain::AdtCataTerrain(const std::string & adtFileName, const std::vector<char> & adtFile) : adtName(adtFileName)
 {
   const int fileSize = adtFile.size();
   int offsetInFile (0);
@@ -44,7 +44,7 @@ AdtCata::AdtCata(const std::string & adtFileName, const std::vector<char> & adtF
         break;
 
       case 'MCNK' :
-        terrainMcnks.push_back(McnkCata(adtFile, offsetInFile, mcnkTerrainHeaderSize));
+        terrainMcnks.push_back(McnkCataTerrain(adtFile, offsetInFile, mcnkTerrainHeaderSize));
         offsetInFile = offsetInFile + chunkLettersAndSize + terrainMcnks.back().getGivenSize(); 
         break;
 
@@ -75,9 +75,9 @@ AdtCata::AdtCata(const std::string & adtFileName, const std::vector<char> & adtF
   }
 }
 
-void AdtCata::addToTerrainHeight(const int & heightToAdd)
+void AdtCataTerrain::addToTerrainHeight(const int & heightToAdd)
 {
-  std::vector<McnkCata>::iterator mcnkIter;
+  std::vector<McnkCataTerrain>::iterator mcnkIter;
   
   for (mcnkIter = terrainMcnks.begin() ; mcnkIter != terrainMcnks.end() ; ++mcnkIter)
   {
@@ -85,7 +85,7 @@ void AdtCata::addToTerrainHeight(const int & heightToAdd)
   }  
 }
 
-void AdtCata::toFile()
+void AdtCataTerrain::toFile()
 {
   std::string fileName (adtName);
   fileName.append("_new");
@@ -93,7 +93,7 @@ void AdtCata::toFile()
   toFile(fileName);
 }
 
-void AdtCata::toFile(const std::string & fileName)
+void AdtCataTerrain::toFile(const std::string & fileName)
 {
   std::vector<char> wholeAdt(0);
   
@@ -149,7 +149,7 @@ void AdtCata::toFile(const std::string & fileName)
   outputFile.close();
 }
 
-AdtLk AdtCata::toAdtLk() // TODO : conversion is only partial, only terrain (other chunks are empty), and it's weird to have method in Cata terrain.
+AdtLk AdtCataTerrain::toAdtLk() // TODO : conversion is only partial, only terrain (other chunks are empty), and it's weird to have method in Cata terrain.
 {
   std::string cName (adtName);
 
@@ -191,32 +191,32 @@ AdtLk AdtCata::toAdtLk() // TODO : conversion is only partial, only terrain (oth
   return adtLk;  
 }
 
-std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata)
+std::ostream & operator<<(std::ostream & os, const AdtCataTerrain & adtCataTerrain)
 {
-  os << adtCata.adtName << std::endl;
+  os << adtCataTerrain.adtName << std::endl;
   os << "------------------------------" << std::endl;
-  os << adtCata.terrainMver;
-  os << adtCata.mhdr;
-  os << adtCata.mh2o;
+  os << adtCataTerrain.terrainMver;
+  os << adtCataTerrain.mhdr;
+  os << adtCataTerrain.mh2o;
 
-  std::vector<McnkCata>::const_iterator mcnksIter;
+  std::vector<McnkCataTerrain>::const_iterator mcnksIter;
   int i (0);
 
-  for (mcnksIter = adtCata.terrainMcnks.begin() ; mcnksIter != adtCata.terrainMcnks.end() ; ++mcnksIter)
+  for (mcnksIter = adtCataTerrain.terrainMcnks.begin() ; mcnksIter != adtCataTerrain.terrainMcnks.end() ; ++mcnksIter)
   {
     os << "MCNK #" << i << " : " << std::endl;
     os << *mcnksIter;
     ++i;
   }
 
-  os << adtCata.mbmh;
-  os << adtCata.mbmi;
-  os << adtCata.mbmv;
-  os << adtCata.mfbo;
+  os << adtCataTerrain.mbmh;
+  os << adtCataTerrain.mbmi;
+  os << adtCataTerrain.mbmv;
+  os << adtCataTerrain.mfbo;
 
   std::vector<Chunk>::const_iterator terrainUnknownIter;
 
-  for (terrainUnknownIter = adtCata.terrainUnknown.begin() ; terrainUnknownIter != adtCata.terrainUnknown.end() ; ++terrainUnknownIter)
+  for (terrainUnknownIter = adtCataTerrain.terrainUnknown.begin() ; terrainUnknownIter != adtCataTerrain.terrainUnknown.end() ; ++terrainUnknownIter)
   {
     os << *terrainUnknownIter;
   }  

@@ -1,5 +1,5 @@
-#ifndef _WOWFILES_CATACLYSM_ADTCATA_H_
-#define _WOWFILES_CATACLYSM_ADTCATA_H_
+#ifndef _WOWFILES_CATACLYSM_ADTCATATERRAIN_H_
+#define _WOWFILES_CATACLYSM_ADTCATATERRAIN_H_
 
 #include <vector>
 #include <string>
@@ -10,14 +10,14 @@
 #include <wowfiles/Mhdr.h>
 #include <wowfiles/Mh2o.h>
 #include <wowfiles/Mcnk.h>
-#include <wowfiles/cataclysm/McnkCata.h>
+#include <wowfiles/cataclysm/McnkCataTerrain.h>
 #include <wowfiles/lichking/AdtLk.h>
 
-class AdtCata : public WowChunkedFormat
+class AdtCataTerrain : public WowChunkedFormat
 {
   public:
 
-    AdtCata(const std::string & adtName, const std::vector<char> & adtFile);
+    AdtCataTerrain(const std::string & adtName, const std::vector<char> & adtFile);
 
     void addToTerrainHeight(const int & heightToAdd);
 
@@ -25,7 +25,7 @@ class AdtCata : public WowChunkedFormat
     void toFile(const std::string & fileName);
     AdtLk toAdtLk();
 
-    friend std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata);
+    friend std::ostream & operator<<(std::ostream & os, const AdtCataTerrain & adtCataTerrain);
 
   private:
 
@@ -34,7 +34,7 @@ class AdtCata : public WowChunkedFormat
     Chunk terrainMver;
     Mhdr mhdr;
     Mh2o mh2o;
-    std::vector<McnkCata> terrainMcnks;
+    std::vector<McnkCataTerrain> terrainMcnks;
     Chunk mbmh;
     Chunk mbmi;
     Chunk mbmv;

@@ -6,7 +6,7 @@
 #include <wowfiles/Wdl.h>
 #include <wowfiles/alpha/WdtAlpha.h>
 #include <wowfiles/lichking/AdtLk.h>
-#include <wowfiles/cataclysm/AdtCata.h>
+#include <wowfiles/cataclysm/AdtCataTerrain.h>
 #include <wowfiles/cataclysm/AdtCataTextures.h>
 #include <wowfiles/cataclysm/AdtCataObjects.h>
 #include <utilities/Utilities.h>
@@ -49,21 +49,21 @@ int main (int argc, char **argv)
 
   //////////////////// LK STUFF //////////////////// ok
 
-  std::vector<char> adtFile(0);
+  //std::vector<char> adtFile(0);
   //std::string adtName ("Azeroth_30_43.adt");
   //std::string adtName ("Azeroth_32_58.adt");
   //std::string adtName ("EmeraldDream_28_28.adt");
   //std::string adtName ("EdEdited_27_30.adt");
-  std::string adtName ("EdEdited_27_29_water.adt");
+  //std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName ("OtherTestMap_30_30.adt");
   //std::string adtName ("QA_DVD_30_26.adt");
   //std::string adtName ("Northrend_27_22.adt");
   
-  Utilities::getWholeFile(adtName, adtFile);
+  /*Utilities::getWholeFile(adtName, adtFile);
 
   AdtLk testAdt2(adtFile, adtName);
 
-  testAdt2.mh2oToFile();
+  testAdt2.mh2oToFile();*/
 
   /*std::vector<std::string> m2Names ( testAdt2.getAllM2Names() );
   std::vector<int> m2Indices ( testAdt2.getAllM2Indices() );
@@ -107,23 +107,23 @@ int main (int argc, char **argv)
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
-  //std::vector<char> adtFile(0);
+  std::vector<char> adtFile(0);
  
 
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
   //std::string adtName (argv[1]);
-  /*std::string adtName ("Deephome_29_29.adt");
+  std::string adtName ("Deephome_29_29.adt");
 
   Utilities::getWholeFile(adtName, adtFile);
 
-  AdtCata testAdt3(adtName, adtFile);
+  AdtCataTerrain testAdt3(adtName, adtFile);
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
   fileOut << testAdt3;
   fileOut.close();
 
-  testAdt3.toFile();*/
+  testAdt3.toFile();
 
   /*AdtLk convertedAdt (testAdt3.toAdtLk());
 
