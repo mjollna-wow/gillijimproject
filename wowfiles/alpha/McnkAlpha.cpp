@@ -20,7 +20,11 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, const int h
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
-  getHeaderFromFile(wdtAlphaFile, offsetInFile, mcnkTerrainHeaderSize);
+  wdtAlphaFile.seekg(offsetInFile, std::ios::beg);
+  char * dataBuffer = new char[mcnkTerrainHeaderSize];
+  wdtAlphaFile.read(dataBuffer, mcnkTerrainHeaderSize);
+  mcnkAlphaHeader = *reinterpret_cast<McnkAlphaHeader*>(dataBuffer);
+  delete[] dataBuffer;
 
   offsetInFile = headerStartOffset + mcnkTerrainHeaderSize + chunkLettersAndSize + mcnkAlphaHeader.mcvtOffset;
   std::vector<char> mcvtData (Utilities::getCharVectorFromFile(wdtAlphaFile, offsetInFile, mcvtSize));
@@ -129,18 +133,6 @@ McnkLk McnkAlpha::toMcnkLk( std::vector<int> & alphaM2Indices, std::vector<int> 
 
   McnkLk mcnkLk = McnkLk(cMcnkHeader, cMcvt, emptyChunk, cMcnr, mcly, cMcrf, mcsh, mcal, mclq, emptyChunk);
   return mcnkLk;
-}
-
-void McnkAlpha::getHeaderFromFile(std::ifstream & adtFile, const int position, const int length)
-{
-  adtFile.seekg(position, std::ios::beg);
-  char * dataBuffer = new char[length];
-
-  adtFile.read(dataBuffer, length);
-
-  mcnkAlphaHeader = *reinterpret_cast<McnkAlphaHeader*>(dataBuffer);
-
-  delete[] dataBuffer;
 }
 
 std::ostream & operator<<(std::ostream & os, const McnkAlpha & mcnkAlpha)

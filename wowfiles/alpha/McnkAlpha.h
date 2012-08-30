@@ -25,8 +25,6 @@ class McnkAlpha : public Mcnk
 
   private:
 
-    void getHeaderFromFile(std::ifstream & adtFile, const int position, const int length); // TODO : get rid of this when possible
-
     int adtNumber;
     McnkAlphaHeader mcnkAlphaHeader;
     McvtAlpha mcvt;

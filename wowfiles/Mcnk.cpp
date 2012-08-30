@@ -39,8 +39,3 @@ Mcnk::Mcnk(const std::vector<char> & wholeFile, int offsetInFile, const int & he
 Mcnk::Mcnk(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("KNCM", givenSize, data) 
 {
 }
-
-void Mcnk::toFile()
-{
-  // TODO : something.
-}

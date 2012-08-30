@@ -17,7 +17,9 @@ McnkLk::McnkLk(const std::vector<char> & adtFile, int offsetInFile, const int & 
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
-  mcnkHeader = *reinterpret_cast<McnkHeader*>(&data[0]);
+  std::vector<char> headerContent (0);
+  headerContent.assign( adtFile.begin() + offsetInFile, adtFile.begin() + offsetInFile + mcnkTerrainHeaderSize );
+  mcnkHeader = *reinterpret_cast<McnkHeader*>(&headerContent[0]);
 
   offsetInFile = headerStartOffset + mcnkHeader.mcvtOffset;
 
@@ -114,9 +116,6 @@ McnkLk::McnkLk(const McnkHeader & cMcnkHeader
   
   if (!mcse.isEmpty())
     givenSize = givenSize + chunkLettersAndSize + mcse.getRealSize();
-
-  char * tempHeader = (char *)&cMcnkHeader;
-  data.assign(tempHeader, tempHeader + mcnkTerrainHeaderSize);
 }
 
 void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
@@ -129,11 +128,6 @@ void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
   adtFile.close();
 }
 
-void McnkLk::toFile()
-{
-  // TODO
-}
-
 std::vector<char> McnkLk::getWholeChunk() const
 {
   std::vector<char> wholeChunk (0);
@@ -144,7 +138,10 @@ std::vector<char> McnkLk::getWholeChunk() const
   tempData = Utilities::getCharVectorFromInt(givenSize);
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
 
-  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
+  const char* temp = reinterpret_cast<const char*>(&mcnkHeader);
+  std::vector<char> headerContent ( mcnkTerrainHeaderSize );
+  headerContent.assign(temp, temp + mcnkTerrainHeaderSize );
+  wholeChunk.insert(wholeChunk.end(), headerContent.begin(), headerContent.end());
   
   tempData = mcvt.getWholeChunk();
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());

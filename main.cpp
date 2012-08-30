@@ -17,8 +17,8 @@ int main (int argc, char **argv)
 
   //////////////////// ALPHA STUFF ////////////////////
 
-  //std::string wdtName ("azerothwdtFile00000000.xxx");
-  /*std::string wdtName (argv[1]);
+  std::string wdtName ("azerothwdtFile00000000.xxx");
+  //std::string wdtName (argv[1]);
   WdtAlpha testWdtAlpha (wdtName);
 
   Wdt testWdt (testWdtAlpha.toWdt());
@@ -30,22 +30,22 @@ int main (int argc, char **argv)
   const int adtTotalNum (adtsNums.size());
   int currentAdt;
 
-  for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
+  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
     AdtLk testAdtLk (testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ));
     testAdtLk.toFile();
   }*/
 
-  //AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
+  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
 
-  //AdtLk testAdtLk ( testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ) );
-  //testAdtLk.toFile();
+  AdtLk testAdtLk ( testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ) );
+  testAdtLk.toFile();
 
-  /*std::ofstream fileOut;
+  std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
-  fileOut << testAdtLk;*/
+  fileOut << testAdtLk;
 
   //////////////////// LK STUFF //////////////////// ok
 
@@ -59,22 +59,24 @@ int main (int argc, char **argv)
   //std::string adtName ("QA_DVD_30_26.adt");
   //std::string adtName ("Northrend_27_22.adt");
   
-  //Utilities::getWholeFile(adtName, adtFile);
+  /*Utilities::getWholeFile(adtName, adtFile);
 
-  /*AdtLk testAdt2(adtFile, adtName);
+  AdtLk testAdt2(adtFile, adtName);*/
 
-  std::vector<std::string> m2Names ( testAdt2.getAllM2Names() );
+  /*std::vector<std::string> m2Names ( testAdt2.getAllM2Names() );
   std::vector<int> m2Indices ( testAdt2.getAllM2Indices() );
   std::vector<Utilities::Point> m2Coords ( testAdt2.getAllM2Coords() );
 
   std::vector<std::string> wmoNames ( testAdt2.getAllWmoNames() );
   std::vector<int> wmoIndices ( testAdt2.getAllWmoIndices() );
-  std::vector<Utilities::Point> wmoCoords ( testAdt2.getAllWmoCoords() );
+  std::vector<Utilities::Point> wmoCoords ( testAdt2.getAllWmoCoords() );*/
 
-  std::ofstream fileOut;
+  /*std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
-  for ( int i = 0 ; i < m2Indices.size() ; ++i )
+  fileOut << testAdt2;*/
+
+  /*for ( int i = 0 ; i < m2Indices.size() ; ++i )
   {
     fileOut << m2Names[m2Indices[i]] << " : " << std::endl;
     fileOut << "x : " << m2Coords[i].x << std::endl;
@@ -88,11 +90,11 @@ int main (int argc, char **argv)
     fileOut << "x : " << wmoCoords[i].x << std::endl;
     fileOut << "y : " << wmoCoords[i].y << std::endl;
     fileOut << "z : " << wmoCoords[i].z << std::endl;
-  }
+  }*/
 
-  fileOut.close();*/
+  /*fileOut.close();
 
-  //testAdt2.toFile();
+  testAdt2.toFile();*/
 
   /*std::string adtName2 ("Northrend_27_22.adt");
   Utilities::getWholeFile(adtName2, adtFile);
@@ -103,7 +105,7 @@ int main (int argc, char **argv)
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
-  std::vector<char> adtFile(0);
+  //std::vector<char> adtFile(0);
  
 
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
@@ -139,7 +141,7 @@ int main (int argc, char **argv)
   testAdt3tex.toFile();*/
 
   //std::string adtNameObj (argv[1]);
-  std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  /*std::string adtNameObj ("Deephome_29_29_obj0.adt");
   
   Utilities::getWholeFile(adtNameObj, adtFile);
 
@@ -175,10 +177,10 @@ int main (int argc, char **argv)
     fileOut << "z : " << wmoCoords[i].z << std::endl;
   }
 
-  fileOut.close();
+  fileOut.close();*/
 
   //fileOut3 << testAdt3obj;
-  fileOut3.close();
+  //fileOut3.close();
 
   /*std::ofstream fileOut4;
   fileOut4.open ("objectsCoords.txt", std::ios::app);

@@ -42,8 +42,7 @@ set ( gp_sources
   wowfiles/Mwid.cpp  
   wowfiles/Mwmo.cpp    
   wowfiles/Wdl.cpp  
-  wowfiles/Wdt.cpp  
-  wowfiles/WowChunkedFormat.cpp  
+  wowfiles/Wdt.cpp
   
   main.cpp
   )
