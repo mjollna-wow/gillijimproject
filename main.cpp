@@ -17,9 +17,9 @@ int main (int argc, char **argv)
 
   //////////////////// ALPHA STUFF ////////////////////
 
-  std::string wdtName ("azerothwdtFile00000000.xxx");
+  //std::string wdtName ("azerothwdtFile00000000.xxx");
   //std::string wdtName (argv[1]);
-  WdtAlpha testWdtAlpha (wdtName);
+  /*WdtAlpha testWdtAlpha (wdtName);
 
   Wdt testWdt (testWdtAlpha.toWdt());
   testWdt.toFile();
@@ -28,7 +28,7 @@ int main (int argc, char **argv)
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
   const int adtTotalNum (adtsNums.size());
-  int currentAdt;
+  int currentAdt;*/
 
   /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
@@ -37,7 +37,7 @@ int main (int argc, char **argv)
     testAdtLk.toFile();
   }*/
 
-  AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
+  /*AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
 
   AdtLk testAdtLk ( testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ) );
   testAdtLk.toFile();
@@ -45,23 +45,25 @@ int main (int argc, char **argv)
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
 
-  fileOut << testAdtLk;
+  fileOut << testAdtLk;*/
 
   //////////////////// LK STUFF //////////////////// ok
 
-  //std::vector<char> adtFile(0);
+  std::vector<char> adtFile(0);
   //std::string adtName ("Azeroth_30_43.adt");
   //std::string adtName ("Azeroth_32_58.adt");
   //std::string adtName ("EmeraldDream_28_28.adt");
   //std::string adtName ("EdEdited_27_30.adt");
-  //std::string adtName ("EdEdited_27_29_water.adt");
+  std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName ("OtherTestMap_30_30.adt");
   //std::string adtName ("QA_DVD_30_26.adt");
   //std::string adtName ("Northrend_27_22.adt");
   
-  /*Utilities::getWholeFile(adtName, adtFile);
+  Utilities::getWholeFile(adtName, adtFile);
 
-  AdtLk testAdt2(adtFile, adtName);*/
+  AdtLk testAdt2(adtFile, adtName);
+
+  testAdt2.mh2oToFile();
 
   /*std::vector<std::string> m2Names ( testAdt2.getAllM2Names() );
   std::vector<int> m2Indices ( testAdt2.getAllM2Indices() );

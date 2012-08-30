@@ -75,19 +75,6 @@ int Chunk::getOffset(const int offsetInData)  const
   return Utilities::get<int>(data, offsetInData);
 }
 
-void Chunk::toFile(std::string & fileName)
-{
-  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
-  
-  if (outputFile.is_open())
-  {
-    if (!isEmpty())
-    outputFile.write((char *)&getWholeChunk()[0], sizeof(char) * getWholeChunk().size());
-  }
-  
-  outputFile.close();
-}
-
 int Chunk::getRealSize()  const
 {
   return data.size();

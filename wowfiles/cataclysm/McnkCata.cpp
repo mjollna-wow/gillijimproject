@@ -220,11 +220,6 @@ std::vector<char> McnkCata::getWholeChunk() const
   return wholeChunk;
 }
 
-void McnkCata::toFile()
-{
-  // TODO
-}
-
 McnkLk McnkCata::toMcnkLk() // TODO : probably shouldn't be here.
 {
   std::vector<char> emptyData (0); 

@@ -65,11 +65,6 @@ std::vector<char> McnkCataObjects::getWholeChunk() const
   return wholeChunk;
 }
 
-void McnkCataObjects::toFile()
-{
-  // TODO
-}
-
 std::ostream & operator<<(std::ostream & os, const McnkCataObjects & mcnkCataObjects)
 {
   os << "Chunk letters : " << mcnkCataObjects.letters << std::endl;

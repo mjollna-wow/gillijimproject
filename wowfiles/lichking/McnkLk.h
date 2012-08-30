@@ -32,7 +32,6 @@ class McnkLk : public Mcnk
       , const Chunk & cMcse
       );
 
-    void toFile(std::ofstream & adtFile, std::string & adtFileName);
     std::vector<char> getWholeChunk() const;
 	
     friend std::ostream & operator<<(std::ostream & os, const McnkLk & mcnkLk);

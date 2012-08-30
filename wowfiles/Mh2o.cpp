@@ -64,3 +64,16 @@ Mh2o::Mh2o(const std::vector<char> & wholeFile, int offsetInFile) // TODO : chec
 Mh2o::Mh2o(std::string letters, int givenSize, const std::vector<char> & data) : Chunk("O2HM", givenSize, data) 
 {
 }
+
+void Mh2o::toFile(std::string & fileName) const
+{
+  std::ofstream outputFile (fileName.c_str(), std::ios::out|std::ios::binary);
+  
+  if (outputFile.is_open())
+  {
+    if (!isEmpty())
+    outputFile.write((char *)&getWholeChunk()[0], sizeof(char) * getWholeChunk().size());
+  }
+  
+  outputFile.close();
+}

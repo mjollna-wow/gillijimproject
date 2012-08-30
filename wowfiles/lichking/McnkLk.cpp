@@ -118,16 +118,6 @@ McnkLk::McnkLk(const McnkHeader & cMcnkHeader
     givenSize = givenSize + chunkLettersAndSize + mcse.getRealSize();
 }
 
-void McnkLk::toFile(std::ofstream & adtFile, std::string & adtFileName)
-{
-  adtFile.open(adtFileName.c_str(), std::ios::out|std::ios::binary|std::ios::app);
-
-  if (adtFile.is_open())
-    adtFile.write((char *)&getWholeChunk()[0], sizeof(char) * getWholeChunk().size());
-
-  adtFile.close();
-}
-
 std::vector<char> McnkLk::getWholeChunk() const
 {
   std::vector<char> wholeChunk (0);

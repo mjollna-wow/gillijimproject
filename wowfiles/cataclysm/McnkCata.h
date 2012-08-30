@@ -21,7 +21,6 @@ class McnkCata : public Mcnk
     void addToRelativeHeight(const int & heightToAdd);
 
     std::vector<char> getWholeChunk() const;
-	  void toFile();
     McnkLk toMcnkLk();
 
     friend std::ostream & operator<<(std::ostream & os, const McnkCata & mcnkCata);
