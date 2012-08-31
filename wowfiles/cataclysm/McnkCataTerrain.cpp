@@ -16,7 +16,9 @@ McnkCataTerrain::McnkCataTerrain(const std::vector<char> & adtFile, int offsetIn
 
   offsetInFile = chunkLettersAndSize + offsetInFile;
 
-  mcnkHeader = *reinterpret_cast<McnkHeader*>(&data[0]);
+  std::vector<char> headerContent (0);
+  headerContent.assign( adtFile.begin() + offsetInFile, adtFile.begin() + offsetInFile + mcnkTerrainHeaderSize );
+  mcnkHeader = *reinterpret_cast<McnkHeader*>(&headerContent[0]);
 
   offsetInFile = headerStartOffset + mcnkTerrainHeaderSize;
   
@@ -92,9 +94,6 @@ std::vector<char> McnkCataTerrain::getWholeChunk() const
   std::vector<char> tempData (letters.begin(), letters.end());
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
 
-  tempData = Utilities::getCharVectorFromInt(givenSize);
-  wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
-
   const char* temp = reinterpret_cast<const char*>(&mcnkHeader);
   std::vector<char> headerContent ( mcnkTerrainHeaderSize );
   headerContent.assign(temp, temp + mcnkTerrainHeaderSize );
@@ -119,7 +118,7 @@ std::vector<char> McnkCataTerrain::getWholeChunk() const
   {
     tempData = mcbv.getWholeChunk();
     wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
-  }  
+  } 
 
   if (!mccv.isEmpty())
   {
@@ -147,6 +146,10 @@ std::vector<char> McnkCataTerrain::getWholeChunk() const
     tempData = mcse.getWholeChunk();
     wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
   }  
+
+  int tempSize ( wholeChunk.size() - letters.size() );
+  tempData = Utilities::getCharVectorFromInt(tempSize);
+  wholeChunk.insert( wholeChunk.begin() + 4, tempData.begin(), tempData.end() );
 
   return wholeChunk;
 }

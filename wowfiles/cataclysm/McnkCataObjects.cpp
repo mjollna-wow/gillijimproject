@@ -48,8 +48,6 @@ std::vector<char> McnkCataObjects::getWholeChunk() const
   tempData = Utilities::getCharVectorFromInt(givenSize);
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
 
-  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
-
   if (!mcrd.isEmpty())
   {
     tempData = mcrd.getWholeChunk();

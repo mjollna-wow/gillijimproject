@@ -112,7 +112,8 @@ int main (int argc, char **argv)
 
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
   //std::string adtName (argv[1]);
-  std::string adtName ("Deephome_29_29.adt");
+  //std::string adtName ("Deephome_29_29.adt");
+  std::string adtName ("FirelandsDailies_31_29.adt");
 
   Utilities::getWholeFile(adtName, adtFile);
 
@@ -131,7 +132,7 @@ int main (int argc, char **argv)
 
   testAdt3.toFile();*/
 
-  /*std::string adtNameTex ("Deephome_29_29_tex0.adt");
+  std::string adtNameTex ("Deephome_29_29_tex0.adt");
   Utilities::getWholeFile(adtNameTex, adtFile);
 
   AdtCataTextures testAdt3tex(adtNameTex, adtFile);  
@@ -140,10 +141,10 @@ int main (int argc, char **argv)
   fileOut2 << testAdt3tex;
   fileOut2.close();
 
-  testAdt3tex.toFile();*/
+  testAdt3tex.toFile();
 
   //std::string adtNameObj (argv[1]);
-  /*std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  std::string adtNameObj ("Deephome_29_29_obj0.adt");
   
   Utilities::getWholeFile(adtNameObj, adtFile);
 
@@ -152,7 +153,7 @@ int main (int argc, char **argv)
   std::ofstream fileOut3 ;
   fileOut3.open ("debugfileObj.txt");
 
-  std::vector<std::string> m2Names ( testAdt3obj.getAllM2Names() );
+  /*std::vector<std::string> m2Names ( testAdt3obj.getAllM2Names() );
   std::vector<int> m2Indices ( testAdt3obj.getAllM2Indices() );
   std::vector<Utilities::Point> m2Coords ( testAdt3obj.getAllM2Coords() );
 
@@ -181,8 +182,8 @@ int main (int argc, char **argv)
 
   fileOut.close();*/
 
-  //fileOut3 << testAdt3obj;
-  //fileOut3.close();
+  fileOut3 << testAdt3obj;
+  fileOut3.close();
 
   /*std::ofstream fileOut4;
   fileOut4.open ("objectsCoords.txt", std::ios::app);
@@ -196,7 +197,7 @@ int main (int argc, char **argv)
 
   fileOut4.close();*/
 
-  //testAdt3obj.toFile();
+  testAdt3obj.toFile();
 
   //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 

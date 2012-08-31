@@ -57,8 +57,6 @@ std::vector<char> McnkCataTextures::getWholeChunk() const
 
   tempData = Utilities::getCharVectorFromInt(givenSize);
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());
-
-  wholeChunk.insert(wholeChunk.end(), data.begin(), data.end());
   
   tempData = mcly.getWholeChunk();
   wholeChunk.insert(wholeChunk.end(), tempData.begin(), tempData.end());

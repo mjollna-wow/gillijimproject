@@ -26,8 +26,6 @@ class Chunk : public WowChunkedFormat
 
   protected:
 
-    int getChunkSizeFromFullData(const std::vector<char> & fullData, int position) const;
-
     std::string letters;
     int givenSize;
     std::vector<char> data;
