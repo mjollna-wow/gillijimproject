@@ -14,6 +14,7 @@ class AdtCataTextures : public WowChunkedFormat
 {
   public:
 
+    AdtCataTextures();
     AdtCataTextures(const std::string & adtName, const std::vector<char> & adtFile);
 
     void toFile();

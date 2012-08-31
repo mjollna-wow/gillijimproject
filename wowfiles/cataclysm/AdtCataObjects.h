@@ -19,6 +19,7 @@ class AdtCataObjects : public WowChunkedFormat
 {
   public:
 
+    AdtCataObjects();
     AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile);
 
     void addToObjectsHeight(const int & heightToAdd);

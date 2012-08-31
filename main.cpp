@@ -6,6 +6,7 @@
 #include <wowfiles/Wdl.h>
 #include <wowfiles/alpha/WdtAlpha.h>
 #include <wowfiles/lichking/AdtLk.h>
+#include <wowfiles/cataclysm/AdtCata.h>
 #include <wowfiles/cataclysm/AdtCataTerrain.h>
 #include <wowfiles/cataclysm/AdtCataTextures.h>
 #include <wowfiles/cataclysm/AdtCataObjects.h>
@@ -50,17 +51,17 @@ int main (int argc, char **argv)
   //////////////////// LK STUFF //////////////////// ok
 
   //std::vector<char> adtFile(0);
-  //std::string adtName ("Azeroth_30_43.adt");
-  //std::string adtName ("Azeroth_32_58.adt");
-  //std::string adtName ("EmeraldDream_28_28.adt");
-  //std::string adtName ("EdEdited_27_30.adt");
-  //std::string adtName ("EdEdited_27_29_water.adt");
-  //std::string adtName ("OtherTestMap_30_30.adt");
-  /*std::string adtName ("Northrend_27_22.adt");
+  //std::string adtNameLk ("Azeroth_30_43.adt");
+  //std::string adtNameLk ("Azeroth_32_58.adt");
+  //std::string adtNameLk ("EmeraldDream_28_28.adt");
+  //std::string adtNameLk ("EdEdited_27_30.adt");
+  //std::string adtNameLk ("EdEdited_27_29_water.adt");
+  //std::string adtNameLk ("OtherTestMap_30_30.adt");
+  //std::string adtNameLk ("Northrend_27_22.adt");
   
-  Utilities::getWholeFile(adtName, adtFile);
+  //Utilities::getWholeFile(adtNameLk, adtFile);
 
-  AdtLk testAdt2(adtFile, adtName);*/
+  //AdtLk testAdt2(adtFile, adtNameLk);
 
   //testAdt2.mh2oToFile();
 
@@ -72,10 +73,10 @@ int main (int argc, char **argv)
   std::vector<int> wmoIndices ( testAdt2.getAllWmoIndices() );
   std::vector<Utilities::Point> wmoCoords ( testAdt2.getAllWmoCoords() );*/
 
-  /*std::ofstream fileOut;
-  fileOut.open ("debugfile.txt");
+  /*std::ofstream fileOutLk;
+  fileOutLk.open ("debugfileLk.txt");
 
-  fileOut << testAdt2;*/
+  fileOutLk << testAdt2;*/
 
   /*for ( int i = 0 ; i < m2Indices.size() ; ++i )
   {
@@ -93,7 +94,7 @@ int main (int argc, char **argv)
     fileOut << "z : " << wmoCoords[i].z << std::endl;
   }*/
 
-  /*fileOut.close();
+  /*fileOutLk.close();
 
   testAdt2.toFile();*/
 
@@ -116,14 +117,25 @@ int main (int argc, char **argv)
 
   Utilities::getWholeFile(adtName, adtFile);
 
-  AdtCataTerrain testAdt3(adtName, adtFile);
+  AdtCata testAdtCata(adtName, adtFile);
+
+  std::ofstream fileOutCataMerged;
+  fileOutCataMerged.open ("debugfileMerged.txt");
+  fileOutCataMerged << testAdtCata;
+  fileOutCataMerged.close();
+
+  //testAdtCata.changeHeight(3000);
+
+  testAdtCata.toFile();
+
+  /*AdtCataTerrain testAdt3(adtName, adtFile);
 
   std::ofstream fileOut;
   fileOut.open ("debugfile.txt");
   fileOut << testAdt3;
   fileOut.close();
 
-  testAdt3.toFile();
+  testAdt3.toFile();*/
 
   /*AdtLk convertedAdt (testAdt3.toAdtLk());
 
@@ -131,7 +143,7 @@ int main (int argc, char **argv)
 
   testAdt3.toFile();*/
 
-  std::string adtNameTex ("Deephome_29_29_tex0.adt");
+  /*std::string adtNameTex ("Deephome_29_29_tex0.adt");
   Utilities::getWholeFile(adtNameTex, adtFile);
 
   AdtCataTextures testAdt3tex(adtNameTex, adtFile);  
@@ -140,17 +152,17 @@ int main (int argc, char **argv)
   fileOut2 << testAdt3tex;
   fileOut2.close();
 
-  testAdt3tex.toFile();
+  testAdt3tex.toFile();*/
 
   //std::string adtNameObj (argv[1]);
-  std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  /*std::string adtNameObj ("Deephome_29_29_obj0.adt");
   
   Utilities::getWholeFile(adtNameObj, adtFile);
 
   AdtCataObjects testAdt3obj(adtNameObj, adtFile);
 
   std::ofstream fileOut3 ;
-  fileOut3.open ("debugfileObj.txt");
+  fileOut3.open ("debugfileObj.txt");*/
 
   /*std::vector<std::string> m2Names ( testAdt3obj.getAllM2Names() );
   std::vector<int> m2Indices ( testAdt3obj.getAllM2Indices() );
@@ -181,8 +193,8 @@ int main (int argc, char **argv)
 
   fileOut.close();*/
 
-  fileOut3 << testAdt3obj;
-  fileOut3.close();
+  //fileOut3 << testAdt3obj;
+  //fileOut3.close();
 
   /*std::ofstream fileOut4;
   fileOut4.open ("objectsCoords.txt", std::ios::app);
@@ -196,7 +208,7 @@ int main (int argc, char **argv)
 
   fileOut4.close();*/
 
-  testAdt3obj.toFile();
+  //testAdt3obj.toFile();
 
   //////////////////// WDT (non-alpha) STUFF //////////////////// ok
 

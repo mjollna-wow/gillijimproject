@@ -15,6 +15,11 @@
 #include <utilities/Utilities.h>
 #include <wowfiles/lichking/AdtLk.h>
 
+AdtCataTerrain::AdtCataTerrain()
+{
+  // TODO : something
+}
+
 AdtCataTerrain::AdtCataTerrain(const std::string & adtFileName, const std::vector<char> & adtFile) : adtName(adtFileName)
 {
   const int fileSize = adtFile.size();

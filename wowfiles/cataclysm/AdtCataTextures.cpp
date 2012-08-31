@@ -8,6 +8,11 @@
 #include <wowfiles/cataclysm/McnkCataTextures.h>
 #include <utilities/Utilities.h>
 
+AdtCataTextures::AdtCataTextures()
+{
+  // TODO : something
+}
+
 AdtCataTextures::AdtCataTextures(const std::string & adtName, const std::vector<char> & adtFile) : adtName(adtName)
 {
   const int fileSize = adtFile.size();

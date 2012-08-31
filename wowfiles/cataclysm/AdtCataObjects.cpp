@@ -10,6 +10,11 @@
 #include <wowfiles/cataclysm/McnkCataObjects.h>
 #include <utilities/Utilities.h>
 
+AdtCataObjects::AdtCataObjects()
+{
+  // TODO : something
+}
+
 AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile) : adtName(adtName)
 {
   const int fileSize = adtFile.size();
