@@ -19,12 +19,13 @@ class AdtCataObjects : public WowChunkedFormat
 {
   public:
 
+    friend std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjects);
+    friend class AdtCata;
+
+  private:
+
     AdtCataObjects();
     AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile);
-
-    void addToObjectsHeight(const int & heightToAdd);
-
-    std::vector<Utilities::Point> getAllObjectsCoords() const;
 
     void toFile();
     void toFile(const std::string & fileName);
@@ -36,9 +37,9 @@ class AdtCataObjects : public WowChunkedFormat
     std::vector<int> getAllM2Indices() const;
     std::vector<int> getAllWmoIndices() const;
 
-    friend std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjects);
+    void addToObjectsHeight(const int & heightToAdd);
 
-  private:
+    std::vector<Utilities::Point> getAllObjectsCoords() const;
 
     std::string adtName;
     Chunk objectsMver;

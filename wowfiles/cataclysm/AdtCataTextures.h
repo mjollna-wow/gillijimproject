@@ -14,15 +14,16 @@ class AdtCataTextures : public WowChunkedFormat
 {
   public:
 
+    friend std::ostream & operator<<(std::ostream & os, const AdtCataTextures & adtCataTextures);
+    friend class AdtCata;
+
+  private:
+
     AdtCataTextures();
     AdtCataTextures(const std::string & adtName, const std::vector<char> & adtFile);
 
     void toFile();
     void toFile(const std::string & fileName);
-
-    friend std::ostream & operator<<(std::ostream & os, const AdtCataTextures & adtCataTextures);
-
-  private:
 
     std::string adtName;
     Chunk texturesMver;

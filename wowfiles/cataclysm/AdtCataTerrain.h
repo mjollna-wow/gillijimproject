@@ -17,18 +17,19 @@ class AdtCataTerrain : public WowChunkedFormat
 {
   public:
 
+    friend std::ostream & operator<<(std::ostream & os, const AdtCataTerrain & adtCataTerrain);
+    friend class AdtCata;
+
+  private:
+
     AdtCataTerrain();
     AdtCataTerrain(const std::string & adtName, const std::vector<char> & adtFile);
-
-    void addToTerrainHeight(const int & heightToAdd);
 
     void toFile();
     void toFile(const std::string & fileName);
     AdtLk toAdtLk();
 
-    friend std::ostream & operator<<(std::ostream & os, const AdtCataTerrain & adtCataTerrain);
-
-  private:
+    void addToTerrainHeight(const int & heightToAdd);
 
     std::string adtName;
 
