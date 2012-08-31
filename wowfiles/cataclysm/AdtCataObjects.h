@@ -10,6 +10,8 @@
 #include <wowfiles/Mcnk.h>
 #include <wowfiles/Mddf.h>
 #include <wowfiles/Mmdx.h>
+#include <wowfiles/Mmid.h>
+#include <wowfiles/Mwid.h>
 #include <wowfiles/Modf.h>
 #include <wowfiles/Mwmo.h>
 #include <wowfiles/cataclysm/McnkCataObjects.h>
@@ -44,9 +46,9 @@ class AdtCataObjects : public WowChunkedFormat
     std::string adtName;
     Chunk objectsMver;
     Mmdx mmdx;
-    Chunk mmid;
+    Mmid mmid;
     Mwmo mwmo;
-    Chunk mwid;
+    Mwid mwid;
     Mddf mddf;
     Modf modf;
     std::vector<McnkCataObjects> objectsMcnks;

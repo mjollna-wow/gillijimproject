@@ -27,7 +27,6 @@ class AdtCataTerrain : public WowChunkedFormat
 
     void toFile();
     void toFile(const std::string & fileName);
-    AdtLk toAdtLk();
 
     void addToTerrainHeight(const int & heightToAdd);
 

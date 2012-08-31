@@ -128,6 +128,9 @@ int main (int argc, char **argv)
 
   testAdtCata.toFile();
 
+  AdtLk convertedAdt ( testAdtCata.toAdtLk() );
+  convertedAdt.toFile();
+
   /*AdtCataTerrain testAdt3(adtName, adtFile);
 
   std::ofstream fileOut;

@@ -26,7 +26,7 @@ class AdtCata : public WowChunkedFormat
 
     void toFile();
     void toFile(const std::string & fileName);
-    //AdtLk toAdtLk();
+    AdtLk toAdtLk();
 
     friend std::ostream & operator<<(std::ostream & os, const AdtCata & adtCata);
 

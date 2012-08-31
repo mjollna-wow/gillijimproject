@@ -7,6 +7,8 @@
 #include <wowfiles/Chunk.h>
 #include <wowfiles/Mddf.h>
 #include <wowfiles/Modf.h>
+#include <wowfiles/Mmid.h>
+#include <wowfiles/Mwid.h>
 #include <wowfiles/cataclysm/McnkCataObjects.h>
 #include <utilities/Utilities.h>
 
@@ -44,7 +46,7 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
         break;
 		
       case 'MMID' :
-        mmid = Chunk(adtFile, offsetInFile);
+        mmid = Mmid(adtFile, offsetInFile);
         offsetInFile += 4;
         currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
         offsetInFile = 4 + offsetInFile + currentChunkSize;
@@ -58,7 +60,7 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
         break;
 
       case 'MWID' :
-        mwid = Chunk(adtFile, offsetInFile);
+        mwid = Mwid(adtFile, offsetInFile);
         offsetInFile += 4;
         currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
         offsetInFile = 4 + offsetInFile + currentChunkSize;

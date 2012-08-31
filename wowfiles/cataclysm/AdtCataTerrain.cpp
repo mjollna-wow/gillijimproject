@@ -173,48 +173,6 @@ void AdtCataTerrain::toFile(const std::string & fileName)
   outputFile.close();
 }
 
-AdtLk AdtCataTerrain::toAdtLk() // TODO : conversion is only partial, only terrain (other chunks are empty), and it's weird to have method in Cata terrain.
-{
-  std::string cName (adtName);
-
-  std::vector<char> mverData;
-  mverData.push_back(0x12);
-  mverData.push_back(0x0);
-  mverData.push_back(0x0);
-  mverData.push_back(0x0);
-  Chunk cMver ("REVM", 4, mverData);
-
-  Mh2o (cMh2o);
-  if (!mh2o.isEmpty())
-    cMh2o = mh2o;
-  
-  std::vector<char> emptyData(0);
-
-  Chunk cMtex ("XETM", 0, emptyData); // TODO : fill emptiness for objects
-  Mmdx cMmdx ("XDMM", 0, emptyData); 
-  Mmid cMmid ("DIMM", 0, emptyData);
-  Mwmo cMwmo ("OMWM", 0, emptyData);
-  Mwid cMwid ("DIWM", 0, emptyData);
-  Mddf cMddf ("FDDM", 0, emptyData);
-  Modf cModf ("FDOM", 0, emptyData);
-  
-  std::vector<McnkLk> cMcnks;
-  int currentMcnk;
-
-  for (currentMcnk = 0 ; currentMcnk < 256 ; ++currentMcnk)
-  {
-    cMcnks.push_back(terrainMcnks[currentMcnk].toMcnkLk());
-  }
-
-  Chunk (cMfbo);
-  Chunk (cMtxf);
-
-  const int mhdrFlags = 0;
-
-  AdtLk adtLk(cName, cMver, mhdrFlags, cMh2o, cMtex, cMmdx, cMmid, cMwmo, cMwid, cMddf, cModf, cMcnks, cMfbo, cMtxf);
-  return adtLk;  
-}
-
 std::ostream & operator<<(std::ostream & os, const AdtCataTerrain & adtCataTerrain)
 {
   os << adtCataTerrain.adtName << std::endl;
