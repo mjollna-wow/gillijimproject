@@ -14,6 +14,7 @@ McnkCataObjects::McnkCataObjects(const std::vector<char> & adtFile, int offsetIn
   offsetInFile = chunkLettersAndSize + offsetInFile;
   
   int chunkName;
+  int currentChunkSize (0);
 
   while (offsetInFile < absoluteMcnkEnd)
   {
@@ -23,17 +24,23 @@ McnkCataObjects::McnkCataObjects(const std::vector<char> & adtFile, int offsetIn
     {
       case 'MCRD' :
         mcrd = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcrd.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 
       case 'MCRW' :
         mcrw = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcrw.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       default :
         objectsMcnkUnknown.push_back(Chunk(adtFile, offsetInFile));
-        offsetInFile = offsetInFile + chunkLettersAndSize + objectsMcnkUnknown.back().getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
     }
   }
 }

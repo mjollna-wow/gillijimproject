@@ -11,26 +11,39 @@ Wdl::Wdl(const std::vector<char> & wdlFile, const std::string & wdlFileName) : w
   const int fileSize (wdlFile.size());
   
   int offsetInFile (0);
+  int currentChunkSize (0);
 
   mver = Chunk(wdlFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mver.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(wdlFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   mwmo = Chunk(wdlFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mwmo.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(wdlFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   mwid = Chunk(wdlFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mwid.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(wdlFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   modf = Chunk(wdlFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + modf.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(wdlFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   maof = Chunk(wdlFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + maof.getGivenSize();  
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(wdlFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;  
 
   while (offsetInFile < fileSize)
   {
     mareAndMaho.push_back(Chunk(wdlFile, offsetInFile));
-	offsetInFile = chunkLettersAndSize + offsetInFile + mareAndMaho.back().getGivenSize();
+    offsetInFile += 4;
+    currentChunkSize = Utilities::get<int>(wdlFile, offsetInFile);
+    offsetInFile = 4 + offsetInFile + currentChunkSize;
   }
 }
 

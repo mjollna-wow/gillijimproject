@@ -14,6 +14,7 @@ McnkCataTextures::McnkCataTextures(const std::vector<char> & adtFile, int offset
   offsetInFile = chunkLettersAndSize + offsetInFile;
   
   int chunkName;
+  int currentChunkSize (0);
 
   while (offsetInFile < absoluteMcnkEnd)
   {
@@ -23,27 +24,37 @@ McnkCataTextures::McnkCataTextures(const std::vector<char> & adtFile, int offset
     {
       case 'MCLY' :
         mcly = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcly.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 
       case 'MCSH' :
         mcsh = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcsh.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break; 
 
       case 'MCAL' :
         mcal = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcal.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  		
 
       case 'MCMT' :
         mcmt = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcmt.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 
       default :
         texturesMcnkUnknown.push_back(Chunk(adtFile, offsetInFile));
-        offsetInFile = offsetInFile + chunkLettersAndSize + texturesMcnkUnknown.back().getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
     }
   }	
 }

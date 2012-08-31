@@ -14,6 +14,7 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
 {
   const int fileSize = adtFile.size();
   int offsetInFile (0);
+  int currentChunkSize (0);
 
   int chunkName;
 
@@ -25,47 +26,65 @@ AdtCataObjects::AdtCataObjects(const std::string & adtName, const std::vector<ch
     {
       case 'MVER' :
         objectsMver = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + objectsMver.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MMDX' :
         mmdx = Mmdx(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mmdx.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 		
       case 'MMID' :
         mmid = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mmid.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MWMO' :
         mwmo = Mwmo(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mwmo.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MWID' :
         mwid = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mwid.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MDDF' :
         mddf = Mddf(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mddf.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;	 		
 		
       case 'MODF' :
         modf = Modf(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + modf.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;	  	
 
       case 'MCNK' :
         objectsMcnks.push_back(McnkCataObjects(adtFile, offsetInFile));
-        offsetInFile = offsetInFile + chunkLettersAndSize + objectsMcnks.back().getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       default :
         objectsUnknown.push_back(Chunk(adtFile, offsetInFile));
-        offsetInFile = offsetInFile + chunkLettersAndSize + objectsUnknown.back().getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
     }
   }
 }

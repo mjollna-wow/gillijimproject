@@ -23,6 +23,7 @@ McnkCataTerrain::McnkCataTerrain(const std::vector<char> & adtFile, int offsetIn
   offsetInFile = headerStartOffset + mcnkTerrainHeaderSize;
   
   int chunkName;
+  int currentChunkSize (0);
 
   while (offsetInFile < absoluteMcnkEnd)
   {
@@ -32,52 +33,72 @@ McnkCataTerrain::McnkCataTerrain(const std::vector<char> & adtFile, int offsetIn
     {
       case 'MCVT' :
         mcvt = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcvt.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 
       case 'MCBB' :
         mcbb = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcbb.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 
       case 'MCBI' :
         mcbi = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcbi.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 
       case 'MCBV' :
         mcbv = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcbv.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 
       case 'MCCV' :
         mccv = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mccv.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  		
 
       case 'MCLV' :
         mclv = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mclv.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 
       case 'MCNR' :
         mcnr = McnrCata(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcnr.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  		
 
       case 'MCLQ' :
         mclq = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mclq.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;  
 		
       case 'MCSE' :
         mcse = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mcse.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break; 	
 		
       default :
         terrainMcnkUnknown.push_back(Chunk(adtFile, offsetInFile));
-        offsetInFile = offsetInFile + chunkLettersAndSize + terrainMcnkUnknown.back().getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
     }
   }		
 }

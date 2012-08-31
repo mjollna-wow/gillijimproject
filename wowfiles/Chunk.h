@@ -16,7 +16,6 @@ class Chunk : public WowChunkedFormat
     Chunk(const std::vector<char> & wholeFile, int offsetInFile);
     Chunk(std::string letters, int givenSize, const std::vector<char> & chunkData);
 
-    int getGivenSize() const;
     int getRealSize() const;
     bool isEmpty() const;
     std::vector<char> getWholeChunk() const;

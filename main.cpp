@@ -56,14 +56,13 @@ int main (int argc, char **argv)
   //std::string adtName ("EdEdited_27_30.adt");
   //std::string adtName ("EdEdited_27_29_water.adt");
   //std::string adtName ("OtherTestMap_30_30.adt");
-  //std::string adtName ("QA_DVD_30_26.adt");
-  //std::string adtName ("Northrend_27_22.adt");
+  /*std::string adtName ("Northrend_27_22.adt");
   
-  /*Utilities::getWholeFile(adtName, adtFile);
+  Utilities::getWholeFile(adtName, adtFile);
 
-  AdtLk testAdt2(adtFile, adtName);
+  AdtLk testAdt2(adtFile, adtName);*/
 
-  testAdt2.mh2oToFile();*/
+  //testAdt2.mh2oToFile();
 
   /*std::vector<std::string> m2Names ( testAdt2.getAllM2Names() );
   std::vector<int> m2Indices ( testAdt2.getAllM2Indices() );
@@ -112,8 +111,8 @@ int main (int argc, char **argv)
 
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
   //std::string adtName (argv[1]);
-  //std::string adtName ("Deephome_29_29.adt");
-  std::string adtName ("FirelandsDailies_31_29.adt");
+  std::string adtName ("Deephome_29_29.adt");
+  //std::string adtName ("FirelandsDailies_31_29.adt");
 
   Utilities::getWholeFile(adtName, adtFile);
 

@@ -22,17 +22,24 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
   const int monmOffset (12);
 
   int offsetInFile (0);
+  int currentChunkSize (0);
 
   mver = Chunk(wdtAlphaFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mver.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::getIntFromFile(wdtAlphaFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   const int MphdStartOffset (offsetInFile + chunkLettersAndSize);
 
   mphd = MphdAlpha(wdtAlphaFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mphd.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::getIntFromFile(wdtAlphaFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   main = MainAlpha(wdtAlphaFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + main.getGivenSize(); 
+  offsetInFile += 4;
+  currentChunkSize = Utilities::getIntFromFile(wdtAlphaFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   offsetInFile = Utilities::getIntFromFile(wdtAlphaFile, MphdStartOffset + mdnmOffset);
   mdnm = Mdnm(wdtAlphaFile, offsetInFile);
@@ -40,12 +47,16 @@ WdtAlpha::WdtAlpha(const std::string & wdtAlphaName) : wdtName(wdtAlphaName)
   offsetInFile = Utilities::getIntFromFile(wdtAlphaFile, MphdStartOffset + monmOffset);
   monm = Monm(wdtAlphaFile, offsetInFile);  
 
-  offsetInFile = chunkLettersAndSize + offsetInFile + monm.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::getIntFromFile(wdtAlphaFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   if (mphd.isWmoBased())
   {
     modf = Chunk(wdtAlphaFile, offsetInFile);
-    offsetInFile = chunkLettersAndSize + offsetInFile + modf.getGivenSize(); 
+    offsetInFile += 4;
+    currentChunkSize = Utilities::getIntFromFile(wdtAlphaFile, offsetInFile);
+    offsetInFile = 4 + offsetInFile + currentChunkSize;
   }
 
   wdtAlphaFile.close();

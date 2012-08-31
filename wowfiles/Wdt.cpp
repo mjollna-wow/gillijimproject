@@ -10,26 +10,37 @@
 Wdt::Wdt(const std::vector<char> & wdtFile, const std::string & wdtFileName) : wdtName(wdtFileName)
 {
   int offsetInFile (0);
+  int currentChunkSize (0);
 
   mver = Chunk(wdtFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mver.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(wdtFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   mphd = Mphd(wdtFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + mphd.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(wdtFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   main = Chunk(wdtFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + offsetInFile + main.getGivenSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(wdtFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   if (Utilities::flagsExist(mphd.getFlags(), 0x1))
   {
     mwmo = Chunk(wdtFile, offsetInFile);
-    offsetInFile = chunkLettersAndSize + offsetInFile + mwmo.getGivenSize();
+    offsetInFile += 4;
+    currentChunkSize = Utilities::get<int>(wdtFile, offsetInFile);
+    offsetInFile = 4 + offsetInFile + currentChunkSize;
   }
 
-  if (mwmo.getGivenSize() != 0)
+  if (mwmo.getRealSize() != 0)
   {
     modf = Chunk(wdtFile, offsetInFile);
-    offsetInFile = chunkLettersAndSize + offsetInFile + modf.getGivenSize();
+    offsetInFile += 4;
+    currentChunkSize = Utilities::get<int>(wdtFile, offsetInFile);
+    offsetInFile = 4 + offsetInFile + currentChunkSize;
   }
 }
 

@@ -19,6 +19,7 @@ AdtCataTerrain::AdtCataTerrain(const std::string & adtFileName, const std::vecto
 {
   const int fileSize = adtFile.size();
   int offsetInFile (0);
+  int currentChunkSize (0);
 
   int chunkName;
 
@@ -30,47 +31,65 @@ AdtCataTerrain::AdtCataTerrain(const std::string & adtFileName, const std::vecto
     {
       case 'MVER' :
         terrainMver = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + terrainMver.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MHDR' :
         mhdr = Mhdr(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mhdr.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MH2O' :
         mh2o = Mh2o(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mh2o.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MCNK' :
         terrainMcnks.push_back(McnkCataTerrain(adtFile, offsetInFile, mcnkTerrainHeaderSize));
-        offsetInFile = offsetInFile + chunkLettersAndSize + terrainMcnks.back().getGivenSize(); 
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MBMH' :
         mbmh = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mbmh.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MBMI' :
         mbmi = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mbmi.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MBMV' :
         mbmv = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mbmv.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       case 'MFBO' :
         mfbo = Chunk(adtFile, offsetInFile);
-        offsetInFile = offsetInFile + chunkLettersAndSize + mfbo.getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
         break;
 
       default :
         terrainUnknown.push_back(Chunk(adtFile, offsetInFile));
-        offsetInFile = offsetInFile + chunkLettersAndSize + terrainUnknown.back().getGivenSize();
+        offsetInFile += 4;
+        currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+        offsetInFile = 4 + offsetInFile + currentChunkSize;
     }
   }
 }

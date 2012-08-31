@@ -21,9 +21,12 @@
 AdtLk::AdtLk(const std::vector<char> & adtFile, const std::string & adtFileName) : adtName(adtFileName)
 {
   int offsetInFile (0);
+  int currentChunkSize (0);
 
   mver = Chunk(adtFile, offsetInFile);
-  offsetInFile = chunkLettersAndSize + mver.getRealSize();
+  offsetInFile += 4;
+  currentChunkSize = Utilities::get<int>(adtFile, offsetInFile);
+  offsetInFile = 4 + offsetInFile + currentChunkSize;
 
   const int MhdrStartOffset (offsetInFile + chunkLettersAndSize);
 
@@ -433,7 +436,7 @@ void AdtLk::updateOrCreateMhdrAndMcin()
   std::vector<char> mhdrData (0);
   const std::vector<char> emptyData (4);
 
-  if (mhdr.getGivenSize() != 0)
+  if (mhdr.getRealSize() != 0)
   {
     std::vector<char> flags (Utilities::getCharVectorFromInt(mhdr.getFlags()));
     mhdrData.insert(mhdrData.end(), flags.begin(), flags.end());
@@ -495,9 +498,9 @@ void AdtLk::updateOrCreateMhdrAndMcin()
     std::vector<char> mcnkOffset (Utilities::getCharVectorFromInt(offsetInFile));
     mcinData.insert(mcinData.end(), mcnkOffset.begin(), mcnkOffset.end());
 
-    offsetInFile = offsetInFile + mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize;
+    offsetInFile = offsetInFile + mcnks[currentMcnk].getWholeChunk().size();
 
-    std::vector<char> mnckSize (Utilities::getCharVectorFromInt(mcnks[currentMcnk].getGivenSize() + chunkLettersAndSize)); // TODO : there's a problem here on givenSize on some adts (8 bytes gap). However, the 335a client doesn't seem to care whether the size is right or wrong.
+    std::vector<char> mnckSize (Utilities::getCharVectorFromInt(mcnks[currentMcnk].getWholeChunk().size())); // Note : here was 8 byes gap problem.
     mcinData.insert(mcinData.end(), mnckSize.begin(), mnckSize.end());
  
     for (throughMcinUnusedBytes = 0 ; throughMcinUnusedBytes < unusedMcinBytes ; ++throughMcinUnusedBytes)
@@ -512,7 +515,7 @@ void AdtLk::updateOrCreateMhdrAndMcin()
   const std::vector<char> emptyOffset (4);
 
   std::vector<char> mfboOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
-  if (mfbo.getGivenSize() != 0)
+  if (mfbo.getRealSize() != 0)
   {
     mhdrData.insert(mhdrData.end(), mfboOffset.begin(), mfboOffset.end());
   }
@@ -521,7 +524,7 @@ void AdtLk::updateOrCreateMhdrAndMcin()
     mhdrData.insert(mhdrData.end(), emptyOffset.begin(), emptyOffset.end());
   }
 
-  if (mh2o.getGivenSize() != 0)
+  if (mh2o.getRealSize() != 0)
   {
     mhdrData.insert(mhdrData.end(), mh2oOffset.begin(), mh2oOffset.end());
   }
@@ -532,7 +535,7 @@ void AdtLk::updateOrCreateMhdrAndMcin()
 
   offsetInFile = offsetInFile + chunkLettersAndSize + mfbo.getRealSize(); 
   std::vector<char> mtxfOffset (Utilities::getCharVectorFromInt(offsetInFile - relativeMhdrStart));
-  if (mtxf.getGivenSize() != 0)
+  if (mtxf.getRealSize() != 0)
   {
     mhdrData.insert(mhdrData.end(), mtxfOffset.begin(), mtxfOffset.end());
   }

@@ -79,8 +79,3 @@ int Chunk::getRealSize()  const
 {
   return data.size();
 }
-
-int Chunk::getGivenSize()  const
-{
-  return givenSize;
-}
