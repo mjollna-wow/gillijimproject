@@ -128,7 +128,7 @@ AdtLk::AdtLk(const std::string & name
 void AdtLk::toFile()
 {
   std::string fileName (adtName);
-  fileName.append("_new");
+  //fileName.append("_new");
 
   toFile(fileName);
 }

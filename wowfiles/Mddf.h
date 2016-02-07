@@ -22,7 +22,7 @@ class Mddf : public Chunk
     std::vector<Utilities::Point> getAllM2Coords() const;
 
     std::vector<int> getM2IndicesForMmdx() const;
-    void updateIndicesForLk(std::vector<int> & alphaIndices);
+    void updateIndicesForLk(std::vector<int> alphaIndices);
     std::vector<int> getEntriesIndices() const;
 
     friend std::ostream & operator<<(std::ostream & os, const Mddf & mddf);	

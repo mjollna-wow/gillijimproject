@@ -196,15 +196,15 @@ std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjec
   os << "------------------------------" << std::endl;
   os << adtCataObjects.adtName << std::endl;
   os << "------------------------------" << std::endl;
-  os << adtCataObjects.objectsMver;
+  /*os << adtCataObjects.objectsMver;
   os << adtCataObjects.mmdx;
   os << adtCataObjects.mmid;
   os << adtCataObjects.mwmo;
   os << adtCataObjects.mwid;
-  os << adtCataObjects.mddf;
+  os << adtCataObjects.mddf;*/
   os << adtCataObjects.modf;
 
-  std::vector<McnkCataObjects>::const_iterator mcnksObjectsIter;
+  /*std::vector<McnkCataObjects>::const_iterator mcnksObjectsIter;
   int i (0);
   
   for (mcnksObjectsIter = adtCataObjects.objectsMcnks.begin() ; mcnksObjectsIter != adtCataObjects.objectsMcnks.end() ; ++mcnksObjectsIter)
@@ -219,7 +219,7 @@ std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjec
   for (objectsUnknownIter = adtCataObjects.objectsUnknown.begin() ; objectsUnknownIter != adtCataObjects.objectsUnknown.end() ; ++objectsUnknownIter)
   {
     os << *objectsUnknownIter;
-  }    
+  }*/    
   
   return os;
 }

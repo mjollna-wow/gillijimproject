@@ -17,7 +17,7 @@ namespace Utilities
   {
     std::vector<T> content (0);
   
-    std::vector<U>::const_iterator dataIter;
+    typename std::vector<U>::const_iterator dataIter;
     int currentStart (0);
   
     for (dataIter = someData.begin() ; dataIter != someData.end() ; ++dataIter)

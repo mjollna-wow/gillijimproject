@@ -23,11 +23,12 @@ class AdtCataObjects : public WowChunkedFormat
 
     friend std::ostream & operator<<(std::ostream & os, const AdtCataObjects & adtCataObjects);
     friend class AdtCata;
+    AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile); // changed to public for tests.
 
   private:
 
     AdtCataObjects();
-    AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile);
+    //AdtCataObjects(const std::string & adtName, const std::vector<char> & adtFile);
 
     void toFile();
     void toFile(const std::string & fileName);

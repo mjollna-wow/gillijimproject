@@ -54,7 +54,7 @@ McnkAlpha::McnkAlpha(std::ifstream & wdtAlphaFile, int offsetInFile, const int h
   mclq = Chunk("QLCM", mclqSize, mclqData);
 }
 
-McnkLk McnkAlpha::toMcnkLk( std::vector<int> & alphaM2Indices, std::vector<int> & alphaWmoIndices ) const
+McnkLk McnkAlpha::toMcnkLk( std::vector<int> alphaM2Indices, std::vector<int> alphaWmoIndices ) const
 {
   McnkHeader (cMcnkHeader);  
   int offsetInHeader (chunkLettersAndSize + mcnkTerrainHeaderSize);
@@ -110,8 +110,8 @@ McnkLk McnkAlpha::toMcnkLk( std::vector<int> & alphaM2Indices, std::vector<int> 
   int adtX (adtNumber % 64);
   int adtY (adtNumber / 64);
 
-  cMcnkHeader.posX = ((adtX - 32) * 533.33333); 
-  cMcnkHeader.posY = ((adtY - 32) * 533.33333); 
+  cMcnkHeader.posY = ( ( ( (533.33333 / 16) * cMcnkHeader.indexX) + (533.33333 * adtX) ) - (533.33333 * 32) ) * -1; // TODO : make this prettier and more consistent (X - Y inversions look baaad)
+  cMcnkHeader.posX = ( ( ( (533.33333 / 16) * cMcnkHeader.indexY) + (533.33333 * adtY) ) - (533.33333 * 32) ) * -1; // TODO : make this prettier and more consistent (X - Y inversions look baaad)
 
   // ------------- end junk
 

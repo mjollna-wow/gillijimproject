@@ -149,7 +149,7 @@ std::vector<int> Modf::getWmoIndicesForMwmo() const
   return indicesForMmdx;
 }
 
-void Modf::updateIndicesForLk(std::vector<int> & alphaIndices) // TODO : that thing looks awful. Needs to be totally different (at least it does what it's supposed to do though).
+void Modf::updateIndicesForLk(std::vector<int> alphaIndices) // TODO : that thing looks awful. Needs to be totally different (at least it does what it's supposed to do though).
 {
   std::vector<int> modfAlphaIndices( getEntriesIndices() );
 

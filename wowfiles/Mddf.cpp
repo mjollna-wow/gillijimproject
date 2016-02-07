@@ -131,7 +131,7 @@ std::vector<float> Mddf::getObjectsHeights() const
   return heights;
 }
 
-void Mddf::updateIndicesForLk(std::vector<int> & alphaIndices) // TODO : that thing looks awful. Needs to be totally different (at least it does what it's supposed to do though).
+void Mddf::updateIndicesForLk(std::vector<int> alphaIndices) // TODO : that thing looks awful. Needs to be totally different (at least it does what it's supposed to do though).
 {
   std::vector<int> mddfAlphaIndices( getEntriesIndices() );
 

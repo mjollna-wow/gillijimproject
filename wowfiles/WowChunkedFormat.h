@@ -6,12 +6,17 @@
 #include <fstream>
 #include <string>
 
-class WowChunkedFormat
-{
-  public:
-    
-    static const int chunkLettersAndSize = 8;
-    static const int mcnkTerrainHeaderSize = 128;
-};
+namespace { // yeah yeah I'll change that. At least it compiles.
+  class WowChunkedFormat
+  {
+    public:
+      
+      static const int chunkLettersAndSize = 8;
+      static const int mcnkTerrainHeaderSize = 128;
+  };
+
+  const int WowChunkedFormat::chunkLettersAndSize;
+  const int WowChunkedFormat::mcnkTerrainHeaderSize;
+}
 
 #endif

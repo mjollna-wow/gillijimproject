@@ -19,8 +19,8 @@ int main (int argc, char **argv)
   //////////////////// ALPHA STUFF ////////////////////
 
   //std::string wdtName ("azerothwdtFile00000000.xxx");
-  //std::string wdtName (argv[1]);
-  /*WdtAlpha testWdtAlpha (wdtName);
+  std::string wdtName (argv[1]);
+  WdtAlpha testWdtAlpha (wdtName);
 
   Wdt testWdt (testWdtAlpha.toWdt());
   testWdt.toFile();
@@ -28,15 +28,19 @@ int main (int argc, char **argv)
   std::vector<int> adtsNums (testWdtAlpha.getExistingAdtsNumbers());
   std::vector<int> adtsOffsets (testWdtAlpha.getAdtOffsetsInMain());
 
-  const int adtTotalNum (adtsNums.size());
-  int currentAdt;*/
+  std::vector<std::string> mdnmNames ( testWdtAlpha.getMdnmFileNames() );
+  std::vector<std::string> monmNames ( testWdtAlpha.getMonmFileNames() ); // change to file avec arg + tester avec azeroth et comparer les index
 
-  /*for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
+  const int adtTotalNum (adtsNums.size());
+  int currentAdt;
+
+  for (currentAdt = 0 ; currentAdt < adtTotalNum ; ++currentAdt)
   {
     AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[currentAdt]], adtsNums[currentAdt]));
-    AdtLk testAdtLk (testAdt.toAdtLk( testWdtAlpha.getMdnmFileNames(), testWdtAlpha.getMonmFileNames() ));
+    
+    AdtLk testAdtLk (testAdt.toAdtLk( mdnmNames, monmNames ));
     testAdtLk.toFile();
-  }*/
+  }
 
   /*AdtAlpha testAdt (AdtAlpha(wdtName, adtsOffsets[adtsNums[188]], adtsNums[188])); // azerothwdtFile00000000.xxx : ADT #1950 _ adtsNums[188] : 30_30 . ofs in wdt 148500798
 
@@ -107,29 +111,29 @@ int main (int argc, char **argv)
 
   //////////////////// CATA/MOP STUFF ////////////////////
 
-  std::vector<char> adtFile(0);
+  //std::vector<char> adtFile(0);
  
 
   //std::string adtName ("mop/NewRaceStartZone_26_31.adt");
   //std::string adtName (argv[1]);
-  std::string adtName ("Deephome_29_29.adt");
+  //std::string adtName ("Deephome_29_29.adt");
   //std::string adtName ("FirelandsDailies_31_29.adt");
 
-  Utilities::getWholeFile(adtName, adtFile);
+  //Utilities::getWholeFile(adtName, adtFile);
 
-  AdtCata testAdtCata(adtName, adtFile);
+  //AdtCata testAdtCata(adtName, adtFile);
 
-  std::ofstream fileOutCataMerged;
-  fileOutCataMerged.open ("debugfileMerged.txt");
-  fileOutCataMerged << testAdtCata;
-  fileOutCataMerged.close();
+  //std::ofstream fileOutCataMerged;
+  //fileOutCataMerged.open ("debugfileMerged.txt");
+  //fileOutCataMerged << testAdtCata;
+  //fileOutCataMerged.close();
 
   //testAdtCata.changeHeight(3000);
 
-  testAdtCata.toFile();
+  //testAdtCata.toFile();
 
-  AdtLk convertedAdt ( testAdtCata.toAdtLk() );
-  convertedAdt.toFile();
+  //AdtLk convertedAdt ( testAdtCata.toAdtLk() );
+  //convertedAdt.toFile();
 
   /*AdtCataTerrain testAdt3(adtName, adtFile);
 
@@ -158,14 +162,15 @@ int main (int argc, char **argv)
   testAdt3tex.toFile();*/
 
   //std::string adtNameObj (argv[1]);
-  /*std::string adtNameObj ("Deephome_29_29_obj0.adt");
+  //std::string adtNameObj ("CataclysmCTF_30_27_obj0.adt");
   
-  Utilities::getWholeFile(adtNameObj, adtFile);
+  //Utilities::getWholeFile(adtNameObj, adtFile);
 
-  AdtCataObjects testAdt3obj(adtNameObj, adtFile);
+  //AdtCataObjects testAdt3obj(adtNameObj, adtFile);
 
-  std::ofstream fileOut3 ;
-  fileOut3.open ("debugfileObj.txt");*/
+  /*std::ofstream fileOut3;
+  std::string outfilename (adtNameObj + "coord.txt");
+  fileOut3.open (outfilename.c_str());*/
 
   /*std::vector<std::string> m2Names ( testAdt3obj.getAllM2Names() );
   std::vector<int> m2Indices ( testAdt3obj.getAllM2Indices() );
