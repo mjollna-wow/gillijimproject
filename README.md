@@ -1,3 +1,5 @@
+This repo has been migrated from Bitbucket and converted from Mercurial to git.
+
 # gillijimproject
 Attempt to convert alpha Wow WDT/ADT to LK (or even Cata) Adt format. Can also be used as base for other adt-related programs.
 
